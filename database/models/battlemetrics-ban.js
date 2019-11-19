@@ -8,6 +8,8 @@ const BattleMetricsBan = new mongoose.Schema({
   reason: { type: String },
   note: { type: String },
 
+  steamID: { type: String, require: true },
+
   importID: { type: Number, require: true },
   lastImported: { type: Date, default: Date.now }
 });
