@@ -34,7 +34,7 @@ export default class BanImporter {
     console.log('Selecting ban list to import...');
     await this.selectBanList();
 
-    while(this.nextPage){
+    while (this.nextPage) {
       console.log('Importing ban page...');
       await this.importBanListPage();
 
@@ -53,13 +53,16 @@ export default class BanImporter {
     this.currentBanListID = banList.id;
     this.currentBanListImportID = banList.currentImportID + 1;
 
-    this.nextPage = this.apiAddress + '?' + new URLSearchParams({
-      'filter[banList]': this.currentBanListID,
-      'page[size]': this.pageSize
-    });
+    this.nextPage =
+      this.apiAddress +
+      '?' +
+      new URLSearchParams({
+        'filter[banList]': this.currentBanListID,
+        'page[size]': this.pageSize
+      });
   }
 
-  async updateBanList(){
+  async updateBanList() {
     await BattleMetricsBanList.updateOne(
       {
         id: this.currentBanListID
@@ -70,20 +73,17 @@ export default class BanImporter {
       }
     );
 
-    await BattleMetricsBan.deleteMany(
-      {
-        currentImportID: this.currentBanListImportID - 1
-      }
-    );
+    await BattleMetricsBan.deleteMany({
+      currentImportID: this.currentBanListImportID - 1
+    });
   }
 
-  async importBanListPage(){
+  async importBanListPage() {
     console.log(this.nextPage);
 
-    const { data } = await axios.get(
-        this.nextPage,
-        { headers: { Authorization: 'Bearer ' + this.apiKey } }
-    );
+    const { data } = await axios.get(this.nextPage, {
+      headers: { Authorization: 'Bearer ' + this.apiKey }
+    });
 
     for (const ban of data.data) {
       await BattleMetricsBan.findOneAndUpdate(
@@ -112,7 +112,9 @@ export default class BanImporter {
     this.nextPage = data.links.next;
   }
 
-  limitRate(){
-    return new Promise(resolve => setTimeout(resolve, this.apiRateLimitReset / this.apiRateLimit));
+  limitRate() {
+    return new Promise(resolve =>
+      setTimeout(resolve, this.apiRateLimitReset / this.apiRateLimit)
+    );
   }
 }
