@@ -1,0 +1,11 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./models": "./models/index.js"
+  },
+  "dependencies": {
+    "mongoose": "^5.7.11"
+  }
+}
