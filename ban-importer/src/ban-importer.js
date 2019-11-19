@@ -31,7 +31,7 @@ export default class BanImporter {
     console.log('Setting up ban importer...');
     await this.connectToDatabase();
 
-    while(true){
+    while (true) {
       console.log('Selecting ban list to import...');
       await this.selectBanList();
 
@@ -90,17 +90,21 @@ export default class BanImporter {
     for (const ban of data.data) {
       let steamID;
       // loop through identifiers to get steamID
-      for(const identifier of ban.attributes.identifiers){
-        if(identifier.type !== 'steamID') continue;
+      for (const identifier of ban.attributes.identifiers) {
+        if (identifier.type !== 'steamID') continue;
 
         // some show steam url instead of usual format so handle that case.
-        if(identifier.identifier) steamID = identifier.identifier.replace('https://steamcommunity.com/profiles/', '');
+        if (identifier.identifier)
+          steamID = identifier.identifier.replace(
+            'https://steamcommunity.com/profiles/',
+            ''
+          );
         else steamID = identifier.metadata.profile.steamid;
         break;
       }
 
       // sometimes there is no steamID in the response, so do not add the ban to the DB.
-      if(steamID == null) continue;
+      if (steamID == null) continue;
 
       await BattleMetricsBan.findOneAndUpdate(
         {
