@@ -1,4 +1,7 @@
+import connectToDB from 'database/utils/connect';
 import BanImporter from './src/ban-importer.js';
 
 const importer = new BanImporter();
-importer.run();
+
+connectToDB()
+  .then(() => importer.run());

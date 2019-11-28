@@ -15,16 +15,8 @@ export default class BanImporter {
     this.pageSize = 100;
   }
 
-  async connectToDatabase() {
-    await mongoose.connect(mongoDB, {
-      useNewUrlParser: true,
-      useCreateIndex: true
-    });
-  }
-
   async run() {
     console.log('Setting up ban importer...');
-    await this.connectToDatabase();
 
     while (true) {
       console.log('Selecting ban list to import...');

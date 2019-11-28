@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "exports": {
-    "./models": "./models/index.js"
+    "./models": "./models/index.js",
+    "./utils/connect": "./utils/connect.js"
   },
   "dependencies": {
     "mongoose": "^5.7.11"
