@@ -1,0 +1,3 @@
+const battlemetricsAPIKey = '';
+
+export { battlemetricsAPIKey };

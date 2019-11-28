@@ -6,8 +6,9 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "ban-importer",
-    "database"
+    "core",
+    "database",
+    "ban-importer"
   ],
   "scripts": {
     "lint": "eslint --fix . && prettier --write \"./**/*.js\""

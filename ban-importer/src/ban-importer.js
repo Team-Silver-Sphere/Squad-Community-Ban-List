@@ -1,27 +1,22 @@
-import axios from 'axios';
 import mongoose from 'mongoose';
+
+import mongoDB from 'core/config/database';
+import { battlemetricsAPIHostname } from 'core/config/battlemetrics-api';
+import battlemetricsAPIGateway from 'core/utils/battlemetrics-api-gateway';
 
 import { BattleMetricsBan, BattleMetricsBanList } from 'database/models';
 
 export default class BanImporter {
-  constructor(config) {
-    this.apiKey = config.apiKey;
-    this.apiRateLimit = config.apiRateLimit;
-    this.apiRateLimitReset = config.apiRateLimitReset;
-
-    this.mongoDB = config.mongoDB;
-
+  constructor() {
     this.currentBanListID = null;
     this.currentBanListImportID = null;
 
     this.nextPage = null;
     this.pageSize = 100;
-
-    this.apiAddress = 'https://api.battlemetrics.com/bans';
   }
 
   async connectToDatabase() {
-    await mongoose.connect(this.mongoDB, {
+    await mongoose.connect(mongoDB, {
       useNewUrlParser: true,
       useCreateIndex: true
     });
@@ -38,10 +33,8 @@ export default class BanImporter {
       while (this.nextPage) {
         console.log('Importing ban page...');
         await this.importBanListPage();
-
-        // sleep a little before requesting the next page to avoid getting blocked.
-        await this.limitRate();
       }
+
       console.log('Finished importing bans...');
       await this.updateBanList();
     }
@@ -55,13 +48,12 @@ export default class BanImporter {
     this.currentBanListID = banList.id;
     this.currentBanListImportID = banList.currentImportID + 1;
 
-    this.nextPage =
-      this.apiAddress +
-      '?' +
-      new URLSearchParams({
-        'filter[banList]': this.currentBanListID,
-        'page[size]': this.pageSize
-      });
+    const queryParams = new URLSearchParams({
+      'filter[banList]': this.currentBanListID,
+      'page[size]': this.pageSize
+    });
+
+    this.nextPage = `${battlemetricsAPIHostname}/bans?${queryParams}`;
   }
 
   async updateBanList() {
@@ -83,11 +75,9 @@ export default class BanImporter {
   async importBanListPage() {
     console.log(this.nextPage);
 
-    const { data } = await axios.get(this.nextPage, {
-      headers: { Authorization: 'Bearer ' + this.apiKey }
-    });
+    const response = await battlemetricsAPIGateway(this.nextPage);
 
-    for (const ban of data.data) {
+    for (const ban of response.data) {
       let steamID;
       // loop through identifiers to get steamID
       for (const identifier of ban.attributes.identifiers) {
@@ -130,12 +120,6 @@ export default class BanImporter {
       );
     }
 
-    this.nextPage = data.links.next;
-  }
-
-  limitRate() {
-    return new Promise(resolve =>
-      setTimeout(resolve, this.apiRateLimitReset / this.apiRateLimit)
-    );
+    this.nextPage = response.links.next;
   }
 }

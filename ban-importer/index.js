@@ -1,6 +1,4 @@
 import BanImporter from './src/ban-importer.js';
 
-import { banImporter as config } from '../config.mjs';
-
-const importer = new BanImporter(config);
+const importer = new BanImporter();
 importer.run();
