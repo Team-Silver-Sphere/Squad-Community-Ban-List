@@ -8,10 +8,13 @@
   "workspaces": [
     "core",
     "database",
-    "ban-importer"
+    "ban-importer",
+    "web-server"
   ],
   "scripts": {
-    "lint": "eslint --fix . && prettier --write \"./**/*.js\""
+    "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
+    "dev-ban-importer": "nodemon ban-importer/index.js",
+    "dev-web-server": "nodemon web-server/index.js"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
@@ -23,6 +26,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^3.1.0",
     "lint-staged": "^9.4.3",
+    "nodemon": "^2.0.1",
     "prettier": "^1.19.1"
   }
 }
