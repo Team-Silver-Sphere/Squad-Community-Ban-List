@@ -3,5 +3,4 @@ import BanImporter from './src/ban-importer.js';
 
 const importer = new BanImporter();
 
-connectToDB()
-  .then(() => importer.run());
+connectToDB().then(() => importer.run());

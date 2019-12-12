@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 const BattleMetricsBan = new mongoose.Schema({
-  id: { type: String, require: true },
   uid: { type: String, require: true },
   timestamp: { type: Date, require: true },
   expires: { type: Date },
@@ -10,8 +9,11 @@ const BattleMetricsBan = new mongoose.Schema({
 
   steamID: { type: String, require: true },
 
-  importID: { type: Number, require: true },
-  lastImported: { type: Date, default: Date.now }
+  banList: {
+    type: mongoose.Types.ObjectId,
+    ref: 'BattleMetricsBanList',
+    require: true
+  }
 });
 
 export default mongoose.model('BattleMetricsBan', BattleMetricsBan);

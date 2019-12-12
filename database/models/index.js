@@ -1,4 +1,11 @@
+import AffectedSteamID from './affected-steamid.js';
 import BattleMetricsBan from './battlemetrics-ban.js';
 import BattleMetricsBanList from './battlemetrics-ban-list.js';
+import Organization from './organization.js';
 
-export { BattleMetricsBan, BattleMetricsBanList };
+export {
+  AffectedSteamID,
+  BattleMetricsBan,
+  BattleMetricsBanList,
+  Organization
+};
