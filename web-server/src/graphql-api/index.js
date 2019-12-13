@@ -1,4 +1,5 @@
-import { ApolloServer, makeExecutableSchema } from 'apollo-server-koa';
+import ApolloServerKoa from 'apollo-server-koa';
+const { ApolloServer, makeExecutableSchema } = ApolloServerKoa;
 
 import typeDefs from './typedefs.js';
 import resolvers from './resolvers.js';
