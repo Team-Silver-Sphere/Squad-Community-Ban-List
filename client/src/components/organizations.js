@@ -20,6 +20,8 @@ const query = gql`
   }
 `;
 
+export { query };
+
 export default function() {
   return (
     <Card className=" shadow">
