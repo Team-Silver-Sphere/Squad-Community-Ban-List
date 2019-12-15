@@ -1,8 +1,8 @@
 import ApolloServerKoa from 'apollo-server-koa';
-const { ApolloServer, makeExecutableSchema } = ApolloServerKoa;
 
 import typeDefs from './typedefs.js';
 import resolvers from './resolvers.js';
+const { ApolloServer, makeExecutableSchema } = ApolloServerKoa;
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 

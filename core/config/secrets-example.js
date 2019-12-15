@@ -1,3 +1,9 @@
 const battlemetricsAPIKey = '';
+const steamAPIKey = '';
 
-export { battlemetricsAPIKey };
+const jwtAuth = {
+  secret: '',
+  algorithm: 'HS256'
+};
+
+export { battlemetricsAPIKey, steamAPIKey, jwtAuth };

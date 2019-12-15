@@ -5,6 +5,8 @@
   "exports": {
     "./config/battlemetrics-api": "./config/battlemetrics-api.js",
     "./config/database": "./config/database.js",
+    "./config/host": "./config/host.js",
+    "./config/secrets": "./config/secrets.js",
     "./config/web-server": "./config/web-server.js",
 
     "./utils/battlemetrics-api-gateway": "./utils/battlemetrics-api-gateway.js"

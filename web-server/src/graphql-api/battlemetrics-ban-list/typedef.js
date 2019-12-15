@@ -6,7 +6,7 @@ export default gql`
     _id: String
     id: String
     name: String
-    
+
     organization: Organization
   }
 `;

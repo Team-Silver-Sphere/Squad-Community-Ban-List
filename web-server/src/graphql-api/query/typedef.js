@@ -4,7 +4,11 @@ const { gql } = ApolloServerKoa;
 export default gql`
   type Query {
     organizations: [Organization]
-    
+    organizationCount: Int
+
     battlemetricsBanLists: [BattlemetricsBanList]
+    battlemetricsBanListCount: Int
+
+    battlemetricsBanCount: Int
   }
 `;

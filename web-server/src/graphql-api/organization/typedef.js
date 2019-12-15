@@ -5,7 +5,7 @@ export default gql`
   type Organization {
     _id: String
     name: String
-    
+
     battlemetricsBanList: [BattlemetricsBanList]
   }
 `;

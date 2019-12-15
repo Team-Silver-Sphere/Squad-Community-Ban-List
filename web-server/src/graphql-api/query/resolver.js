@@ -1,4 +1,8 @@
-import { Organization, BattleMetricsBanList } from 'database/models';
+import {
+  Organization,
+  BattleMetricsBan,
+  BattleMetricsBanList
+} from 'database/models';
 
 export default {
   Query: {
@@ -6,8 +10,20 @@ export default {
       return Organization.find();
     },
 
+    organizationCount: async () => {
+      return Organization.countDocuments();
+    },
+
     battlemetricsBanLists: async () => {
       return BattleMetricsBanList.find();
+    },
+
+    battlemetricsBanListCount: async () => {
+      return BattleMetricsBanList.countDocuments();
+    },
+
+    battlemetricsBanCount: async () => {
+      return BattleMetricsBan.countDocuments();
     }
   }
 };

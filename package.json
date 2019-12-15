@@ -6,18 +6,21 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "assets",
     "core",
     "database",
     "ban-importer",
-    "web-server"
+    "web-server",
+    "client"
   ],
   "scripts": {
     "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
     "dev-ban-importer": "nodemon ban-importer/index.js",
-    "dev-web-server": "nodemon web-server/index.js"
+    "dev-web-server": "concurrently \"nodemon web-server/index.js\" \"cd client && npm run start\""
   },
   "devDependencies": {
-    "eslint": "^6.6.0",
+    "concurrently": "^5.0.1",
+    "eslint": "5.12.0",
     "eslint-config-prettier": "^6.6.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",

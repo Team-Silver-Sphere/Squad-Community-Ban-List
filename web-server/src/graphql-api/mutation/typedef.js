@@ -4,6 +4,10 @@ const { gql } = ApolloServerKoa;
 export default gql`
   type Mutation {
     createOrganization(name: String!): Organization
-    addBattlemetricsBanList(id: String!, name: String!, organization: String!): BattlemetricsBanList
+    addBattlemetricsBanList(
+      id: String!
+      name: String!
+      organization: String!
+    ): BattlemetricsBanList
   }
 `;
