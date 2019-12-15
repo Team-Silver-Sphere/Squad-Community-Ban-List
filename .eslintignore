@@ -1,2 +1,6 @@
+# General
 **/node_modules/*
-client/*
+
+# Client
+client/build/*
+client/src/assets/vendor/*
