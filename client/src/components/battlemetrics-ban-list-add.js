@@ -20,8 +20,12 @@ import { query } from './battlemetrics-ban-lists';
 import { ErrorModal, OrganizationSelect } from './index';
 
 const mutation = gql`
-  mutation AddBattlemetricsBanList($id: String!, $name: String!, $organization: String!) {
-    addBattlemetricsBanList(id: $id, name: $name, organization: $organization){
+  mutation AddBattlemetricsBanList(
+    $id: String!
+    $name: String!
+    $organization: String!
+  ) {
+    addBattlemetricsBanList(id: $id, name: $name, organization: $organization) {
       _id
       id
       name
@@ -55,7 +59,9 @@ class BattlemetricsBanListAdd extends React.Component {
             mutation={mutation}
             update={(cache, { data: { addBattlemetricsBanList } }) => {
               let { battlemetricsBanLists } = cache.readQuery({ query });
-              battlemetricsBanLists = battlemetricsBanLists.concat([addBattlemetricsBanList]);
+              battlemetricsBanLists = battlemetricsBanLists.concat([
+                addBattlemetricsBanList
+              ]);
               cache.writeQuery({ query, data: { battlemetricsBanLists } });
             }}
             onError={() => {}}
@@ -129,7 +135,11 @@ class BattlemetricsBanListAdd extends React.Component {
                         <FormGroup>
                           <OrganizationSelect
                             value={this.state.organization}
-                            onChange={(event) => this.setState({ organization: event.target.value })}
+                            onChange={event =>
+                              this.setState({
+                                organization: event.target.value
+                              })
+                            }
                           />
                           <FormFeedback>
                             An organization must be selected.

@@ -24,28 +24,37 @@ export default function(props) {
     >
       <Query query={query} onError={() => {}}>
         {({ loading, error, data }) => {
-          if (loading) return (
-            <option className="text-default" value={'Loading...'}>Loading...</option>
-          );
+          if (loading)
+            return (
+              <option className="text-default" value={'Loading...'}>
+                Loading...
+              </option>
+            );
 
-          if (error) return (
-            <option className="text-default" value={'Error...'}>Error...</option>
-          );
+          if (error)
+            return (
+              <option className="text-default" value={'Error...'}>
+                Error...
+              </option>
+            );
 
           return (
             <>
-              <option className="text-default" value={'Select an Organization...'}>Select an Organization...</option>
-              {
-                data.organizations.map((organization, key) => (
-                  <option
-                    className="text-default"
-                    value={organization._id}
-                    key={key}
-                  >
-                    {organization.name}
-                    </option>
-                ))
-              }
+              <option
+                className="text-default"
+                value={'Select an Organization...'}
+              >
+                Select an Organization...
+              </option>
+              {data.organizations.map((organization, key) => (
+                <option
+                  className="text-default"
+                  value={organization._id}
+                  key={key}
+                >
+                  {organization.name}
+                </option>
+              ))}
             </>
           );
         }}

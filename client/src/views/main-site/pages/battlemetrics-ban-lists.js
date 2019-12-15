@@ -4,7 +4,10 @@ import { Col, Row } from 'reactstrap';
 
 import Layout from '../layout/layout';
 
-import { BattlemetricsBanLists, BattlemetricsBanListAdd } from '../../../components';
+import {
+  BattlemetricsBanLists,
+  BattlemetricsBanListAdd
+} from '../../../components';
 
 export default function() {
   return (
