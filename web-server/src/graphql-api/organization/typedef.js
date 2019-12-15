@@ -6,6 +6,8 @@ export default gql`
     _id: String
     name: String
 
-    battlemetricsBanList: [BattlemetricsBanList]
+    battlemetricsBanLists: [BattlemetricsBanList]
+
+    uniqueBannedSteamIDCount: Int
   }
 `;

@@ -3,27 +3,37 @@ import { Link } from 'react-router-dom';
 import {
   Col,
   Container,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Media,
   Nav,
   NavItem,
   NavLink,
   Navbar,
   NavbarBrand,
   Row,
-  UncontrolledCollapse
+  UncontrolledCollapse,
+  UncontrolledDropdown
 } from 'reactstrap';
+
+import Auth from '../../../utils/auth';
 
 import routes from '../routes';
 
 class CustomNavbar extends React.Component {
   createLinks(routes) {
-    return routes.map((route, key) => (
-      <NavItem key={key}>
-        <NavLink className="nav-link-icon" to={route.path} tag={Link}>
-          <i className={route.icon} />
-          <span className="nav-link-inner--text">{route.name}</span>
-        </NavLink>
-      </NavItem>
-    ));
+    return routes.map((route, key) => {
+      if (route.display && route.display() === false) return null;
+      return (
+        <NavItem key={key}>
+          <NavLink className="nav-link-icon" to={route.path} tag={Link}>
+            <i className={route.icon} />
+            <span className="nav-link-inner--text">{route.name}</span>
+          </NavLink>
+        </NavItem>
+      );
+    });
   }
 
   render() {
@@ -63,6 +73,30 @@ class CustomNavbar extends React.Component {
                 {this.createLinks(routes)}
               </Nav>
             </UncontrolledCollapse>
+            {Auth.isLoggedIn && (
+              <Nav className="align-items-center">
+                <UncontrolledDropdown nav>
+                  <DropdownToggle nav>
+                    <Media className="align-items-center">
+                      <span className="avatar avatar-sm rounded-circle">
+                        <img alt="..." src={Auth.claim.avatar} />
+                      </span>
+                    </Media>
+                  </DropdownToggle>
+                  <DropdownMenu className="dropdown-menu-arrow" right>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={() => {
+                        Auth.logout();
+                      }}
+                    >
+                      <i className="ni ni-user-run" />
+                      <span>Logout</span>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </Nav>
+            )}
           </Container>
         </Navbar>
       </>

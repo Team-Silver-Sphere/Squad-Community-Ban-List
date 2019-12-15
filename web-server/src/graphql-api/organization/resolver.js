@@ -1,9 +1,21 @@
-import { BattleMetricsBanList } from 'database/models';
+import { BattleMetricsBanList, BattleMetricsBan } from 'database/models';
 
 export default {
   Organization: {
-    battlemetricsBanList: async parent => {
+    battlemetricsBanLists: async parent => {
       return BattleMetricsBanList.find({ organization: parent._id });
+    },
+
+    uniqueBannedSteamIDCount: async parent => {
+      return (
+        await BattleMetricsBan.distinct('steamID', {
+          banList: {
+            $in: await BattleMetricsBanList.distinct('_id', {
+              organization: parent._id
+            })
+          }
+        })
+      ).length;
     }
   }
 };

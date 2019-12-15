@@ -8,5 +8,9 @@ export default gql`
     name: String
 
     organization: Organization
+
+    battlemetricsBanCount: Int
+
+    uniqueBannedSteamIDCount: Int
   }
 `;

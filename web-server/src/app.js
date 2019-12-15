@@ -46,7 +46,7 @@ const clientPath = path.join('../../client');
 
 if (inProduction)
   app.use(mount('/static', serve(path.join(clientPath, '/build/static'))));
-else app.use(serve(path.join(clientPath, '/public')));
+else app.use(serve(path.join(clientPath, '/main-site')));
 
 if (inProduction) app.use(views(path.join(clientPath, '/build')));
 

@@ -24,6 +24,10 @@ export default {
 
     battlemetricsBanCount: async () => {
       return BattleMetricsBan.countDocuments();
+    },
+
+    uniqueBannedSteamIDCount: async () => {
+      return (await BattleMetricsBan.distinct('steamID')).length;
     }
   }
 };

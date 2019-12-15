@@ -4,7 +4,11 @@ import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
 
 import Layout from '../layout/layout';
 
-import { BattlemetricsBanCount, OrganizationCount } from '../../../components';
+import {
+  BattlemetricsBanCount,
+  OrganizationCount,
+  UniqueBannedSteamIDCount
+} from '../../../components';
 
 export default function() {
   return (
@@ -42,31 +46,6 @@ export default function() {
             <CardBody>
               <Row>
                 <div className="col">
-                  <span className="h2 font-weight-bold mb-0">Placeholder</span>
-                  <CardTitle
-                    tag="h5"
-                    className="text-uppercase text-muted mb-0"
-                  >
-                    Banned Players
-                  </CardTitle>
-                </div>
-                <Col className="col-auto">
-                  <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                    <i className="fas fa-user-times" />
-                  </div>
-                </Col>
-              </Row>
-              <p className="mb-0 text-muted text-sm">
-                in our default Squad Community Ban List.
-              </p>
-            </CardBody>
-          </Card>
-        </Col>
-        <Col md="4">
-          <Card className="card-stats mb-4 mb-xl-0">
-            <CardBody>
-              <Row>
-                <div className="col">
                   <span className="h2 font-weight-bold mb-0">
                     <BattlemetricsBanCount />
                   </span>
@@ -89,10 +68,37 @@ export default function() {
             </CardBody>
           </Card>
         </Col>
+        <Col md="4">
+          <Card className="card-stats mb-4 mb-xl-0">
+            <CardBody>
+              <Row>
+                <div className="col">
+                  <span className="h2 font-weight-bold mb-0">
+                    <UniqueBannedSteamIDCount />
+                  </span>
+                  <CardTitle
+                    tag="h5"
+                    className="text-uppercase text-muted mb-0"
+                  >
+                    Banned Player's
+                  </CardTitle>
+                </div>
+                <Col className="col-auto">
+                  <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
+                    <i className="fas fa-user-times" />
+                  </div>
+                </Col>
+              </Row>
+              <p className="mb-0 text-muted text-sm">
+                info stored in the SCBL system.
+              </p>
+            </CardBody>
+          </Card>
+        </Col>
       </Row>
       <Row className="justify-content-center mt-4">
         <Col>
-          <Card className=" shadow">
+          <Card className="shadow">
             <CardHeader className=" bg-transparent">
               <h3 className=" mb-0">About</h3>
             </CardHeader>
