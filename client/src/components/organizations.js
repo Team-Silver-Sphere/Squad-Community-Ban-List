@@ -2,13 +2,27 @@ import React from 'react';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 
-import { Card, CardBody, CardHeader, Table } from 'reactstrap';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Table
+} from 'reactstrap';
+
+import { AdvancedModal } from './index';
 
 const query = gql`
   query {
     organizations {
       _id
       name
+      contact
+      appeal
+
       uniqueBannedSteamIDCount
 
       battlemetricsBanLists {
@@ -62,6 +76,7 @@ export default function() {
                   <th>Ban Lists</th>
                   <th>Bans</th>
                   <th>Unique Banned Steam IDs</th>
+                  <th>More Info</th>
                 </tr>
               </thead>
               <tbody>
@@ -79,6 +94,52 @@ export default function() {
                         .reduce((a, b) => a + b, 0)}
                     </td>
                     <td>{organization.uniqueBannedSteamIDCount}</td>
+                    <td>
+                      <AdvancedModal isOpen={false}>
+                        {modal => (
+                          <>
+                            <Button color="info" size="sm" onClick={modal.open}>
+                              View Contact Info
+                            </Button>
+
+                            <Modal
+                              className="modal-dialog-centered"
+                              isOpen={modal.isOpen}
+                              toggle={modal.close}
+                            >
+                              <ModalHeader toggle={modal.close}>
+                                Contact
+                              </ModalHeader>
+                              <ModalBody>
+                                <p>{organization.contact}</p>
+                              </ModalBody>
+                            </Modal>
+                          </>
+                        )}
+                      </AdvancedModal>
+                      <AdvancedModal isOpen={false}>
+                        {modal => (
+                          <>
+                            <Button color="info" size="sm" onClick={modal.open}>
+                              Appeal
+                            </Button>
+
+                            <Modal
+                              className="modal-dialog-centered"
+                              isOpen={modal.isOpen}
+                              toggle={modal.close}
+                            >
+                              <ModalHeader toggle={modal.close}>
+                                Appeal Process
+                              </ModalHeader>
+                              <ModalBody>
+                                <p>{organization.appeal}</p>
+                              </ModalBody>
+                            </Modal>
+                          </>
+                        )}
+                      </AdvancedModal>
+                    </td>
                   </tr>
                 ))}
               </tbody>

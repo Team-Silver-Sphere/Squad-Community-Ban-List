@@ -20,8 +20,12 @@ import { query } from './organizations';
 import { ErrorModal } from './index';
 
 const mutation = gql`
-  mutation CreateOrganization($name: String!) {
-    createOrganization(name: $name) {
+  mutation CreateOrganization(
+    $name: String!
+    $contact: String!
+    $appeal: String!
+  ) {
+    createOrganization(name: $name, contact: $contact, appeal: $appeal) {
       _id
       name
       uniqueBannedSteamIDCount
@@ -37,7 +41,9 @@ const mutation = gql`
 
 class OrganizationCreate extends React.Component {
   state = {
-    name: ''
+    name: '',
+    contact: '',
+    appeal: ''
   };
 
   render() {
@@ -96,11 +102,58 @@ class OrganizationCreate extends React.Component {
                         </FormGroup>
                       </Col>
                     </Row>
+                    <Row>
+                      <Col>
+                        <label className="form-control-label">
+                          Organization Contact
+                        </label>
+                        <FormGroup>
+                          <Input
+                            className="form-control-alternative"
+                            type="textarea"
+                            value={this.state.contact}
+                            onChange={event =>
+                              this.setState({ contact: event.target.value })
+                            }
+                            invalid={this.state.contact.length === 0}
+                          />
+                          <FormFeedback>
+                            A contact for the organization must be provided.
+                          </FormFeedback>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <label className="form-control-label">
+                          Organization Appeal Process
+                        </label>
+                        <FormGroup>
+                          <Input
+                            className="form-control-alternative"
+                            type="textarea"
+                            value={this.state.appeal}
+                            onChange={event =>
+                              this.setState({ appeal: event.target.value })
+                            }
+                            invalid={this.state.appeal.length === 0}
+                          />
+                          <FormFeedback>
+                            Information on how to appeal bans for the
+                            organization must be provided.
+                          </FormFeedback>
+                        </FormGroup>
+                      </Col>
+                    </Row>
                     <Row className="justify-content-center">
                       <Col className="text-center">
                         <Button
                           color="primary"
-                          disabled={this.state.name.length === 0}
+                          disabled={
+                            this.state.name.length === 0 ||
+                            this.state.contact.length === 0 ||
+                            this.state.appeal.length === 0
+                          }
                         >
                           Create Organization
                         </Button>

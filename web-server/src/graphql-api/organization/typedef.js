@@ -5,6 +5,8 @@ export default gql`
   type Organization {
     _id: String
     name: String
+    contact: String
+    appeal: String
 
     battlemetricsBanLists: [BattlemetricsBanList]
 
