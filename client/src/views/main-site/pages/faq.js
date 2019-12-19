@@ -35,7 +35,7 @@ export default function() {
         <Col>
           <Card className=" shadow">
             <CardHeader className=" bg-transparent">
-              <h3 className=" mb-0">Contributors</h3>
+              <h3 className=" mb-0">Partner Organizations</h3>
             </CardHeader>
             <CardBody>
               Some FAQ section that I currently cannot be bothered to write.
