@@ -20,7 +20,7 @@ export default function(props) {
     <Input
       type="select"
       onChange={props.onChange}
-      value={props.selectedOrganization || 'Select an Organization...'}
+      value={props.value || 'Select an Organization...'}
     >
       <Query query={query} onError={() => {}}>
         {({ loading, error, data }) => {

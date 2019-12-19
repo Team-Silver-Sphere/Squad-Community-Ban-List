@@ -28,6 +28,8 @@ const mutation = gql`
     createOrganization(name: $name, contact: $contact, appeal: $appeal) {
       _id
       name
+      contact
+      appeal
       uniqueBannedSteamIDCount
 
       battlemetricsBanLists {

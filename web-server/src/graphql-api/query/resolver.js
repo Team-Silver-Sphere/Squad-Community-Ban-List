@@ -7,7 +7,7 @@ import {
 export default {
   Query: {
     organizations: async () => {
-      return Organization.find();
+      return Organization.find().sort({ name: 1 });
     },
 
     organizationCount: async () => {

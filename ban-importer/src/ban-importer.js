@@ -119,12 +119,16 @@ export default class BanImporter {
     // find the bans that were deleted.
     (
       await BattleMetricsBan.distinct('steamID', {
+        banList: this.currentBanListObjectID,
         uid: { $nin: this.importedBanUIDs }
       })
     ).forEach(steamID => this.queueAffectedSteamID(steamID));
 
     // delete the bans that were deleted.
-    await BattleMetricsBan.deleteMany({ uid: { $nin: this.importedBanUIDs } });
+    await BattleMetricsBan.deleteMany({
+      banList: this.currentBanListObjectID,
+      uid: { $nin: this.importedBanUIDs }
+    });
 
     // update the ban list with the new import date
     await BattleMetricsBanList.updateOne(
