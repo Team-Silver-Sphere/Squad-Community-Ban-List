@@ -105,10 +105,14 @@ export default class BanImporter {
         banRecord,
         { upsert: true, setDefaultsOnInsert: true }
       );
-      console.log(`Saved ban to database: ${ban.attributes.uid}`);
 
       // the ban has been updated so process the steamID
-      if (updatedBan) await this.queueAffectedSteamID(steamID);
+      if (updatedBan) {
+        await this.queueAffectedSteamID(steamID);
+        console.log(
+          `Updated ban (${ban.attributes.uid}) on player (${steamID}) in the database.`
+        );
+      }
     }
 
     // update the url of the next page to import
@@ -122,7 +126,10 @@ export default class BanImporter {
         banList: this.currentBanListObjectID,
         uid: { $nin: this.importedBanUIDs }
       })
-    ).forEach(steamID => this.queueAffectedSteamID(steamID));
+    ).forEach(steamID => {
+      this.queueAffectedSteamID(steamID);
+      console.log(`Deleted ban on player (${steamID}) from the database.`);
+    });
 
     // delete the bans that were deleted.
     await BattleMetricsBan.deleteMany({
@@ -147,6 +154,5 @@ export default class BanImporter {
       { steamID },
       { upsert: true, setDefaultsOnInsert: true }
     );
-    console.log(`Queued affected Steam ID: ${steamID}`);
   }
 }
