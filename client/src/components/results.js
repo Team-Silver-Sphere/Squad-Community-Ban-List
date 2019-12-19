@@ -79,14 +79,6 @@ export default function(props) {
                         <i className="fa fa-times mr-2" />
                         {organization.name}
                       </h4>
-                      {organization.playerBans.map((ban, key) => (
-                        <p
-                          className="ml-4 font-weight-bold mb-2 text-sm"
-                          key={key}
-                        >
-                          {ban.reason}
-                        </p>
-                      ))}
                       <AdvancedModal isOpen={false}>
                         {modal => (
                           <>
