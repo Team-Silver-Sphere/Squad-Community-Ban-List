@@ -1,5 +1,6 @@
 import Home from './pages/home';
 import Login from './pages/login';
+import Search from './pages/search';
 import Organizations from './pages/organizations';
 import BattlemetricsBanLists from './pages/battlemetrics-ban-lists';
 import FAQ from './pages/faq';
@@ -29,6 +30,21 @@ const routes = [
     icon: 'fas fa-file-download',
     component: Home,
     display: () => Auth.isLoggedIn
+  },
+  {
+    path: '/search/:steamID',
+    exact: false,
+    name: 'Search',
+    icon: 'fa fa-search',
+    component: Search,
+    display: () => false
+  },
+  {
+    path: '/search',
+    exact: true,
+    name: 'Search',
+    icon: 'fa fa-search',
+    component: Search
   },
   {
     path: '/faq',

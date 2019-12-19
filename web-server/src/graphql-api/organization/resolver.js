@@ -16,6 +16,17 @@ export default {
           }
         })
       ).length;
+    },
+
+    playerBans: async (parent, filter) => {
+      return BattleMetricsBan.find({
+        banList: {
+          $in: await BattleMetricsBanList.distinct('_id', {
+            organization: parent._id
+          })
+        },
+        steamID: filter.steamID
+      });
     }
   }
 };

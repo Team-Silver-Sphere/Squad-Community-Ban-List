@@ -11,5 +11,7 @@ export default gql`
     battlemetricsBanLists: [BattlemetricsBanList]
 
     uniqueBannedSteamIDCount: Int
+
+    playerBans(steamID: String!): [BattlemetricsBan]
   }
 `;

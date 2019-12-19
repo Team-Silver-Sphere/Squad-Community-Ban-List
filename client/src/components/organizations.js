@@ -120,7 +120,11 @@ export default function() {
                       <AdvancedModal isOpen={false}>
                         {modal => (
                           <>
-                            <Button color="info" size="sm" onClick={modal.open}>
+                            <Button
+                              color="warning"
+                              size="sm"
+                              onClick={modal.open}
+                            >
                               Appeal
                             </Button>
 

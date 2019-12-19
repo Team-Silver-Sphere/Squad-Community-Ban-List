@@ -7,6 +7,8 @@ import OrganizationCount from './organization-count';
 import OrganizationCreate from './organization-create';
 import OrganizationSelect from './organization-select';
 import Organizations from './organizations';
+import Results from './results';
+import Steam64IDSearch from './steam64id-search';
 import UniqueBannedSteamIDCount from './unique-banned-steam-id-count';
 
 export {
@@ -19,5 +21,7 @@ export {
   OrganizationCreate,
   OrganizationSelect,
   Organizations,
+  Results,
+  Steam64IDSearch,
   UniqueBannedSteamIDCount
 };
