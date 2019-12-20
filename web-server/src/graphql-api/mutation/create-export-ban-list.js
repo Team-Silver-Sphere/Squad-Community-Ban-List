@@ -29,7 +29,7 @@ export default async (_, args, context) => {
 
   fs.writeFileSync(
     path.resolve(`./web-server/export-ban-lists/${exportBanList._id}.txt`),
-    `// ID: ${exportBanList._id}, Name: ${exportBanList.name}, Owner: ${context.user}\n`
+    `// ID: ${exportBanList._id}, Name: ${exportBanList.name}, Owner: ${exportBanList.owner}\n// Config: ${exportBanList.config}`
   );
 
   return exportBanList;
