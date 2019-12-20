@@ -8,10 +8,14 @@ export default gql`
       contact: String!
       appeal: String!
     ): Organization
+
     addBattlemetricsBanList(
       id: String!
       name: String!
       organization: String!
     ): BattlemetricsBanList
+
+    createExportBanList(name: String!, config: String!): ExportBanList
+    deleteExportBanList(_id: String): ExportBanList
   }
 `;

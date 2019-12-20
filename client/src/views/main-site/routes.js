@@ -1,5 +1,6 @@
 import Home from './pages/home';
 import Login from './pages/login';
+import Install from './pages/install';
 import Search from './pages/search';
 import Organizations from './pages/organizations';
 import BattlemetricsBanLists from './pages/battlemetrics-ban-lists';
@@ -28,7 +29,7 @@ const routes = [
     exact: true,
     name: 'Install SCBL',
     icon: 'fas fa-file-download',
-    component: Home,
+    component: Install,
     display: () => Auth.isLoggedIn
   },
   {

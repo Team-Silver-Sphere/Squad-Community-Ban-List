@@ -65,8 +65,6 @@ export default function(props) {
               </CardBody>
             );
 
-          console.log(data);
-
           return (
             <CardBody>
               <h6 className="heading-small text-muted mb-4">Banned on...</h6>

@@ -10,7 +10,8 @@ export default gql`
     battlemetricsBanListCount: Int
 
     battlemetricsBanCount: Int
-
     uniqueBannedSteamIDCount: Int
+
+    currentSteamUser: SteamUser
   }
 `;

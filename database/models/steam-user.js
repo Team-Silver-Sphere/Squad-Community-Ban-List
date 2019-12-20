@@ -7,7 +7,9 @@ const SteamUserSchema = new mongoose.Schema({
   avatarMedium: { type: String, require: true },
   avatarFull: { type: String, require: true },
 
-  systemAdmin: { type: Boolean, require: true, default: false }
+  systemAdmin: { type: Boolean, require: true, default: false },
+
+  exportBanListsLimit: { type: Number, default: 3 }
 });
 
 export default mongoose.model('SteamUser', SteamUserSchema);

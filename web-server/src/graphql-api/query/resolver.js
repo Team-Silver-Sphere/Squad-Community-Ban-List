@@ -1,7 +1,8 @@
 import {
   Organization,
   BattleMetricsBan,
-  BattleMetricsBanList
+  BattleMetricsBanList,
+  SteamUser
 } from 'database/models';
 
 export default {
@@ -28,6 +29,10 @@ export default {
 
     uniqueBannedSteamIDCount: async () => {
       return (await BattleMetricsBan.distinct('steamID')).length;
+    },
+
+    currentSteamUser: async (parent, _, context) => {
+      return SteamUser.findOne({ steamID: context.user });
     }
   }
 };
