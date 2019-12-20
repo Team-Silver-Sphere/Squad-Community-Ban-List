@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+
 import { SteamUser, ExportBanList } from 'database/models';
 
 export default async (_, args, context) => {
@@ -23,5 +26,11 @@ export default async (_, args, context) => {
     config: args.config
   });
   await exportBanList.save();
+
+  fs.writeFileSync(
+    path.resolve(`./web-server/export-ban-lists/${exportBanList._id}.txt`),
+    `// ID: ${exportBanList._id}, Name: ${exportBanList.name}, Owner: ${context.user}\n`
+  );
+
   return exportBanList;
 };

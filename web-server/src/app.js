@@ -14,8 +14,8 @@ import views from 'koa-views';
 import connectToDB from 'database/utils/connect';
 
 import ApolloServer from './graphql-api/index.js';
-
 import { passport, SteamAuth } from './auth/index.js';
+import ExportBanLists from './export-ban-lists.js';
 
 const inProduction = process.env.NODE_ENV;
 
@@ -53,6 +53,7 @@ if (inProduction) app.use(views(path.join(clientPath, '/build')));
 ApolloServer.applyMiddleware({ app });
 
 router.use('/auth', SteamAuth.routes(), SteamAuth.allowedMethods());
+router.use('/export', ExportBanLists.routes(), ExportBanLists.allowedMethods());
 
 if (inProduction) {
   router.get('/manifest.json', async ctx => {

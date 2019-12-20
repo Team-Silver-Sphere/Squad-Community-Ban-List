@@ -2,9 +2,18 @@ import React from 'react';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 
-import { Card, CardBody, CardHeader, Table } from 'reactstrap';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  Table
+} from 'reactstrap';
 
-import { ExportBanListDelete } from './index';
+import { AdvancedModal, ExportBanListDelete } from './index';
 
 const query = gql`
   query {
@@ -78,6 +87,52 @@ export default function() {
                     <tr key={key}>
                       <th>{exportBanList.name}</th>
                       <td>
+                        <AdvancedModal isOpen={false}>
+                          {modal => (
+                            <>
+                              <Button
+                                className="ml-4"
+                                color="warning"
+                                size="sm"
+                                onClick={modal.open}
+                              >
+                                Remote Ban List
+                              </Button>
+
+                              <Modal
+                                className="modal-dialog-centered"
+                                isOpen={modal.isOpen}
+                                toggle={modal.close}
+                              >
+                                <ModalHeader toggle={modal.close}>
+                                  Remote Ban List
+                                </ModalHeader>
+                                <ModalBody>
+                                  <p className="font-italic">
+                                    To use the export ban list within your Squad
+                                    server the following URL can be added as a
+                                    remote ban list on the server. For
+                                    information on how to achieve this please
+                                    refer to the{' '}
+                                    <a href="https://squad.gamepedia.com/Server_Configuration#Remote_Ban_Lists_in_RemoteBanListHosts.cfg">
+                                      Squad Wiki page
+                                    </a>
+                                    .
+                                  </p>
+                                  <code>
+                                    {`${window.location.protocol}//${
+                                      window.location.hostname
+                                    }${
+                                      window.location.port !== '80'
+                                        ? `:${window.location.port}`
+                                        : ''
+                                    }/export/${exportBanList._id}`}
+                                  </code>
+                                </ModalBody>
+                              </Modal>
+                            </>
+                          )}
+                        </AdvancedModal>
                         <ExportBanListDelete _id={exportBanList._id} />
                       </td>
                     </tr>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { Mutation, Query } from 'react-apollo';
+import { set } from 'lodash/fp';
 
 import {
   Card,
@@ -13,7 +14,10 @@ import {
   FormGroup,
   FormFeedback
 } from 'reactstrap';
-import ErrorModal from './error-modal';
+
+import { ErrorModal } from './index.js';
+
+import { query as updateQuery } from './export-ban-lists';
 
 const query = gql`
   query {
@@ -77,7 +81,21 @@ class ExportBanListCreate extends React.Component {
               );
 
             return (
-              <Mutation mutation={mutation} onError={() => {}}>
+              <Mutation
+                mutation={mutation}
+                update={(cache, { data: { createExportBanList } }) => {
+                  let oldData = cache.readQuery({ query: updateQuery });
+                  let newData = set(
+                    'currentSteamUser.exportBanLists',
+                    oldData.currentSteamUser.exportBanLists.concat([
+                      createExportBanList
+                    ]),
+                    oldData
+                  );
+                  cache.writeQuery({ query: updateQuery, data: newData });
+                }}
+                onError={() => {}}
+              >
                 {(createExportBanList, { loading, error }) => {
                   if (loading)
                     return (

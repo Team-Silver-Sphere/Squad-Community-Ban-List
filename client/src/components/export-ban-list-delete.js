@@ -37,7 +37,7 @@ export default function(props) {
       {(deleteExportBanList, { loading, error }) => {
         if (loading)
           return (
-            <Button color="primary" size="sm">
+            <Button color="danger" size="sm">
               Loading...
             </Button>
           );
@@ -52,7 +52,7 @@ export default function(props) {
             >
               {modal => (
                 <>
-                  <Button color="primary" size="sm" onClick={modal.open}>
+                  <Button color="danger" size="sm" onClick={modal.open}>
                     Delete Export Ban List
                   </Button>
                   <Modal
