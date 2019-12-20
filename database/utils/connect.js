@@ -6,6 +6,7 @@ export default function() {
   return mongoose.connect(mongoDB, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   });
 }

@@ -92,7 +92,7 @@ export default function() {
                             <>
                               <Button
                                 className="ml-4"
-                                color="warning"
+                                color="info"
                                 size="sm"
                                 onClick={modal.open}
                               >

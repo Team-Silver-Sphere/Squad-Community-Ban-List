@@ -18,18 +18,10 @@ export default class BanImporter {
   }
 
   async run() {
-    console.log('Setting up ban importer...');
-
     while (true) {
-      console.log('Selecting ban list to import...');
       await this.initImport();
-
-      while (this.nextPage) {
-        console.log('Importing ban page...');
-        await this.importPage();
-      }
-
-      console.log('Finished importing bans...');
+      console.log(`Importing Ban List: ${this.currentBanListObjectID}`);
+      while (this.nextPage) await this.importPage();
       await this.finishImport();
     }
   }
@@ -54,8 +46,6 @@ export default class BanImporter {
   }
 
   async importPage() {
-    console.log(this.nextPage);
-
     // query battlemetrics API for the next page
     const response = await battlemetricsAPIGateway(this.nextPage);
 
