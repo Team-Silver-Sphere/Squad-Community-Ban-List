@@ -174,7 +174,8 @@ export default function() {
                 that contribute information on players the more effective the
                 Squad Community Ban List becomes in protecting the integrity of
                 the Squad community. To become a partner organisation, please
-                contact us via our Discord.
+                contact us via our{' '}
+                <a href="https://discord.gg/fbZdj3q">Discord</a>.
               </Answer>
               <Question>
                 What do I get out of being a partner organisation?
@@ -200,9 +201,10 @@ export default function() {
                 We wish to stop being a partner organisation. How can I do this?
               </Question>
               <Answer>
-                Please contact us via our Discord so we can resolve the issues
-                you have with the Squad Community Ban List and/or arrange your
-                departure.
+                Please contact us via our{' '}
+                <a href="https://discord.gg/fbZdj3q">Discord</a> so we can
+                resolve the issues you have with the Squad Community Ban List
+                and/or arrange your departure.
               </Answer>
             </CardBody>
           </Card>
