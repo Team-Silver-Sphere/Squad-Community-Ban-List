@@ -42,7 +42,7 @@ if (!inProduction) app.use(Logger());
 
 app.use(passport.initialize());
 
-const clientPath = path.join('../../client');
+const clientPath = './client';
 
 if (inProduction)
   app.use(mount('/static', serve(path.join(clientPath, '/build/static'))));

@@ -21,6 +21,7 @@
     "dev-ban-exporter": "nodemon ban-exporter/index.js",
     "start-ban-importer": "node ban-importer/index.js",
     "dev-ban-importer": "nodemon ban-importer/index.js",
+    "start-web-server": "NODE_ENV=production node web-server/index.js",
     "dev-web-server": "concurrently \"nodemon web-server/index.js\" \"cd client && npm run start\""
   },
   "devDependencies": {

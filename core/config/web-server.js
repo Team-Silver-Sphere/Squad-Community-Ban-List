@@ -1,3 +1,4 @@
-const port = 3001;
+const host = 'http://localhost';
+const port = process.env.NODE_ENV === 'production' ? 80: 3001;
 
-export { port };
+export { host, port };

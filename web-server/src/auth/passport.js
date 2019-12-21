@@ -1,7 +1,7 @@
 import passport from 'koa-passport';
 import SteamStrategy from 'passport-steam';
 
-import { host } from 'core/config/host';
+import { host } from 'core/config/web-server';
 import { steamAPIKey } from 'core/config/secrets';
 
 import { SteamUser } from 'database/models';
