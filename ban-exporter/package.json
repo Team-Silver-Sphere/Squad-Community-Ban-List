@@ -1,0 +1,10 @@
+{
+  "name": "ban-exporter",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "core": "1.0.0",
+    "database": "1.0.0",
+    "mongoose": "^5.7.11"
+  }
+}

@@ -9,7 +9,8 @@
     "./config/secrets": "./config/secrets.js",
     "./config/web-server": "./config/web-server.js",
 
-    "./utils/battlemetrics-api-gateway": "./utils/battlemetrics-api-gateway.js"
+    "./utils/battlemetrics-api-gateway": "./utils/battlemetrics-api-gateway.js",
+    "./utils/sleep": "./utils/sleep.js"
   },
   "dependencies": {
     "axios": "^0.19.0",

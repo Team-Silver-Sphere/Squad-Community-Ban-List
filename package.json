@@ -9,12 +9,16 @@
     "assets",
     "core",
     "database",
+    "ban-exporter",
     "ban-importer",
     "web-server",
     "client"
   ],
   "scripts": {
     "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
+    "start-ban-exporter": "node ban-exporter/index.js",
+    "dev-ban-exporter": "nodemon ban-exporter/index.js",
+    "start-ban-importer": "node ban-importer/index.js",
     "dev-ban-importer": "nodemon ban-importer/index.js",
     "dev-web-server": "concurrently \"nodemon web-server/index.js\" \"cd client && npm run start\""
   },

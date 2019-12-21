@@ -13,7 +13,7 @@ export default async (_, args, context) => {
   await ExportBanList.deleteOne({ _id: args._id });
 
   const exportBanListPath = path.resolve(
-    `./web-server/export-ban-lists/${exportBanList._id}.txt`
+    `./export-ban-lists/${exportBanList._id}.txt`
   );
   if (fs.existsSync(exportBanListPath)) fs.unlinkSync(exportBanListPath);
 

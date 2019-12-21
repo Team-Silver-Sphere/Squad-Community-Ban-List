@@ -17,14 +17,20 @@ router.get('/:id', async ctx => {
     return;
   }
 
+  if (!exportBanList.generated) {
+    ctx.body =
+      '// This export ban list has yet to be generated. Please try again later.';
+    return;
+  }
+
   const exportBanListPath = path.resolve(
-    `./web-server/export-ban-lists/${exportBanList._id}.txt`
+    `./export-ban-lists/${exportBanList._id}.txt`
   );
-  if (!fs.existsSync(exportBanListPath))
-    fs.writeFileSync(
-      path.resolve(`./web-server/export-ban-lists/${exportBanList._id}.txt`),
-      `// ID: ${exportBanList._id}, Name: ${exportBanList.name}, Owner: ${exportBanList.owner}\n// Config: ${exportBanList.config}`
-    );
+  if (!fs.existsSync(exportBanListPath)) {
+    ctx.body =
+      '// Looks like this ban list has accidentally been deleted. Please contact a system admin.';
+    return;
+  }
 
   ctx.body = fs.readFileSync(exportBanListPath, 'utf8');
 });

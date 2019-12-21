@@ -108,7 +108,7 @@ export default function() {
                                   Remote Ban List
                                 </ModalHeader>
                                 <ModalBody>
-                                  <p className="font-italic">
+                                  <p>
                                     To use the export ban list within your Squad
                                     server the following URL can be added as a
                                     remote ban list on the server. For
