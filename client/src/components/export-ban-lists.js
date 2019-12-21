@@ -96,7 +96,7 @@ export default function() {
                                 size="sm"
                                 onClick={modal.open}
                               >
-                                Remote Ban List
+                                Install Remote Ban List
                               </Button>
 
                               <Modal
