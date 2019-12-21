@@ -198,6 +198,13 @@ export default function() {
                 publicly.
               </Answer>
               <Question>
+                What access must I provide to my BattleMetrics Ban List?
+              </Question>
+              <Answer>
+                We only require read access to your BattleMetrics ban list. All
+                other permissions can be disabled.
+              </Answer>
+              <Question>
                 We wish to stop being a partner organisation. How can I do this?
               </Question>
               <Answer>
