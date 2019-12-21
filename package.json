@@ -16,6 +16,7 @@
   ],
   "scripts": {
     "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
+    "build": "cd client && npm run build",
     "start-ban-exporter": "node ban-exporter/index.js",
     "dev-ban-exporter": "nodemon ban-exporter/index.js",
     "start-ban-importer": "node ban-importer/index.js",
