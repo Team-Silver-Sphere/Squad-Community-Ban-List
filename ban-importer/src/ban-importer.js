@@ -21,7 +21,7 @@ export default class BanImporter {
 
   async run() {
     while (true) {
-      if (await this.isBanListsToImport()) {
+      if (!(await this.isBanListsToImport())) {
         console.log('No ban lists to import. Sleeping...');
         await sleep(this.sleepPeriod);
         continue;
