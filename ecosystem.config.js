@@ -2,15 +2,21 @@ module.exports = {
   apps: [
     {
       name: 'ban-exporter',
-      script: './ban-exporter/index.js'
+      script: 'npm run start-ban-exporter'
     },
     {
       name: 'ban-importer',
-      script: './ban-importer/index.js'
+      script: 'npm run start-ban-importer'
     },
     {
       name: 'web-server',
-      script: './web-server/index.js'
+      script: 'npm run start-web-server',
+      env: {
+        NODE_ENV: 'development'
+      },
+      env_production: {
+        NODE_ENV: 'production'
+      }
     }
   ]
 };
