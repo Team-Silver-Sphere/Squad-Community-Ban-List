@@ -7,13 +7,19 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Col,
   Modal,
   ModalBody,
   ModalHeader,
+  Row,
   Table
 } from 'reactstrap';
 
-import { AdvancedModal, ExportBanListDelete } from './index';
+import {
+  AdvancedModal,
+  ExportBanListDelete,
+  ExportBanListCreate
+} from './index';
 
 const query = gql`
   query {
@@ -134,6 +140,34 @@ export default function() {
                 )}
               </tbody>
             </Table>
+            <CardBody>
+              <Row>
+                <Col className="text-center">
+                  <AdvancedModal isOpen={false}>
+                    {modal => (
+                      <>
+                        <Button color="primary" onClick={modal.open}>
+                          Create Export Ban List
+                        </Button>
+
+                        <Modal
+                          className="modal-dialog-centered"
+                          isOpen={modal.isOpen}
+                          toggle={modal.close}
+                        >
+                          <ModalHeader toggle={modal.close}>
+                            Create Export Ban List
+                          </ModalHeader>
+                          <ModalBody className="bg-secondary">
+                            <ExportBanListCreate onCreate={modal.close} />
+                          </ModalBody>
+                        </Modal>
+                      </>
+                    )}
+                  </AdvancedModal>
+                </Col>
+              </Row>
+            </CardBody>
           </Card>
         );
       }}

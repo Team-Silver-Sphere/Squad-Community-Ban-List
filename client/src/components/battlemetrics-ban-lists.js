@@ -2,7 +2,20 @@ import React from 'react';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 
-import { Card, CardBody, CardHeader, Table } from 'reactstrap';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  Row,
+  Table
+} from 'reactstrap';
+
+import { AdvancedModal, BattlemetricsBanListAdd } from './index';
 
 const query = gql`
   query {
@@ -57,28 +70,60 @@ export default function() {
             );
 
           return (
-            <Table className="align-items-center table-flush" responsive>
-              <thead className="thead-light">
-                <tr>
-                  <th>ID</th>
-                  <th>Organization Name</th>
-                  <th>Name</th>
-                  <th>Bans</th>
-                  <th>Unique Banned Steam IDs</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.battlemetricsBanLists.map((battlemetricsBanList, key) => (
-                  <tr key={key}>
-                    <th>{battlemetricsBanList.id}</th>
-                    <td>{battlemetricsBanList.organization.name}</td>
-                    <td>{battlemetricsBanList.name}</td>
-                    <td>{battlemetricsBanList.battlemetricsBanCount}</td>
-                    <td>{battlemetricsBanList.uniqueBannedSteamIDCount}</td>
+            <>
+              <Table className="align-items-center table-flush" responsive>
+                <thead className="thead-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Organization Name</th>
+                    <th>Name</th>
+                    <th>Bans</th>
+                    <th>Unique Banned Steam IDs</th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {data.battlemetricsBanLists.map(
+                    (battlemetricsBanList, key) => (
+                      <tr key={key}>
+                        <th>{battlemetricsBanList.id}</th>
+                        <td>{battlemetricsBanList.organization.name}</td>
+                        <td>{battlemetricsBanList.name}</td>
+                        <td>{battlemetricsBanList.battlemetricsBanCount}</td>
+                        <td>{battlemetricsBanList.uniqueBannedSteamIDCount}</td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </Table>
+              <CardBody>
+                <Row>
+                  <Col className="text-center">
+                    <AdvancedModal isOpen={false}>
+                      {modal => (
+                        <>
+                          <Button color="primary" onClick={modal.open}>
+                            Add BattleMetrics Ban List
+                          </Button>
+
+                          <Modal
+                            className="modal-dialog-centered"
+                            isOpen={modal.isOpen}
+                            toggle={modal.close}
+                          >
+                            <ModalHeader toggle={modal.close}>
+                              Add BattleMetrics Ban List
+                            </ModalHeader>
+                            <ModalBody className="bg-secondary">
+                              <BattlemetricsBanListAdd onCreate={modal.close} />
+                            </ModalBody>
+                          </Modal>
+                        </>
+                      )}
+                    </AdvancedModal>
+                  </Col>
+                </Row>
+              </CardBody>
+            </>
           );
         }}
       </Query>

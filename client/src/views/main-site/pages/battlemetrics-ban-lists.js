@@ -4,10 +4,7 @@ import { Col, Row } from 'reactstrap';
 
 import Layout from '../layout/layout';
 
-import {
-  BattlemetricsBanLists,
-  BattlemetricsBanListAdd
-} from '../../../components';
+import { BattlemetricsBanLists } from '../../../components';
 
 export default function() {
   return (
@@ -15,11 +12,6 @@ export default function() {
       <Row className="justify-content-center">
         <Col>
           <BattlemetricsBanLists />
-        </Col>
-      </Row>
-      <Row className="justify-content-center mt-4">
-        <Col>
-          <BattlemetricsBanListAdd />
         </Col>
       </Row>
     </Layout>

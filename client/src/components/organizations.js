@@ -10,10 +10,12 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  Table
+  Table,
+  Row,
+  Col
 } from 'reactstrap';
 
-import { AdvancedModal } from './index';
+import { AdvancedModal, OrganizationCreate } from './index';
 
 const query = gql`
   query {
@@ -69,85 +71,119 @@ export default function() {
             );
 
           return (
-            <Table className="align-items-center table-flush" responsive>
-              <thead className="thead-light">
-                <tr>
-                  <th>Organization Name</th>
-                  <th>Ban Lists</th>
-                  <th>Bans</th>
-                  <th>Unique Banned Steam IDs</th>
-                  <th>More Info</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.organizations.map((organization, key) => (
-                  <tr key={key}>
-                    <th>{organization.name}</th>
-                    <td>
-                      {organization.battlemetricsBanLists
-                        .map(banList => banList.name)
-                        .join(', ')}
-                    </td>
-                    <td>
-                      {organization.battlemetricsBanLists
-                        .map(banList => banList.battlemetricsBanCount)
-                        .reduce((a, b) => a + b, 0)}
-                    </td>
-                    <td>{organization.uniqueBannedSteamIDCount}</td>
-                    <td>
-                      <AdvancedModal isOpen={false}>
-                        {modal => (
-                          <>
-                            <Button color="info" size="sm" onClick={modal.open}>
-                              View Contact Info
-                            </Button>
-
-                            <Modal
-                              className="modal-dialog-centered"
-                              isOpen={modal.isOpen}
-                              toggle={modal.close}
-                            >
-                              <ModalHeader toggle={modal.close}>
-                                Contact
-                              </ModalHeader>
-                              <ModalBody>
-                                <p>{organization.contact}</p>
-                              </ModalBody>
-                            </Modal>
-                          </>
-                        )}
-                      </AdvancedModal>
-                      <AdvancedModal isOpen={false}>
-                        {modal => (
-                          <>
-                            <Button
-                              color="warning"
-                              size="sm"
-                              onClick={modal.open}
-                            >
-                              Appeal
-                            </Button>
-
-                            <Modal
-                              className="modal-dialog-centered"
-                              isOpen={modal.isOpen}
-                              toggle={modal.close}
-                            >
-                              <ModalHeader toggle={modal.close}>
-                                Appeal Process
-                              </ModalHeader>
-                              <ModalBody>
-                                <p>{organization.appeal}</p>
-                              </ModalBody>
-                            </Modal>
-                          </>
-                        )}
-                      </AdvancedModal>
-                    </td>
+            <>
+              <Table className="align-items-center table-flush" responsive>
+                <thead className="thead-light">
+                  <tr>
+                    <th>Organization Name</th>
+                    <th>Ban Lists</th>
+                    <th>Bans</th>
+                    <th>Unique Banned Steam IDs</th>
+                    <th>More Info</th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {data.organizations.map((organization, key) => (
+                    <tr key={key}>
+                      <th>{organization.name}</th>
+                      <td>
+                        {organization.battlemetricsBanLists
+                          .map(banList => banList.name)
+                          .join(', ')}
+                      </td>
+                      <td>
+                        {organization.battlemetricsBanLists
+                          .map(banList => banList.battlemetricsBanCount)
+                          .reduce((a, b) => a + b, 0)}
+                      </td>
+                      <td>{organization.uniqueBannedSteamIDCount}</td>
+                      <td>
+                        <AdvancedModal isOpen={false}>
+                          {modal => (
+                            <>
+                              <Button
+                                color="info"
+                                size="sm"
+                                onClick={modal.open}
+                              >
+                                View Contact Info
+                              </Button>
+
+                              <Modal
+                                className="modal-dialog-centered"
+                                isOpen={modal.isOpen}
+                                toggle={modal.close}
+                              >
+                                <ModalHeader toggle={modal.close}>
+                                  Contact
+                                </ModalHeader>
+                                <ModalBody>
+                                  <p>{organization.contact}</p>
+                                </ModalBody>
+                              </Modal>
+                            </>
+                          )}
+                        </AdvancedModal>
+                        <AdvancedModal isOpen={false}>
+                          {modal => (
+                            <>
+                              <Button
+                                color="warning"
+                                size="sm"
+                                onClick={modal.open}
+                              >
+                                Appeal
+                              </Button>
+
+                              <Modal
+                                className="modal-dialog-centered"
+                                isOpen={modal.isOpen}
+                                toggle={modal.close}
+                              >
+                                <ModalHeader toggle={modal.close}>
+                                  Appeal Process
+                                </ModalHeader>
+                                <ModalBody>
+                                  <p>{organization.appeal}</p>
+                                </ModalBody>
+                              </Modal>
+                            </>
+                          )}
+                        </AdvancedModal>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <CardBody>
+                <Row>
+                  <Col className="text-center">
+                    <AdvancedModal isOpen={false}>
+                      {modal => (
+                        <>
+                          <Button color="primary" onClick={modal.open}>
+                            Create Organisation
+                          </Button>
+
+                          <Modal
+                            className="modal-dialog-centered"
+                            isOpen={modal.isOpen}
+                            toggle={modal.close}
+                          >
+                            <ModalHeader toggle={modal.close}>
+                              Create Organisation
+                            </ModalHeader>
+                            <ModalBody className="bg-secondary">
+                              <OrganizationCreate onCreate={modal.close} />
+                            </ModalBody>
+                          </Modal>
+                        </>
+                      )}
+                    </AdvancedModal>
+                  </Col>
+                </Row>
+              </CardBody>
+            </>
           );
         }}
       </Query>
