@@ -1,5 +1,6 @@
 import { battlemetricsAPIHostname } from 'core/config/battlemetrics-api';
 import battlemetricsAPIGateway from 'core/utils/battlemetrics-api-gateway';
+import sleep from 'core/utils/sleep';
 import {
   AffectedSteamID,
   BattleMetricsBan,
@@ -8,6 +9,7 @@ import {
 
 export default class BanImporter {
   constructor() {
+    this.sleepPeriod = 10 * 1000;
     this.currentBanListID = null;
     this.currentBanListObjectID = null;
 
@@ -19,11 +21,22 @@ export default class BanImporter {
 
   async run() {
     while (true) {
+      if (await this.isBanListsToImport()) {
+        console.log('No ban lists to import. Sleeping...');
+        await sleep(this.sleepPeriod);
+        continue;
+      }
+
       await this.initImport();
       console.log(`Importing Ban List: ${this.currentBanListObjectID}`);
       while (this.nextPage) await this.importPage();
       await this.finishImport();
     }
+  }
+
+  async isBanListsToImport() {
+    const count = await BattleMetricsBanList.countDocuments();
+    return count > 0;
   }
 
   async initImport() {
