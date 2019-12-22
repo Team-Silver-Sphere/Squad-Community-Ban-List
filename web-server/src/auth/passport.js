@@ -13,7 +13,7 @@ passport.use(
       realm: host,
       apiKey: steamAPIKey
     },
-    async (indetifier, rawProfile, done) => {
+    async (_, rawProfile, done) => {
       const query = {
         steamID: rawProfile.id,
         displayName: rawProfile.displayName,
@@ -30,6 +30,7 @@ passport.use(
         query,
         {
           upsert: true,
+          new: true,
           setDefaultsOnInsert: true
         }
       );

@@ -12,8 +12,7 @@ router.get('/steam', passport.authenticate('steam'));
 router.get(
   '/steam/return',
   passport.authenticate('steam', {
-    session: false,
-    failureFlash: 'Failed to login.'
+    session: false
   }),
   ctx => {
     ctx.body = JSON.stringify({
