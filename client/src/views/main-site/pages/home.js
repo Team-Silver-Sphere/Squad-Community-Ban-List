@@ -140,7 +140,7 @@ export default function() {
                     Our ban exporter rapidly updates the remote ban lists as
                     soon as new bans are added or removed from our database so
                     that malicious players are banned from your server as early
-                    as possible to limit the hard these players might cause to
+                    as possible to limit the harm these players might cause to
                     your server's community and the wider Squad community.
                   </li>
                 </ol>
