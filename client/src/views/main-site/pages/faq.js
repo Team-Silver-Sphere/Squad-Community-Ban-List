@@ -151,7 +151,8 @@ export default function() {
                 of 0 will mean that bans on this ban list do not contribute to a
                 player meeting the threshold. You can use this if you do not
                 trust a ban list, i.e. you think the partner organisation who
-                owns the ban list does not enforce rules correctly.
+                owns the ban list does not enforce rules correctly. Unless
+                specified a ban list's weight is 1.
               </Answer>
             </CardBody>
           </Card>
