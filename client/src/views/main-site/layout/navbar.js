@@ -85,7 +85,7 @@ class CustomNavbar extends React.Component {
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-menu-arrow" right>
                     <DropdownItem
-                      href="#pablo"
+                      href="/"
                       onClick={() => {
                         Auth.logout();
                       }}

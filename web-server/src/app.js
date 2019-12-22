@@ -61,7 +61,7 @@ if (inProduction) {
   });
 
   router.get('/favicon.png', async ctx => {
-    ctx.body = fs.readFileSync(path.join(clientPath, '/build/favicon.png'));
+    ctx.body = fs.readFileSync(path.resolve('./assets/scbl-logo-square.png'));
   });
 
   router.get('*', async ctx => {

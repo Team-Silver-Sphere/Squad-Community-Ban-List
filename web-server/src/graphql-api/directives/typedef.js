@@ -2,10 +2,5 @@ import ApolloServerKoa from 'apollo-server-koa';
 const { gql } = ApolloServerKoa;
 
 export default gql`
-  type ExportBanList {
-    _id: String
-    name: String
-    config: String
-    owner: SteamUser
-  }
+  directive @systemAdminOnly on FIELD_DEFINITION
 `;

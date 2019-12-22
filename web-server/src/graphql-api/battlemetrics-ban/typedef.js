@@ -4,9 +4,9 @@ const { gql } = ApolloServerKoa;
 export default gql`
   type BattlemetricsBan {
     _id: String
-    uid: String
-    reason: String
-    note: String
+    uid: String @systemAdminOnly
+    reason: String @systemAdminOnly
+    note: String @systemAdminOnly
     steamID: String
 
     battlemetricsBanList: BattlemetricsBanList

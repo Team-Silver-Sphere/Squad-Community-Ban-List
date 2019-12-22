@@ -7,13 +7,13 @@ export default gql`
       name: String!
       contact: String!
       appeal: String!
-    ): Organization
+    ): Organization @systemAdminOnly
 
     addBattlemetricsBanList(
       id: String!
       name: String!
       organization: String!
-    ): BattlemetricsBanList
+    ): BattlemetricsBanList @systemAdminOnly
 
     createExportBanList(name: String!, config: String!): ExportBanList
     deleteExportBanList(_id: String): ExportBanList

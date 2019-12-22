@@ -8,7 +8,7 @@ export default gql`
     displayName: String
     avatarMedium: String
     avatarFull: String
-    systemAdmin: Boolean
+    systemAdmin: Boolean @systemAdminOnly
     exportBanLists: [ExportBanList]
     exportBanListsLimit: Int
   }

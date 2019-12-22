@@ -5,7 +5,7 @@ export default gql`
   type Organization {
     _id: String
     name: String
-    contact: String
+    contact: String @systemAdminOnly
     appeal: String
 
     battlemetricsBanLists: [BattlemetricsBanList]
