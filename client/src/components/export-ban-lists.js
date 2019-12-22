@@ -120,13 +120,7 @@ export default function() {
                                     .
                                   </p>
                                   <code>
-                                    {`${window.location.protocol}//${
-                                      window.location.hostname
-                                    }${
-                                      window.location.port !== '80'
-                                        ? `:${window.location.port}`
-                                        : ''
-                                    }/export/${exportBanList._id}`}
+                                    {`${window.location.protocol}//${window.location.hostname}/export/${exportBanList._id}`}
                                   </code>
                                 </ModalBody>
                               </Modal>
