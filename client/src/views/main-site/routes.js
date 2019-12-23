@@ -30,7 +30,8 @@ const routes = [
     name: 'Install SCBL',
     icon: 'fas fa-file-download',
     component: Install,
-    display: () => Auth.isLoggedIn
+    display: () => Auth.isLoggedIn,
+    protected: () => Auth.isLoggedIn
   },
   {
     path: '/search/:steamID',
@@ -38,14 +39,16 @@ const routes = [
     name: 'Search',
     icon: 'fa fa-search',
     component: Search,
-    display: () => false
+    display: () => false,
+    protected: () => Auth.isLoggedIn
   },
   {
     path: '/search',
     exact: true,
     name: 'Search',
     icon: 'fa fa-search',
-    component: Search
+    component: Search,
+    protected: () => Auth.isLoggedIn
   },
   {
     path: '/faq',
@@ -60,7 +63,8 @@ const routes = [
     name: 'Organizations',
     icon: 'fa fa-user-shield',
     component: Organizations,
-    display: () => Auth.isLoggedIn && Auth.claim.systemAdmin
+    display: () => Auth.isLoggedIn && Auth.claim.systemAdmin,
+    protected: () => Auth.isLoggedIn && Auth.claim.systemAdmin
   },
   {
     path: '/ban-lists',
@@ -68,7 +72,8 @@ const routes = [
     name: 'Ban Lists',
     icon: 'fa fa-user-shield',
     component: BattlemetricsBanLists,
-    display: () => Auth.isLoggedIn && Auth.claim.systemAdmin
+    display: () => Auth.isLoggedIn && Auth.claim.systemAdmin,
+    protected: () => Auth.isLoggedIn && Auth.claim.systemAdmin
   }
 ];
 

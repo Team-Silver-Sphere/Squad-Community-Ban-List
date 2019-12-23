@@ -145,9 +145,9 @@ export default function() {
                   </li>
                 </ol>
               </p>
-              <bold>
+              <span className="font-weight-bold">
                 For more information, please see our <Link to="/faq">FAQ</Link>.
-              </bold>
+              </span>
             </CardBody>
           </Card>
         </Col>
