@@ -1,6 +1,7 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
+import moment from 'moment';
 
 import {
   Button,
@@ -23,6 +24,7 @@ const query = gql`
       _id
       id
       name
+      lastImported
 
       battlemetricsBanCount
       uniqueBannedSteamIDCount
@@ -77,8 +79,9 @@ export default function() {
                     <th>ID</th>
                     <th>Organization Name</th>
                     <th>Name</th>
+                    <th>Last Imported</th>
                     <th>Bans</th>
-                    <th>Unique Banned Steam IDs</th>
+                    <th>Unique Steam IDs</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -88,6 +91,11 @@ export default function() {
                         <th>{battlemetricsBanList.id}</th>
                         <td>{battlemetricsBanList.organization.name}</td>
                         <td>{battlemetricsBanList.name}</td>
+                        <td>
+                          {moment
+                            .utc(battlemetricsBanList.lastImported)
+                            .format('DD/MM/YYYY HH:mm')}
+                        </td>
                         <td>{battlemetricsBanList.battlemetricsBanCount}</td>
                         <td>{battlemetricsBanList.uniqueBannedSteamIDCount}</td>
                       </tr>

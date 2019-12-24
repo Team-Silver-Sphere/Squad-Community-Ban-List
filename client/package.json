@@ -22,8 +22,8 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "assets": "1.0.0",
     "apollo-boost": "^0.4.3",
+    "assets": "1.0.0",
     "axios": "^0.18.0",
     "chart.js": "2.7.3",
     "classnames": "2.2.6",

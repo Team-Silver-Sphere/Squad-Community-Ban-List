@@ -8,6 +8,7 @@ export default gql`
     reason: String @systemAdminOnly
     note: String @systemAdminOnly
     steamID: String
+    timestamp: Date
 
     battlemetricsBanList: BattlemetricsBanList
   }

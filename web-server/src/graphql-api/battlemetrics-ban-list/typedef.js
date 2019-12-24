@@ -6,11 +6,11 @@ export default gql`
     _id: String
     id: String
     name: String
+    lastImported: Date
 
     organization: Organization
 
     battlemetricsBanCount: Int
-
     uniqueBannedSteamIDCount: Int
   }
 `;

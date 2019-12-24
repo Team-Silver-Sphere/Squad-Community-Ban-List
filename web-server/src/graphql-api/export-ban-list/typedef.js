@@ -7,5 +7,6 @@ export default gql`
     name: String
     config: String
     owner: SteamUser
+    lastFetched: Date
   }
 `;
