@@ -12,6 +12,6 @@ export default gql`
 
     uniqueBannedSteamIDCount: Int
 
-    playerBans(steamID: String!): [BattlemetricsBan]
+    playerBans(steamID: String!, expired: Boolean): [BattlemetricsBan]
   }
 `;

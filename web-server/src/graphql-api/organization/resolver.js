@@ -19,14 +19,37 @@ export default {
     },
 
     playerBans: async (parent, filter) => {
-      return BattleMetricsBan.find({
+      let query = {
+        steamID: filter.steamID,
+
         banList: {
           $in: await BattleMetricsBanList.distinct('_id', {
             organization: parent._id
           })
-        },
-        steamID: filter.steamID
-      });
+        }
+      };
+
+      if (filter.expired === true)
+        query = {
+          ...query,
+          expires: { $lt: Date.now() }
+        };
+
+      if (filter.expired === false)
+        query = {
+          $or: [
+            {
+              ...query,
+              expires: null
+            },
+            {
+              ...query,
+              expires: { $gt: Date.now() }
+            }
+          ]
+        };
+
+      return BattleMetricsBan.find(query);
     }
   }
 };

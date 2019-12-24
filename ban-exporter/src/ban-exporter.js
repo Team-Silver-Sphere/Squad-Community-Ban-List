@@ -122,7 +122,18 @@ export default class BanExporter {
   }
 
   async shouldPlayerBeBanned(steamID) {
-    const bans = await BattleMetricsBan.find({ steamID });
+    const bans = await BattleMetricsBan.find({
+      $or: [
+        {
+          steamID,
+          expires: null
+        },
+        {
+          steamID,
+          expires: { $gt: Date.now() }
+        }
+      ]
+    });
 
     let count = 0;
 

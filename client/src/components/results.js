@@ -22,9 +22,12 @@ const query = gql`
       name
       appeal
 
-      playerBans(steamID: $steamID) {
-        uid
-        reason
+      activePlayerBans: playerBans(steamID: $steamID, expired: false) {
+        _id
+      }
+
+      expiredPlayerBans: playerBans(steamID: $steamID, expired: true) {
+        _id
       }
     }
   }
@@ -70,7 +73,7 @@ export default function(props) {
               <h6 className="heading-small text-muted mb-4">Banned on...</h6>
               <Row>
                 {data.organizations.map((organization, key) => {
-                  if (organization.playerBans.length === 0) return null;
+                  if (organization.activePlayerBans.length === 0) return null;
                   return (
                     <Col sm="12" md="6" key={key}>
                       <h4 className="text-danger">
@@ -119,11 +122,32 @@ export default function(props) {
               </Row>
               <hr className="my-4" />
               <h6 className="heading-small text-muted mb-4">
+                Previously banned on...
+              </h6>
+              <Row>
+                {data.organizations.map((organization, key) => {
+                  if (organization.expiredPlayerBans.length === 0) return null;
+                  return (
+                    <Col sm="12" md="6" key={key}>
+                      <h4 className="text-danger">
+                        <i className="fa fa-times mr-2" />
+                        {organization.name}
+                      </h4>
+                    </Col>
+                  );
+                })}
+              </Row>
+              <hr className="my-4" />
+              <h6 className="heading-small text-muted mb-4">
                 Not banned on...
               </h6>
               <Row>
                 {data.organizations.map((organization, key) => {
-                  if (organization.playerBans.length !== 0) return null;
+                  if (
+                    organization.activePlayerBans.length !== 0 ||
+                    organization.expiredPlayerBans.length !== 0
+                  )
+                    return null;
                   return (
                     <Col sm="12" md="6" key={key}>
                       <h4 className="text-success">

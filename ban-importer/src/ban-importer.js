@@ -50,7 +50,6 @@ export default class BanImporter {
     this.importedBanUIDs = [];
 
     const queryParams = new URLSearchParams({
-      'filter[expired]': false,
       'filter[banList]': this.currentBanListID,
       'page[size]': this.pageSize
     });
