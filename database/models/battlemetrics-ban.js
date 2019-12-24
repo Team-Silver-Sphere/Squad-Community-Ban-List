@@ -9,6 +9,8 @@ const BattleMetricsBan = new mongoose.Schema({
 
   steamID: { type: String, require: true },
 
+  expired: { type: Boolean, require: true },
+
   banList: {
     type: mongoose.Types.ObjectId,
     ref: 'BattleMetricsBanList',

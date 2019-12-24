@@ -122,7 +122,7 @@ export default class BanExporter {
   }
 
   async shouldPlayerBeBanned(steamID) {
-    const bans = await BattleMetricsBan.find({
+    const activeBans = await BattleMetricsBan.find({
       $or: [
         {
           steamID,
@@ -135,13 +135,26 @@ export default class BanExporter {
       ]
     });
 
+    const expiredBans = await BattleMetricsBan.find({
+      steamID,
+      expires: { $lt: Date.now() }
+    });
+
     let count = 0;
 
-    for (const ban of bans) {
-      // increase ban count by specified weight or 1.
-      count += this.listConfig[ban.banList] || 1;
+    for (const ban of activeBans) {
+      count +=
+        `${ban.banList}-active` in this.listConfig
+          ? this.listConfig[`${ban.banList}-active`]
+          : 3;
+      if (count >= this.listConfig.threshold) return true;
+    }
 
-      // if the number of times they're banned is greater than the threshold then return true.
+    for (const ban of expiredBans) {
+      count +=
+        `${ban.banList}-expired` in this.listConfig
+          ? this.listConfig[`${ban.banList}-expired`]
+          : 1;
       if (count >= this.listConfig.threshold) return true;
     }
 

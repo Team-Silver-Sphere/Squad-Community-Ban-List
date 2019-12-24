@@ -92,6 +92,11 @@ export default class BanImporter {
         note: ban.attributes.note,
         expires: ban.attributes.expires,
 
+        expired: !(
+          ban.attributes.expires === null ||
+          new Date(ban.attributes.expires) > Date.now()
+        ),
+
         steamID: steamID,
 
         banList: this.currentBanListObjectID
