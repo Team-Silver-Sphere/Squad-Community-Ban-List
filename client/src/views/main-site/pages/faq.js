@@ -74,20 +74,7 @@ export default function() {
             </CardHeader>
             <CardBody>
               <Question>
-                "Remote Ban List" & "Export Ban List", what are they?
-              </Question>
-              <Answer>
-                In the Squad Community Ban List we refer to both "remote ban
-                lists" and "export ban lists". An export ban list is a ban list
-                generated based on the criteria specified when creating the
-                export ban list and the information stored in our database. An
-                export ban list can be imported to your Squad server as a remote
-                ban list using the link, as specified on the{' '}
-                <Link to="/install">Install page</Link>.
-              </Answer>
-              <Question>
-                How can I setup a remote ban list on our server to start
-                benefiting from the Squad Community Ban List?
+                How can I use the Squad Community Ban List on my server?
               </Question>
               <Answer>
                 {Auth.isLoggedIn ? (
@@ -103,56 +90,56 @@ export default function() {
                     the <Link to="/install">Install page</Link>.
                   </>
                 )}{' '}
-                At the bottom of the page you will find the "Create Export Ban
-                List" form, which allows you to create a remote ban list that
-                lists players that should be banned according to the criteria
-                that you specify in the form. Once you create the export ban
-                list it will appear in the export ban list table. To install the
-                remote ban list on your server, click the "Install Remote Ban
-                List" button and follow the instructions in the popup.
+                On the Install page, you will be given the option to "Create
+                Export Ban List". Click it, enter in your criteria and submit
+                the form with the "Create Export Ban List" button at the end.
+              </Answer>
+              <Question>What is an "Export Ban List"?</Question>
+              <Answer>
+                An "Export Ban List" is a ban list generated based on criteria
+                specified when creating the export ban list. If a player meets
+                the criteria then their Steam ID will be included on the export
+                ban list. Export ban lists can be imported into a Squad server
+                via the "remote ban list" functionality. To find out how to
+                install an export ban list as a remote ban list on your server
+                head to the <Link to="/install">Install page</Link> and click
+                the "Install Remote Ban List" button.
+              </Answer>
+              <Question>How does the criteria system work?</Question>
+              <Answer>
+                The criteria consists of a set of weights and a threshold. In
+                order for a player to be banned then the weights must add up to
+                equal or exceed the threshold value.
+                <br />
+                The default weights are 3 for active bans and 1 for expired bans
+                and the default threshold is 9. This means that a player must
+                have 3 active bans to exceed the threshold as 3 active bans
+                times the weight, 3, equals the threshold, 9. Any combination of
+                active and expired bans will cause the player to be banned,
+                providing the weights sum to equal or exceed the threshold. So,
+                for example, a player with 2 active bans and 3 expired bans will
+                also be banned with the default criteria as 2 active bans times
+                the weight, 3, plus 3 expired bans times the weight, 1, exceeds
+                the threshold 9.
               </Answer>
               <Question>
                 Why am I limited to only three export ban lists?
               </Question>
               <Answer>
-                The more export ban lists we host the longer it takes for new
-                bans to be updated in the lists. It is important that our export
-                ban lists are rapidly updated to ensure that malicious players
-                are banned before they can cause too much harm to the Squad
-                community, therefore we limit the number of export ban lists
-                each user can create. If you have a legitimate need for more
-                export ban lists, then please get in touch and we can increase
-                your limit.
-              </Answer>
-              <Question>
-                My export ban list was deleted for some reason. What happened?
-              </Question>
-              <Answer>
-                The more export ban lists we host the longer it takes for new
-                bans to be updated in the lists. It is important that our export
-                ban lists are rapidly updated to ensure that malicious players
-                are banned before they can cause too much harm to the Squad
-                community, therefore we periodically delete export ban lists
-                that have not been accessed, via the remote ban list URL, to
-                prune export ban lists that appear to no longer be being used.
-                If you do not wish for the export ban list to be deleted please
-                fetch the remote ban list at least once a week.
-              </Answer>
-              <Question>"Threshold" & "Weights", what are they?</Question>
-              <Answer>
-                Thresholds and weights are how you specify the criteria for a
-                player to be banned in your export ban list. The threshold
-                specifies the number of times that a player must be banned for
-                them to be included within the export ban list. Weights are
-                specified for each ban list and determine how many bans they
-                count as. For example, if a ban lists weight is 3 and the
-                threshold is 3, then a single ban on this ban list would cause
-                the player to be included within your export ban list. A weight
-                of 0 will mean that bans on this ban list do not contribute to a
-                player meeting the threshold. You can use this if you do not
-                trust a ban list, i.e. you think the partner organisation who
-                owns the ban list does not enforce rules correctly. Unless
-                specified a ban list's weight is 1.
+                The more export ban lists we host the longer it takes for them
+                to be updated when new or changed information is imported from
+                our partner organisation's ban list. It is important that our
+                export ban lists are rapidly updated to ensure that malicious
+                players are banned before they can cause too much harm to the
+                Squad community, therefore we limit the number of export ban
+                lists each user can create. If you have a legitimate need for
+                more export ban lists, then please get in touch and we can
+                increase your limit. In addition to this limit, we periodically
+                delete export ban lists that have not been accessed, via the
+                remote ban list URL, to prune export ban lists that appear to no
+                longer be being used. If you do not wish for the export ban list
+                to be deleted please fetch the remote ban list at least once a
+                week.
               </Answer>
             </CardBody>
           </Card>
@@ -193,10 +180,10 @@ export default function() {
                 What information do you share from our BattleMetrics ban list?
               </Question>
               <Answer>
-                Currently, we only share whether a player is banned on your ban
-                list. Although we store other pieces of information made
-                available through the BattleMetrics API, we do not share this
-                publicly.
+                Currently, we only share whether a player is or has been banned
+                on your server. Although we store other pieces of information
+                made available through the BattleMetrics API, we do not share
+                this publicly.
               </Answer>
               <Question>
                 What access must I provide to my BattleMetrics Ban List?
