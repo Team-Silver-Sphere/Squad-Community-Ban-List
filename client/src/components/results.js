@@ -83,11 +83,7 @@ export default function(props) {
                       {organization.activePlayerBans.length > 1 && (
                         <p className="ml-4 text-danger">
                           This player has {organization.activePlayerBans.length}{' '}
-                          active ban
-                          {organization.activePlayerBans.length > 1
-                            ? 's'
-                            : ''}{' '}
-                          from this organization.
+                          active bans from this organization.
                         </p>
                       )}
                       <AdvancedModal isOpen={false}>
@@ -146,10 +142,7 @@ export default function(props) {
                       {organization.expiredPlayerBans.length > 1 && (
                         <p className="ml-4 text-danger">
                           This player has{' '}
-                          {organization.expiredPlayerBans.length} expired ban
-                          {organization.expiredPlayerBans.length > 1
-                            ? 's'
-                            : ''}{' '}
+                          {organization.expiredPlayerBans.length} expired bans
                           from this organization.
                         </p>
                       )}
