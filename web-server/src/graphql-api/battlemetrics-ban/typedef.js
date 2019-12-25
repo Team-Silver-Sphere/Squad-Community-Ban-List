@@ -9,6 +9,7 @@ export default gql`
     note: String @systemAdminOnly
     steamID: String
     timestamp: Date
+    expires: Date
 
     battlemetricsBanList: BattlemetricsBanList
   }

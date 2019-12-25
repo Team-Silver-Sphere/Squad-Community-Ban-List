@@ -80,6 +80,16 @@ export default function(props) {
                         <i className="fa fa-times mr-2" />
                         {organization.name}
                       </h4>
+                      {organization.activePlayerBans.length > 1 && (
+                        <p className="ml-4 text-danger">
+                          This player has {organization.activePlayerBans.length}{' '}
+                          active ban
+                          {organization.activePlayerBans.length > 1
+                            ? 's'
+                            : ''}{' '}
+                          from this organization.
+                        </p>
+                      )}
                       <AdvancedModal isOpen={false}>
                         {modal => (
                           <>
@@ -133,6 +143,10 @@ export default function(props) {
                         <i className="fa fa-times mr-2" />
                         {organization.name}
                       </h4>
+                      <p className="ml-4 text-danger">
+                        {organization.expiredPlayerBans.length} time
+                        {organization.expiredPlayerBans.length > 1 ? 's' : ''}.
+                      </p>
                     </Col>
                   );
                 })}
