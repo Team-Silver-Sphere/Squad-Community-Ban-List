@@ -29,6 +29,7 @@ const query = gql`
       exportBanLists {
         _id
         name
+        config
         lastFetched
       }
     }
@@ -136,6 +137,39 @@ export default function() {
                                   <code>
                                     {`${window.location.protocol}//${window.location.hostname}/export/${exportBanList._id}`}
                                   </code>
+                                </ModalBody>
+                              </Modal>
+                            </>
+                          )}
+                        </AdvancedModal>
+                        <AdvancedModal isOpen={false}>
+                          {modal => (
+                            <>
+                              <Button
+                                color="warning"
+                                size="sm"
+                                onClick={modal.open}
+                              >
+                                Edit Export Ban List
+                              </Button>
+
+                              <Modal
+                                className="modal-dialog-centered"
+                                isOpen={modal.isOpen}
+                                toggle={modal.close}
+                              >
+                                <ModalHeader toggle={modal.close}>
+                                  Edit Export Ban List
+                                </ModalHeader>
+                                <ModalBody className="bg-secondary">
+                                  <ExportBanListCreate
+                                    _id={exportBanList._id}
+                                    name={exportBanList.name}
+                                    config={exportBanList.config}
+                                    update={true}
+                                    onSubmit={modal.close}
+                                    key={key}
+                                  />
                                 </ModalBody>
                               </Modal>
                             </>

@@ -8,7 +8,7 @@ import { query } from './battlemetrics-ban-lists';
 
 import { ErrorModal, OrganizationSelect } from './index';
 
-const mutation = gql`
+const addMutation = gql`
   mutation AddBattlemetricsBanList(
     $id: String!
     $name: String!
@@ -30,26 +30,64 @@ const mutation = gql`
   }
 `;
 
+const updateMutation = gql`
+  mutation UpdateBattlemetricsBanList(
+    $_id: String!
+    $id: String!
+    $name: String!
+    $organization: String!
+  ) {
+    updateBattlemetricsBanList(
+      _id: $_id
+      id: $id
+      name: $name
+      organization: $organization
+    ) {
+      _id
+      id
+      name
+
+      battlemetricsBanCount
+      uniqueBannedSteamIDCount
+
+      organization {
+        _id
+        name
+      }
+    }
+  }
+`;
+
 class BattlemetricsBanListAdd extends React.Component {
-  state = { id: '', name: '', organization: null };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      id: props.id || '',
+      name: props.name || '',
+      organization: props.organization || null
+    };
+  }
 
   render() {
     return (
       <Mutation
-        mutation={mutation}
+        mutation={this.props.update ? updateMutation : addMutation}
         update={(cache, { data: { addBattlemetricsBanList } }) => {
-          let { battlemetricsBanLists } = cache.readQuery({ query });
-          battlemetricsBanLists = battlemetricsBanLists.concat([
-            addBattlemetricsBanList
-          ]);
-          cache.writeQuery({ query, data: { battlemetricsBanLists } });
+          if (!this.props.update) {
+            let { battlemetricsBanLists } = cache.readQuery({ query });
+            battlemetricsBanLists = battlemetricsBanLists.concat([
+              addBattlemetricsBanList
+            ]);
+            cache.writeQuery({ query, data: { battlemetricsBanLists } });
+            this.setState({ id: '', name: '', organization: null });
+          }
 
-          this.setState({ id: '', name: '', organization: null });
-          if (typeof this.props.onCreate === 'function') this.props.onCreate();
+          if (typeof this.props.onSubmit === 'function') this.props.onSubmit();
         }}
         onError={() => {}}
       >
-        {(addBattlemetricsBanList, { loading, error }) => {
+        {(submitBattlemetricsBanList, { loading, error }) => {
           if (loading)
             return (
               <>
@@ -122,7 +160,12 @@ class BattlemetricsBanListAdd extends React.Component {
                   <Button
                     color="primary"
                     onClick={() => {
-                      addBattlemetricsBanList({ variables: this.state });
+                      submitBattlemetricsBanList({
+                        variables: {
+                          ...this.state,
+                          _id: this.props._id
+                        }
+                      });
                     }}
                     disabled={
                       this.state.id.length === 0 ||
@@ -130,7 +173,7 @@ class BattlemetricsBanListAdd extends React.Component {
                       this.state.organization === null
                     }
                   >
-                    Add Ban List
+                    {this.props.update ? 'Edit' : 'Add'} Ban List
                   </Button>
                 </Col>
               </Row>

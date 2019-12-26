@@ -128,7 +128,7 @@ export default function() {
                           {modal => (
                             <>
                               <Button
-                                color="warning"
+                                color="info"
                                 size="sm"
                                 onClick={modal.open}
                               >
@@ -145,6 +145,40 @@ export default function() {
                                 </ModalHeader>
                                 <ModalBody>
                                   <p>{organization.appeal}</p>
+                                </ModalBody>
+                              </Modal>
+                            </>
+                          )}
+                        </AdvancedModal>
+                        <AdvancedModal isOpen={false}>
+                          {modal => (
+                            <>
+                              <Button
+                                color="warning"
+                                size="sm"
+                                onClick={modal.open}
+                              >
+                                Edit Organisation
+                              </Button>
+
+                              <Modal
+                                className="modal-dialog-centered"
+                                isOpen={modal.isOpen}
+                                toggle={modal.close}
+                              >
+                                <ModalHeader toggle={modal.close}>
+                                  Edit Organisation
+                                </ModalHeader>
+                                <ModalBody className="bg-secondary">
+                                  <OrganizationCreate
+                                    _id={organization._id}
+                                    name={organization.name}
+                                    contact={organization.contact}
+                                    appeal={organization.appeal}
+                                    update={true}
+                                    onSubmit={modal.close}
+                                    key={organization._id}
+                                  />
                                 </ModalBody>
                               </Modal>
                             </>

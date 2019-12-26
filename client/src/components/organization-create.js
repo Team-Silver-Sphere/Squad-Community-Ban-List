@@ -8,7 +8,7 @@ import { query } from './organizations';
 
 import { ErrorModal } from './index';
 
-const mutation = gql`
+const createMutation = gql`
   mutation CreateOrganization(
     $name: String!
     $contact: String!
@@ -30,24 +30,62 @@ const mutation = gql`
   }
 `;
 
+const updateMutation = gql`
+  mutation UpdateOrganization(
+    $_id: String!
+    $name: String!
+    $contact: String!
+    $appeal: String!
+  ) {
+    updateOrganization(
+      _id: $_id
+      name: $name
+      contact: $contact
+      appeal: $appeal
+    ) {
+      _id
+      name
+      contact
+      appeal
+      uniqueBannedSteamIDCount
+
+      battlemetricsBanLists {
+        _id
+        name
+        battlemetricsBanCount
+      }
+    }
+  }
+`;
+
 class OrganizationCreate extends React.Component {
-  state = { name: '', contact: '', appeal: '' };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: props.name || '',
+      contact: props.contact || '',
+      appeal: props.appeal || ''
+    };
+  }
 
   render() {
     return (
       <Mutation
-        mutation={mutation}
+        mutation={this.props.update ? updateMutation : createMutation}
         update={(cache, { data: { createOrganization } }) => {
-          let { organizations } = cache.readQuery({ query });
-          organizations = organizations.concat([createOrganization]);
-          cache.writeQuery({ query, data: { organizations } });
+          if (!this.props.update) {
+            let { organizations } = cache.readQuery({ query });
+            organizations = organizations.concat([createOrganization]);
+            cache.writeQuery({ query, data: { organizations } });
+            this.setState({ name: '', contact: '', appeal: '' });
+          }
 
-          this.setState({ name: '', contact: '', appeal: '' });
-          if (typeof this.props.onCreate === 'function') this.props.onCreate();
+          if (typeof this.props.onSubmit === 'function') this.props.onSubmit();
         }}
         onError={() => {}}
       >
-        {(createOrganization, { loading, error }) => {
+        {(submitOrganization, { loading, error }) => {
           if (loading)
             return (
               <>
@@ -130,7 +168,12 @@ class OrganizationCreate extends React.Component {
                   <Button
                     color="primary"
                     onClick={() => {
-                      createOrganization({ variables: this.state });
+                      submitOrganization({
+                        variables: {
+                          ...this.state,
+                          _id: this.props._id
+                        }
+                      });
                     }}
                     disabled={
                       this.state.name.length === 0 ||
@@ -138,7 +181,7 @@ class OrganizationCreate extends React.Component {
                       this.state.appeal.length === 0
                     }
                   >
-                    Create Organization
+                    {this.props.update ? 'Edit' : 'Create'} Organization
                   </Button>
                 </Col>
               </Row>

@@ -82,6 +82,7 @@ export default function() {
                     <th>Last Imported</th>
                     <th>Bans</th>
                     <th>Unique Steam IDs</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -98,6 +99,44 @@ export default function() {
                         </td>
                         <td>{battlemetricsBanList.battlemetricsBanCount}</td>
                         <td>{battlemetricsBanList.uniqueBannedSteamIDCount}</td>
+                        <td>
+                          <AdvancedModal isOpen={false}>
+                            {modal => (
+                              <>
+                                <Button
+                                  color="warning"
+                                  size="sm"
+                                  onClick={modal.open}
+                                >
+                                  Edit BattleMetrics Ban List
+                                </Button>
+
+                                <Modal
+                                  className="modal-dialog-centered"
+                                  isOpen={modal.isOpen}
+                                  toggle={modal.close}
+                                >
+                                  <ModalHeader toggle={modal.close}>
+                                    Edit BattleMetrics Ban List
+                                  </ModalHeader>
+                                  <ModalBody className="bg-secondary">
+                                    <BattlemetricsBanListAdd
+                                      _id={battlemetricsBanList._id}
+                                      id={battlemetricsBanList.id}
+                                      name={battlemetricsBanList.name}
+                                      organization={
+                                        battlemetricsBanList.organization._id
+                                      }
+                                      update={true}
+                                      onSubmit={modal.close}
+                                      key={battlemetricsBanList._id}
+                                    />
+                                  </ModalBody>
+                                </Modal>
+                              </>
+                            )}
+                          </AdvancedModal>
+                        </td>
                       </tr>
                     )
                   )}

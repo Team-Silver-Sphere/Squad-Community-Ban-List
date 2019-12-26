@@ -23,20 +23,41 @@ const query = gql`
   }
 `;
 
-const mutation = gql`
+const createMutation = gql`
   mutation CreateExportBanList($name: String!, $config: String!) {
     createExportBanList(name: $name, config: $config) {
       _id
       name
+      config
+    }
+  }
+`;
+
+const updateMutation = gql`
+  mutation UpdateExportBanList(
+    $_id: String!
+    $name: String!
+    $config: String!
+  ) {
+    updateExportBanList(_id: $_id, name: $name, config: $config) {
+      _id
+      name
+      config
     }
   }
 `;
 
 class ExportBanListCreate extends React.Component {
-  state = {
-    name: '',
-    threshold: 9
-  };
+  constructor(props) {
+    super(props);
+
+    const config = props.config ? JSON.parse(props.config) : {};
+
+    this.state = {
+      name: props.name || '',
+      ...config
+    };
+  }
 
   render() {
     return (
@@ -67,35 +88,38 @@ class ExportBanListCreate extends React.Component {
 
           return (
             <Mutation
-              mutation={mutation}
+              mutation={this.props.update ? updateMutation : createMutation}
               update={(cache, { data: { createExportBanList } }) => {
-                let oldData = cache.readQuery({ query: updateQuery });
-                let newData = set(
-                  'currentSteamUser.exportBanLists',
-                  oldData.currentSteamUser.exportBanLists.concat([
-                    createExportBanList
-                  ]),
-                  oldData
-                );
-                cache.writeQuery({ query: updateQuery, data: newData });
+                if (!this.props.update) {
+                  let oldData = cache.readQuery({ query: updateQuery });
+                  let newData = set(
+                    'currentSteamUser.exportBanLists',
+                    oldData.currentSteamUser.exportBanLists.concat([
+                      createExportBanList
+                    ]),
+                    oldData
+                  );
+                  cache.writeQuery({ query: updateQuery, data: newData });
 
-                const organizationStates = {};
-                data.organizations.forEach(organization => {
-                  organizationStates[`${organization._id}-active`] = 3;
-                  organizationStates[`${organization._id}-expired`] = 1;
-                });
+                  const organizationStates = {};
+                  data.organizations.forEach(organization => {
+                    organizationStates[`${organization._id}-active`] = 3;
+                    organizationStates[`${organization._id}-expired`] = 1;
+                  });
 
-                this.setState({
-                  ...organizationStates,
-                  name: '',
-                  threshold: 9
-                });
-                if (typeof this.props.onCreate === 'function')
-                  this.props.onCreate();
+                  this.setState({
+                    ...organizationStates,
+                    name: '',
+                    threshold: 9
+                  });
+                }
+
+                if (typeof this.props.onSubmit === 'function')
+                  this.props.onSubmit();
               }}
               onError={() => {}}
             >
-              {(createExportBanList, { loading, error }) => {
+              {(submitExportBanList, { loading, error }) => {
                 if (loading)
                   return (
                     <>
@@ -237,6 +261,7 @@ class ExportBanListCreate extends React.Component {
                               key =>
                                 key !== 'name' &&
                                 this.state[key] !== '0' &&
+                                this.state[key] !== 0 &&
                                 !parseInt(this.state[key])
                             )
                           }
@@ -245,19 +270,25 @@ class ExportBanListCreate extends React.Component {
 
                             Object.keys(this.state).forEach(key => {
                               if (key === 'name') return;
-                              if (this.state[key] === '0') config[key] = 0;
+                              if (
+                                this.state[key] === '0' ||
+                                this.state[key] === 0
+                              )
+                                config[key] = 0;
                               config[key] = parseInt(this.state[key]);
                             });
 
-                            createExportBanList({
+                            submitExportBanList({
                               variables: {
+                                _id: this.props._id,
                                 name: this.state.name,
                                 config: JSON.stringify(config)
                               }
                             });
                           }}
                         >
-                          Create Export Ban List
+                          {this.props.update ? 'Update' : 'Create'} Export Ban
+                          List
                         </Button>
                       </Col>
                     </Row>
