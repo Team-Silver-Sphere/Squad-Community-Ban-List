@@ -108,7 +108,7 @@ export default function() {
                                   size="sm"
                                   onClick={modal.open}
                                 >
-                                  Edit BattleMetrics Ban List
+                                  Edit
                                 </Button>
 
                                 <Modal
