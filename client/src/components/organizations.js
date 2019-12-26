@@ -158,7 +158,7 @@ export default function() {
                                 size="sm"
                                 onClick={modal.open}
                               >
-                                Edit Organisation
+                                Edit
                               </Button>
 
                               <Modal

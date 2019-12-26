@@ -53,7 +53,7 @@ export default function(props) {
               {modal => (
                 <>
                   <Button color="danger" size="sm" onClick={modal.open}>
-                    Delete Export Ban List
+                    Delete
                   </Button>
                   <Modal
                     className="modal-dialog-centered modal-danger"

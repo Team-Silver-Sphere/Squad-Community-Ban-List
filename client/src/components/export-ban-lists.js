@@ -111,7 +111,7 @@ export default function() {
                                 size="sm"
                                 onClick={modal.open}
                               >
-                                Install Remote Ban List
+                                Install
                               </Button>
 
                               <Modal
@@ -159,7 +159,7 @@ export default function() {
                                 toggle={modal.close}
                               >
                                 <ModalHeader toggle={modal.close}>
-                                  Edit Export Ban List
+                                  Edit
                                 </ModalHeader>
                                 <ModalBody className="bg-secondary">
                                   <ExportBanListCreate
