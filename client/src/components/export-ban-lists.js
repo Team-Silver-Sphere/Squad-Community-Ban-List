@@ -150,7 +150,7 @@ export default function() {
                                 size="sm"
                                 onClick={modal.open}
                               >
-                                Edit Export Ban List
+                                Edit
                               </Button>
 
                               <Modal
@@ -159,7 +159,7 @@ export default function() {
                                 toggle={modal.close}
                               >
                                 <ModalHeader toggle={modal.close}>
-                                  Edit
+                                  Edit Export Ban List
                                 </ModalHeader>
                                 <ModalBody className="bg-secondary">
                                   <ExportBanListCreate
