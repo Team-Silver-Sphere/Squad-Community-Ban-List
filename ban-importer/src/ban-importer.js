@@ -59,7 +59,13 @@ export default class BanImporter {
 
   async importPage() {
     // query battlemetrics API for the next page
-    const response = await battlemetricsAPIGateway(this.nextPage);
+    let response;
+    try {
+      response = await battlemetricsAPIGateway(this.nextPage);
+    } catch (err) {
+      console.log(`Error fetching ban list page: ${err.message}`);
+      return;
+    }
 
     for (const ban of response.data) {
       // get the steamID of the player banned.
