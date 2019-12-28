@@ -18,6 +18,7 @@ const addMutation = gql`
       _id
       id
       name
+      lastImported
 
       battlemetricsBanCount
       uniqueBannedSteamIDCount
@@ -46,6 +47,7 @@ const updateMutation = gql`
       _id
       id
       name
+      lastImported
 
       battlemetricsBanCount
       uniqueBannedSteamIDCount

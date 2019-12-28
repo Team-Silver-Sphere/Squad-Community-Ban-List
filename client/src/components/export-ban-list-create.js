@@ -29,6 +29,7 @@ const createMutation = gql`
       _id
       name
       config
+      lastFetched
     }
   }
 `;
@@ -43,6 +44,7 @@ const updateMutation = gql`
       _id
       name
       config
+      lastFetched
     }
   }
 `;
@@ -55,6 +57,7 @@ class ExportBanListCreate extends React.Component {
 
     this.state = {
       name: props.name || '',
+      threshold: config.threshold || '9',
       ...config
     };
   }
