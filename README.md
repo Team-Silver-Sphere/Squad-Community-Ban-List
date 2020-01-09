@@ -2,7 +2,7 @@
 
 <img src="assets/scbl-logo.png" alt="Logo" width="500"/>
 
-#### Persistent Kingdoms Script Set & Admin Panel
+#### Squad Community Ban List
 
 [![GitHub issues](https://img.shields.io/github/issues/Squad-Community-Ban-List/Squad-Community-Ban-List.svg?style=flat-square)](https://github.com/Squad-Community-Ban-List/Squad-Community-Ban-List/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/Squad-Community-Ban-List/Squad-Community-Ban-List.svg?style=flat-square)](https://github.com/Squad-Community-Ban-List/Squad-Community-Ban-List/pulls)
