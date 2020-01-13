@@ -4,8 +4,24 @@ const ExportBanListSchema = new mongoose.Schema({
   name: { type: String, require: true },
   config: { type: String, require: true },
   owner: { type: String, require: true },
+
+  battlemetricsStatus: {
+    type: String,
+    enum: ['disabled', 'queued', 'errored'],
+    require: true,
+    default: 'disabled'
+  },
+  battlemetricsID: { type: String },
+  battlemetricsInvite: { type: String },
+
   lastFetched: { type: Date, require: true, default: Date.now },
-  generated: { type: Boolean, require: true, default: false }
+
+  generatorStatus: {
+    type: String,
+    enum: ['queued', 'completed', 'errored'],
+    require: true,
+    default: 'queued'
+  }
 });
 
 export default mongoose.model('ExportBanList', ExportBanListSchema);

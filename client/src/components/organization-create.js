@@ -21,10 +21,10 @@ const createMutation = gql`
       appeal
       uniqueBannedSteamIDCount
 
-      battlemetricsBanLists {
+      banLists {
         _id
         name
-        battlemetricsBanCount
+        banCount
       }
     }
   }
@@ -49,10 +49,10 @@ const updateMutation = gql`
       appeal
       uniqueBannedSteamIDCount
 
-      battlemetricsBanLists {
+      banLists {
         _id
         name
-        battlemetricsBanCount
+        banCount
       }
     }
   }

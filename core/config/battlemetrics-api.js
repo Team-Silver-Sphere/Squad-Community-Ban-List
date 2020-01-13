@@ -2,7 +2,9 @@ import Bottleneck from 'bottleneck';
 
 import { battlemetricsAPIKey } from './secrets.js';
 
-const battlemetricsAPIHostname = 'https://api.battlemetrics.com/';
+const battlemetricsAPIHostname = 'https://api.battlemetrics.com';
+
+const battlemetricsOrganization = '14987';
 
 const rateLimiter = new Bottleneck({
   reservoir: 60,
@@ -10,4 +12,9 @@ const rateLimiter = new Bottleneck({
   reservoirRefreshInterval: 60 * 1000
 });
 
-export { battlemetricsAPIKey, battlemetricsAPIHostname, rateLimiter };
+export {
+  battlemetricsAPIKey,
+  battlemetricsAPIHostname,
+  battlemetricsOrganization,
+  rateLimiter
+};

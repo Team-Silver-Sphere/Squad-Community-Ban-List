@@ -2,15 +2,20 @@ import ApolloServerKoa from 'apollo-server-koa';
 const { gql } = ApolloServerKoa;
 
 export default gql`
-  type BattlemetricsBanList {
+  type BanList {
     _id: String
-    id: String
+
     name: String
+    type: String
     lastImported: Date
 
     organization: Organization
 
-    battlemetricsBanCount: Int
+    banCount: Int
     uniqueBannedSteamIDCount: Int
+
+    playerBans(steamID: String!, expired: Boolean): [Ban]
+
+    battlemetricsID: String
   }
 `;

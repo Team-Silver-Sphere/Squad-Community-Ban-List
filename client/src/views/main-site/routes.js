@@ -3,7 +3,7 @@ import Login from './pages/login';
 import Install from './pages/install';
 import Search from './pages/search';
 import Organizations from './pages/organizations';
-import BattlemetricsBanLists from './pages/battlemetrics-ban-lists';
+import BanLists from './pages/ban-lists';
 import FAQ from './pages/faq';
 
 import Auth from '../../utils/auth';
@@ -71,7 +71,7 @@ const routes = [
     exact: true,
     name: 'Ban Lists',
     icon: 'fa fa-user-shield',
-    component: BattlemetricsBanLists,
+    component: BanLists,
     display: () => Auth.isLoggedIn && Auth.claim.systemAdmin,
     protected: () => Auth.isLoggedIn && Auth.claim.systemAdmin
   }

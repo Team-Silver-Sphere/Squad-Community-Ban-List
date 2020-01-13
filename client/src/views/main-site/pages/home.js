@@ -6,7 +6,7 @@ import { Card, CardBody, CardHeader, CardTitle, Col, Row } from 'reactstrap';
 import Layout from '../layout/layout';
 
 import {
-  BattlemetricsBanCount,
+  BanCount,
   OrganizationCount,
   UniqueBannedSteamIDCount
 } from '../../../components';
@@ -48,7 +48,7 @@ export default function() {
               <Row>
                 <div className="col">
                   <span className="h2 font-weight-bold mb-0">
-                    <BattlemetricsBanCount />
+                    <BanCount />
                   </span>
                   <CardTitle
                     tag="h5"

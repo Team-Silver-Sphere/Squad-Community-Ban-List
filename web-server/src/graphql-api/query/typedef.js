@@ -6,10 +6,10 @@ export default gql`
     organizations: [Organization]
     organizationCount: Int
 
-    battlemetricsBanLists: [BattlemetricsBanList]
-    battlemetricsBanListCount: Int
+    banLists: [BanList]
+    banListCount: Int
 
-    battlemetricsBanCount: Int
+    banCount: Int
     uniqueBannedSteamIDCount: Int
 
     currentSteamUser: SteamUser

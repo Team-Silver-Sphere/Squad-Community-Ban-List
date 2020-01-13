@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 
 const query = gql`
   query {
-    battlemetricsBanCount
+    banCount
   }
 `;
 
@@ -14,7 +14,7 @@ export default function() {
       {({ loading, error, data }) => {
         if (loading) return 'Loading...';
         if (error) return 'Error...';
-        return data.battlemetricsBanCount;
+        return data.banCount;
       }}
     </Query>
   );

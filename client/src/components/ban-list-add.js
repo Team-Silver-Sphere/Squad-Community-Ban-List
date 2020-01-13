@@ -4,70 +4,83 @@ import { Mutation } from 'react-apollo';
 
 import { Button, FormGroup, FormFeedback, Input, Row, Col } from 'reactstrap';
 
-import { query } from './battlemetrics-ban-lists';
+import { query } from './ban-lists';
 
 import { ErrorModal, OrganizationSelect } from './index';
 
 const addMutation = gql`
-  mutation AddBattlemetricsBanList(
-    $id: String!
+  mutation AddBanList(
     $name: String!
+    $type: String!
     $organization: String!
+    $battlemetricsID: String
   ) {
-    addBattlemetricsBanList(id: $id, name: $name, organization: $organization) {
+    addBanList(
+      name: $name
+      type: $type
+      organization: $organization
+      battlemetricsID: $battlemetricsID
+    ) {
       _id
-      id
       name
+      type
       lastImported
 
-      battlemetricsBanCount
+      banCount
       uniqueBannedSteamIDCount
 
       organization {
         _id
         name
       }
+
+      battlemetricsID
     }
   }
 `;
 
 const updateMutation = gql`
-  mutation UpdateBattlemetricsBanList(
+  mutation UpdateBanList(
     $_id: String!
-    $id: String!
     $name: String!
+    $type: String!
     $organization: String!
+    $battlemetricsID: String
   ) {
-    updateBattlemetricsBanList(
+    updateBanList(
       _id: $_id
-      id: $id
       name: $name
+      type: $type
       organization: $organization
+      battlemetricsID: $battlemetricsID
     ) {
       _id
-      id
       name
+      type
       lastImported
 
-      battlemetricsBanCount
+      banCount
       uniqueBannedSteamIDCount
 
       organization {
         _id
         name
       }
+
+      battlemetricsID
     }
   }
 `;
 
-class BattlemetricsBanListAdd extends React.Component {
+class BanListAdd extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: props.id || '',
       name: props.name || '',
-      organization: props.organization || null
+      type: props.type || 'battlemetrics',
+      organization: props.organization || null,
+      battlemetricsID: props.battlemetricsID || ''
     };
   }
 
@@ -75,13 +88,11 @@ class BattlemetricsBanListAdd extends React.Component {
     return (
       <Mutation
         mutation={this.props.update ? updateMutation : addMutation}
-        update={(cache, { data: { addBattlemetricsBanList } }) => {
+        update={(cache, { data: { addBanList } }) => {
           if (!this.props.update) {
-            let { battlemetricsBanLists } = cache.readQuery({ query });
-            battlemetricsBanLists = battlemetricsBanLists.concat([
-              addBattlemetricsBanList
-            ]);
-            cache.writeQuery({ query, data: { battlemetricsBanLists } });
+            let { banLists } = cache.readQuery({ query });
+            banLists = banLists.concat([addBanList]);
+            cache.writeQuery({ query, data: { banLists } });
             this.setState({ id: '', name: '', organization: null });
           }
 
@@ -89,7 +100,7 @@ class BattlemetricsBanListAdd extends React.Component {
         }}
         onError={() => {}}
       >
-        {(submitBattlemetricsBanList, { loading, error }) => {
+        {(submitBanList, { loading, error }) => {
           if (loading)
             return (
               <>
@@ -103,23 +114,6 @@ class BattlemetricsBanListAdd extends React.Component {
           return (
             <>
               {error && <ErrorModal errors={error.graphQLErrors} />}
-              <Row>
-                <Col>
-                  <label className="form-control-label">Ban List ID</label>
-                  <FormGroup>
-                    <Input
-                      className="form-control-alternative"
-                      type="text"
-                      value={this.state.id}
-                      onChange={event =>
-                        this.setState({ id: event.target.value })
-                      }
-                      invalid={this.state.id.length === 0}
-                    />
-                    <FormFeedback>A ban list ID cannot be blank.</FormFeedback>
-                  </FormGroup>
-                </Col>
-              </Row>
               <Row>
                 <Col>
                   <label className="form-control-label">Ban List Name</label>
@@ -157,12 +151,33 @@ class BattlemetricsBanListAdd extends React.Component {
                   </FormGroup>
                 </Col>
               </Row>
+              <Row>
+                <Col>
+                  <label className="form-control-label">
+                    Battlemetrics Ban List ID
+                  </label>
+                  <FormGroup>
+                    <Input
+                      className="form-control-alternative"
+                      type="text"
+                      value={this.state.battlemetricsID}
+                      onChange={event =>
+                        this.setState({ battlemetricsID: event.target.value })
+                      }
+                      invalid={this.state.battlemetricsID.length === 0}
+                    />
+                    <FormFeedback>
+                      A BattleMetrics ban list ID cannot be blank.
+                    </FormFeedback>
+                  </FormGroup>
+                </Col>
+              </Row>
               <Row className="justify-content-center">
                 <Col className="text-center">
                   <Button
                     color="primary"
                     onClick={() => {
-                      submitBattlemetricsBanList({
+                      submitBanList({
                         variables: {
                           ...this.state,
                           _id: this.props._id
@@ -170,9 +185,9 @@ class BattlemetricsBanListAdd extends React.Component {
                       });
                     }}
                     disabled={
-                      this.state.id.length === 0 ||
                       this.state.name.length === 0 ||
-                      this.state.organization === null
+                      this.state.organization === null ||
+                      this.state.battlemetricsID.length === 0
                     }
                   >
                     {this.props.update ? 'Edit' : 'Add'} Ban List
@@ -187,4 +202,4 @@ class BattlemetricsBanListAdd extends React.Component {
   }
 }
 
-export default BattlemetricsBanListAdd;
+export default BanListAdd;

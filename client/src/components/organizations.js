@@ -21,16 +21,17 @@ const query = gql`
   query {
     organizations {
       _id
+
       name
       contact
       appeal
 
       uniqueBannedSteamIDCount
 
-      battlemetricsBanLists {
+      banLists {
         _id
         name
-        battlemetricsBanCount
+        banCount
       }
     }
   }
@@ -87,13 +88,13 @@ export default function() {
                     <tr key={key}>
                       <th>{organization.name}</th>
                       <td>
-                        {organization.battlemetricsBanLists
+                        {organization.banLists
                           .map(banList => banList.name)
                           .join(', ')}
                       </td>
                       <td>
-                        {organization.battlemetricsBanLists
-                          .map(banList => banList.battlemetricsBanCount)
+                        {organization.banLists
+                          .map(banList => banList.banCount)
                           .reduce((a, b) => a + b, 0)}
                       </td>
                       <td>{organization.uniqueBannedSteamIDCount}</td>
@@ -208,7 +209,7 @@ export default function() {
                               Create Organisation
                             </ModalHeader>
                             <ModalBody className="bg-secondary">
-                              <OrganizationCreate onCreate={modal.close} />
+                              <OrganizationCreate onSubmit={modal.close} />
                             </ModalBody>
                           </Modal>
                         </>

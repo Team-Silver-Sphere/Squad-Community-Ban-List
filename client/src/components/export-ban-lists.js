@@ -30,6 +30,8 @@ const query = gql`
         _id
         name
         config
+        battlemetricsStatus
+        battlemetricsInvite
         lastFetched
       }
     }
@@ -87,6 +89,7 @@ export default function() {
               <thead className="thead-light">
                 <tr>
                   <th>Export Ban List Name</th>
+                  <th>BattleMetrics Enabled</th>
                   <th>Last Fetched</th>
                   <th>Actions</th>
                 </tr>
@@ -97,6 +100,11 @@ export default function() {
                     <tr key={key}>
                       <th>{exportBanList.name}</th>
                       <td>
+                        {exportBanList.battlemetricsStatus !== 'disabled'
+                          ? 'Yes'
+                          : 'No'}
+                      </td>
+                      <td>
                         {moment
                           .utc(exportBanList.lastFetched)
                           .format('DD/MM/YYYY HH:mm')}
@@ -106,12 +114,44 @@ export default function() {
                           {modal => (
                             <>
                               <Button
-                                className="ml-4"
                                 color="info"
                                 size="sm"
                                 onClick={modal.open}
                               >
-                                Install
+                                BattleMetrics Invite
+                              </Button>
+
+                              <Modal
+                                className="modal-dialog-centered"
+                                isOpen={modal.isOpen}
+                                toggle={modal.close}
+                              >
+                                <ModalHeader toggle={modal.close}>
+                                  Remote Ban List
+                                </ModalHeader>
+                                <ModalBody>
+                                  <p>
+                                    To use the export ban list within your
+                                    BattleMetrics organisation please accept the
+                                    following invite.
+                                  </p>
+                                  <code>
+                                    {exportBanList.battlemetricsInvite}
+                                  </code>
+                                </ModalBody>
+                              </Modal>
+                            </>
+                          )}
+                        </AdvancedModal>
+                        <AdvancedModal isOpen={false}>
+                          {modal => (
+                            <>
+                              <Button
+                                color="info"
+                                size="sm"
+                                onClick={modal.open}
+                              >
+                                Remote Ban List
                               </Button>
 
                               <Modal
@@ -201,7 +241,7 @@ export default function() {
                             Create Export Ban List
                           </ModalHeader>
                           <ModalBody className="bg-secondary">
-                            <ExportBanListCreate onCreate={modal.close} />
+                            <ExportBanListCreate onSubmit={modal.close} />
                           </ModalBody>
                         </Modal>
                       </>

@@ -16,23 +16,25 @@ import {
   Table
 } from 'reactstrap';
 
-import { AdvancedModal, BattlemetricsBanListAdd } from './index';
+import { AdvancedModal, BanListAdd } from './index';
 
 const query = gql`
   query {
-    battlemetricsBanLists {
+    banLists {
       _id
-      id
       name
+      type
       lastImported
 
-      battlemetricsBanCount
+      banCount
       uniqueBannedSteamIDCount
 
       organization {
         _id
         name
       }
+
+      battlemetricsID
     }
   }
 `;
@@ -43,7 +45,7 @@ export default function() {
   return (
     <Card className=" shadow">
       <CardHeader className=" bg-transparent">
-        <h3 className=" mb-0">Battlemetrics Ban Lists</h3>
+        <h3 className=" mb-0"> Ban Lists</h3>
       </CardHeader>
 
       <Query query={query} onError={() => {}}>
@@ -76,9 +78,9 @@ export default function() {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th>ID</th>
                     <th>Organization Name</th>
                     <th>Name</th>
+                    <th>Type</th>
                     <th>Last Imported</th>
                     <th>Bans</th>
                     <th>Unique Steam IDs</th>
@@ -86,60 +88,59 @@ export default function() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.battlemetricsBanLists.map(
-                    (battlemetricsBanList, key) => (
-                      <tr key={key}>
-                        <th>{battlemetricsBanList.id}</th>
-                        <td>{battlemetricsBanList.organization.name}</td>
-                        <td>{battlemetricsBanList.name}</td>
-                        <td>
-                          {moment
-                            .utc(battlemetricsBanList.lastImported)
-                            .format('DD/MM/YYYY HH:mm')}
-                        </td>
-                        <td>{battlemetricsBanList.battlemetricsBanCount}</td>
-                        <td>{battlemetricsBanList.uniqueBannedSteamIDCount}</td>
-                        <td>
-                          <AdvancedModal isOpen={false}>
-                            {modal => (
-                              <>
-                                <Button
-                                  color="warning"
-                                  size="sm"
-                                  onClick={modal.open}
-                                >
-                                  Edit
-                                </Button>
+                  {data.banLists.map((banList, key) => (
+                    <tr key={key}>
+                      <th>{banList.organization.name}</th>
+                      <td>{banList.name}</td>
+                      <td>
+                        {banList.type.replace('battlemetrics', 'BattleMetrics')}
+                      </td>
+                      <td>
+                        {moment
+                          .utc(banList.lastImported)
+                          .format('DD/MM/YYYY HH:mm')}
+                      </td>
+                      <td>{banList.banCount}</td>
+                      <td>{banList.uniqueBannedSteamIDCount}</td>
+                      <td>
+                        <AdvancedModal isOpen={false}>
+                          {modal => (
+                            <>
+                              <Button
+                                color="warning"
+                                size="sm"
+                                onClick={modal.open}
+                              >
+                                Edit
+                              </Button>
 
-                                <Modal
-                                  className="modal-dialog-centered"
-                                  isOpen={modal.isOpen}
-                                  toggle={modal.close}
-                                >
-                                  <ModalHeader toggle={modal.close}>
-                                    Edit BattleMetrics Ban List
-                                  </ModalHeader>
-                                  <ModalBody className="bg-secondary">
-                                    <BattlemetricsBanListAdd
-                                      _id={battlemetricsBanList._id}
-                                      id={battlemetricsBanList.id}
-                                      name={battlemetricsBanList.name}
-                                      organization={
-                                        battlemetricsBanList.organization._id
-                                      }
-                                      update={true}
-                                      onSubmit={modal.close}
-                                      key={battlemetricsBanList._id}
-                                    />
-                                  </ModalBody>
-                                </Modal>
-                              </>
-                            )}
-                          </AdvancedModal>
-                        </td>
-                      </tr>
-                    )
-                  )}
+                              <Modal
+                                className="modal-dialog-centered"
+                                isOpen={modal.isOpen}
+                                toggle={modal.close}
+                              >
+                                <ModalHeader toggle={modal.close}>
+                                  Edit BattleMetrics Ban List
+                                </ModalHeader>
+                                <ModalBody className="bg-secondary">
+                                  <BanListAdd
+                                    _id={banList._id}
+                                    name={banList.name}
+                                    type={banList.type}
+                                    organization={banList.organization._id}
+                                    battlemetricsID={banList.battlemetricsID}
+                                    update={true}
+                                    onSubmit={modal.close}
+                                    key={banList._id}
+                                  />
+                                </ModalBody>
+                              </Modal>
+                            </>
+                          )}
+                        </AdvancedModal>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </Table>
               <CardBody>
@@ -149,7 +150,7 @@ export default function() {
                       {modal => (
                         <>
                           <Button color="primary" onClick={modal.open}>
-                            Add BattleMetrics Ban List
+                            Add Ban List
                           </Button>
 
                           <Modal
@@ -161,7 +162,7 @@ export default function() {
                               Add BattleMetrics Ban List
                             </ModalHeader>
                             <ModalBody className="bg-secondary">
-                              <BattlemetricsBanListAdd onCreate={modal.close} />
+                              <BanListAdd onSubmit={modal.close} />
                             </ModalBody>
                           </Modal>
                         </>

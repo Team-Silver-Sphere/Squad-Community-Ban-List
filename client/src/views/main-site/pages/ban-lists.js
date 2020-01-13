@@ -4,14 +4,14 @@ import { Col, Row } from 'reactstrap';
 
 import Layout from '../layout/layout';
 
-import { BattlemetricsBanLists } from '../../../components';
+import { BanLists } from '../../../components';
 
 export default function() {
   return (
     <Layout>
       <Row className="justify-content-center">
         <Col>
-          <BattlemetricsBanLists />
+          <BanLists />
         </Col>
       </Row>
     </Layout>
