@@ -25,6 +25,16 @@ const makeRequest = rateLimiter.wrap(async (method, reqURL, data) => {
       })
     ).data;
   }
+
+  if (method === 'delete') {
+    return (
+      await axios.delete(reqURL, {
+        headers: {
+          Authorization: `Bearer ${battlemetricsAPIKey}`
+        }
+      })
+    ).data;
+  }
 });
 
 export default function(method, reqURL, data = {}, priority = 5) {

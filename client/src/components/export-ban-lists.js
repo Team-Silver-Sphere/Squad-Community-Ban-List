@@ -131,13 +131,31 @@ export default function() {
                                 </ModalHeader>
                                 <ModalBody>
                                   <p>
-                                    To use the export ban list within your
-                                    BattleMetrics organisation please accept the
-                                    following invite.
+                                    {exportBanList.battlemetricsInvite && (
+                                      <>
+                                        To use this export ban list within your
+                                        BattleMetrics organisation please accept
+                                        the our{' '}
+                                        <a
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          href={
+                                            exportBanList.battlemetricsInvite
+                                          }
+                                        >
+                                          ban list invite
+                                        </a>
+                                        .
+                                      </>
+                                    )}
+                                    {!exportBanList.battlemetricsInvite && (
+                                      <>
+                                        We are still in the process of making
+                                        your BattleMetrics ban list. Please
+                                        check back again later.
+                                      </>
+                                    )}
                                   </p>
-                                  <code>
-                                    {exportBanList.battlemetricsInvite}
-                                  </code>
                                 </ModalBody>
                               </Modal>
                             </>
@@ -164,13 +182,13 @@ export default function() {
                                 </ModalHeader>
                                 <ModalBody>
                                   <p>
-                                    To use the export ban list within your Squad
-                                    server the following URL can be added as a
-                                    remote ban list on the server. For
+                                    To use this export ban list within your
+                                    Squad server the following URL can be added
+                                    as a remote ban list on your server. For
                                     information on how to achieve this please
                                     refer to the{' '}
                                     <a href="https://squad.gamepedia.com/Server_Configuration#Remote_Ban_Lists_in_RemoteBanListHosts.cfg">
-                                      Squad Wiki page
+                                      Squad Wiki
                                     </a>
                                     .
                                   </p>

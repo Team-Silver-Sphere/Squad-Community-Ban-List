@@ -7,7 +7,14 @@ export default async (_, args, context) => {
   });
   if (exportBanList === null) throw new Error('Export ban list not found.');
 
-  await ExportBanList.deleteOne({ _id: args._id });
+  if (exportBanList.battlemetricsStatus === 'disabled') {
+    await ExportBanList.deleteOne({ _id: args._id });
+  } else {
+    await ExportBanList.updateOne(
+      { _id: args._id },
+      { battlemetricsStatus: 'deleted' }
+    );
+  }
   await ExportBan.deleteMany({ banList: args._id });
 
   return exportBanList;

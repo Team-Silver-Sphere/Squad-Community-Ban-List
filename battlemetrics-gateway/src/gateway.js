@@ -1,11 +1,11 @@
 import sleep from 'core/utils/sleep';
 
-import BanListCreator from './ban-list-creator.js';
+import BanListManager from './ban-list-manager.js';
 import BanImporter from './ban-importer.js';
 
 export default class Gateway {
   constructor() {
-    this.banListCreator = new BanListCreator();
+    this.banListManager = new BanListManager();
     this.banImporter = new BanImporter();
 
     this.sleepPeriod = 10 * 1000;
@@ -13,8 +13,8 @@ export default class Gateway {
 
   async run() {
     while (true) {
-      if (await this.banListCreator.hasWork()) {
-        await this.banListCreator.doWork();
+      if (await this.banListManager.hasWork()) {
+        await this.banListManager.doWork();
       } else if (await this.banImporter.hasWork()) {
         await this.banImporter.doWork();
       } else {

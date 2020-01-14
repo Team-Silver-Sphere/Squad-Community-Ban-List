@@ -7,7 +7,7 @@ const ExportBanListSchema = new mongoose.Schema({
 
   battlemetricsStatus: {
     type: String,
-    enum: ['disabled', 'queued', 'errored'],
+    enum: ['disabled', 'queued', 'deleted', 'queued-errored', 'deleted-error'],
     require: true,
     default: 'disabled'
   },
