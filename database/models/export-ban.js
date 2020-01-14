@@ -6,6 +6,20 @@ const ExportBanSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: 'ExportBanList',
     require: true
+  },
+
+  battlemetricsStatus: {
+    type: String,
+    enum: [
+      'disabled',
+      'queued',
+      'completed',
+      'deleted',
+      'queued-errored',
+      'deleted-errored'
+    ],
+    require: true,
+    default: 'disabled'
   }
 });
 

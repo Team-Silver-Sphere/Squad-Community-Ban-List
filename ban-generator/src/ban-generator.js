@@ -104,17 +104,39 @@ export default class BanGenerator {
   }
 
   async processPlayer(steamID) {
-    if (this.shouldPlayerBeBanned(steamID)) {
-      await ExportBan.findOneAndUpdate(
-        { steamID, exportBanList: this.exportBanList._id },
-        { steamID, exportBanList: this.exportBanList._id },
-        { upsert: true }
-      );
-    } else {
-      await ExportBan.deleteMany({
+    const shouldBeBanned = await this.shouldPlayerBeBanned(steamID);
+
+    const exportBan = await ExportBan.findOne({
+      steamID,
+      exportBanList: this.exportBanList._id
+    });
+
+    if (shouldBeBanned && exportBan === null) {
+      await ExportBan.create({
         steamID,
-        exportBanList: this.exportBanList._id
+        exportBanList: this.exportBanList._id,
+        battlemetricsStatus:
+          this.exportBanList.battlemetricsStatus === 'disabled'
+            ? 'disabled'
+            : 'queued'
       });
+    }
+
+    if (!shouldBeBanned && exportBan !== null) {
+      if (exportBan.battlemetricsStatus === 'completed') {
+        await ExportBan.updateOne(
+          {
+            steamID,
+            exportBanList: this.exportBanList._id
+          },
+          { battlemetricsStatus: 'deleted' }
+        );
+      } else {
+        await ExportBan.deleteMany({
+          steamID,
+          exportBanList: this.exportBanList._id
+        });
+      }
     }
   }
 
