@@ -142,21 +142,13 @@ export default class BanGenerator {
 
   async shouldPlayerBeBanned(steamID) {
     const activeBans = await Ban.find({
-      $or: [
-        {
-          steamID,
-          expires: null
-        },
-        {
-          steamID,
-          expires: { $gt: Date.now() }
-        }
-      ]
+      steamID,
+      expired: false
     });
 
     const expiredBans = await Ban.find({
       steamID,
-      expires: { $lt: Date.now() }
+      expired: true
     });
 
     let count = 0;

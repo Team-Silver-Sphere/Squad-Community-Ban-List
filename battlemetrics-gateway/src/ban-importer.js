@@ -99,15 +99,16 @@ export default class BanImporter {
       // information to be saved about the ban
       const banRecord = {
         steamID: steamID,
+        expired: !(
+          ban.attributes.expires === null ||
+          new Date(ban.attributes.expires) > Date.now()
+        ),
+
         banList: this.currentBanList._id,
 
         battlemetricsUID: ban.attributes.uid,
         battlemetricsTimestamp: ban.attributes.timestamp,
         battlemetricsExpires: ban.attributes.expires,
-        battlemetricsExpired: !(
-          ban.attributes.expires === null ||
-          new Date(ban.attributes.expires) > Date.now()
-        ),
         battlemetricsReason: ban.attributes.reason,
         battlemetricsNote: ban.attributes.note
       };

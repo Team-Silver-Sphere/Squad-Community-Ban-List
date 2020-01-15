@@ -20,25 +20,7 @@ export default {
         banList: parent._id
       };
 
-      if (filter.expired === true)
-        query = {
-          ...query,
-          expires: { $lt: Date.now() }
-        };
-
-      if (filter.expired === false)
-        query = {
-          $or: [
-            {
-              ...query,
-              expires: null
-            },
-            {
-              ...query,
-              expires: { $gt: Date.now() }
-            }
-          ]
-        };
+      if (filter.expired) query.expired = filter.expired;
 
       return Ban.find(query);
     }

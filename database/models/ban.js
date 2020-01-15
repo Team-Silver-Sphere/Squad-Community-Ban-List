@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const Ban = new mongoose.Schema({
   steamID: { type: String, require: true },
+  expired: { type: Boolean },
 
   banList: {
     type: mongoose.Types.ObjectId,
@@ -13,7 +14,6 @@ const Ban = new mongoose.Schema({
   battlemetricsUID: { type: String },
   battlemetricsTimestamp: { type: Date },
   battlemetricsExpires: { type: Date },
-  battlemetricsExpired: { type: Boolean },
   battlemetricsReason: { type: String },
   battlemetricsNote: { type: String }
 });
