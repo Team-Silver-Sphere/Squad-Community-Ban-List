@@ -2,6 +2,8 @@ import jwtDecode from 'jwt-decode';
 
 import httpClient from './http-client';
 
+import { localStorageVersion } from 'core/config/web-server';
+
 class Auth {
   constructor() {
     this.flush();
@@ -24,6 +26,8 @@ class Auth {
   }
 
   restoreAuth() {
+    if(localStorage.getItem('localStorageVersion') !== localStorageVersion) localStorage.clear();
+
     if (localStorage.getItem('JWT') === null) return false;
     const token = localStorage.getItem('JWT');
 
