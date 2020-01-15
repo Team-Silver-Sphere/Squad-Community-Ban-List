@@ -15,9 +15,15 @@ router.get('/:id', async ctx => {
     return;
   }
 
-  if (!exportBanList.generated) {
+  if (exportBanList.generatorStatus === 'queued') {
     ctx.body =
       '// This export ban list has yet to be generated. Please try again later.';
+    return;
+  }
+
+  if (exportBanList.generatorStatus === 'errored') {
+    ctx.body =
+      '// This export ban list failed to generate. Please edit your export ban list to try again or contact a project manager on our Discord.';
     return;
   }
 
