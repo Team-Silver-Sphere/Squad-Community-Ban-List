@@ -1,11 +1,11 @@
 module.exports = {
   apps: [
     {
-      name: 'ban-exporter',
+      name: 'ban-generator',
       script: 'npm run start-ban-generator'
     },
     {
-      name: 'ban-importer',
+      name: 'battlemetrics-gateway',
       script: 'npm run start-battlemetrics-gateway'
     },
     {

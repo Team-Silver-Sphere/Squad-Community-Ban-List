@@ -20,7 +20,8 @@ const ExportBanSchema = new mongoose.Schema({
     ],
     require: true,
     default: 'disabled'
-  }
+  },
+  battlemetricsID: { type: String }
 });
 
 export default mongoose.model('ExportBan', ExportBanSchema);

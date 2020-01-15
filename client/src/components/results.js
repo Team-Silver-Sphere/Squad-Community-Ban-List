@@ -85,12 +85,15 @@ export default function(props) {
                   )
                     return null;
                   return (
-                    <Col sm="12" md="6" key={key}>
-                      <h2>{organization.name}</h2>
+                    <Col sm="12" md="6" className="mb-2" key={key}>
+                      <h2>
+                        <i className="fa fa-arrow-right mr-2" />
+                        {organization.name}
+                      </h2>
                       {organization.banLists.map((banList, key) => {
                         if (banList.activePlayerBans.length === 0) return null;
                         return (
-                          <div className="ml-4" key={key}>
+                          <div className="ml-5" key={key}>
                             <h3>{banList.name}</h3>
                             <h4 className="ml-3">
                               Active Bans: {banList.activePlayerBans.length}
@@ -151,14 +154,17 @@ export default function(props) {
                   )
                     return null;
                   return (
-                    <Col sm="12" md="6" key={key}>
-                      <h2>{organization.name}</h2>
+                    <Col sm="12" md="6"  className="mb-2" key={key}>
+                      <h2>
+                        <i className="fa fa-arrow-right mr-2" />
+                        {organization.name}
+                      </h2>
                       {organization.banLists.map((banList, key) => {
                         if (banList.expiredPlayerBans.length === 0) return null;
                         return (
-                          <div className="ml-4" key={key}>
+                          <div className="ml-5" key={key}>
                             <h3>{banList.name}</h3>
-                            <h4 className="ml-4">
+                            <h4 className="ml-3">
                               Expired Bans: {banList.expiredPlayerBans.length}
                             </h4>
                           </div>
@@ -177,17 +183,20 @@ export default function(props) {
                   if (
                     organization.banLists.some(
                       banList =>
-                        banList.activePlayerBans !== 0 ||
-                        banList.expiredPlayerBans !== 0
+                        banList.activePlayerBans.length !== 0 ||
+                        banList.expiredPlayerBans.length !== 0
                     )
                   )
                     return null;
 
                   return (
-                    <Col sm="12" md="6" key={key}>
-                      <h2>{organization.name}</h2>
-                      {organization.banList.map((banList, key) => (
-                        <div className="ml-4" key={key}>
+                    <Col sm="12" md="6"  className="mb-2" key={key}>
+                      <h2>
+                        <i className="fa fa-arrow-right mr-2" />
+                        {organization.name}
+                      </h2>
+                      {organization.banLists.map((banList, key) => (
+                        <div className="ml-5" key={key}>
                           <h3>{banList.name}</h3>
                         </div>
                       ))}
