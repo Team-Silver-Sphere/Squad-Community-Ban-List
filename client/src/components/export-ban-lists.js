@@ -189,7 +189,7 @@ export default function() {
                                     To use this export ban list within your
                                     Squad server the following URL can be added
                                     as a remote ban list on your server. For
-                                    information on how to achieve this please
+                                    information on how to achieve this, please
                                     refer to the{' '}
                                     <a href="https://squad.gamepedia.com/Server_Configuration#Remote_Ban_Lists_in_RemoteBanListHosts.cfg">
                                       Squad Wiki

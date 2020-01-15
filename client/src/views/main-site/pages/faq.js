@@ -35,15 +35,16 @@ export default function() {
               </Question>
               <Answer>
                 Being banned on the Squad Community Ban List ("SCBL") depends on
-                the criteria specified by the server you are attempting to play
-                on. The less lenient the criteria the more likely you are to be
-                banned via the SCBL, so you may first wish to try playing on
-                another server before trying to appeal any bans. If you decide
-                you wish to appeal the bans that have caused you to be banned
-                via the SCBL, then our <Link to="/search">Search page</Link>{' '}
-                will allow you to lookup which of our partner organisation's
-                servers you are banned on and provide you with information on
-                how to appeal the bans with our partner organisations.
+                the export ban list criteria specified by the server you are
+                attempting to play on. The less lenient the criteria the more
+                likely you are to be banned via the SCBL, so you may first wish
+                to try playing on another server before trying to appeal any bans.
+                If you decide you wish to appeal the bans that have caused you to
+                be banned via the SCBL, then our{' '}
+                <Link to="/search">Search page</Link> will allow you to lookup
+                which of our partner organisation's servers you are banned on and
+                provide you with information on how to appeal the bans with our
+                partner organisations.
               </Answer>
               <Question>
                 One of your partner organisations won't unban me, can you unban
@@ -58,9 +59,9 @@ export default function() {
                   Official Squad Administrator Guidelines
                 </a>{' '}
                 then you could file a report with OWI. Otherwise, you could try
-                to contact the server organisation you wish to play with in
-                order to get them to change their remote ban list criteria to
-                ensure you are not banned.
+                to contact the server organisation who's server you wish to play
+                in order to get them to change their export ban list criteria to
+                in such a way that you are no longer banned.
               </Answer>
             </CardBody>
           </Card>
@@ -77,40 +78,41 @@ export default function() {
                 How can I use the Squad Community Ban List on my server?
               </Question>
               <Answer>
-                {Auth.isLoggedIn ? (
-                  <>
-                    It appears that you are already logged in, so you simply
-                    need to head over to the{' '}
-                    <Link to="/install">Install page</Link>.
-                  </>
-                ) : (
-                  <>
-                    Firstly, you need to login to the site through our{' '}
-                    <Link to="/login">Login page</Link> and then head over to
-                    the <Link to="/install">Install page</Link>.
-                  </>
-                )}{' '}
-                On the Install page, you will be given the option to "Create
-                Export Ban List". Click it, enter in your criteria and submit
-                the form with the "Create Export Ban List" button at the end.
-              </Answer>
-              <Question>What is an "Export Ban List"?</Question>
-              <Answer>
-                An "Export Ban List" is a ban list generated based on criteria
-                specified when creating the export ban list. If a player meets
-                the criteria then their Steam ID will be included on the export
-                ban list. Export ban lists can be imported into a Squad server
-                via the "remote ban list" functionality. To find out how to
-                install an export ban list as a remote ban list on your server
-                head to the <Link to="/install">Install page</Link> and click
-                the "Install Remote Ban List" button.
+                {
+                  !Auth.isLoggedIn ?
+                    (
+                      <>
+                        Firstly, you must login to the Squad Community Ban List
+                        website via our <Link to="/login">Login page</Link>.
+                        Next, head
+                      </>
+                    ) : (
+                      <>
+                        Head
+                      </>
+                    )
+                }
+                over to the <Link to="/install">Install page</Link>. On this page,
+                you can create an "export ban list" with customizable criteria.
+                Once generated, this export ban list will contain an up-to-date
+                list of players deemed malicious based on your criteria.
+                If you use BattleMetrics then you can opt to enable BattleMetrics
+                and we will create and share a ban list with you for you to import
+                within your BattleMetrics organisation. If you do not use
+                BattleMetrics, fear not, we also provide a link to a remote ban lists
+                that can be imported into your Squad server. For information on how
+                to achieve this, please refer to the{' '}
+                <a href="https://squad.gamepedia.com/Server_Configuration#Remote_Ban_Lists_in_RemoteBanListHosts.cfg">
+                  Squad Wiki
+                </a>
+                .
               </Answer>
               <Question>How does the criteria system work?</Question>
               <Answer>
                 The criteria consists of a set of weights and a threshold. In
                 order for a player to be banned then the weights must add up to
                 equal or exceed the threshold value.
-                <br />
+                <br /><br />
                 The default weights are 3 for active bans and 1 for expired bans
                 and the default threshold is 9. This means that a player must
                 have 3 active bans to exceed the threshold as 3 active bans
@@ -186,7 +188,16 @@ export default function() {
                 this publicly.
               </Answer>
               <Question>
-                What access must I provide to my BattleMetrics Ban List?
+                How do I share my BattleMetrics ban list?
+              </Question>
+              <Answer>
+                An invite can be created and linked to other organisations to
+                allow them to subscribe to view an up to date copy of your ban
+                list. To share a BattleMetrics ban list, please refer to the{' '}
+                <a href="https://www.battlemetrics.com/rcon/ban-lists">ban list page</a>.
+              </Answer>
+              <Question>
+                What access must I provide to my BattleMetrics ban list?
               </Question>
               <Answer>
                 We only require read access to your BattleMetrics ban list. All

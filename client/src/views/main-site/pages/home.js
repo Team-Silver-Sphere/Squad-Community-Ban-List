@@ -105,43 +105,41 @@ export default function() {
             </CardHeader>
             <CardBody>
               <p>
-                The aim of the Squad Community Ban List, "SCBL" for short, is to
-                protect the Squad community's integrity through collaboration
-                and information sharing. This is achieved by pulling information
-                from some of the largest and most reputable server organisations
-                within the Squad community, that we have partnered with, and
-                sharing this information via configurable remote ban lists to
-                allow all server organisations to secure their servers from
-                known malicious players.
+                The aim of the Squad Community Ban List ("SCBL"), is to protect the
+                Squad community's integrity through collaboration and information
+                sharing. This is achieved by compiling ban information from some
+                of the largest and most reputable server organisations within the
+                Squad community, that we have partnered with, and sharing this
+                compiled information via BattleMetrics ban lists or remote ban
+                lists to allow all server organisations to secure their servers
+                from known malicious players.
               </p>
               <span className="font-weight-bold">How it Works:</span>
               <p>
                 <ol>
                   <li>
-                    Our ban importer constantly fetches bans from our partner
-                    organisation's BattleMetrics ban lists via the BattleMetrics
-                    API to ensure our local database contains the most
-                    up-to-date information on known malicious players.
-                  </li>
-                  <li>
+                    Information on bans issued by our partner organisations is
+                    retrieved frequently from BattleMetrics by our automated ban
+                    importer via the BattleMetrics API and is saved into our database.
                     Our database can be searched via our{' '}
-                    <Link to="/search">Search page</Link> to allow our users to
-                    lookup a player's reputation and for players to easily find
-                    out where they are banned and how they can appeal any bans
-                    they have.
+                    <Link to="/search">Search page</Link> to allow server organisations
+                    to lookup a player's reputation and for players to easily find
+                    out where they are banned and how they can appeal these bans with
+                    our partner organisations.
                   </li>
                   <li>
-                    Server organisations can{' '}
-                    <Link to="/install">create custom remote ban lists</Link> to
-                    ensure players meeting their criteria are kept banned form
-                    their server.
+                    Server organisations are able to{' '}
+                    <Link to="/install">create and configure export ban lists</Link>
+                    be specifying high customizable criteria that dictates which
+                    malicious players should be included within their export ban list.
                   </li>
                   <li>
-                    Our ban exporter rapidly updates the remote ban lists as
-                    soon as new bans are added or removed from our database so
-                    that malicious players are banned from your server as early
-                    as possible to limit the harm these players might cause to
-                    your server's community and the wider Squad community.
+                    Our ban generator rapidly updates export ban lists with new
+                    information that has been imported into the database to ensure
+                    that malicious players are removed and bared from playing on
+                    other server organisation's server as quickly as possible to
+                    limit the harm they cause to the server's community and the
+                    wider Squad community.
                   </li>
                 </ol>
               </p>
