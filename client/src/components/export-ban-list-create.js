@@ -38,6 +38,7 @@ const createMutation = gql`
       _id
       name
       config
+      banCount
       battlemetricsStatus
       battlemetricsInvite
       lastFetched
@@ -50,17 +51,12 @@ const updateMutation = gql`
     $_id: String!
     $name: String!
     $config: String!
-    $battlemetricsEnabled: Boolean!
   ) {
-    updateExportBanList(
-      _id: $_id
-      name: $name
-      config: $config
-      battlemetricsEnabled: $battlemetricsEnabled
-    ) {
+    updateExportBanList(_id: $_id, name: $name, config: $config) {
       _id
       name
       config
+      banCount
       battlemetricsStatus
       battlemetricsInvite
       lastFetched
@@ -188,6 +184,7 @@ class ExportBanListCreate extends React.Component {
                                 battlemetricsEnabled: event.target.checked
                               })
                             }
+                            disabled={this.props.update}
                             id="perm-ban"
                           />
                           <label

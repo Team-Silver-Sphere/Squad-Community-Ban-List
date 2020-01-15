@@ -17,7 +17,7 @@ export default class BanManager {
   async doWork() {
     this.exportBan = await ExportBan.findOne({
       battlemetricsStatus: { $in: ['queued', 'deleted'] }
-    }).populate('exportBanList.battlemetricsID');
+    }).populate('exportBanList');
 
     switch (this.exportBan.battlemetricsStatus) {
       case 'queued':
@@ -44,7 +44,7 @@ export default class BanManager {
         `${battlemetricsAPIHostname}/bans`,
         {
           data: {
-            type: 'banList',
+            type: 'ban',
             attributes: {
               autoAddEnabled: true,
               expires: null,
@@ -58,7 +58,7 @@ export default class BanManager {
               nativeEnabled: null,
               note: null,
               reason:
-                'Banned by Squad Community Ban List (squad-community-ban-list.com)'
+                'Banned by the Squad Community Ban List (squad-community-ban-list.com)'
             },
             relationships: {
               organization: {

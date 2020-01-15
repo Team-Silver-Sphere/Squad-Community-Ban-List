@@ -7,6 +7,7 @@ export default gql`
 
     name: String
     config: String
+    banCount: Int
     owner: SteamUser
 
     battlemetricsStatus: String

@@ -54,7 +54,7 @@ export default class BanListManager {
               action: 'none',
               defaultIdentifiers: ['steamID'],
               defaultReasons: [
-                'Banned by Squad Community Ban List (squad-community-ban-list.com)'
+                'Banned by the Squad Community Ban List (squad-community-ban-list.com)'
               ],
               defaultAutoAddEnabled: true
             },

@@ -30,6 +30,7 @@ const query = gql`
         _id
         name
         config
+        banCount
         battlemetricsStatus
         battlemetricsInvite
         lastFetched
@@ -90,6 +91,7 @@ export default function() {
                 <tr>
                   <th>Export Ban List Name</th>
                   <th>BattleMetrics Enabled</th>
+                  <th>Ban Count</th>
                   <th>Last Fetched</th>
                   <th>Actions</th>
                 </tr>
@@ -104,6 +106,7 @@ export default function() {
                           ? 'Yes'
                           : 'No'}
                       </td>
+                      <td>{exportBanList.banCount}</td>
                       <td>
                         {moment
                           .utc(exportBanList.lastFetched)
@@ -117,6 +120,7 @@ export default function() {
                                 color="info"
                                 size="sm"
                                 onClick={modal.open}
+                                disabled={exportBanList.battlemetricsStatus === 'disabled'}
                               >
                                 BattleMetrics Invite
                               </Button>

@@ -21,7 +21,12 @@ router.get('/:id', async ctx => {
     return;
   }
 
-  ctx.body = (await ExportBan.distinct('steamID')).join(':0\n') + ':0';
+  ctx.body =
+    (
+      await ExportBan.distinct('steamID', {
+        battlemetricsStatus: { $nin: ['deleted', 'deleted-errored'] }
+      })
+    ).join(':0\n') + ':0';
 });
 
 export default router;

@@ -12,7 +12,7 @@ export default async (_, args) => {
     {
       name: args.name,
       config: args.config,
-      generated: false
+      generatorStatus: 'queued'
     },
     {
       new: true
