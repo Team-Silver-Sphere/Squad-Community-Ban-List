@@ -1,4 +1,4 @@
-import { Organization, BattleMetricsBanList } from 'database/models';
+import { Organization, BanList } from 'database/models';
 
 export default async (_, args) => {
   let check;
@@ -6,13 +6,7 @@ export default async (_, args) => {
   check = await Organization.findOne({ _id: args.organization });
   if (check === null) throw new Error('Invalid organization ID.');
 
-  check = await BattleMetricsBanList.findOne({
-    _id: { $ne: args._id },
-    id: args.id
-  });
-  if (check !== null) throw new Error('Ban List already in database.');
-
-  check = await BattleMetricsBanList.findOne({
+  check = await BanList.findOne({
     _id: { $ne: args._id },
     name: args.name,
     organization: args.organization
@@ -22,12 +16,21 @@ export default async (_, args) => {
       'This organization already has a ban list with the same name.'
     );
 
-  return BattleMetricsBanList.findOneAndUpdate(
+  if (args.type === 'battlemetrics') {
+    check = await BanList.findOne({
+      _id: { $ne: args._id },
+      battlemetricsID: args.battlemetricsID
+    });
+    if (check !== null) throw new Error('Ban List already in database.');
+  }
+
+  return BanList.findOneAndUpdate(
     { _id: args._id },
     {
-      id: args.id,
       name: args.name,
-      organization: args.organization
+      type: args.type,
+      organization: args.organization,
+      battlemetricsID: args.battlemetricsID
     },
     {
       new: true

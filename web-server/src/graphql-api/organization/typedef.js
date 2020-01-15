@@ -8,10 +8,9 @@ export default gql`
     contact: String @systemAdminOnly
     appeal: String
 
-    battlemetricsBanLists: [BattlemetricsBanList]
-
+    banCount: Int
     uniqueBannedSteamIDCount: Int
 
-    playerBans(steamID: String!, expired: Boolean): [BattlemetricsBan]
+    banLists: [BanList]
   }
 `;

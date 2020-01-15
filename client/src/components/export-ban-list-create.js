@@ -15,20 +15,32 @@ const query = gql`
       _id
       name
 
-      battlemetricsBanLists {
+      banLists {
         _id
         name
+        type
       }
     }
   }
 `;
 
 const createMutation = gql`
-  mutation CreateExportBanList($name: String!, $config: String!) {
-    createExportBanList(name: $name, config: $config) {
+  mutation CreateExportBanList(
+    $name: String!
+    $config: String!
+    $battlemetricsEnabled: Boolean!
+  ) {
+    createExportBanList(
+      name: $name
+      config: $config
+      battlemetricsEnabled: $battlemetricsEnabled
+    ) {
       _id
       name
       config
+      banCount
+      battlemetricsStatus
+      battlemetricsInvite
       lastFetched
     }
   }
@@ -44,6 +56,9 @@ const updateMutation = gql`
       _id
       name
       config
+      banCount
+      battlemetricsStatus
+      battlemetricsInvite
       lastFetched
     }
   }
@@ -57,6 +72,7 @@ class ExportBanListCreate extends React.Component {
 
     this.state = {
       name: props.name || '',
+      battlemetricsEnabled: false,
       threshold: config.threshold || '9',
       ...config
     };
@@ -158,6 +174,30 @@ class ExportBanListCreate extends React.Component {
                     </Row>
                     <Row>
                       <Col>
+                        <div className="custom-control custom-checkbox mb-4">
+                          <input
+                            className="custom-control-input"
+                            type="checkbox"
+                            checked={this.state.battlemetricsEnabled}
+                            onChange={event =>
+                              this.setState({
+                                battlemetricsEnabled: event.target.checked
+                              })
+                            }
+                            disabled={this.props.update}
+                            id="perm-ban"
+                          />
+                          <label
+                            className="custom-control-label"
+                            htmlFor="perm-ban"
+                          >
+                            Battlemetrics Enabled
+                          </label>
+                        </div>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
                         <label className="form-control-label">Threshold</label>
                         <Input
                           className="form-control-alternative"
@@ -175,80 +215,69 @@ class ExportBanListCreate extends React.Component {
                     </h6>
                     <Row>
                       {data.organizations.map((organization, key) => {
-                        if (organization.battlemetricsBanLists.length === 0)
-                          return null;
+                        if (organization.banLists.length === 0) return null;
                         return (
                           <Col sm="12" className="mb-4" key={key}>
                             <h4>{organization.name}</h4>
                             <Row className="pl-4">
-                              {organization.battlemetricsBanLists.map(
-                                (battlemetricsBanList, key) => (
-                                  <Col sm="12" md="6" key={key}>
-                                    <label className="form-control-label">
-                                      {battlemetricsBanList.name} (Active)
-                                    </label>
-                                    <Input
-                                      className="form-control-alternative"
-                                      type="number"
-                                      value={
-                                        `${battlemetricsBanList._id}-active` in
-                                        this.state
-                                          ? this.state[
-                                              `${battlemetricsBanList._id}-active`
-                                            ]
-                                          : 3
+                              {organization.banLists.map((banList, key) => (
+                                <Col sm="12" md="6" key={key}>
+                                  <label className="form-control-label">
+                                    {banList.name} (Active)
+                                  </label>
+                                  <Input
+                                    className="form-control-alternative"
+                                    type="number"
+                                    value={
+                                      `${banList._id}-active` in this.state
+                                        ? this.state[`${banList._id}-active`]
+                                        : 3
+                                    }
+                                    onChange={event => {
+                                      if (event.target.value !== '3')
+                                        this.setState({
+                                          [`${banList._id}-active`]: event
+                                            .target.value
+                                        });
+                                      else {
+                                        delete this.state[
+                                          `${banList._id}-active`
+                                        ];
+                                        this.setState(this.state);
                                       }
-                                      onChange={event => {
-                                        if (event.target.value !== '3')
-                                          this.setState({
-                                            [`${battlemetricsBanList._id}-active`]: event
-                                              .target.value
-                                          });
-                                        else {
-                                          delete this.state[
-                                            `${battlemetricsBanList._id}-active`
-                                          ];
-                                          this.setState(this.state);
-                                        }
-                                      }}
-                                    />
-                                  </Col>
-                                )
-                              )}
-                              {organization.battlemetricsBanLists.map(
-                                (battlemetricsBanList, key) => (
-                                  <Col sm="12" md="6" key={key}>
-                                    <label className="form-control-label">
-                                      {battlemetricsBanList.name} (Expired)
-                                    </label>
-                                    <Input
-                                      className="form-control-alternative"
-                                      type="number"
-                                      value={
-                                        `${battlemetricsBanList._id}-expired` in
-                                        this.state
-                                          ? this.state[
-                                              `${battlemetricsBanList._id}-expired`
-                                            ]
-                                          : 1
+                                    }}
+                                  />
+                                </Col>
+                              ))}
+                              {organization.banLists.map((banList, key) => (
+                                <Col sm="12" md="6" key={key}>
+                                  <label className="form-control-label">
+                                    {banList.name} (Expired)
+                                  </label>
+                                  <Input
+                                    className="form-control-alternative"
+                                    type="number"
+                                    value={
+                                      `${banList._id}-expired` in this.state
+                                        ? this.state[`${banList._id}-expired`]
+                                        : 1
+                                    }
+                                    onChange={event => {
+                                      if (event.target.value !== '1')
+                                        this.setState({
+                                          [`${banList._id}-expired`]: event
+                                            .target.value
+                                        });
+                                      else {
+                                        delete this.state[
+                                          `${banList._id}-expired`
+                                        ];
+                                        this.setState(this.state);
                                       }
-                                      onChange={event => {
-                                        if (event.target.value !== '1')
-                                          this.setState({
-                                            [`${battlemetricsBanList._id}-expired`]: event
-                                              .target.value
-                                          });
-                                        else {
-                                          delete this.state[
-                                            `${battlemetricsBanList._id}-expired`
-                                          ];
-                                          this.setState(this.state);
-                                        }
-                                      }}
-                                    />
-                                  </Col>
-                                )
-                              )}
+                                    }}
+                                  />
+                                </Col>
+                              ))}
                             </Row>
                           </Col>
                         );
@@ -262,7 +291,9 @@ class ExportBanListCreate extends React.Component {
                             this.state.name.length === 0 ||
                             Object.keys(this.state).some(
                               key =>
-                                key !== 'name' &&
+                                !['name', 'battlemetricsEnabled'].includes(
+                                  key
+                                ) &&
                                 this.state[key] !== '0' &&
                                 this.state[key] !== 0 &&
                                 !parseInt(this.state[key])
@@ -272,7 +303,10 @@ class ExportBanListCreate extends React.Component {
                             let config = {};
 
                             Object.keys(this.state).forEach(key => {
-                              if (key === 'name') return;
+                              if (
+                                ['name', 'battlemetricsEnabled'].includes(key)
+                              )
+                                return;
                               if (
                                 this.state[key] === '0' ||
                                 this.state[key] === 0
@@ -285,6 +319,8 @@ class ExportBanListCreate extends React.Component {
                               variables: {
                                 _id: this.props._id,
                                 name: this.state.name,
+                                battlemetricsEnabled: this.state
+                                  .battlemetricsEnabled,
                                 config: JSON.stringify(config)
                               }
                             });

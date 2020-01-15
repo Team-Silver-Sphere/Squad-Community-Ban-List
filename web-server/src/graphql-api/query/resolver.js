@@ -1,9 +1,4 @@
-import {
-  Organization,
-  BattleMetricsBan,
-  BattleMetricsBanList,
-  SteamUser
-} from 'database/models';
+import { Organization, Ban, BanList, SteamUser } from 'database/models';
 
 export default {
   Query: {
@@ -15,20 +10,20 @@ export default {
       return Organization.countDocuments();
     },
 
-    battlemetricsBanLists: async () => {
-      return BattleMetricsBanList.find();
+    banLists: async () => {
+      return BanList.find();
     },
 
-    battlemetricsBanListCount: async () => {
-      return BattleMetricsBanList.countDocuments();
+    banListCount: async () => {
+      return BanList.countDocuments();
     },
 
-    battlemetricsBanCount: async () => {
-      return BattleMetricsBan.countDocuments();
+    banCount: async () => {
+      return Ban.countDocuments();
     },
 
     uniqueBannedSteamIDCount: async () => {
-      return (await BattleMetricsBan.distinct('steamID')).length;
+      return (await Ban.distinct('steamID')).length;
     },
 
     currentSteamUser: async (parent, _, context) => {

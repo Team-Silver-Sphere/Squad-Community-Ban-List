@@ -1,7 +1,5 @@
-import fs from 'fs';
-import path from 'path';
 import Router from 'koa-router';
-import { ExportBanList } from 'database/models';
+import { ExportBan, ExportBanList } from 'database/models';
 
 const router = new Router();
 
@@ -23,16 +21,12 @@ router.get('/:id', async ctx => {
     return;
   }
 
-  const exportBanListPath = path.resolve(
-    `./export-ban-lists/${exportBanList._id}.txt`
-  );
-  if (!fs.existsSync(exportBanListPath)) {
-    ctx.body =
-      '// Looks like this ban list has accidentally been deleted. Please contact a system admin.';
-    return;
-  }
-
-  ctx.body = fs.readFileSync(exportBanListPath, 'utf8');
+  ctx.body =
+    (
+      await ExportBan.distinct('steamID', {
+        battlemetricsStatus: { $nin: ['deleted', 'deleted-errored'] }
+      })
+    ).join(':0\n') + ':0';
 });
 
 export default router;

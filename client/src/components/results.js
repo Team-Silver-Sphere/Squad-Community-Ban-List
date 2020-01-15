@@ -22,12 +22,17 @@ const query = gql`
       name
       appeal
 
-      activePlayerBans: playerBans(steamID: $steamID, expired: false) {
+      banLists {
         _id
-      }
+        name
 
-      expiredPlayerBans: playerBans(steamID: $steamID, expired: true) {
-        _id
+        activePlayerBans: playerBans(steamID: $steamID, expired: false) {
+          _id
+        }
+
+        expiredPlayerBans: playerBans(steamID: $steamID, expired: true) {
+          _id
+        }
       }
     }
   }
@@ -70,22 +75,29 @@ export default function(props) {
 
           return (
             <CardBody>
-              <h6 className="heading-small text-muted mb-4">Banned on...</h6>
+              <h6 className="heading-small text-muted mb-2">Banned on...</h6>
               <Row>
                 {data.organizations.map((organization, key) => {
-                  if (organization.activePlayerBans.length === 0) return null;
+                  if (
+                    organization.banLists.every(
+                      banList => banList.activePlayerBans.length === 0
+                    )
+                  )
+                    return null;
                   return (
                     <Col sm="12" md="6" key={key}>
-                      <h4 className="text-danger">
-                        <i className="fa fa-times mr-2" />
-                        {organization.name}
-                      </h4>
-                      {organization.activePlayerBans.length > 1 && (
-                        <p className="ml-4 text-danger">
-                          This player has {organization.activePlayerBans.length}{' '}
-                          active bans from this organization.
-                        </p>
-                      )}
+                      <h2>{organization.name}</h2>
+                      {organization.banLists.map((banList, key) => {
+                        if (banList.activePlayerBans.length === 0) return null;
+                        return (
+                          <div className="ml-4" key={key}>
+                            <h3>{banList.name}</h3>
+                            <h4 className="ml-3">
+                              Active Bans: {banList.activePlayerBans.length}
+                            </h4>
+                          </div>
+                        );
+                      })}
                       <AdvancedModal isOpen={false}>
                         {modal => (
                           <>
@@ -127,46 +139,58 @@ export default function(props) {
                 })}
               </Row>
               <hr className="my-4" />
-              <h6 className="heading-small text-muted mb-4">
+              <h6 className="heading-small text-muted mb-2">
                 Previously banned on...
               </h6>
               <Row>
                 {data.organizations.map((organization, key) => {
-                  if (organization.expiredPlayerBans.length === 0) return null;
+                  if (
+                    organization.banLists.every(
+                      banList => banList.expiredPlayerBans.length === 0
+                    )
+                  )
+                    return null;
                   return (
                     <Col sm="12" md="6" key={key}>
-                      <h4 className="text-danger">
-                        <i className="fa fa-times mr-2" />
-                        {organization.name}
-                      </h4>
-                      {organization.expiredPlayerBans.length > 1 && (
-                        <p className="ml-4 text-danger">
-                          This player has{' '}
-                          {organization.expiredPlayerBans.length} expired bans
-                          from this organization.
-                        </p>
-                      )}
+                      <h2>{organization.name}</h2>
+                      {organization.banLists.map((banList, key) => {
+                        if (banList.expiredPlayerBans.length === 0) return null;
+                        return (
+                          <div className="ml-4" key={key}>
+                            <h3>{banList.name}</h3>
+                            <h4 className="ml-4">
+                              Expired Bans: {banList.expiredPlayerBans.length}
+                            </h4>
+                          </div>
+                        );
+                      })}
                     </Col>
                   );
                 })}
               </Row>
               <hr className="my-4" />
-              <h6 className="heading-small text-muted mb-4">
+              <h6 className="heading-small text-muted mb-2">
                 Not banned on...
               </h6>
               <Row>
                 {data.organizations.map((organization, key) => {
                   if (
-                    organization.activePlayerBans.length !== 0 ||
-                    organization.expiredPlayerBans.length !== 0
+                    organization.banLists.some(
+                      banList =>
+                        banList.activePlayerBans !== 0 ||
+                        banList.expiredPlayerBans !== 0
+                    )
                   )
                     return null;
+
                   return (
                     <Col sm="12" md="6" key={key}>
-                      <h4 className="text-success">
-                        <i className="fa fa-check mr-2" />
-                        {organization.name}
-                      </h4>
+                      <h2>{organization.name}</h2>
+                      {organization.banList.map((banList, key) => (
+                        <div className="ml-4" key={key}>
+                          <h3>{banList.name}</h3>
+                        </div>
+                      ))}
                     </Col>
                   );
                 })}

@@ -9,18 +9,21 @@
     "assets",
     "core",
     "database",
-    "ban-exporter",
-    "ban-importer",
+    "ban-generator",
+    "battlemetrics-gateway",
     "web-server",
     "client"
   ],
   "scripts": {
     "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
-    "build": "cd client && npm run build",
-    "start-ban-exporter": "node ban-exporter/index.js",
-    "dev-ban-exporter": "nodemon ban-exporter/index.js",
-    "start-ban-importer": "node ban-importer/index.js",
-    "dev-ban-importer": "nodemon ban-importer/index.js",
+
+    "start-ban-generator": "node ban-generator/index.js",
+    "dev-ban-generator": "nodemon ban-generator/index.js",
+
+    "start-battlemetrics-gateway": "node battlemetrics-gateway/index.js",
+    "dev-battlemetrics-gateway": "nodemon battlemetrics-gateway/index.js",
+
+    "build-web-server": "cd client && npm run build",
     "start-web-server": "NODE_ENV=production node web-server/index.js",
     "dev-web-server": "concurrently \"nodemon web-server/index.js\" \"cd client && npm run start\""
   },

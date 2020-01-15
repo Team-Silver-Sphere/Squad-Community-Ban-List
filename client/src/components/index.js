@@ -1,7 +1,7 @@
 import AdvancedModal from './advanced-modal';
-import BattlemetricsBanCount from './battlemetrics-ban-count';
-import BattlemetricsBanListAdd from './battlemetrics-ban-list-add';
-import BattlemetricsBanLists from './battlemetrics-ban-lists';
+import BanCount from './ban-count';
+import BanListAdd from './ban-list-add';
+import BanLists from './ban-lists';
 import ErrorModal from './error-modal';
 import ExportBanListCreate from './export-ban-list-create';
 import ExportBanListDelete from './export-ban-list-delete';
@@ -16,9 +16,9 @@ import UniqueBannedSteamIDCount from './unique-banned-steam-id-count';
 
 export {
   AdvancedModal,
-  BattlemetricsBanCount,
-  BattlemetricsBanListAdd,
-  BattlemetricsBanLists,
+  BanCount,
+  BanListAdd,
+  BanLists,
   ErrorModal,
   ExportBanListCreate,
   ExportBanListDelete,

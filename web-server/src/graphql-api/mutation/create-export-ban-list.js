@@ -17,12 +17,11 @@ export default async (_, args, context) => {
       'You have reached you limit for the number of export ban lists.'
     );
 
-  const exportBanList = new ExportBanList({
-    owner: context.user,
+  return ExportBanList.create({
     name: args.name,
     config: args.config,
-    generated: false
+    owner: context.user,
+    battlemetricsStatus: args.battlemetricsEnabled ? 'queued' : 'disabled',
+    generatorStatus: 'queued'
   });
-  await exportBanList.save();
-  return exportBanList;
 };

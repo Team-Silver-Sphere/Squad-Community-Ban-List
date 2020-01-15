@@ -16,20 +16,26 @@ export default gql`
       appeal: String!
     ): Organization @systemAdminOnly
 
-    addBattlemetricsBanList(
-      id: String!
+    addBanList(
       name: String!
+      type: String!
       organization: String!
-    ): BattlemetricsBanList @systemAdminOnly
+      battlemetricsID: String
+    ): BanList @systemAdminOnly
 
-    updateBattlemetricsBanList(
+    updateBanList(
       _id: String!
-      id: String!
       name: String!
+      type: String!
       organization: String!
-    ): BattlemetricsBanList @systemAdminOnly
+      battlemetricsID: String
+    ): BanList @systemAdminOnly
 
-    createExportBanList(name: String!, config: String!): ExportBanList
+    createExportBanList(
+      name: String!
+      config: String!
+      battlemetricsEnabled: Boolean!
+    ): ExportBanList
     updateExportBanList(
       _id: String!
       name: String!

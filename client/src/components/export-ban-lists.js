@@ -30,6 +30,9 @@ const query = gql`
         _id
         name
         config
+        banCount
+        battlemetricsStatus
+        battlemetricsInvite
         lastFetched
       }
     }
@@ -87,6 +90,8 @@ export default function() {
               <thead className="thead-light">
                 <tr>
                   <th>Export Ban List Name</th>
+                  <th>BattleMetrics Enabled</th>
+                  <th>Ban Count</th>
                   <th>Last Fetched</th>
                   <th>Actions</th>
                 </tr>
@@ -97,6 +102,12 @@ export default function() {
                     <tr key={key}>
                       <th>{exportBanList.name}</th>
                       <td>
+                        {exportBanList.battlemetricsStatus !== 'disabled'
+                          ? 'Yes'
+                          : 'No'}
+                      </td>
+                      <td>{exportBanList.banCount}</td>
+                      <td>
                         {moment
                           .utc(exportBanList.lastFetched)
                           .format('DD/MM/YYYY HH:mm')}
@@ -106,12 +117,12 @@ export default function() {
                           {modal => (
                             <>
                               <Button
-                                className="ml-4"
                                 color="info"
                                 size="sm"
                                 onClick={modal.open}
+                                disabled={exportBanList.battlemetricsStatus === 'disabled'}
                               >
-                                Install
+                                BattleMetrics Invite
                               </Button>
 
                               <Modal
@@ -124,13 +135,64 @@ export default function() {
                                 </ModalHeader>
                                 <ModalBody>
                                   <p>
-                                    To use the export ban list within your Squad
-                                    server the following URL can be added as a
-                                    remote ban list on the server. For
-                                    information on how to achieve this please
+                                    {exportBanList.battlemetricsInvite && (
+                                      <>
+                                        To use this export ban list within your
+                                        BattleMetrics organisation please accept
+                                        the our{' '}
+                                        <a
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          href={
+                                            exportBanList.battlemetricsInvite
+                                          }
+                                        >
+                                          ban list invite
+                                        </a>
+                                        .
+                                      </>
+                                    )}
+                                    {!exportBanList.battlemetricsInvite && (
+                                      <>
+                                        We are still in the process of making
+                                        your BattleMetrics ban list. Please
+                                        check back again later.
+                                      </>
+                                    )}
+                                  </p>
+                                </ModalBody>
+                              </Modal>
+                            </>
+                          )}
+                        </AdvancedModal>
+                        <AdvancedModal isOpen={false}>
+                          {modal => (
+                            <>
+                              <Button
+                                color="info"
+                                size="sm"
+                                onClick={modal.open}
+                              >
+                                Remote Ban List
+                              </Button>
+
+                              <Modal
+                                className="modal-dialog-centered"
+                                isOpen={modal.isOpen}
+                                toggle={modal.close}
+                              >
+                                <ModalHeader toggle={modal.close}>
+                                  Remote Ban List
+                                </ModalHeader>
+                                <ModalBody>
+                                  <p>
+                                    To use this export ban list within your
+                                    Squad server the following URL can be added
+                                    as a remote ban list on your server. For
+                                    information on how to achieve this, please
                                     refer to the{' '}
                                     <a href="https://squad.gamepedia.com/Server_Configuration#Remote_Ban_Lists_in_RemoteBanListHosts.cfg">
-                                      Squad Wiki page
+                                      Squad Wiki
                                     </a>
                                     .
                                   </p>
@@ -201,7 +263,7 @@ export default function() {
                             Create Export Ban List
                           </ModalHeader>
                           <ModalBody className="bg-secondary">
-                            <ExportBanListCreate onCreate={modal.close} />
+                            <ExportBanListCreate onSubmit={modal.close} />
                           </ModalBody>
                         </Modal>
                       </>
