@@ -34,7 +34,7 @@ export default class BanListManager {
   }
 
   log(msg) {
-    console.log(`BanListCreator: ${msg}`);
+    console.log(`BanListManager: ${msg}`);
   }
 
   async createBanList() {
@@ -50,11 +50,13 @@ export default class BanListManager {
           data: {
             type: 'banList',
             attributes: {
-              name: this.exportBanList._id,
+              name: `Squad Community Ban List - ${this.exportBanList.name} (${this.exportBanList._id})`,
               action: 'none',
               defaultIdentifiers: ['steamID'],
-              defaultReasons: ['Banned by squad-community-ban-list.com'],
-              defaultAutoAddEnabled: false
+              defaultReasons: [
+                'Banned by Squad Community Ban List (squad-community-ban-list.com)'
+              ],
+              defaultAutoAddEnabled: true
             },
             relationships: {
               organization: {
