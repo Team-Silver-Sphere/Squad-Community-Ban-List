@@ -26,7 +26,10 @@ class Auth {
   }
 
   restoreAuth() {
-    if(localStorage.getItem('localStorageVersion') !== localStorageVersion) localStorage.clear();
+    if(localStorage.getItem('localStorageVersion') !== localStorageVersion) {
+      localStorage.clear();
+      localStorage.setItem('localStorageVersion', localStorageVersion);
+    }
 
     if (localStorage.getItem('JWT') === null) return false;
     const token = localStorage.getItem('JWT');
