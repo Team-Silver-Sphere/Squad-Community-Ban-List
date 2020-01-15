@@ -129,7 +129,7 @@ export default function() {
                   </li>
                   <li>
                     Server organisations are able to{' '}
-                    <Link to="/install">create and configure export ban lists</Link>
+                    <Link to="/install">create and configure export ban lists</Link>{' '}
                     be specifying high customizable criteria that dictates which
                     malicious players should be included within their export ban list.
                   </li>
