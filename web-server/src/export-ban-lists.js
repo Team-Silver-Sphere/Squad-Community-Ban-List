@@ -30,6 +30,7 @@ router.get('/:id', async ctx => {
   ctx.body =
     (
       await ExportBan.distinct('steamID', {
+        exportBanList: exportBanList._id,
         battlemetricsStatus: { $nin: ['deleted', 'deleted-errored'] }
       })
     ).join(':0\n') + ':0';
