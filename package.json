@@ -16,16 +16,14 @@
   ],
   "scripts": {
     "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
-
     "start-ban-generator": "node ban-generator/index.js",
     "dev-ban-generator": "nodemon ban-generator/index.js",
-
     "start-battlemetrics-gateway": "node battlemetrics-gateway/index.js",
     "dev-battlemetrics-gateway": "nodemon battlemetrics-gateway/index.js",
-
     "build-web-server": "cd client && npm run build",
     "start-web-server": "NODE_ENV=production node web-server/index.js",
-    "dev-web-server": "concurrently \"nodemon web-server/index.js\" \"cd client && npm run start\""
+    "dev-web-server": "concurrently \"nodemon web-server/index.js\" \"cd client && npm run start\"",
+    "generate-api-documentation": "graphql-markdown http://localhost:3001/graphql > api-documentation.md"
   },
   "devDependencies": {
     "concurrently": "^5.0.1",
@@ -40,5 +38,8 @@
     "lint-staged": "^9.4.3",
     "nodemon": "^2.0.1",
     "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "graphql-markdown": "^5.2.0"
   }
 }
