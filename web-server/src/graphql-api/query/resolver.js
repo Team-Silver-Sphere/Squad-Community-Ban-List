@@ -26,6 +26,16 @@ export default {
       return (await Ban.distinct('steamID')).length;
     },
 
+    playerBans: async(parent, filter) => {
+      let query = {
+        steamID: filter.steamID
+      };
+
+      if (filter.expired) query.expired = filter.expired;
+
+      return Ban.find(query);
+    },
+
     currentSteamUser: async (parent, _, context) => {
       return SteamUser.findOne({ steamID: context.user });
     }

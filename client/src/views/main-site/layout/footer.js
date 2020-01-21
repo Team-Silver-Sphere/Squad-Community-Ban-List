@@ -25,6 +25,15 @@ class Footer extends React.Component {
                 <Nav className="nav-footer justify-content-center justify-content-xl-end">
                   <NavItem>
                     <NavLink
+                      href="https://github.com/Squad-Community-Ban-List/Squad-Community-Ban-List/blob/master/api-documentation.md"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fas fa-info-circle" /> API Docs
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
                       href="https://github.com/Squad-Community-Ban-List"
                       target="_blank"
                       rel="noopener noreferrer"

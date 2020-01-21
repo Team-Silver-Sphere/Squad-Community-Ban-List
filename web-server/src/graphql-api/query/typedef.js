@@ -10,7 +10,9 @@ export default gql`
     banListCount: Int
 
     banCount: Int
-    uniqueBannedSteamIDCount: Int
+    uniqueBannedSteamIDCount: Int,
+    
+    playerBans(steamID: String!, expired: Boolean): [Ban]
 
     currentSteamUser: SteamUser
   }
