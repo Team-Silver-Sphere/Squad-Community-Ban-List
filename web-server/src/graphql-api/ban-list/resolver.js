@@ -20,7 +20,7 @@ export default {
         banList: parent._id
       };
 
-      if (filter.expired) query.expired = filter.expired;
+      if ('expired' in filter) query.expired = filter.expired;
 
       return Ban.find(query);
     }
