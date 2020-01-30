@@ -7,8 +7,8 @@ const battlemetricsAPIHostname = 'https://api.battlemetrics.com';
 const battlemetricsOrganization = '14987';
 
 const rateLimiter = new Bottleneck({
-  reservoir: 60,
-  reservoirRefreshAmount: 60,
+  reservoir: 40,
+  reservoirRefreshAmount: 40,
   reservoirRefreshInterval: 60 * 1000
 });
 
