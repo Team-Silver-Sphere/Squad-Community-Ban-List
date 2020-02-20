@@ -3,6 +3,7 @@ import BanCount from './ban-count';
 import BanListAdd from './ban-list-add';
 import BanLists from './ban-lists';
 import ErrorModal from './error-modal';
+import ExportBanCount from './export-ban-count';
 import ExportBanListCreate from './export-ban-list-create';
 import ExportBanListDelete from './export-ban-list-delete';
 import ExportBanLists from './export-ban-lists';
@@ -20,6 +21,7 @@ export {
   BanListAdd,
   BanLists,
   ErrorModal,
+  ExportBanCount,
   ExportBanListCreate,
   ExportBanListDelete,
   ExportBanLists,

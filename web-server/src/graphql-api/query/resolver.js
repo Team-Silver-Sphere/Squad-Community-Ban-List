@@ -1,4 +1,4 @@
-import { Organization, Ban, BanList, SteamUser } from 'database/models';
+import { Organization, Ban, BanList, ExportBan, SteamUser } from 'database/models';
 
 export default {
   Query: {
@@ -34,6 +34,10 @@ export default {
       if ('expired' in filter) query.expired = filter.expired;
 
       return Ban.find(query);
+    },
+
+    exportBanCount: async () => {
+      return ExportBan.countDocuments();
     },
 
     currentSteamUser: async (parent, _, context) => {

@@ -37,6 +37,11 @@ export default gql`
     An array of Bans belonging to a specified SteamID.
     """
     playerBans(steamID: String!, expired: Boolean): [Ban]
+    
+    """
+    The number of bans being exported by SCBL.
+    """
+    exportBanCount: Int
 
     """
     The currently authenticated user's SteamUser profile.

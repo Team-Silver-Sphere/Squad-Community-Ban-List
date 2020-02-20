@@ -8,14 +8,15 @@ import Layout from '../layout/layout';
 import {
   BanCount,
   OrganizationCount,
-  UniqueBannedSteamIDCount
+  UniqueBannedSteamIDCount,
+  ExportBanCount
 } from '../../../components';
 
 export default function() {
   return (
     <Layout>
       <Row className="justify-content-center">
-        <Col md="4">
+        <Col md="3">
           <Card className="card-stats mb-4 mb-xl-0">
             <CardBody>
               <Row>
@@ -42,7 +43,7 @@ export default function() {
             </CardBody>
           </Card>
         </Col>
-        <Col md="4">
+        <Col md="3">
           <Card className="card-stats mb-4 mb-xl-0">
             <CardBody>
               <Row>
@@ -69,7 +70,7 @@ export default function() {
             </CardBody>
           </Card>
         </Col>
-        <Col md="4">
+        <Col md="3">
           <Card className="card-stats mb-4 mb-xl-0">
             <CardBody>
               <Row>
@@ -92,6 +93,33 @@ export default function() {
               </Row>
               <p className="mb-0 text-muted text-sm">
                 info stored in the SCBL system.
+              </p>
+            </CardBody>
+          </Card>
+        </Col>
+        <Col md="3">
+          <Card className="card-stats mb-4 mb-xl-0">
+            <CardBody>
+              <Row>
+                <div className="col">
+                  <span className="h2 font-weight-bold mb-0">
+                    <ExportBanCount />
+                  </span>
+                  <CardTitle
+                    tag="h5"
+                    className="text-uppercase text-muted mb-0"
+                  >
+                    Bans Exported
+                  </CardTitle>
+                </div>
+                <Col className="col-auto">
+                  <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
+                    <i className="fas fa-download" />
+                  </div>
+                </Col>
+              </Row>
+              <p className="mb-0 text-muted text-sm">
+                to servers by the SCBL system.
               </p>
             </CardBody>
           </Card>
