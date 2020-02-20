@@ -92,7 +92,7 @@ export default function() {
                 </Col>
               </Row>
               <p className="mb-0 text-muted text-sm">
-                info stored in the SCBL system.
+                info stored within the SCBL system.
               </p>
             </CardBody>
           </Card>
@@ -119,7 +119,7 @@ export default function() {
                 </Col>
               </Row>
               <p className="mb-0 text-muted text-sm">
-                to servers by the SCBL system.
+                to various popular servers by the SCBL system.
               </p>
             </CardBody>
           </Card>
