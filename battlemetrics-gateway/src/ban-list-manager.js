@@ -1,4 +1,4 @@
-import { ExportBanList } from 'database/models';
+import { ExportBan, ExportBanList } from 'database/models';
 import {
   battlemetricsAPIHostname,
   battlemetricsOrganization
@@ -147,6 +147,7 @@ export default class BanListManager {
         `Deleted ban list for export ban list (${this.exportBanList._id}).`
       );
       await ExportBanList.deleteOne({ _id: this.exportBanList._id });
+      await ExportBan.deleteMany({ exportBanList: this.exportBanList._id });
     } catch (err) {
       this.log(
         `Error deleting ban list for export ban list (${this.exportBanList._id}).`

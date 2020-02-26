@@ -123,7 +123,11 @@ export default class BanGenerator {
     }
 
     if (!shouldBeBanned && exportBan !== null) {
-      if (exportBan.battlemetricsStatus === 'completed') {
+      if (
+        ['completed', 'deleted', 'deleted-errored'].includes(
+          exportBan.battlemetricsStatus
+        )
+      ) {
         await ExportBan.updateOne(
           {
             steamID,
