@@ -7,7 +7,7 @@ export default gql`
     An array of all partner Organizations.
     """
     organizations: [Organization]
-    
+
     """
     The number of partner organizations within the system.
     """
@@ -17,7 +17,7 @@ export default gql`
     An array of all BanLists.
     """
     banLists: [BanList]
-    
+
     """
     The number of ban lists within the system.
     """
@@ -27,17 +27,17 @@ export default gql`
     The number of Bans within the system.
     """
     banCount: Int
-    
+
     """
     The number of unique SteamIDs stored within the system.
     """
-    uniqueBannedSteamIDCount: Int,
-    
+    uniqueBannedSteamIDCount: Int
+
     """
     An array of Bans belonging to a specified SteamID.
     """
     playerBans(steamID: String!, expired: Boolean): [Ban]
-    
+
     """
     The number of bans being exported by SCBL.
     """

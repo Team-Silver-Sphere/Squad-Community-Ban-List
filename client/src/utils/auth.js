@@ -26,7 +26,7 @@ class Auth {
   }
 
   restoreAuth() {
-    if(localStorage.getItem('localStorageVersion') !== localStorageVersion) {
+    if (localStorage.getItem('localStorageVersion') !== localStorageVersion) {
       localStorage.clear();
       localStorage.setItem('localStorageVersion', localStorageVersion);
     }

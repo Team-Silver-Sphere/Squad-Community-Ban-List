@@ -25,6 +25,7 @@ const query = gql`
       name
       contact
       appeal
+      official
 
       uniqueBannedSteamIDCount
 
@@ -176,6 +177,7 @@ export default function() {
                                     name={organization.name}
                                     contact={organization.contact}
                                     appeal={organization.appeal}
+                                    official={organization.official}
                                     update={true}
                                     onSubmit={modal.close}
                                     key={organization._id}

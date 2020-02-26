@@ -1,10 +1,12 @@
 import { ExportBan, ExportBanList } from 'database/models';
 
 export default async (_, args, context) => {
-  const exportBanList = await ExportBanList.findOne({
-    _id: args._id,
-    owner: context.user
-  });
+  const query = { _id: args._id };
+
+  if (!context.isSystemAdmin) {
+    query.owner = context.user;
+  }
+  const exportBanList = await ExportBanList.findOne(query);
   if (exportBanList === null) throw new Error('Export ban list not found.');
 
   if (exportBanList.battlemetricsStatus === 'disabled') {

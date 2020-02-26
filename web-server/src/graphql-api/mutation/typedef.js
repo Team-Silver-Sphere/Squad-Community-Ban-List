@@ -7,6 +7,7 @@ export default gql`
       name: String!
       contact: String!
       appeal: String!
+      official: Boolean!
     ): Organization @systemAdminOnly
 
     updateOrganization(
@@ -14,6 +15,7 @@ export default gql`
       name: String!
       contact: String!
       appeal: String!
+      official: Boolean!
     ): Organization @systemAdminOnly
 
     addBanList(

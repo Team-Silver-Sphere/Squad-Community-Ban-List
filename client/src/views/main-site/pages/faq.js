@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
 
+import { discordLink } from 'core/config/web-server';
+
 import Layout from '../layout/layout';
 
 import Auth from '../../../utils/auth';
@@ -38,13 +40,13 @@ export default function() {
                 the export ban list criteria specified by the server you are
                 attempting to play on. The less lenient the criteria the more
                 likely you are to be banned via the SCBL, so you may first wish
-                to try playing on another server before trying to appeal any bans.
-                If you decide you wish to appeal the bans that have caused you to
-                be banned via the SCBL, then our{' '}
+                to try playing on another server before trying to appeal any
+                bans. If you decide you wish to appeal the bans that have caused
+                you to be banned via the SCBL, then our{' '}
                 <Link to="/search">Search page</Link> will allow you to lookup
-                which of our partner organisation's servers you are banned on and
-                provide you with information on how to appeal the bans with our
-                partner organisations.
+                which of our partner organisation's servers you are banned on
+                and provide you with information on how to appeal the bans with
+                our partner organisations.
               </Answer>
               <Question>
                 One of your partner organisations won't unban me, can you unban
@@ -63,6 +65,27 @@ export default function() {
                 in order to get them to change their export ban list criteria to
                 in such a way that you are no longer banned.
               </Answer>
+              <Question>
+                The search page informs me I've been banned by the Squad
+                Community Ban List. How can I appeal this ban?
+              </Question>
+              <Answer>
+                The Squad Community Ban List ("SCBL") issues bans when strong
+                evidence of a more serious rule break is provided via the OWI
+                Hosting Discord #problem-players / #cheating-reports channels.
+                These bans have a fixed length and can only be appealed under
+                exception circumstances via our{' '}
+                <a href={discordLink}>Discord</a>.
+                <br />
+                <br />
+                These bans fall under three categories with the associated
+                lengths:
+                <ul>
+                  <li>Cheating Ban - Permanent</li>
+                  <li>Trolling (e.g. intentional teamkilling) - One Month</li>
+                  <li>Racism - Two Weeks</li>
+                </ul>
+              </Answer>
             </CardBody>
           </Card>
         </Col>
@@ -78,30 +101,25 @@ export default function() {
                 How can I use the Squad Community Ban List on my server?
               </Question>
               <Answer>
-                {
-                  !Auth.isLoggedIn ?
-                    (
-                      <>
-                        Firstly, you must login to the Squad Community Ban List
-                        website via our <Link to="/login">Login page</Link>.
-                        Next, head
-                      </>
-                    ) : (
-                      <>
-                        Head
-                      </>
-                    )
-                }
-                over to the <Link to="/install">Install page</Link>. On this page,
-                you can create an "export ban list" with customizable criteria.
-                Once generated, this export ban list will contain an up-to-date
-                list of players deemed malicious based on your criteria.
-                If you use BattleMetrics then you can opt to enable BattleMetrics
-                and we will create and share a ban list with you for you to import
-                within your BattleMetrics organisation. If you do not use
-                BattleMetrics, fear not, we also provide a link to a remote ban lists
-                that can be imported into your Squad server. For information on how
-                to achieve this, please refer to the{' '}
+                {!Auth.isLoggedIn ? (
+                  <>
+                    Firstly, you must login to the Squad Community Ban List
+                    website via our <Link to="/login">Login page</Link>. Next,
+                    head
+                  </>
+                ) : (
+                  <>Head</>
+                )}
+                over to the <Link to="/install">Install page</Link>. On this
+                page, you can create an "export ban list" with customizable
+                criteria. Once generated, this export ban list will contain an
+                up-to-date list of players deemed malicious based on your
+                criteria. If you use BattleMetrics then you can opt to enable
+                BattleMetrics and we will create and share a ban list with you
+                for you to import within your BattleMetrics organisation. If you
+                do not use BattleMetrics, fear not, we also provide a link to a
+                remote ban lists that can be imported into your Squad server.
+                For information on how to achieve this, please refer to the{' '}
                 <a href="https://squad.gamepedia.com/Server_Configuration#Remote_Ban_Lists_in_RemoteBanListHosts.cfg">
                   Squad Wiki
                 </a>
@@ -112,7 +130,8 @@ export default function() {
                 The criteria consists of a set of weights and a threshold. In
                 order for a player to be banned then the weights must add up to
                 equal or exceed the threshold value.
-                <br /><br />
+                <br />
+                <br />
                 The default weights are 3 for active bans and 1 for expired bans
                 and the default threshold is 9. This means that a player must
                 have 3 active bans to exceed the threshold as 3 active bans
@@ -164,8 +183,7 @@ export default function() {
                 that contribute information on players the more effective the
                 Squad Community Ban List becomes in protecting the integrity of
                 the Squad community. To become a partner organisation, please
-                contact us via our{' '}
-                <a href="https://discord.gg/fbZdj3q">Discord</a>.
+                contact us via our <a href={discordLink}>Discord</a>.
               </Answer>
               <Question>
                 What do I get out of being a partner organisation?
@@ -187,14 +205,15 @@ export default function() {
                 made available through the BattleMetrics API, we do not share
                 this publicly.
               </Answer>
-              <Question>
-                How do I share my BattleMetrics ban list?
-              </Question>
+              <Question>How do I share my BattleMetrics ban list?</Question>
               <Answer>
                 An invite can be created and linked to other organisations to
                 allow them to subscribe to view an up to date copy of your ban
                 list. To share a BattleMetrics ban list, please refer to the{' '}
-                <a href="https://www.battlemetrics.com/rcon/ban-lists">ban list page</a>.
+                <a href="https://www.battlemetrics.com/rcon/ban-lists">
+                  ban list page
+                </a>
+                .
               </Answer>
               <Question>
                 What access must I provide to my BattleMetrics ban list?
@@ -207,10 +226,9 @@ export default function() {
                 We wish to stop being a partner organisation. How can I do this?
               </Question>
               <Answer>
-                Please contact us via our{' '}
-                <a href="https://discord.gg/fbZdj3q">Discord</a> so we can
-                resolve the issues you have with the Squad Community Ban List
-                and/or arrange your departure.
+                Please contact us via our <a href={discordLink}>Discord</a> so
+                we can resolve the issues you have with the Squad Community Ban
+                List and/or arrange your departure.
               </Answer>
             </CardBody>
           </Card>

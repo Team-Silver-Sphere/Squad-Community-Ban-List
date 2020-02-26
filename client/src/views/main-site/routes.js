@@ -39,16 +39,14 @@ const routes = [
     name: 'Search',
     icon: 'fa fa-search',
     component: Search,
-    display: () => false,
-    protected: () => Auth.isLoggedIn
+    display: () => false
   },
   {
     path: '/search',
     exact: true,
     name: 'Search',
     icon: 'fa fa-search',
-    component: Search,
-    protected: () => Auth.isLoggedIn
+    component: Search
   },
   {
     path: '/faq',

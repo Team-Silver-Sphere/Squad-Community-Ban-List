@@ -1,4 +1,10 @@
-import { Organization, Ban, BanList, ExportBan, SteamUser } from 'database/models';
+import {
+  Organization,
+  Ban,
+  BanList,
+  ExportBan,
+  SteamUser
+} from 'database/models';
 
 export default {
   Query: {
@@ -26,8 +32,8 @@ export default {
       return (await Ban.distinct('steamID')).length;
     },
 
-    playerBans: async(parent, filter) => {
-      let query = {
+    playerBans: async (parent, filter) => {
+      const query = {
         steamID: filter.steamID
       };
 

@@ -1,9 +1,20 @@
-import { BanList } from 'database/models';
+import { BanList, Organization } from 'database/models';
 
 export default {
   Ban: {
+    reason: async parent => {
+      const banList = await BanList.findOne({ _id: parent.banList });
+      const organization = await Organization.findOne({
+        _id: banList.organization
+      });
+
+      console.log(organization.official);
+
+      if (organization.official) return parent.battlemetricsReason;
+      else return null;
+    },
     banList: async parent => {
-      return BanList.find({ _id: parent.banList });
+      return BanList.findOne({ _id: parent.banList });
     }
   }
 };

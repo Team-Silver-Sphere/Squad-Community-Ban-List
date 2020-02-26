@@ -13,7 +13,8 @@ export default async (_, args) => {
     {
       name: args.name,
       contact: args.contact,
-      appeal: args.appeal
+      appeal: args.appeal,
+      official: args.official
     },
     {
       new: true

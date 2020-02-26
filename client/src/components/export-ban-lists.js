@@ -120,7 +120,10 @@ export default function() {
                                 color="info"
                                 size="sm"
                                 onClick={modal.open}
-                                disabled={exportBanList.battlemetricsStatus === 'disabled'}
+                                disabled={
+                                  exportBanList.battlemetricsStatus ===
+                                  'disabled'
+                                }
                               >
                                 BattleMetrics Invite
                               </Button>

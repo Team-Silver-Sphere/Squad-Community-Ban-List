@@ -104,6 +104,15 @@ An array of Bans belonging to a specified SteamID.
 <td></td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>exportBanCount</strong></td>
+<td valign="top"><a href="#int">Int</a></td>
+<td>
+
+The number of bans being exported by SCBL.
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>currentSteamUser</strong></td>
 <td valign="top"><a href="#steamuser">SteamUser</a></td>
 <td>
@@ -147,6 +156,11 @@ The currently authenticated user's SteamUser profile.
 <td></td>
 </tr>
 <tr>
+<td colspan="2" align="right" valign="top">official</td>
+<td valign="top"><a href="#boolean">Boolean</a>!</td>
+<td></td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>updateOrganization</strong></td>
 <td valign="top"><a href="#organization">Organization</a></td>
 <td></td>
@@ -169,6 +183,11 @@ The currently authenticated user's SteamUser profile.
 <tr>
 <td colspan="2" align="right" valign="top">appeal</td>
 <td valign="top"><a href="#string">String</a>!</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="right" valign="top">official</td>
+<td valign="top"><a href="#boolean">Boolean</a>!</td>
 <td></td>
 </tr>
 <tr>
@@ -283,7 +302,7 @@ The currently authenticated user's SteamUser profile.
 
 ### Ban
 
-The Ban type represents a ban imported from one of our partner organisation's ban lists. 
+The Ban type represents a ban imported from one of our partner organisation's ban lists.
 
 <table>
 <thead>
@@ -319,6 +338,15 @@ SteamID of the banned player.
 <td>
 
 The BanList the ban was imported from.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>reason</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+The ban reason. Only for official bans.
 
 </td>
 </tr>
@@ -382,7 +410,7 @@ Accessible to system admins only.
 
 ### BanList
 
-The BanList type represents a ban list, a source of Bans. 
+The BanList type represents a ban list, a source of Bans.
 
 <table>
 <thead>
@@ -492,7 +520,7 @@ Accessible to system admins only.
 
 ### ExportBanList
 
-The ExportBanList type represents an export ban list, a way of exporting a list of banned players from the system. 
+The ExportBanList type represents an export ban list, a way of exporting a list of banned players from the system.
 
 <table>
 <thead>
@@ -581,7 +609,7 @@ The date of when the remote ban list was last fetched.
 
 ### Organization
 
-The Organization type represents a partner organisation that we import bans from. 
+The Organization type represents a partner organisation that we import bans from.
 
 <table>
 <thead>
@@ -632,6 +660,15 @@ Details on the appeal process for the organization.
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>official</strong></td>
+<td valign="top"><a href="#boolean">Boolean</a></td>
+<td>
+
+Whether the list is official, a.k.a. run by SCBL.
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>banCount</strong></td>
 <td valign="top"><a href="#int">Int</a></td>
 <td>
@@ -663,7 +700,7 @@ An array of BanLists belonging to the organization.
 
 ### SteamUser
 
-The SteamUser type represents a Steam user that has logged in to the system. 
+The SteamUser type represents a Steam user that has logged in to the system.
 
 <table>
 <thead>

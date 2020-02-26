@@ -84,7 +84,8 @@ export default class BanImporter {
             'https://steamcommunity.com/profiles/',
             ''
           );
-        else if(identifier.metadata) steamID = identifier.metadata.profile.steamid;
+        else if (identifier.metadata)
+          steamID = identifier.metadata.profile.steamid;
         else continue;
 
         break;

@@ -8,7 +8,8 @@ export default async (_, args) => {
   const organization = new Organization({
     name: args.name,
     contact: args.contact,
-    appeal: args.appeal
+    appeal: args.appeal,
+    official: args.official
   });
   await organization.save();
   return organization;

@@ -13,12 +13,19 @@ const createMutation = gql`
     $name: String!
     $contact: String!
     $appeal: String!
+    $official: Boolean!
   ) {
-    createOrganization(name: $name, contact: $contact, appeal: $appeal) {
+    createOrganization(
+      name: $name
+      contact: $contact
+      appeal: $appeal
+      official: $official
+    ) {
       _id
       name
       contact
       appeal
+      official
       uniqueBannedSteamIDCount
 
       banLists {
@@ -36,17 +43,20 @@ const updateMutation = gql`
     $name: String!
     $contact: String!
     $appeal: String!
+    $official: Boolean!
   ) {
     updateOrganization(
       _id: $_id
       name: $name
       contact: $contact
       appeal: $appeal
+      official: $official
     ) {
       _id
       name
       contact
       appeal
+      official
       uniqueBannedSteamIDCount
 
       banLists {
@@ -65,7 +75,8 @@ class OrganizationCreate extends React.Component {
     this.state = {
       name: props.name || '',
       contact: props.contact || '',
-      appeal: props.appeal || ''
+      appeal: props.appeal || '',
+      official: props.official || false
     };
   }
 
@@ -161,6 +172,26 @@ class OrganizationCreate extends React.Component {
                       must be provided.
                     </FormFeedback>
                   </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className="custom-control custom-checkbox mb-4">
+                    <input
+                      className="custom-control-input"
+                      type="checkbox"
+                      checked={this.state.official}
+                      onChange={event =>
+                        this.setState({
+                          official: event.target.checked
+                        })
+                      }
+                      id="official"
+                    />
+                    <label className="custom-control-label" htmlFor="official">
+                      Official
+                    </label>
+                  </div>
                 </Col>
               </Row>
               <Row className="justify-content-center">

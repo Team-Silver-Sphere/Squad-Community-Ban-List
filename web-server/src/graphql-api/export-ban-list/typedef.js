@@ -3,7 +3,7 @@ const { gql } = ApolloServerKoa;
 
 export default gql`
   """
-  The ExportBanList type represents an export ban list, a way of exporting a list of banned players from the system. 
+  The ExportBanList type represents an export ban list, a way of exporting a list of banned players from the system.
   """
   type ExportBanList {
     """
@@ -15,17 +15,17 @@ export default gql`
     The name of the export ban list.
     """
     name: String
-    
+
     """
     The config / criteria of the export ban list.
     """
     config: String
-    
+
     """
     The number of bans / unique SteamIDs listed within the export ban list.
     """
     banCount: Int
-    
+
     """
     The SteamUser that owns the export ban list.
     """
@@ -35,7 +35,7 @@ export default gql`
     The current status of the associated BattleMetrics ban list.
     """
     battlemetricsStatus: String
-    
+
     """
     An invite to the associated BattleMetrics ban list.
     """

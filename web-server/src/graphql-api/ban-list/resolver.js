@@ -15,7 +15,7 @@ export default {
     },
 
     playerBans: async (parent, filter) => {
-      let query = {
+      const query = {
         steamID: filter.steamID,
         banList: parent._id
       };
