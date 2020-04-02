@@ -8,8 +8,6 @@ export default {
         _id: banList.organization
       });
 
-      console.log(organization.official);
-
       if (organization.official) return parent.battlemetricsReason;
       else return null;
     },
