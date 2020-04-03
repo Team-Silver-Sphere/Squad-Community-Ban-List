@@ -63,9 +63,9 @@ async function main() {
         }
       );
 
-      this.log(`Created ban for ban (${ban._id}).`);
+      console.log(`Created ban for ban (${ban._id}).`);
     } catch (err) {
-      this.log(`Error creating ban for ban (${ban._id}).`);
+      console.log(`Error creating ban for ban (${ban._id}).`);
     }
   }
 }
