@@ -13,7 +13,11 @@ async function main() {
 
   if (banList === null) throw new Error('Ban list not found.');
 
+  console.log(`Internal ban list ID: ${banList._id}`);
+
   const bans = await Ban.find({ banList: banList._id });
+
+  console.log(`Uploading ${bans.length} bans.`);
 
   for (const ban of bans) {
     try {
@@ -62,4 +66,6 @@ async function main() {
   }
 }
 
-main().then(() => console.log('Done!'));
+main()
+  .then(() => console.log('Done!'))
+  .catch(console.log);
