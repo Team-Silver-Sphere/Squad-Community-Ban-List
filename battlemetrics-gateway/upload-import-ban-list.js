@@ -1,3 +1,4 @@
+import connect from 'database/utils/connect';
 import { Ban, BanList } from 'database/models';
 
 import battlemetricsAPIGateway from 'core/utils/battlemetrics-api-gateway';
@@ -8,6 +9,9 @@ import {
 
 async function main() {
   if (process.argv.length !== 4) throw new Error('Invalid number of args.');
+
+  console.log('Connecting to DB.');
+  await connect();
 
   const banList = await BanList.findOne({ battlemetricsID: process.argv[2] });
 
