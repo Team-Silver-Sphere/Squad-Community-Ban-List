@@ -33,7 +33,7 @@ async function main() {
             type: 'ban',
             attributes: {
               autoAddEnabled: true,
-              expires: null,
+              expires: ban.battlemetricsExpires,
               identifiers: [
                 {
                   type: 'steamID',
