@@ -125,7 +125,7 @@ export default function(props) {
                                 </h5>
                                 {organization.official ? (
                                   <h5 className="ml-4">
-                                    Reason: See{' '}
+                                    Classified Reason: See{' '}
                                     <a href={ban.reason[0]}>
                                       OWI Hosting Discord
                                     </a>

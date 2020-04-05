@@ -28,7 +28,7 @@ export default function() {
         <Col>
           <Card className=" shadow">
             <CardHeader className=" bg-transparent">
-              <h3 className=" mb-0">Players</h3>
+              <h3 className=" mb-0">Getting Unbanned</h3>
             </CardHeader>
             <CardBody>
               <Question>
@@ -94,9 +94,16 @@ export default function() {
         <Col>
           <Card className=" shadow">
             <CardHeader className=" bg-transparent">
-              <h3 className=" mb-0">Server Organisations</h3>
+              <h3 className=" mb-0">Using the Squad Community Ban List</h3>
             </CardHeader>
             <CardBody>
+              <Question>How are the ban reasons classified?</Question>
+              <Answer>
+                We classify ban reasons by looking for keywords in any text
+                accompanying the ban in the ban list's source. If a reason is
+                unknown this means that no keywords matched or there is no text
+                supplied with the ban.
+              </Answer>
               <Question>
                 How can I use the Squad Community Ban List on my server?
               </Question>
@@ -155,12 +162,7 @@ export default function() {
                 Squad community, therefore we limit the number of export ban
                 lists each user can create. If you have a legitimate need for
                 more export ban lists, then please get in touch and we can
-                increase your limit. In addition to this limit, we periodically
-                delete export ban lists that have not been accessed, via the
-                remote ban list URL, to prune export ban lists that appear to no
-                longer be being used. If you do not wish for the export ban list
-                to be deleted please fetch the remote ban list at least once a
-                week.
+                increase your limit.
               </Answer>
             </CardBody>
           </Card>
@@ -170,20 +172,20 @@ export default function() {
         <Col>
           <Card className=" shadow">
             <CardHeader className=" bg-transparent">
-              <h3 className=" mb-0">Partner Organizations</h3>
+              <h3 className=" mb-0">
+                Contributing to the Squad Community Ban List
+              </h3>
             </CardHeader>
             <CardBody>
               <Question>How do I become a partner organisation?</Question>
               <Answer>
-                Any server organisation can become a partner organisation. The
-                only requirement is that the organisation must use BattleMetrics
-                to enforce bans as we currently only pull bans from
-                BattleMetrics. We actively encourage server organisations to
-                become partner organisations as the more partner organisations
-                that contribute information on players the more effective the
-                Squad Community Ban List becomes in protecting the integrity of
-                the Squad community. To become a partner organisation, please
-                contact us via our <a href={discordLink}>Discord</a>.
+                Any server organisation can become a partner organisation. We
+                actively encourage server organisations to become partner
+                organisations as the more partner organisations that contribute
+                information on players the more effective the Squad Community
+                Ban List becomes in protecting the integrity of the Squad
+                community. To become a partner organisation, please contact us
+                via our <a href={discordLink}>Discord</a>.
               </Answer>
               <Question>
                 What do I get out of being a partner organisation?
@@ -197,15 +199,18 @@ export default function() {
                 consider contributing to thank others for their contributions.
               </Answer>
               <Question>
-                What information do you share from our BattleMetrics ban list?
+                What information do you share from our ban list?
               </Question>
               <Answer>
-                Currently, we only share whether a player is or has been banned
-                on your server. Although we store other pieces of information
-                made available through the BattleMetrics API, we do not share
-                this publicly.
+                Currently, for each ban in your ban list we share the Steam ID
+                of the banned player, the creation date, expiry date and a
+                classified reason by looking for keywords in the ban reason and
+                note, if using Battlemetrics.
               </Answer>
-              <Question>How do I share my BattleMetrics ban list?</Question>
+              <Question>
+                How do I share my BattleMetrics ban list in order to help
+                contribute?
+              </Question>
               <Answer>
                 An invite can be created and linked to other organisations to
                 allow them to subscribe to view an up to date copy of your ban
