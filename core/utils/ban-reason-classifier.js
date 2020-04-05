@@ -1,8 +1,23 @@
 const reasons = {
-  Teamkilling: /teamkill/i,
-  Trolling: /trolling/i,
-  Racism: /racism/i,
-  Cheating: /cheating|hacking/i,
+  Teamkilling: /teamkill|\btk(?:ing|s)?\b/i,
+
+  Trolling: /troll/i,
+  Griefing: /grief/i,
+  'Wasting Assets': /wasting assets|destroying assets|wasting resources/i,
+  'Soloing Vehicles': /solo/i,
+
+  Ghosting: /ghosting/i,
+
+  Camping: /camping/i,
+
+  Toxic: /toxic/i,
+  Racism: /racism|racist|racial/i,
+  Hatespeach: /hate ?speach|derogatory/i,
+  Sexism: /sexism/i,
+
+  Recruiting: /recruiting/i,
+
+  Cheating: /cheats|cheating|hacking/i,
   Glitching: /glitching/i,
   Exploiting: /exploiting/i
 };
