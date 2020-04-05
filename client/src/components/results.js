@@ -1,6 +1,7 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
+import moment from 'moment';
 
 import { discordLink } from 'core/config/web-server';
 
@@ -10,7 +11,6 @@ import {
   CardHeader,
   Row,
   Col,
-  Button,
   Modal,
   ModalHeader,
   ModalBody
@@ -32,11 +32,15 @@ const query = gql`
 
         activePlayerBans: playerBans(steamID: $steamID, expired: false) {
           _id
+          created
+          expires
           reason
         }
 
         expiredPlayerBans: playerBans(steamID: $steamID, expired: true) {
           _id
+          created
+          expires
           reason
         }
       }
@@ -99,85 +103,111 @@ export default function(props) {
                       {organization.banLists.map((banList, key) => {
                         if (banList.activePlayerBans.length === 0) return null;
 
-                        if (organization.official)
-                          return (
-                            <div className="ml-5" key={key}>
-                              <h3>{banList.name}</h3>
-                              {banList.activePlayerBans.map((ban, key) => (
-                                <div key={key}>
-                                  <h4 className="ml-3">Ban #{key + 1}</h4>
+                        return (
+                          <div className="ml-5" key={key}>
+                            <h3>{banList.name}</h3>
+                            {banList.activePlayerBans.map((ban, key) => (
+                              <div key={key}>
+                                <h4 className="ml-3">Ban #{key + 1}</h4>
+                                <h5 className="ml-4">
+                                  Created:{' '}
+                                  {moment(ban.created).format(
+                                    'hh:mm DD/MM/YYYY'
+                                  )}
+                                </h5>
+                                <h5 className="ml-4">
+                                  Expires:{' '}
+                                  {ban.expires === null
+                                    ? 'Permanent Ban'
+                                    : moment(ban.expires).format(
+                                        'hh:mm DD/MM/YYYY'
+                                      )}
+                                </h5>
+                                {organization.official ? (
                                   <h5 className="ml-4">
                                     Reason: See{' '}
-                                    <a href={ban.reason}>OWI Hosting Discord</a>
+                                    <a href={ban.reason[0]}>
+                                      OWI Hosting Discord
+                                    </a>
                                   </h5>
-                                </div>
-                              ))}
-                            </div>
-                          );
-                        else
-                          return (
-                            <div className="ml-5" key={key}>
-                              <h3>{banList.name}</h3>
-                              <h4 className="ml-3">
-                                Active Bans: {banList.activePlayerBans.length}
-                              </h4>
-                            </div>
-                          );
-                      })}
-                      <AdvancedModal isOpen={false}>
-                        {modal => (
-                          <>
-                            <Button
-                              className="ml-4"
-                              color="warning"
-                              size="sm"
-                              onClick={modal.open}
-                            >
-                              Appeal
-                            </Button>
-
-                            <Modal
-                              className="modal-dialog-centered"
-                              isOpen={modal.isOpen}
-                              toggle={modal.close}
-                            >
-                              <ModalHeader toggle={modal.close}>
-                                Appeal Process
-                              </ModalHeader>
-                              <ModalBody>
-                                {organization.official ? (
-                                  <p className="font-italic">
-                                    The Squad Community Ban List has issued this
-                                    ban as the result of strong evidence being
-                                    provided of a more serious rule break
-                                    occurring. This ban has a fixed length and
-                                    can only be appealed under exception
-                                    circumstances via our{' '}
-                                    <a href={discordLink}>Discord</a>. Please
-                                    see our <Link to="/faq">FAQ</Link> for more
-                                    details.
-                                  </p>
                                 ) : (
-                                  <>
-                                    <p className="font-italic">
-                                      "{organization.name}" is responsible for
-                                      the issuing of bans on this ban list. The
-                                      Squad Community Ban List organization has
-                                      no say over the issuing of bans on this
-                                      ban list and therefore does not handle
-                                      appeals. All appeals for bans on this ban
-                                      list should be made with "
-                                      {organization.name}". Appeals can be made
-                                      by:
-                                    </p>
-                                    <p>{organization.appeal}</p>
-                                  </>
+                                  <h5 className="ml-4">
+                                    Reason:{' '}
+                                    {ban.reason.length > 0
+                                      ? ban.reason.join(', ')
+                                      : 'Unknown'}
+                                  </h5>
                                 )}
-                              </ModalBody>
-                            </Modal>
-                          </>
-                        )}
-                      </AdvancedModal>
+                                <AdvancedModal isOpen={false}>
+                                  {modal => (
+                                    <>
+                                      <h5 className="ml-4">
+                                        Appeal:{' '}
+                                        <span
+                                          style={{
+                                            color: '#5e72e4',
+                                            textDecoration: 'none',
+                                            backgroundColor: 'transparent',
+                                            cursor: 'pointer'
+                                          }}
+                                          onClick={modal.open}
+                                        >
+                                          View Details
+                                        </span>
+                                      </h5>
+
+                                      <Modal
+                                        className="modal-dialog-centered"
+                                        isOpen={modal.isOpen}
+                                        toggle={modal.close}
+                                      >
+                                        <ModalHeader toggle={modal.close}>
+                                          Appeal Process
+                                        </ModalHeader>
+                                        <ModalBody>
+                                          {organization.official ? (
+                                            <p className="font-italic">
+                                              The Squad Community Ban List has
+                                              issued this ban as the result of
+                                              strong evidence being provided of
+                                              a more serious rule break
+                                              occurring. This ban has a fixed
+                                              length and can only be appealed
+                                              under exception circumstances via
+                                              our{' '}
+                                              <a href={discordLink}>Discord</a>.
+                                              Please see our{' '}
+                                              <Link to="/faq">FAQ</Link> for
+                                              more details.
+                                            </p>
+                                          ) : (
+                                            <>
+                                              <p className="font-italic">
+                                                "{organization.name}" is
+                                                responsible for the issuing of
+                                                bans on this ban list. The Squad
+                                                Community Ban List organization
+                                                has no say over the issuing of
+                                                bans on this ban list and
+                                                therefore does not handle
+                                                appeals. All appeals for bans on
+                                                this ban list should be made
+                                                with "{organization.name}".
+                                                Appeals can be made by:
+                                              </p>
+                                              <p>{organization.appeal}</p>
+                                            </>
+                                          )}
+                                        </ModalBody>
+                                      </Modal>
+                                    </>
+                                  )}
+                                </AdvancedModal>
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      })}
                     </Col>
                   );
                 })}
@@ -203,27 +233,45 @@ export default function(props) {
                       {organization.banLists.map((banList, key) => {
                         if (banList.expiredPlayerBans.length === 0) return null;
 
-                        if (organization.official)
-                          return (
-                            <div className="ml-5" key={key}>
-                              <h3>{banList.name}</h3>
-                              {banList.expiredPlayerBans.map((ban, key) => (
-                                <div key={key}>
-                                  <h4 className="ml-3">Ban #{key + 1}</h4>
-                                  <h5 className="ml-4">Reason: {ban.reason}</h5>
-                                </div>
-                              ))}
-                            </div>
-                          );
-                        else
-                          return (
-                            <div className="ml-5" key={key}>
-                              <h3>{banList.name}</h3>
-                              <h4 className="ml-3">
-                                Expired Bans: {banList.expiredPlayerBans.length}
-                              </h4>
-                            </div>
-                          );
+                        return (
+                          <div className="ml-5" key={key}>
+                            <h3>{banList.name}</h3>
+                            {banList.expiredPlayerBans.map((ban, key) => (
+                              <div key={key}>
+                                <h4 className="ml-3">Ban #{key + 1}</h4>
+                                <h5 className="ml-4">
+                                  Created:{' '}
+                                  {moment(ban.created).format(
+                                    'hh:mm DD/MM/YYYY'
+                                  )}
+                                </h5>
+                                <h5 className="ml-4">
+                                  Expired On:{' '}
+                                  {ban.expires === null
+                                    ? 'Permanent Ban'
+                                    : moment(ban.expires).format(
+                                        'hh:mm DD/MM/YYYY'
+                                      )}
+                                </h5>
+                                {organization.official ? (
+                                  <h5 className="ml-4">
+                                    Reason: See{' '}
+                                    <a href={ban.reason[0]}>
+                                      OWI Hosting Discord
+                                    </a>
+                                  </h5>
+                                ) : (
+                                  <h5 className="ml-4">
+                                    Reason:{' '}
+                                    {ban.reason.length > 0
+                                      ? ban.reason.join(', ')
+                                      : 'Unknown'}
+                                  </h5>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        );
                       })}
                     </Col>
                   );

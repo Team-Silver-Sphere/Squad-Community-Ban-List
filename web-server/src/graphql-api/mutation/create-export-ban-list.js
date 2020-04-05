@@ -21,7 +21,7 @@ export default async (_, args, context) => {
     name: args.name,
     config: args.config,
     owner: context.user,
-    battlemetricsStatus: args.battlemetricsEnabled ? 'queued' : 'disabled',
-    generatorStatus: 'queued'
+    generatorStatus: 'queued',
+    battlemetricsStatus: args.battlemetricsEnabled ? 'queued' : 'disabled'
   });
 };

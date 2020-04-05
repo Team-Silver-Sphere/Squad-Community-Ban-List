@@ -41,7 +41,6 @@ const createMutation = gql`
       banCount
       battlemetricsStatus
       battlemetricsInvite
-      lastFetched
     }
   }
 `;
@@ -59,7 +58,6 @@ const updateMutation = gql`
       banCount
       battlemetricsStatus
       battlemetricsInvite
-      lastFetched
     }
   }
 `;

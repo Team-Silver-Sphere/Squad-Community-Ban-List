@@ -17,48 +17,28 @@ export default gql`
     steamID: String
 
     """
+    The date the ban was created.
+    """
+    created: Date
+
+    """
+    The date the ban expires.
+    """
+    expires: Date
+
+    """
+    Whether the ban has expired.
+    """
+    expired: Boolean
+
+    """
+    An array of strings that classify the reason of the ban.
+    """
+    reason: [String]
+
+    """
     The BanList the ban was imported from.
     """
     banList: BanList
-
-    """
-    The ban reason. Only for official bans.
-    """
-    reason: String
-
-    """
-    The BattleMetrics UID of the ban.
-
-    Accessible to system admins only.
-    """
-    battlemetricsUID: String @systemAdminOnly
-
-    """
-    The BattleMetrics Timestamp of the ban.
-
-    Accessible to system admins only.
-    """
-    battlemetricsTimestamp: Date @systemAdminOnly
-
-    """
-    The BattleMetrics expiry date of the ban.
-
-    Accessible to system admins only.
-    """
-    battlemetricsExpires: Date @systemAdminOnly
-
-    """
-    The BattleMetrics reason of the ban.
-
-    Accessible to system admins only.
-    """
-    battlemetricsReason: String @systemAdminOnly
-
-    """
-    The BattleMetrics note of the ban.
-
-    Accessible to system admins only.
-    """
-    battlemetricsNote: String @systemAdminOnly
   }
 `;

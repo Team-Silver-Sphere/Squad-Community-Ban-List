@@ -19,12 +19,26 @@ export default gql`
     """
     The type of ban list, i.e. what kind of source it is, e.g. BattleMetrics.
     """
-    type: String
+    type: String @systemAdminOnly
+
+    """
+    The source of the ban list.
+
+    Accessible to system admins only.
+    """
+    source: String @systemAdminOnly
 
     """
     The date when the ban list was last imported.
     """
     lastImported: Date
+
+    """
+    The status of the import.
+
+    Accessible to system admins only.
+    """
+    importStatus: String @systemAdminOnly
 
     """
     The Organization that owns the ban list.
@@ -45,12 +59,5 @@ export default gql`
     An array of Bans from the ban list belonging to a specified SteamID.
     """
     playerBans(steamID: String!, expired: Boolean): [Ban]
-
-    """
-    The BattleMetrics ID of the ban list.
-
-    Accessible to system admins only.
-    """
-    battlemetricsID: String @systemAdminOnly
   }
 `;

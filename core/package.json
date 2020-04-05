@@ -8,6 +8,7 @@
     "./config/secrets": "./config/secrets.js",
     "./config/web-server": "./config/web-server.js",
 
+    "./utils/ban-reason-classifier": "./utils/ban-reason-classifier.js",
     "./utils/battlemetrics-api-gateway": "./utils/battlemetrics-api-gateway.js",
     "./utils/sleep": "./utils/sleep.js"
   },

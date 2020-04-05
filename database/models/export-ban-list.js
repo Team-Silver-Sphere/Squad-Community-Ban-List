@@ -1,26 +1,40 @@
 import mongoose from 'mongoose';
 
 const ExportBanListSchema = new mongoose.Schema({
-  name: { type: String, require: true },
-  config: { type: String, require: true },
-  owner: { type: String, require: true },
-
-  battlemetricsStatus: {
+  name: {
     type: String,
-    enum: ['disabled', 'queued', 'deleted', 'queued-errored', 'deleted-error'],
-    require: true,
-    default: 'disabled'
+    required: true
   },
-  battlemetricsID: { type: String },
-  battlemetricsInvite: { type: String },
 
-  lastFetched: { type: Date, require: true, default: Date.now },
+  config: {
+    type: String,
+    required: true
+  },
+
+  owner: {
+    type: String,
+    required: true
+  },
 
   generatorStatus: {
     type: String,
     enum: ['queued', 'completed', 'errored'],
     require: true,
     default: 'queued'
+  },
+
+  battlemetricsStatus: {
+    type: String,
+    enum: ['disabled', 'queued', 'deleted', 'queued-errored', 'deleted-error'],
+    required: true,
+    default: 'disabled'
+  },
+
+  battlemetricsID: {
+    type: String
+  },
+  battlemetricsInvite: {
+    type: String
   }
 });
 

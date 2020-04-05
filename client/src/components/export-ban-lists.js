@@ -1,7 +1,6 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
-import moment from 'moment';
 
 import {
   Button,
@@ -33,7 +32,6 @@ const query = gql`
         banCount
         battlemetricsStatus
         battlemetricsInvite
-        lastFetched
       }
     }
   }
@@ -92,7 +90,6 @@ export default function() {
                   <th>Export Ban List Name</th>
                   <th>BattleMetrics Enabled</th>
                   <th>Ban Count</th>
-                  <th>Last Fetched</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -107,11 +104,6 @@ export default function() {
                           : 'No'}
                       </td>
                       <td>{exportBanList.banCount}</td>
-                      <td>
-                        {moment
-                          .utc(exportBanList.lastFetched)
-                          .format('DD/MM/YYYY HH:mm')}
-                      </td>
                       <td>
                         <AdvancedModal isOpen={false}>
                           {modal => (

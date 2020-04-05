@@ -206,13 +206,13 @@ The currently authenticated user's SteamUser profile.
 <td></td>
 </tr>
 <tr>
-<td colspan="2" align="right" valign="top">organization</td>
+<td colspan="2" align="right" valign="top">source</td>
 <td valign="top"><a href="#string">String</a>!</td>
 <td></td>
 </tr>
 <tr>
-<td colspan="2" align="right" valign="top">battlemetricsID</td>
-<td valign="top"><a href="#string">String</a></td>
+<td colspan="2" align="right" valign="top">organization</td>
+<td valign="top"><a href="#string">String</a>!</td>
 <td></td>
 </tr>
 <tr>
@@ -236,13 +236,13 @@ The currently authenticated user's SteamUser profile.
 <td></td>
 </tr>
 <tr>
-<td colspan="2" align="right" valign="top">organization</td>
+<td colspan="2" align="right" valign="top">source</td>
 <td valign="top"><a href="#string">String</a>!</td>
 <td></td>
 </tr>
 <tr>
-<td colspan="2" align="right" valign="top">battlemetricsID</td>
-<td valign="top"><a href="#string">String</a></td>
+<td colspan="2" align="right" valign="top">organization</td>
+<td valign="top"><a href="#string">String</a>!</td>
 <td></td>
 </tr>
 <tr>
@@ -333,75 +333,47 @@ SteamID of the banned player.
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>banList</strong></td>
-<td valign="top"><a href="#banlist">BanList</a></td>
+<td colspan="2" valign="top"><strong>created</strong></td>
+<td valign="top"><a href="#date">Date</a></td>
 <td>
 
-The BanList the ban was imported from.
+The date the ban was created.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>expires</strong></td>
+<td valign="top"><a href="#date">Date</a></td>
+<td>
+
+The date the ban expires.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>expired</strong></td>
+<td valign="top"><a href="#boolean">Boolean</a></td>
+<td>
+
+Whether the ban has expired.
 
 </td>
 </tr>
 <tr>
 <td colspan="2" valign="top"><strong>reason</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td valign="top">[<a href="#string">String</a>]</td>
 <td>
 
-The ban reason. Only for official bans.
+An array of strings that classify the reason of the ban.
 
 </td>
 </tr>
 <tr>
-<td colspan="2" valign="top"><strong>battlemetricsUID</strong></td>
-<td valign="top"><a href="#string">String</a></td>
+<td colspan="2" valign="top"><strong>banList</strong></td>
+<td valign="top"><a href="#banlist">BanList</a></td>
 <td>
 
-The BattleMetrics UID of the ban.
-
-Accessible to system admins only.
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>battlemetricsTimestamp</strong></td>
-<td valign="top"><a href="#date">Date</a></td>
-<td>
-
-The BattleMetrics Timestamp of the ban.
-
-Accessible to system admins only.
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>battlemetricsExpires</strong></td>
-<td valign="top"><a href="#date">Date</a></td>
-<td>
-
-The BattleMetrics expiry date of the ban.
-
-Accessible to system admins only.
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>battlemetricsReason</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td>
-
-The BattleMetrics reason of the ban.
-
-Accessible to system admins only.
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>battlemetricsNote</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td>
-
-The BattleMetrics note of the ban.
-
-Accessible to system admins only.
+The BanList the ban was imported from.
 
 </td>
 </tr>
@@ -450,11 +422,33 @@ The type of ban list, i.e. what kind of source it is, e.g. BattleMetrics.
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>source</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+The source of the ban list.
+
+Accessible to system admins only.
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>lastImported</strong></td>
 <td valign="top"><a href="#date">Date</a></td>
 <td>
 
 The date when the ban list was last imported.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>importStatus</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+The status of the import.
+
+Accessible to system admins only.
 
 </td>
 </tr>
@@ -503,17 +497,6 @@ An array of Bans from the ban list belonging to a specified SteamID.
 <td colspan="2" align="right" valign="top">expired</td>
 <td valign="top"><a href="#boolean">Boolean</a></td>
 <td></td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>battlemetricsID</strong></td>
-<td valign="top"><a href="#string">String</a></td>
-<td>
-
-The BattleMetrics ID of the ban list.
-
-Accessible to system admins only.
-
-</td>
 </tr>
 </tbody>
 </table>
@@ -592,15 +575,6 @@ The current status of the associated BattleMetrics ban list.
 <td>
 
 An invite to the associated BattleMetrics ban list.
-
-</td>
-</tr>
-<tr>
-<td colspan="2" valign="top"><strong>lastFetched</strong></td>
-<td valign="top"><a href="#date">Date</a></td>
-<td>
-
-The date of when the remote ban list was last fetched.
 
 </td>
 </tr>

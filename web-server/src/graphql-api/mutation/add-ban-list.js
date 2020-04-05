@@ -15,16 +15,14 @@ export default async (_, args) => {
       'This organization already has a ban list with the same name.'
     );
 
-  if (args.type === 'battlemetrics') {
-    check = await BanList.findOne({ battlemetricsID: args.battlemetricsID });
-    if (check !== null) throw new Error('Ban List already in database.');
-  }
+  check = await BanList.findOne({ source: args.source });
+  if (check !== null) throw new Error('Ban List already in database.');
 
   const banList = new BanList({
     name: args.name,
     type: args.type,
-    organization: args.organization,
-    battlemetricsID: args.battlemetricsID
+    source: args.source,
+    organization: args.organization
   });
   await banList.save();
   return banList;

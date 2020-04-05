@@ -24,17 +24,17 @@ const query = gql`
       _id
       name
       type
-      lastImported
+      source
 
-      banCount
-      uniqueBannedSteamIDCount
+      lastImported
 
       organization {
         _id
         name
       }
 
-      battlemetricsID
+      banCount
+      uniqueBannedSteamIDCount
     }
   }
 `;
@@ -127,8 +127,8 @@ export default function() {
                                     _id={banList._id}
                                     name={banList.name}
                                     type={banList.type}
+                                    source={banList.source}
                                     organization={banList.organization._id}
-                                    battlemetricsID={banList.battlemetricsID}
                                     update={true}
                                     onSubmit={modal.close}
                                     key={banList._id}

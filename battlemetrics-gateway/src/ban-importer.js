@@ -1,18 +1,19 @@
-import { AffectedSteamID, Ban, BanList } from 'database/models';
+import { AffectedSteamID, Ban, BanList, Organization } from 'database/models';
 import { battlemetricsAPIHostname } from 'core/config/battlemetrics-api';
 import battlemetricsAPIGateway from 'core/utils/battlemetrics-api-gateway';
+import banReasonClassifier from 'core/utils/ban-reason-classifier';
 
 export default class BanImporter {
   constructor() {
     this.flush();
 
     this.pageSize = 100;
-
-    this.battlemetricsType = 'battlemetrics';
   }
 
   flush() {
     this.currentBanList = null;
+    this.officialBanList = false;
+
     this.importedBanUIDs = [];
 
     this.nextPage = null;
@@ -21,7 +22,7 @@ export default class BanImporter {
   async hasWork() {
     return (
       (await BanList.countDocuments({
-        type: this.battlemetricsType,
+        type: 'battlemetrics',
         importStatus: 'queued'
       })) > 0
     );
@@ -35,6 +36,7 @@ export default class BanImporter {
     try {
       await this.importPage();
     } catch (err) {
+      console.log(err);
       this.log(
         `Error thrown when importing ban list (${this.currentBanList._id}).`
       );
@@ -50,15 +52,20 @@ export default class BanImporter {
 
   async selectBanList() {
     this.currentBanList = await BanList.findOne({
-      type: this.battlemetricsType,
+      type: 'battlemetrics',
       importStatus: 'queued'
     }).sort({
       lastImported: 1
     });
+
+    this.official = (
+      await Organization.findOne({ _id: this.currentBanList.organization })
+    ).official;
+
     this.importedBanUIDs = [];
 
     const queryParams = new URLSearchParams({
-      'filter[banList]': this.currentBanList.battlemetricsID,
+      'filter[banList]': this.currentBanList.source,
       'page[size]': this.pageSize
     });
 
@@ -100,18 +107,21 @@ export default class BanImporter {
       // information to be saved about the ban
       const banRecord = {
         steamID: steamID,
+
+        created: ban.attributes.timestamp,
+        expires: ban.attributes.expires,
         expired: !(
           ban.attributes.expires === null ||
           new Date(ban.attributes.expires) > Date.now()
         ),
 
-        banList: this.currentBanList._id,
+        reason: this.official
+          ? [ban.attributes.reason]
+          : banReasonClassifier(ban.attributes.reason + ban.attributes.note),
 
-        battlemetricsUID: ban.attributes.uid,
-        battlemetricsTimestamp: ban.attributes.timestamp,
-        battlemetricsExpires: ban.attributes.expires,
-        battlemetricsReason: ban.attributes.reason,
-        battlemetricsNote: ban.attributes.note
+        uid: ban.attributes.uid,
+
+        banList: this.currentBanList._id
       };
 
       // check whether the ban has been updated in anyway.
@@ -120,11 +130,14 @@ export default class BanImporter {
       // update the ban information in the database.
       await Ban.findOneAndUpdate(
         {
-          banList: this.currentBanList._id,
-          battlemetricsUID: ban.attributes.uid
+          uid: ban.attributes.uid,
+          banList: this.currentBanList._id
         },
         banRecord,
-        { upsert: true, setDefaultsOnInsert: true }
+        {
+          upsert: true,
+          setDefaultsOnInsert: true
+        }
       );
 
       // the ban has been updated so process the steamID
@@ -150,8 +163,8 @@ export default class BanImporter {
     // find the bans that were deleted.
     (
       await Ban.distinct('steamID', {
-        banList: this.currentBanList._id,
-        battlemetricsUID: { $nin: this.importedBanUIDs }
+        uid: { $nin: this.importedBanUIDs },
+        banList: this.currentBanList._id
       })
     ).forEach(steamID => {
       this.queueAffectedSteamID(steamID);
@@ -160,8 +173,8 @@ export default class BanImporter {
 
     // delete the bans that were deleted.
     await Ban.deleteMany({
-      banList: this.currentBanList._id,
-      battlemetricsUID: { $nin: this.importedBanUIDs }
+      uid: { $nin: this.importedBanUIDs },
+      banList: this.currentBanList._id
     });
 
     // update the ban list with the new import date

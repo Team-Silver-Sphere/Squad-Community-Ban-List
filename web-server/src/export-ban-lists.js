@@ -4,10 +4,7 @@ import { ExportBan, ExportBanList } from 'database/models';
 const router = new Router();
 
 router.get('/:id', async ctx => {
-  const exportBanList = await ExportBanList.findOneAndUpdate(
-    { _id: ctx.params.id },
-    { lastFetched: Date.now() }
-  );
+  const exportBanList = await ExportBanList.findOne({ _id: ctx.params.id });
 
   // throw 404 if not found
   if (exportBanList === null) {

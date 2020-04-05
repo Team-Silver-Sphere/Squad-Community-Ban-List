@@ -1,7 +1,11 @@
 import mongoose from 'mongoose';
 
 const ExportBanSchema = new mongoose.Schema({
-  steamID: { type: String, require: true },
+  steamID: {
+    type: String,
+    require: true
+  },
+
   exportBanList: {
     type: mongoose.Types.ObjectId,
     ref: 'ExportBanList',
@@ -18,10 +22,13 @@ const ExportBanSchema = new mongoose.Schema({
       'queued-errored',
       'deleted-errored'
     ],
-    require: true,
+    required: true,
     default: 'disabled'
   },
-  battlemetricsID: { type: String }
+
+  battlemetricsID: {
+    type: String
+  }
 });
 
 export default mongoose.model('ExportBan', ExportBanSchema);

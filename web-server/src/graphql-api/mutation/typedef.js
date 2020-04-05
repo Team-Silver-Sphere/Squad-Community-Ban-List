@@ -21,16 +21,16 @@ export default gql`
     addBanList(
       name: String!
       type: String!
+      source: String!
       organization: String!
-      battlemetricsID: String
     ): BanList @systemAdminOnly
 
     updateBanList(
       _id: String!
       name: String!
       type: String!
+      source: String!
       organization: String!
-      battlemetricsID: String
     ): BanList @systemAdminOnly
 
     createExportBanList(
@@ -38,11 +38,13 @@ export default gql`
       config: String!
       battlemetricsEnabled: Boolean!
     ): ExportBanList
+
     updateExportBanList(
       _id: String!
       name: String!
       config: String!
     ): ExportBanList
+
     deleteExportBanList(_id: String): ExportBanList
   }
 `;

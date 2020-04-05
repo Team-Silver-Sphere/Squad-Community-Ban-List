@@ -12,29 +12,28 @@ const addMutation = gql`
   mutation AddBanList(
     $name: String!
     $type: String!
+    $source: String!
     $organization: String!
-    $battlemetricsID: String
   ) {
     addBanList(
       name: $name
       type: $type
+      source: $source
       organization: $organization
-      battlemetricsID: $battlemetricsID
     ) {
       _id
       name
       type
+      source
       lastImported
-
-      banCount
-      uniqueBannedSteamIDCount
 
       organization {
         _id
         name
       }
 
-      battlemetricsID
+      banCount
+      uniqueBannedSteamIDCount
     }
   }
 `;
@@ -44,30 +43,29 @@ const updateMutation = gql`
     $_id: String!
     $name: String!
     $type: String!
+    $source: String!
     $organization: String!
-    $battlemetricsID: String
   ) {
     updateBanList(
       _id: $_id
       name: $name
       type: $type
+      source: $source
       organization: $organization
-      battlemetricsID: $battlemetricsID
     ) {
       _id
       name
       type
+      source
       lastImported
-
-      banCount
-      uniqueBannedSteamIDCount
 
       organization {
         _id
         name
       }
 
-      battlemetricsID
+      banCount
+      uniqueBannedSteamIDCount
     }
   }
 `;
@@ -79,8 +77,8 @@ class BanListAdd extends React.Component {
     this.state = {
       name: props.name || '',
       type: props.type || 'battlemetrics',
-      organization: props.organization || null,
-      battlemetricsID: props.battlemetricsID || ''
+      source: props.source || '',
+      organization: props.organization || null
     };
   }
 
@@ -160,11 +158,11 @@ class BanListAdd extends React.Component {
                     <Input
                       className="form-control-alternative"
                       type="text"
-                      value={this.state.battlemetricsID}
+                      value={this.state.source}
                       onChange={event =>
-                        this.setState({ battlemetricsID: event.target.value })
+                        this.setState({ source: event.target.value })
                       }
-                      invalid={this.state.battlemetricsID.length === 0}
+                      invalid={this.state.source.length === 0}
                     />
                     <FormFeedback>
                       A BattleMetrics ban list ID cannot be blank.
@@ -187,7 +185,7 @@ class BanListAdd extends React.Component {
                     disabled={
                       this.state.name.length === 0 ||
                       this.state.organization === null ||
-                      this.state.battlemetricsID.length === 0
+                      this.state.source.length === 0
                     }
                   >
                     {this.props.update ? 'Edit' : 'Add'} Ban List

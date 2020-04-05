@@ -40,10 +40,5 @@ export default gql`
     An invite to the associated BattleMetrics ban list.
     """
     battlemetricsInvite: String
-
-    """
-    The date of when the remote ban list was last fetched.
-    """
-    lastFetched: Date
   }
 `;
