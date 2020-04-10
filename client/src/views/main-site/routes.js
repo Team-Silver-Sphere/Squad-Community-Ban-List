@@ -60,6 +60,7 @@ const routes = [
     exact: true,
     name: 'Organizations',
     icon: 'fa fa-user-shield',
+    displayInDropdown: true,
     component: Organizations,
     display: () => Auth.isLoggedIn && Auth.claim.systemAdmin,
     protected: () => Auth.isLoggedIn && Auth.claim.systemAdmin
@@ -69,6 +70,7 @@ const routes = [
     exact: true,
     name: 'Ban Lists',
     icon: 'fa fa-user-shield',
+    displayInDropdown: true,
     component: BanLists,
     display: () => Auth.isLoggedIn && Auth.claim.systemAdmin,
     protected: () => Auth.isLoggedIn && Auth.claim.systemAdmin
