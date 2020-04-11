@@ -152,11 +152,10 @@ export default class BanImporter {
   }
 
   async queueAffectedSteamID(steamID) {
-    await AffectedSteamID.findOneAndUpdate(
-      { steamID },
-      { steamID },
-      { upsert: true, setDefaultsOnInsert: true }
-    );
+    await AffectedSteamID.create([{ steamID }], {
+      upsert: true,
+      setDefaultsOnInsert: true
+    });
   }
 
   async deselectBanList(error = false) {

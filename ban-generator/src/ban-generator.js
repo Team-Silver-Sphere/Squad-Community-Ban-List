@@ -30,150 +30,138 @@ export default class BanGenerator {
     );
   }
 
-  async generatorDoWork() {
-    this.exportBanList = await ExportBanList.findOne({
-      generatorStatus: 'queued'
-    });
-    console.log(
-      `Generating export ban list for with ID: ${this.exportBanList._id}`
-    );
-
-    try {
-      this.exportBanListConfig = JSON.parse(this.exportBanList.config);
-
-      // get a list of all players that we hold information on.
-      const steamIDs = await Ban.distinct('steamID');
-
-      // for each player check whether they should be banned and add them to the banned players object.
-      for (const steamID of steamIDs) {
-        await this.processPlayer(steamID);
-      }
-
-      await ExportBanList.findOneAndUpdate(
-        { _id: this.exportBanList._id },
-        { generatorStatus: 'completed' }
-      );
-    } catch (err) {
-      console.log(
-        `Failed to generate export ban list (${this.exportBanList._id}).`
-      );
-
-      await ExportBanList.findOneAndUpdate(
-        { _id: this.exportBanList._id },
-        { generatorStatus: 'errored' }
-      );
-    }
-  }
-
   async updaterHasWork() {
     return (await AffectedSteamID.countDocuments({ status: 'queued' })) > 0;
   }
 
-  async updaterDoWork() {
-    // get the steam id that needs to be updated.
-    const steamID = (await AffectedSteamID.findOne()).steamID;
-    console.log(`Updating export ban lists for SteamID: ${steamID}`);
+  async generatorDoWork() {
+    console.log('Generating export ban lists...');
 
-    try {
-      // get a list of all export ban lists that we need to update.
-      const exportBanLists = await ExportBanList.find({
-        generatorStatus: 'completed'
-      });
-
-      // for each export ban list update it
-      for (const exportBanList of exportBanLists) {
-        this.exportBanList = exportBanList;
-        this.exportBanListConfig = JSON.parse(this.exportBanList.config);
-        console.log(
-          `Updating export ban list with ID: ${this.exportBanList._id}`
-        );
-        await this.processPlayer(steamID);
-      }
-
-      await AffectedSteamID.deleteOne({ steamID });
-    } catch (err) {
-      console.log(
-        `Failed to update export ban lists for affected steamID (${steamID}).`
-      );
-
-      await AffectedSteamID.findOneAndUpdate(
-        { steamID },
-        { status: 'errored' }
-      );
-    }
-  }
-
-  async processPlayer(steamID) {
-    const shouldBeBanned = await this.shouldPlayerBeBanned(steamID);
-
-    const exportBan = await ExportBan.findOne({
-      steamID,
-      exportBanList: this.exportBanList._id
+    const steamIDs = await Ban.distinct('steamID');
+    const bansBySteamIDs = await this.getBansBySteamIDs(steamIDs);
+    const exportBanLists = await ExportBanList.find({
+      generatorStatus: 'queued'
     });
 
-    if (shouldBeBanned && exportBan === null) {
-      await ExportBan.create({
-        steamID,
-        exportBanList: this.exportBanList._id,
-        battlemetricsStatus:
-          this.exportBanList.battlemetricsStatus === 'disabled'
-            ? 'disabled'
-            : 'queued'
-      });
+    for (const exportBanList of exportBanLists) {
+      console.log(
+        `Generating export ban list (${exportBanList._id}) with ${steamIDs.length} SteamIDs.`
+      );
+      await this.updateExportBanList(exportBanList, bansBySteamIDs);
+      await ExportBanList.updateOne(
+        { _id: exportBanList.id },
+        { generatorStatus: 'completed' }
+      );
+      console.log(
+        `Finished generating export ban list (${exportBanList._id}) with ${steamIDs.length} SteamIDs.`
+      );
     }
 
-    if (!shouldBeBanned && exportBan !== null) {
-      if (
-        ['completed', 'deleted', 'deleted-errored'].includes(
-          exportBan.battlemetricsStatus
-        )
-      ) {
-        await ExportBan.updateOne(
-          {
-            steamID,
-            exportBanList: this.exportBanList._id
-          },
-          { battlemetricsStatus: 'deleted' }
-        );
-      } else {
-        await ExportBan.deleteMany({
+    console.log('Finished generating export ban lists.');
+  }
+
+  async updaterDoWork() {
+    console.log('Updating export ban lists...');
+
+    const affectedSteamIDs = await AffectedSteamID.find({ status: 'queued' });
+    const steamIDs = [];
+    const affectedSteamIDIDs = [];
+    for (const affectedSteamID of affectedSteamIDs) {
+      steamIDs.push(affectedSteamID.steamID);
+      affectedSteamIDIDs.push(affectedSteamID._id);
+    }
+
+    const bansBySteamIDs = await this.getBansBySteamIDs(steamIDs);
+    const exportBanLists = await ExportBanList.find();
+
+    for (const exportBanList of exportBanLists) {
+      console.log(
+        `Updating export ban list (${exportBanList._id}) with ${steamIDs.length} SteamIDs.`
+      );
+      await this.updateExportBanList(exportBanList, bansBySteamIDs);
+      console.log(
+        `Finished updating export ban list (${exportBanList._id}) with ${steamIDs.length} SteamIDs.`
+      );
+    }
+
+    await AffectedSteamID.deleteMany({ _id: { $in: affectedSteamIDIDs } });
+    console.log('Finished updating export ban lists.');
+  }
+
+  async getBansBySteamIDs(steamIDs) {
+    const bans = await Ban.find({ steamID: { $in: steamIDs } });
+
+    const players = {};
+
+    for (const ban of bans) {
+      if (!(ban.steamID in players)) players[ban.steamID] = [];
+
+      players[ban.steamID].push(ban);
+    }
+
+    return players;
+  }
+
+  async updateExportBanList(exportBanList, bansBySteamIDs) {
+    const config = JSON.parse(exportBanList.config);
+
+    for (const steamID in bansBySteamIDs) {
+      const bans = bansBySteamIDs[steamID];
+      let shouldBeBanned = false;
+      let count = 0;
+
+      for (const ban of bans) {
+        const configProperty = `${ban.banList}-${
+          ban.expired ? 'expired' : 'active'
+        }`;
+        count +=
+          configProperty in config
+            ? config[configProperty]
+            : ban.expired
+            ? 1
+            : 3;
+
+        if (count < config.threshold) continue;
+        shouldBeBanned = true;
+        break;
+      }
+
+      const exportBan = await ExportBan.findOne({
+        steamID,
+        exportBanList: exportBanList._id
+      });
+
+      if (shouldBeBanned && exportBan === null) {
+        await ExportBan.create({
           steamID,
-          exportBanList: this.exportBanList._id
+          exportBanList: exportBanList._id,
+          battlemetricsStatus:
+            exportBanList.battlemetricsStatus === 'disabled'
+              ? 'disabled'
+              : 'queued'
         });
       }
+
+      if (!shouldBeBanned && exportBan !== null) {
+        if (
+          ['completed', 'deleted', 'deleted-errored'].includes(
+            exportBan.battlemetricsStatus
+          )
+        ) {
+          await ExportBan.updateOne(
+            {
+              steamID,
+              exportBanList: exportBanList._id
+            },
+            { battlemetricsStatus: 'deleted' }
+          );
+        } else {
+          await ExportBan.deleteMany({
+            steamID,
+            exportBanList: exportBanList._id
+          });
+        }
+      }
     }
-  }
-
-  async shouldPlayerBeBanned(steamID) {
-    const activeBans = await Ban.find({
-      steamID,
-      expired: false
-    });
-
-    const expiredBans = await Ban.find({
-      steamID,
-      expired: true
-    });
-
-    let count = 0;
-
-    for (const ban of activeBans) {
-      count +=
-        `${ban.banList}-active` in this.exportBanListConfig
-          ? this.exportBanListConfig[`${ban.banList}-active`]
-          : 3;
-      if (count >= this.exportBanListConfig.threshold) return true;
-    }
-
-    for (const ban of expiredBans) {
-      count +=
-        `${ban.banList}-expired` in this.exportBanListConfig
-          ? this.exportBanListConfig[`${ban.banList}-expired`]
-          : 1;
-      if (count >= this.exportBanListConfig.threshold) return true;
-    }
-
-    // the threshold was not reached so return false.
-    return false;
   }
 }
