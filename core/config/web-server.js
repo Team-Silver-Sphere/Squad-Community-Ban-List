@@ -3,6 +3,7 @@ const port = process.env.NODE_ENV === 'production' ? 8080 : 3001; // using port 
 
 const localStorageVersion = '1';
 
+const googleAnalyticsID = 'UA-89614544-2';
 const discordLink = 'https://discord.gg/fbZdj3q';
 
-export { host, port, localStorageVersion, discordLink };
+export { host, port, localStorageVersion, discordLink, googleAnalyticsID };

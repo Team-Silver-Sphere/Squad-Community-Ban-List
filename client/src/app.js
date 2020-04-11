@@ -8,6 +8,11 @@ import Auth from './utils/auth';
 
 import publicRoutes from './views/main-site';
 
+import GoogleAnalytics from 'react-ga';
+import { googleAnalyticsID } from 'core/config/web-server';
+
+GoogleAnalytics.initialize(googleAnalyticsID);
+
 const client = new ApolloClient({
   request: async operation => {
     operation.setContext({ headers: { JWT: Auth.jwtToken } });
