@@ -112,12 +112,8 @@ export default function() {
                                 color="info"
                                 size="sm"
                                 onClick={modal.open}
-                                disabled={
-                                  exportBanList.battlemetricsStatus ===
-                                  'disabled'
-                                }
                               >
-                                BattleMetrics Invite
+                                Install
                               </Button>
 
                               <Modal
@@ -126,9 +122,10 @@ export default function() {
                                 toggle={modal.close}
                               >
                                 <ModalHeader toggle={modal.close}>
-                                  Remote Ban List
+                                  Install
                                 </ModalHeader>
                                 <ModalBody>
+                                  <h5>Battlemetrics</h5>
                                   <p>
                                     {exportBanList.battlemetricsInvite && (
                                       <>
@@ -155,31 +152,8 @@ export default function() {
                                       </>
                                     )}
                                   </p>
-                                </ModalBody>
-                              </Modal>
-                            </>
-                          )}
-                        </AdvancedModal>
-                        <AdvancedModal isOpen={false}>
-                          {modal => (
-                            <>
-                              <Button
-                                color="info"
-                                size="sm"
-                                onClick={modal.open}
-                              >
-                                Remote Ban List
-                              </Button>
-
-                              <Modal
-                                className="modal-dialog-centered"
-                                isOpen={modal.isOpen}
-                                toggle={modal.close}
-                              >
-                                <ModalHeader toggle={modal.close}>
-                                  Remote Ban List
-                                </ModalHeader>
-                                <ModalBody>
+                                  <hr className="my-4" />
+                                  <h5>Remove Ban List</h5>
                                   <p>
                                     To use this export ban list within your
                                     Squad server the following URL can be added
