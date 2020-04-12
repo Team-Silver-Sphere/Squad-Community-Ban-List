@@ -137,7 +137,7 @@ export default function() {
                                     'disabled' ? (
                                       <>
                                         Exporting to BattleMetrics has been
-                                        disabled for this ban list.
+                                        disabled for this export ban list.
                                       </>
                                     ) : exportBanList.battlemetricsStatus ? (
                                       <>
