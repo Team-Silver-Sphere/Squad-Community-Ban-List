@@ -8,6 +8,7 @@
   * [Objects](#objects)
     * [Ban](#ban)
     * [BanList](#banlist)
+    * [ExportBan](#exportban)
     * [ExportBanList](#exportbanlist)
     * [Organization](#organization)
     * [SteamUser](#steamuser)
@@ -118,6 +119,39 @@ The number of bans being exported by SCBL.
 <td>
 
 The currently authenticated user's SteamUser profile.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>banListQueue</strong></td>
+<td valign="top">[<a href="#banlist">BanList</a>]</td>
+<td>
+
+A list of ban lists current in the queue.
+
+Accessible to system admins only.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>exportBanListQueue</strong></td>
+<td valign="top">[<a href="#exportbanlist">ExportBanList</a>]</td>
+<td>
+
+A list of export ban lists current in the queue.
+
+Accessible to system admins only.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>exportBanQueue</strong></td>
+<td valign="top">[<a href="#exportban">ExportBan</a>]</td>
+<td>
+
+A list of export bans current in the queue.
+
+Accessible to system admins only.
 
 </td>
 </tr>
@@ -501,6 +535,61 @@ An array of Bans from the ban list belonging to a specified SteamID.
 </tbody>
 </table>
 
+### ExportBan
+
+The ExportBan type represents an export ban, a ban that is exported from the system.
+
+<table>
+<thead>
+<tr>
+<th align="left">Field</th>
+<th align="right">Argument</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2" valign="top"><strong>_id</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+MongoDB Document ID
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>steamID</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+The SteamID of the banned player.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>battlemetricsStatus</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+The current status of the Battlemetrics ban associated with the export ban.
+
+Accessible to system admins only.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>exportBanList</strong></td>
+<td valign="top"><a href="#exportbanlist">ExportBanList</a></td>
+<td>
+
+The export ban list the export ban belongs to.
+
+</td>
+</tr>
+</tbody>
+</table>
+
 ### ExportBanList
 
 The ExportBanList type represents an export ban list, a way of exporting a list of banned players from the system.
@@ -561,6 +650,17 @@ The SteamUser that owns the export ban list.
 </td>
 </tr>
 <tr>
+<td colspan="2" valign="top"><strong>generatorStatus</strong></td>
+<td valign="top"><a href="#string">String</a></td>
+<td>
+
+The current status of the ban list's generation.
+
+Accessible to system admins only.
+
+</td>
+</tr>
+<tr>
 <td colspan="2" valign="top"><strong>battlemetricsStatus</strong></td>
 <td valign="top"><a href="#string">String</a></td>
 <td>
@@ -575,6 +675,15 @@ The current status of the associated BattleMetrics ban list.
 <td>
 
 An invite to the associated BattleMetrics ban list.
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="top"><strong>exportBans</strong></td>
+<td valign="top">[<a href="#exportban">ExportBan</a>]</td>
+<td>
+
+A list of export bans associated with the export ban list.
 
 </td>
 </tr>
