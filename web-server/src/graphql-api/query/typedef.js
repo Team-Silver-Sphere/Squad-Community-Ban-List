@@ -47,5 +47,26 @@ export default gql`
     The currently authenticated user's SteamUser profile.
     """
     currentSteamUser: SteamUser
+
+    """
+    A list of ban lists current in the queue.
+
+    Accessible to system admins only.
+    """
+    banListQueue: [BanList] @systemAdminOnly
+
+    """
+    A list of export ban lists current in the queue.
+
+    Accessible to system admins only.
+    """
+    exportBanListQueue: [ExportBanList] @systemAdminOnly
+
+    """
+    A list of export bans current in the queue.
+
+    Accessible to system admins only.
+    """
+    exportBanQueue: [ExportBan] @systemAdminOnly
   }
 `;

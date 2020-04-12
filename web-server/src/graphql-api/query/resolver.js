@@ -3,7 +3,8 @@ import {
   Ban,
   BanList,
   ExportBan,
-  SteamUser
+  SteamUser,
+  ExportBanList
 } from 'database/models';
 
 export default {
@@ -48,6 +49,31 @@ export default {
 
     currentSteamUser: async (parent, _, context) => {
       return SteamUser.findOne({ steamID: context.user });
+    },
+
+    banListQueue: async () => {
+      return BanList.find({ importStatus: 'errored ' });
+    },
+
+    exportBanListQueue: async () => {
+      return ExportBanList.find({
+        $or: [
+          { generatorStatus: { $in: ['queued', 'errored'] } },
+          {
+            battlemetricsStatus: {
+              $in: ['queued', 'deleted', 'queued-errored', 'deleted-errored']
+            }
+          }
+        ]
+      });
+    },
+
+    exportBanQueue: async () => {
+      return ExportBan.find({
+        battlemetricsStatus: {
+          $in: ['queued', 'deleted', 'queued-errored', 'deleted-errored']
+        }
+      });
     }
   }
 };

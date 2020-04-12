@@ -32,6 +32,13 @@ export default gql`
     owner: SteamUser
 
     """
+    The current status of the ban list's generation.
+
+    Accessible to system admins only.
+    """
+    generatorStatus: String @systemAdminOnly
+
+    """
     The current status of the associated BattleMetrics ban list.
     """
     battlemetricsStatus: String

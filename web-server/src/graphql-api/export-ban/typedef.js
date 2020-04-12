@@ -15,5 +15,17 @@ export default gql`
     The SteamID of the banned player.
     """
     steamID: String
+
+    """
+    The current status of the Battlemetrics ban associated with the export ban.
+
+    Accessible to system admins only.
+    """
+    battlemetricsStatus: String @systemAdminOnly
+
+    """
+    The export ban list the export ban belongs to.
+    """
+    exportBanList: ExportBanList
   }
 `;

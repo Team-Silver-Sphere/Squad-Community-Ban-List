@@ -2,9 +2,10 @@ import Home from './pages/home';
 import Login from './pages/login';
 import Install from './pages/install';
 import Search from './pages/search';
+import FAQ from './pages/faq';
 import Organizations from './pages/organizations';
 import BanLists from './pages/ban-lists';
-import FAQ from './pages/faq';
+import QueueMonitor from './pages/queue-monitor';
 
 import Auth from '../../utils/auth';
 
@@ -59,7 +60,7 @@ const routes = [
     path: '/organizations',
     exact: true,
     name: 'Organizations',
-    icon: 'fa fa-user-shield',
+    icon: 'fas fa-users',
     displayInDropdown: true,
     component: Organizations,
     display: () => Auth.isLoggedIn && Auth.claim.systemAdmin,
@@ -69,9 +70,19 @@ const routes = [
     path: '/ban-lists',
     exact: true,
     name: 'Ban Lists',
-    icon: 'fa fa-user-shield',
+    icon: 'fas fa-gavel',
     displayInDropdown: true,
     component: BanLists,
+    display: () => Auth.isLoggedIn && Auth.claim.systemAdmin,
+    protected: () => Auth.isLoggedIn && Auth.claim.systemAdmin
+  },
+  {
+    path: '/queue-monitor',
+    exact: true,
+    name: 'Queue Monitor',
+    icon: 'fas fa-desktop',
+    displayInDropdown: true,
+    component: QueueMonitor,
     display: () => Auth.isLoggedIn && Auth.claim.systemAdmin,
     protected: () => Auth.isLoggedIn && Auth.claim.systemAdmin
   }
