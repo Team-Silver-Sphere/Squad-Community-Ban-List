@@ -125,14 +125,14 @@ export default function(props) {
                                 </h5>
                                 {organization.official ? (
                                   <h5 className="ml-4">
-                                    Classified Reason: See{' '}
+                                    Reason: See{' '}
                                     <a href={ban.reason[0]}>
                                       OWI Hosting Discord
                                     </a>
                                   </h5>
                                 ) : (
                                   <h5 className="ml-4">
-                                    Reason:{' '}
+                                    Classified Reason:{' '}
                                     {ban.reason.length > 0
                                       ? ban.reason.join(', ')
                                       : 'Unknown'}
