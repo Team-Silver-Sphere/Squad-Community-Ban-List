@@ -143,7 +143,7 @@ export default function() {
                                       <>
                                         To use this export ban list within your
                                         BattleMetrics organisation please accept
-                                        the our{' '}
+                                        our{' '}
                                         <a
                                           target="_blank"
                                           rel="noopener noreferrer"
