@@ -157,6 +157,13 @@ export default function() {
                                         check back again later.
                                       </>
                                     )}
+                                    {exportBanList.battlemetricsStatus ===
+                                      'disabled' && (
+                                      <>
+                                        Exporting to BattleMetrics has been
+                                        disabled for this ban list.
+                                      </>
+                                    )}
                                   </p>
                                   <hr className="my-4" />
                                   <h5>Remove Ban List</h5>
