@@ -40,5 +40,10 @@ export default gql`
     An invite to the associated BattleMetrics ban list.
     """
     battlemetricsInvite: String
+
+    """
+    A list of export bans associated with the export ban list.
+    """
+    exportBans: [ExportBan]
   }
 `;

@@ -10,6 +10,12 @@ export default {
     },
     owner: async parent => {
       return SteamUser.findOne({ steamID: parent.owner });
+    },
+    exportBans: async parent => {
+      return ExportBan.find({
+        battlemetricsStatus: { $nin: ['deleted', 'deleted-errored'] },
+        exportBanList: parent._id
+      });
     }
   }
 };

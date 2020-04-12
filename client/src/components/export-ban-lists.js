@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 
@@ -32,6 +33,11 @@ const query = gql`
         banCount
         battlemetricsStatus
         battlemetricsInvite
+
+        exportBans {
+          _id
+          steamID
+        }
       }
     }
   }
@@ -168,6 +174,49 @@ export default function() {
                                   <code>
                                     {`${window.location.protocol}//${window.location.hostname}/export/${exportBanList._id}`}
                                   </code>
+                                </ModalBody>
+                              </Modal>
+                            </>
+                          )}
+                        </AdvancedModal>
+                        <AdvancedModal isOpen={false}>
+                          {modal => (
+                            <>
+                              <Button
+                                color="info"
+                                size="sm"
+                                onClick={modal.open}
+                              >
+                                View Bans
+                              </Button>
+
+                              <Modal
+                                className="modal-dialog-centered"
+                                isOpen={modal.isOpen}
+                                toggle={modal.close}
+                              >
+                                <ModalHeader toggle={modal.close}>
+                                  Export Bans
+                                </ModalHeader>
+                                <ModalBody>
+                                  <ul>
+                                    {exportBanList.exportBans.map(
+                                      (exportBan, key) => (
+                                        <li>
+                                          <a
+                                            href={
+                                              '/search/' + exportBan.steamID
+                                            }
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            key={key}
+                                          >
+                                            {exportBan.steamID}
+                                          </a>
+                                        </li>
+                                      )
+                                    )}
+                                  </ul>
                                 </ModalBody>
                               </Modal>
                             </>
