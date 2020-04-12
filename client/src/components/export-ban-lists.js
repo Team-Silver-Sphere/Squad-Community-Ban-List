@@ -133,7 +133,13 @@ export default function() {
                                 <ModalBody>
                                   <h5>Battlemetrics</h5>
                                   <p>
-                                    {exportBanList.battlemetricsInvite && (
+                                    {exportBanList.battlemetricsStatus ===
+                                    'disabled' ? (
+                                      <>
+                                        Exporting to BattleMetrics has been
+                                        disabled for this ban list.
+                                      </>
+                                    ) : exportBanList.battlemetricsStatus ? (
                                       <>
                                         To use this export ban list within your
                                         BattleMetrics organisation please accept
@@ -149,19 +155,11 @@ export default function() {
                                         </a>
                                         .
                                       </>
-                                    )}
-                                    {!exportBanList.battlemetricsInvite && (
+                                    ) : (
                                       <>
                                         We are still in the process of making
                                         your BattleMetrics ban list. Please
                                         check back again later.
-                                      </>
-                                    )}
-                                    {exportBanList.battlemetricsStatus ===
-                                      'disabled' && (
-                                      <>
-                                        Exporting to BattleMetrics has been
-                                        disabled for this ban list.
                                       </>
                                     )}
                                   </p>
