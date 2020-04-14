@@ -7,12 +7,13 @@
   "private": true,
   "workspaces": [
     "assets",
-    "core",
-    "database",
     "ban-generator",
     "battlemetrics-gateway",
-    "web-server",
-    "client"
+    "client",
+    "core",
+    "database",
+    "tt-gateway",
+    "web-server"
   ],
   "scripts": {
     "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
@@ -20,6 +21,8 @@
     "dev-ban-generator": "nodemon ban-generator/index.js",
     "start-battlemetrics-gateway": "node battlemetrics-gateway/index.js",
     "dev-battlemetrics-gateway": "nodemon battlemetrics-gateway/index.js",
+    "start-tt-gateway": "node tt-gateway/index.js",
+    "dev-battlttemetrics-gateway": "nodemon tt-gateway/index.js",
     "build-web-server": "cd client && npm run build",
     "start-web-server": "NODE_ENV=production node web-server/index.js",
     "dev-web-server": "concurrently \"nodemon web-server/index.js\" \"cd client && npm run start\"",

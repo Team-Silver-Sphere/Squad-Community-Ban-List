@@ -93,7 +93,9 @@ export default function() {
                       <th>{banList.organization.name}</th>
                       <td>{banList.name}</td>
                       <td>
-                        {banList.type.replace('battlemetrics', 'BattleMetrics')}
+                        {banList.type
+                          .replace('battlemetrics', 'BattleMetrics')
+                          .replace('tt', 'TT')}
                       </td>
                       <td>
                         {moment

@@ -151,9 +151,28 @@ class BanListAdd extends React.Component {
               </Row>
               <Row>
                 <Col>
-                  <label className="form-control-label">
-                    Battlemetrics Ban List ID
-                  </label>
+                  <label className="form-control-label">Source</label>
+                  <Input
+                    type="select"
+                    value={this.state.type || 'battlemetrics'}
+                    onChange={event =>
+                      this.setState({
+                        type: event.target.value
+                      })
+                    }
+                  >
+                    <option className="text-default" value="battlemetrics">
+                      BattleMetrics
+                    </option>
+                    <option className="text-default" value="tt">
+                      TT
+                    </option>
+                  </Input>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <label className="form-control-label">Source</label>
                   <FormGroup>
                     <Input
                       className="form-control-alternative"
@@ -164,9 +183,7 @@ class BanListAdd extends React.Component {
                       }
                       invalid={this.state.source.length === 0}
                     />
-                    <FormFeedback>
-                      A BattleMetrics ban list ID cannot be blank.
-                    </FormFeedback>
+                    <FormFeedback>A source cannot be blank.</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo';
 

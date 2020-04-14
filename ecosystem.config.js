@@ -9,6 +9,10 @@ module.exports = {
       script: 'npm run start-battlemetrics-gateway'
     },
     {
+      name: 'tt-gateway',
+      script: 'npm run start-tt-gateway'
+    },
+    {
       name: 'web-server',
       script: 'npm run start-web-server',
       env: {

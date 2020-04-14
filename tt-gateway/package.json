@@ -1,0 +1,11 @@
+{
+  "name": "tt-gateway",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "core": "1.0.0",
+    "database": "1.0.0",
+    "mongoose": "^5.7.11"
+  }
+}
