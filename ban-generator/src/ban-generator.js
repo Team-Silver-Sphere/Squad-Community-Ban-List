@@ -107,10 +107,17 @@ export default class BanGenerator {
 
     for (const steamID in bansBySteamIDs) {
       const bans = bansBySteamIDs[steamID];
+
       let shouldBeBanned = false;
       let count = 0;
+      const banLists = {};
 
       for (const ban of bans) {
+        if (!ban.expired) {
+          if (banLists[ban.banList]) continue;
+          banLists[ban.banList] = true;
+        }
+
         const configProperty = `${ban.banList}-${
           ban.expired ? 'expired' : 'active'
         }`;
