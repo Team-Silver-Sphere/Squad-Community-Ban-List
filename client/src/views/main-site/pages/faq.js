@@ -83,7 +83,7 @@ export default function() {
                 <ul>
                   <li>Cheating Ban - Permanent</li>
                   <li>Trolling (e.g. intentional teamkilling) - One Month</li>
-                  <li>Racism - Two Weeks</li>
+                  <li>Hate Speech - Two Weeks</li>
                 </ul>
               </Answer>
             </CardBody>

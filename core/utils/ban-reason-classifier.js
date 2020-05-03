@@ -10,7 +10,7 @@ const reasons = {
   Ghosting: /ghosting/i,
 
   Toxic: /toxic/i,
-  Hatespeach: /hate ?speach|hate ?speech|derogatory|racism|racist|racial|sexism|homophobic|abusive language/i,
+  'Hate Speech': /hate ?speach|hate ?speech|derogatory|racism|racist|racial|sexism|homophobic|abusive language/i,
 
   'Soloing Vehicles': /solo/i,
   Camping: /camping/i,
