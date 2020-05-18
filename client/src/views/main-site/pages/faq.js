@@ -74,7 +74,7 @@ export default function() {
                 evidence of a more serious rule break is provided via the OWI
                 Hosting Discord #problem-players / #cheating-reports channels.
                 These bans have a fixed length and can only be appealed under
-                exception circumstances via our{' '}
+                exceptional circumstances via our{' '}
                 <a href={discordLink}>Discord</a>.
                 <br />
                 <br />

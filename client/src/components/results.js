@@ -173,8 +173,8 @@ export default function(props) {
                                               a more serious rule break
                                               occurring. This ban has a fixed
                                               length and can only be appealed
-                                              under exception circumstances via
-                                              our{' '}
+                                              under exceptional circumstances
+                                              via our{' '}
                                               <a href={discordLink}>Discord</a>.
                                               Please see our{' '}
                                               <Link to="/faq">FAQ</Link> for

@@ -78,9 +78,10 @@ export default class BanImporter {
 
         created: ban.start_datetime,
         expires: ban.end_datetime,
-        expired: !(
-          ban.end_datetime === null || new Date(ban.end_datetime) > Date.now()
-        ),
+        expired:
+          (ban.end_datetime !== null &&
+            new Date(ban.end_datetime) < Date.now()) ||
+          ban.lifted,
 
         reason: banReasonClassifier(ban.reason + ban.notes),
 
