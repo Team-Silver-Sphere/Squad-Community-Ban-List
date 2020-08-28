@@ -1,10 +1,6 @@
 # Project Files
-secrets.js
 
 # Dependencies
-node_modules/
-package-lock.json
-yarn.lock
 
 # IDEs
 .idea/

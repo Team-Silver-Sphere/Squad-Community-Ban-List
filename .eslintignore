@@ -1,6 +1,0 @@
-# General
-**/node_modules/*
-
-# Client
-client/build/*
-client/src/assets/vendor/*
