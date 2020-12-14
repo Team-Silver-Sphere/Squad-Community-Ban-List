@@ -1,0 +1,35 @@
+{
+  "name": "Squad-Community-Ban-List",
+  "version": "1.0.0",
+  "repository": "https://github.com/Squad-Community-Ban-List/Squad-Community-Ban-List.git",
+  "author": "Thomas Smyth <https://github.com/Thomas-Smyth>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "assets",
+    "client",
+    "scbl-lib",
+    "web-server"
+  ],
+  "scripts": {
+    "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
+    "build-web-server": "cd client && npm run build",
+    "start-web-server": "cross-env NODE_ENV=production node web-server/index.js",
+    "dev-web-server": "concurrently \"nodemon web-server/index.js\" \"cd client && npm run start\""
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5"
+  }
+}

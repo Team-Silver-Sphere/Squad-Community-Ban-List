@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/scbl-logo-dark.png" alt="Logo" width="500"/>
+<img src="client/src/assets/img/brand/scbl-logo-dark.png" alt="Logo" width="500"/>
 
 #### Squad Community Ban List
 
