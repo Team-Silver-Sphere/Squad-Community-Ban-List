@@ -278,7 +278,7 @@ class DemoNavbar extends React.Component {
                           </Media>
                         </DropdownToggle>
                         <DropdownMenu className="dropdown-menu-md" left>
-                          <DropdownItem>
+                          <DropdownItem onClick={() => { Auth.logout(); this.setState({}) }}>
                             <i className="fas fa-sign-out-alt mr-2" />
                             Logout
                           </DropdownItem>
