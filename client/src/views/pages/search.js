@@ -132,11 +132,20 @@ export default function (props) {
               <>
                 <CardBody className="text-center border-bottom">
                   <h4>Steam Profile</h4>
-                  {data.steamUser.name && data.steamUser.avatarFull && (
+                  {data.steamUser.name && data.steamUser.avatarFull ? (
                     <img
                       alt={`${data.steamUser.name}'s avatar`}
                       src={data.steamUser.avatarFull}
                       className="rounded-circle mb-4"
+                    />
+                  ) : (
+                    <img
+                      alt={`${
+                        data.steamUser.name ? data.steamUser.name : data.steamUser.id
+                      }'s avatar`}
+                      src={require('../../assets/img/misc/avatar.svg')}
+                      className="rounded-circle mb-4"
+                      width="184px"
                     />
                   )}
                   <h5>
