@@ -44,7 +44,6 @@ const query = gql`
 
 export default function () {
   const { loading, error, data, fetchMore } = useQuery(query);
-
   return (
     <Layout>
       <section className="section section-lg pt-lg-0 mt--200">
@@ -98,7 +97,10 @@ export default function () {
                         </td>
                         <td>
                           Banned on {edge.node.banList.organisation.name}'s {edge.node.banList.name}{' '}
-                          for {edge.node.reason}.
+                          <br />
+                          {edge.node.reason === 'Unknown'
+                            ? 'No reason has been specified.'
+                            : `for ` + edge.node.reason}
                         </td>
                         <td>{edge.node.created}</td>
                       </tr>

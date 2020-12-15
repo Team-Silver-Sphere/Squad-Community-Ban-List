@@ -6,9 +6,13 @@ export default function (props) {
   return (
     <Link to={`/search/${props.steamUser.id}`}>
       <Media className="align-items-center">
-        {props.steamUser.avatar && (
+        {props.steamUser.avatar ? (
           <span className="avatar avatar-sm rounded-circle">
             <img alt="..." src={props.steamUser.avatar} />
+          </span>
+        ) : (
+          <span className="avatar avatar-sm rounded-circle">
+            <img alt="..." src={require('../assets/img/misc/avatar.svg')} />
           </span>
         )}
         <Media className="ml-2">
