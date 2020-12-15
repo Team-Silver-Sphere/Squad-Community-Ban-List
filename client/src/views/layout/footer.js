@@ -86,7 +86,7 @@ export default function () {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    MIT License
+                    MIT License &nbsp;
                   </NavLink>
                 </NavItem>
               </Nav>
