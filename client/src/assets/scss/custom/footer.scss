@@ -1,3 +1,15 @@
 .footer.has-cards {
     padding-top: 400px;
 }
+
+.nav-footer {
+    .nav-link {
+        font-size: $font-size-sm;
+    }
+
+    .nav-item:last-child {
+        .nav-link {
+            padding-right: 0.75rem;
+        }
+    }
+}
