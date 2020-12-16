@@ -20,7 +20,7 @@ export default function () {
                 ')',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
-              backgroundPosition: '50% 100%'
+              backgroundPosition: '50% 70%'
             }}
           />
           <Container className="py-lg-md d-flex">

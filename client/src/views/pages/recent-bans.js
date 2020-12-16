@@ -8,6 +8,8 @@ import Layout from '../layout/layout.js';
 
 import SteamUser from '../../components/steam-user.js';
 
+import FormattedDate from '../../utils/FormattedDate.js';
+
 const query = gql`
   query RecentBans($after: String) {
     bans(orderBy: "created", orderDirection: DESC, first: 20, after: $after) {
@@ -41,14 +43,7 @@ const query = gql`
     }
   }
 `;
-const options = {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: 'numeric',
-  minute: 'numeric',
-  second: 'numeric'
-};
+
 export default function () {
   const { loading, error, data, fetchMore } = useQuery(query);
   return (
@@ -112,12 +107,13 @@ export default function () {
                         </td>
                         <td>
                           <i className="fa fa-clock" title="Banned on" />{' '}
-                          {new Date(edge.node.created).toLocaleDateString(undefined, options)}{' '}
-                          <br />
+                          {<FormattedDate date={edge.node.created} />} <br />
                           <i className="fa fa-hourglass-start" title="Banned until" />{' '}
-                          {edge.node.expired
-                            ? new Date(edge.node.expired).toLocaleDateString(undefined, options)
-                            : 'Permanent Ban'}
+                          {edge.node.expired ? (
+                            <FormattedDate date={edge.node.expired} />
+                          ) : (
+                            'Permanent Ban'
+                          )}
                         </td>
                       </tr>
                     ))}

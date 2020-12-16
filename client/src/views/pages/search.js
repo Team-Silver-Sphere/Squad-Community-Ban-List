@@ -22,6 +22,8 @@ import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
 import { validSteam64ID } from 'scbl-lib/validators';
 
+import FormattedDate from '../../utils/FormattedDate.js';
+
 const query = gql`
   query Search($id: String!) {
     steamUser(id: $id) {
@@ -154,12 +156,11 @@ export default function (props) {
                   </h5>
                   <small>
                     <strong>Last Refreshed: </strong>{' '}
-                    {data.steamUser.lastRefreshedInfo
-                      ? new Date(data.steamUser.lastRefreshedInfo).toLocaleDateString(
-                          undefined,
-                          options
-                        )
-                      : 'Queued for refresh.'}
+                    {data.steamUser.lastRefreshedInfo ? (
+                      <FormattedDate date={data.steamUser.lastRefreshedInfo} />
+                    ) : (
+                      'Queued for refresh.'
+                    )}
                   </small>
                 </CardBody>
                 <CardBody className="text-center border-bottom">
@@ -172,11 +173,11 @@ export default function (props) {
                       </h2>
                       <small>
                         <strong>Last Refreshed: </strong>{' '}
-                        {data.steamUser.lastRefreshedReputationPoints
-                          ? new Date(
-                              data.steamUser.lastRefreshedReputationPoints
-                            ).toLocaleDateString(undefined, options)
-                          : 'Queued for refresh.'}
+                        {data.steamUser.lastRefreshedReputationPoints ? (
+                          <FormattedDate date={data.steamUser.lastRefreshedReputationPoints} />
+                        ) : (
+                          'Queued for refresh.'
+                        )}
                       </small>
                     </Col>
                     <Col>
@@ -192,12 +193,11 @@ export default function (props) {
                       </h2>
                       <small>
                         <strong>Last Refreshed: </strong>{' '}
-                        {data.steamUser.lastRefreshedReputationRank
-                          ? new Date(data.steamUser.lastRefreshedReputationRank).toLocaleDateString(
-                              undefined,
-                              options
-                            )
-                          : 'Queued for refresh.'}
+                        {data.steamUser.lastRefreshedReputationRank ? (
+                          <FormattedDate date={data.steamUser.lastRefreshedReputationRank} />
+                        ) : (
+                          'Queued for refresh.'
+                        )}
                       </small>
                     </Col>
                   </Row>
@@ -261,13 +261,13 @@ export default function (props) {
                         </td>
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
+                        <td>{<FormattedDate date={edge.node.created} />}</td>
                         <td>
-                          {new Date(edge.node.created).toLocaleDateString(undefined, options)}
-                        </td>
-                        <td>
-                          {edge.node.expires
-                            ? new Date(edge.node.expires).toLocaleDateString(undefined, options)
-                            : 'Permanent Ban'}
+                          {edge.node.expires ? (
+                            <FormattedDate date={edge.node.expires} />
+                          ) : (
+                            'Permanent Ban'
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -339,13 +339,13 @@ export default function (props) {
                         </td>
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
+                        <td>{<FormattedDate date={edge.node.created} />}</td>
                         <td>
-                          {new Date(edge.node.created).toLocaleDateString(undefined, options)}
-                        </td>
-                        <td>
-                          {edge.node.expires
-                            ? new Date(edge.node.expires).toLocaleDateString(undefined, options)
-                            : 'Permanent Ban'}
+                          {edge.node.expires ? (
+                            <FormattedDate date={edge.node.expires} />
+                          ) : (
+                            'Permanent Ban'
+                          )}
                         </td>
                       </tr>
                     ))}
