@@ -149,7 +149,7 @@ export default function () {
               <img
                 alt="..."
                 className="img-fluid floating"
-                src={require('../../assets/img/misc/placeholder-1.png')}
+                src={require('../../assets/img/misc/home_image1.png')}
               />
             </Col>
             <Col className="order-md-1" md="6">

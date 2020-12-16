@@ -41,7 +41,14 @@ const query = gql`
     }
   }
 `;
-
+const options = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+  second: 'numeric'
+};
 export default function () {
   const { loading, error, data, fetchMore } = useQuery(query);
   return (
@@ -96,13 +103,22 @@ export default function () {
                           <SteamUser steamUser={edge.node.steamUser} />
                         </td>
                         <td>
-                          Banned on {edge.node.banList.organisation.name}'s {edge.node.banList.name}{' '}
+                          Banned on {edge.node.banList.organisation.name}'s {edge.node.banList.name}
+                          {' ban list '}
                           <br />
                           {edge.node.reason === 'Unknown'
-                            ? 'No reason has been specified.'
-                            : `for ` + edge.node.reason}
+                            ? 'for an unknown reason.'
+                            : 'for ' + edge.node.reason.toLowerCase() + '.'}
                         </td>
-                        <td>{edge.node.created}</td>
+                        <td>
+                          <i className="fa fa-clock" title="Banned on" />{' '}
+                          {new Date(edge.node.created).toLocaleDateString(undefined, options)}{' '}
+                          <br />
+                          <i className="fa fa-hourglass-start" title="Banned until" />{' '}
+                          {edge.node.expired
+                            ? new Date(edge.node.expired).toLocaleDateString(undefined, options)
+                            : 'Permanent Ban'}
+                        </td>
                       </tr>
                     ))}
                     <tr>

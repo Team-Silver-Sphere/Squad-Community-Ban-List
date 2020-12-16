@@ -85,6 +85,15 @@ export default function (props) {
     ? useQuery(query, { variables: { id: search } })
     : { loading: null, error: null, data: null };
 
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  };
+
   return (
     <Layout>
       <section className="section section-lg pt-lg-0 mt--200">
@@ -132,22 +141,12 @@ export default function (props) {
               <>
                 <CardBody className="text-center border-bottom">
                   <h4>Steam Profile</h4>
-                  {data.steamUser.name && data.steamUser.avatarFull ? (
-                    <img
-                      alt={`${data.steamUser.name}'s avatar`}
-                      src={data.steamUser.avatarFull}
-                      className="rounded-circle mb-4"
-                    />
-                  ) : (
-                    <img
-                      alt={`${
-                        data.steamUser.name ? data.steamUser.name : data.steamUser.id
-                      }'s avatar`}
-                      src={require('../../assets/img/misc/avatar.svg')}
-                      className="rounded-circle mb-4"
-                      width="184px"
-                    />
-                  )}
+                  <img
+                    alt={`${data.steamUser.name || data.steamUser.id}'s avatar`}
+                    src={data.steamUser.avatarFull || require('../../assets/img/misc/avatar.svg')}
+                    width="184px"
+                    className="rounded-circle mb-4"
+                  />
                   <h5>
                     <a href={`https://steamcommunity.com/id/${data.steamUser.id}`}>
                       {data.steamUser.name || data.steamUser.id}
@@ -156,7 +155,10 @@ export default function (props) {
                   <small>
                     <strong>Last Refreshed: </strong>{' '}
                     {data.steamUser.lastRefreshedInfo
-                      ? data.steamUser.lastRefreshedInfo
+                      ? new Date(data.steamUser.lastRefreshedInfo).toLocaleDateString(
+                          undefined,
+                          options
+                        )
                       : 'Queued for refresh.'}
                   </small>
                 </CardBody>
@@ -171,7 +173,9 @@ export default function (props) {
                       <small>
                         <strong>Last Refreshed: </strong>{' '}
                         {data.steamUser.lastRefreshedReputationPoints
-                          ? data.steamUser.lastRefreshedReputationPoints
+                          ? new Date(
+                              data.steamUser.lastRefreshedReputationPoints
+                            ).toLocaleDateString(undefined, options)
                           : 'Queued for refresh.'}
                       </small>
                     </Col>
@@ -189,7 +193,10 @@ export default function (props) {
                       <small>
                         <strong>Last Refreshed: </strong>{' '}
                         {data.steamUser.lastRefreshedReputationRank
-                          ? data.steamUser.lastRefreshedReputationRank
+                          ? new Date(data.steamUser.lastRefreshedReputationRank).toLocaleDateString(
+                              undefined,
+                              options
+                            )
                           : 'Queued for refresh.'}
                       </small>
                     </Col>
@@ -254,8 +261,14 @@ export default function (props) {
                         </td>
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
-                        <td>{edge.node.created}</td>
-                        <td>{edge.node.expires || 'Permanent Ban'}</td>
+                        <td>
+                          {new Date(edge.node.created).toLocaleDateString(undefined, options)}
+                        </td>
+                        <td>
+                          {edge.node.expires
+                            ? new Date(edge.node.expires).toLocaleDateString(undefined, options)
+                            : 'Permanent Ban'}
+                        </td>
                       </tr>
                     ))}
                     {data.steamUser.activeBans.edges.length === 0 && (
@@ -326,8 +339,14 @@ export default function (props) {
                         </td>
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
-                        <td>{edge.node.created}</td>
-                        <td>{edge.node.expires || 'Permanent Ban'}</td>
+                        <td>
+                          {new Date(edge.node.created).toLocaleDateString(undefined, options)}
+                        </td>
+                        <td>
+                          {edge.node.expires
+                            ? new Date(edge.node.expires).toLocaleDateString(undefined, options)
+                            : 'Permanent Ban'}
+                        </td>
                       </tr>
                     ))}
                     {data.steamUser.expiredBans.edges.length === 0 && (
