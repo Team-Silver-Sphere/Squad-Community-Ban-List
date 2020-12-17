@@ -3,6 +3,8 @@ import React from 'react';
 import Navbar from './navbar.js';
 import Footer from './footer.js';
 
+import background from '../../assets/img/backgrounds/background-1.jpg';
+
 export default function (props) {
   return (
     <>
@@ -15,7 +17,7 @@ export default function (props) {
               style={{
                 backgroundImage:
                   'linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url(' +
-                  require('../../assets/img/backgrounds/background-1.jpg') +
+                  background +
                   ')',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',

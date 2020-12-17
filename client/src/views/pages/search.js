@@ -20,8 +20,6 @@ import AdvancedModal from '../../components/advanced-modal.js';
 import DisplayRiskRating from '../../components/display-risk-rating.js';
 import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
-import { validSteam64ID } from 'scbl-lib/validators';
-
 const query = gql`
   query Search($id: String!) {
     steamUser(id: $id) {
@@ -45,7 +43,6 @@ const query = gql`
                 id
                 name
                 discord
-                appealProcess
               }
             }
             reason
@@ -65,7 +62,6 @@ const query = gql`
                 id
                 name
                 discord
-                appealProcess
               }
             }
             reason
@@ -79,7 +75,7 @@ const query = gql`
 
 export default function (props) {
   const search = props.match.params.search;
-  const isValidSteam64ID = validSteam64ID(search);
+  const isValidSteam64ID = search && search.match(/^[0-9]{17}$/);
 
   const { loading, error, data } = isValidSteam64ID
     ? useQuery(query, { variables: { id: search } })
@@ -209,7 +205,7 @@ export default function (props) {
                             {(modal) => (
                               <>
                                 <a
-                                  href="#"
+                                  href="/test"
                                   onClick={(e) => {
                                     e.preventDefault();
                                     modal.open();
@@ -231,11 +227,7 @@ export default function (props) {
                                       The Squad Community Ban List does <strong>not</strong> handle
                                       ban appeals on behalf of partner organisations. To get a ban
                                       removed from {edge.node.banList.organisation.name}'s server(s)
-                                      you will need to go through their appeals process. They have
-                                      provided the following information explaining how to do this:
-                                    </p>
-                                    <p className="font-italic">
-                                      {edge.node.banList.organisation.appealProcess}
+                                      you will need to contact them via their Discord, linked above.
                                     </p>
                                   </ModalBody>
                                 </Modal>
@@ -281,7 +273,7 @@ export default function (props) {
                             {(modal) => (
                               <>
                                 <a
-                                  href="#"
+                                  href="/test"
                                   onClick={(e) => {
                                     e.preventDefault();
                                     modal.open();

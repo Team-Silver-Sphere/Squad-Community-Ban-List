@@ -19,11 +19,15 @@ ExportBanList.init(
     name: {
       type: DataTypes.STRING
     },
-    defaultActiveWeight: {
+    threshold: {
+      type: DataTypes.INTEGER,
+      default: 9
+    },
+    defaultActivePoints: {
       type: DataTypes.INTEGER,
       default: 3
     },
-    defaultExpiredWeight: {
+    defaultExpiredPoints: {
       type: DataTypes.INTEGER,
       default: 1
     }

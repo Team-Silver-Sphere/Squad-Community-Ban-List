@@ -6,8 +6,9 @@ export default gql`
     id: Int
     server: String
     name: String
-    defaultActiveWeight: Int
-    defaultExpiredWeight: Int
+    threshold: Int
+    defaultActivePoints: Int
+    defaultExpiredPoints: Int
     owner: SteamUser
   }
 `;

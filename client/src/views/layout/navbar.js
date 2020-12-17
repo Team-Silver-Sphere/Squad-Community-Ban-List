@@ -26,6 +26,9 @@ import { DISCORD_INVITE } from 'scbl-lib/config';
 
 import Auth from '../../utils/auth.js';
 
+import logo from '../../assets/img/brand/scbl-logo.png';
+import logoDark from '../../assets/img/brand/scbl-logo-dark.png';
+
 class DemoNavbar extends React.Component {
   componentDidMount() {
     let headroom = new Headroom(document.getElementById('navbar-main'));
@@ -59,7 +62,7 @@ class DemoNavbar extends React.Component {
           >
             <Container>
               <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
-                <img alt="SCBL Logo" src={require('../../assets/img/brand/scbl-logo.png')} />
+                <img alt="SCBL Logo" src={logo} />
               </NavbarBrand>
               <button className="navbar-toggler" id="navbar">
                 <span className="navbar-toggler-icon" />
@@ -75,7 +78,7 @@ class DemoNavbar extends React.Component {
                   <Row>
                     <Col className="collapse-brand" xs="6">
                       <Link to="/">
-                        <img alt="..." src={require('../../assets/img/brand/scbl-logo-dark.png')} />
+                        <img alt="..." src={logoDark} />
                       </Link>
                     </Col>
                     <Col className="collapse-close" xs="6">
@@ -266,31 +269,34 @@ class DemoNavbar extends React.Component {
                       Check us out on GitHub!
                     </UncontrolledTooltip>
                   </NavItem>
-                  <NavItem>
-                    {Auth.isLoggedIn ? (
-                      <UncontrolledDropdown nav>
-                        <DropdownToggle nav>
-                          <Media className="align-items-center">
-                            <span className="avatar avatar-sm rounded-circle mr-2">
-                              <img alt="..." src={Auth.claim.avatar} />
-                            </span>
-                            {Auth.claim.name}
-                          </Media>
-                        </DropdownToggle>
-                        <DropdownMenu className="dropdown-menu-md" left>
-                          <DropdownItem onClick={() => { Auth.logout(); this.setState({}) }}>
-                            <i className="fas fa-sign-out-alt mr-2" />
-                            Logout
-                          </DropdownItem>
-                        </DropdownMenu>
-                      </UncontrolledDropdown>
-                    ) : (
-                      <Button color="steam" tag={Link} to="/login">
-                        <i className="fab fa-steam mr-2" />
-                        Login
-                      </Button>
-                    )}
-                  </NavItem>
+                  {Auth.isLoggedIn ? (
+                    <UncontrolledDropdown nav>
+                      <DropdownToggle nav>
+                        <Media className="align-items-center">
+                          <span className="avatar avatar-sm rounded-circle mr-2">
+                            <img alt="..." src={Auth.claim.avatar} />
+                          </span>
+                          {Auth.claim.name}
+                        </Media>
+                      </DropdownToggle>
+                      <DropdownMenu className="dropdown-menu-md">
+                        <DropdownItem
+                          onClick={() => {
+                            Auth.logout();
+                            this.setState({});
+                          }}
+                        >
+                          <i className="fas fa-sign-out-alt mr-2" />
+                          Logout
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  ) : (
+                    <Button color="steam" tag={Link} to="/login">
+                      <i className="fab fa-steam mr-2" />
+                      Login
+                    </Button>
+                  )}
                 </Nav>
               </UncontrolledCollapse>
             </Container>

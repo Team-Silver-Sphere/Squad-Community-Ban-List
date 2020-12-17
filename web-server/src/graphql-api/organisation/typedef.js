@@ -6,6 +6,5 @@ export default gql`
     id: Int
     name: String
     discord: String
-    appealProcess: String
   }
 `;

@@ -5,7 +5,6 @@ import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import AdvancedModal from './advanced-modal';
 
 export default function (props) {
-  if (!props.errors) return null;
   return (
     <AdvancedModal>
       {(modal) => (

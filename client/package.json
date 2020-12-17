@@ -4,35 +4,43 @@
   "private": true,
   "proxy": "http://localhost:80",
   "dependencies": {
-    "@apollo/client": "^3.1.4",
+    "@apollo/client": "^3.3.6",
     "@apollo/react-hooks": "^4.0.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.18.0",
-    "chart.js": "^2.7.3",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.6.0",
+    "axios": "^0.21.0",
+    "chart.js": "^2.9.4",
     "classnames": "^2.2.6",
-    "eslint": "^7.7.0",
-    "graphql": "^14.2.1",
-    "headroom.js": "^0.11.0",
-    "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.14",
-    "moment": "^2.24.0",
-    "node-sass": "^4.12.0",
-    "nouislider": "^13.1.1",
-    "react": "^16.13.1",
-    "react-chartjs-2": "^2.7.4",
-    "react-copy-to-clipboard": "^5.0.1",
-    "react-datetime": "^2.16.3",
-    "react-dom": "^16.13.1",
-    "react-ga": "^2.7.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "graphql": "^15.4.0",
+    "headroom.js": "^0.12.0",
+    "husky": "^4.3.6",
+    "jwt-decode": "^3.1.2",
+    "lint-staged": "^10.5.3",
+    "moment": "^2.29.1",
+    "node-sass": "4.14.1",
+    "nodemon": "^2.0.6",
+    "nouislider": "^14.6.3",
+    "prettier": "^2.2.1",
+    "react": "^17.0.1",
+    "react-chartjs-2": "^2.11.1",
+    "react-copy-to-clipboard": "^5.0.2",
+    "react-datetime": "^3.0.4",
+    "react-dom": "^17.0.1",
+    "react-ga": "^3.3.0",
     "react-google-maps": "^9.4.5",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
-    "react-select": "^2.4.3",
-    "reactstrap": "^7.1.0",
-    "scbl-lib": "1.0.0"
+    "react-scripts": "^4.0.1",
+    "react-select": "^3.1.1",
+    "reactstrap": "^8.7.1",
+    "sass": "^1.30.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,7 +49,17 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "overrides": [
+      {
+        "files": [
+          "**/**/*.js"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
   },
   "browserslist": {
     "production": [

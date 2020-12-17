@@ -6,6 +6,12 @@ import Layout from '../layout/layout.js';
 
 import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
+import background1 from '../../assets/img/backgrounds/background-1.jpg';
+import background2 from '../../assets/img/backgrounds/background-2.jpg';
+import background3 from '../../assets/img/backgrounds/background-3.jpg';
+
+import placeholder from '../../assets/img/misc/placeholder-1.png';
+
 export default function () {
   return (
     <Layout homePage={true}>
@@ -16,7 +22,7 @@ export default function () {
             style={{
               backgroundImage:
                 'linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(' +
-                require('../../assets/img/backgrounds/background-1.jpg') +
+                background1 +
                 ')',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
@@ -146,11 +152,7 @@ export default function () {
         <Container>
           <Row className="row-grid align-items-center">
             <Col className="order-md-2" md="6">
-              <img
-                alt="..."
-                className="img-fluid floating"
-                src={require('../../assets/img/misc/placeholder-1.png')}
-              />
+              <img alt="..." className="img-fluid floating" src={placeholder} />
             </Col>
             <Col className="order-md-1" md="6">
               <div className="pr-md-5">
@@ -210,11 +212,7 @@ export default function () {
         <Container>
           <Row className="row-grid align-items-center">
             <Col md="6">
-              <img
-                alt="..."
-                className="img-fluid floating"
-                src={require('../../assets/img/misc/placeholder-1.png')}
-              />
+              <img alt="..." className="img-fluid floating" src={placeholder} />
             </Col>
             <Col md="6">
               <div className="pr-md-5">
@@ -263,9 +261,7 @@ export default function () {
           className="shape"
           style={{
             backgroundImage:
-              'linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(' +
-              require('../../assets/img/backgrounds/background-2.jpg') +
-              ')',
+              'linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(' + background2 + ')',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: '50% 40%'
@@ -346,11 +342,7 @@ export default function () {
               </div>
             </Col>
             <Col md="6">
-              <img
-                alt="..."
-                className="img-fluid floating"
-                src={require('../../assets/img/misc/placeholder-1.png')}
-              />
+              <img alt="..." className="img-fluid floating" src={placeholder} />
             </Col>
           </Row>
         </Container>
@@ -360,9 +352,7 @@ export default function () {
           className="shape"
           style={{
             backgroundImage:
-              'linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(' +
-              require('../../assets/img/backgrounds/background-3.jpg') +
-              ')',
+              'linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(' + background3 + ')',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: '50% 90%'
@@ -468,13 +458,23 @@ export default function () {
                 </div>
               </div>
             </Col>
+            <Col className="mb-5">
+              <div className="px-4">
+                <div className="pt-4 text-center">
+                  <h5 className="title">
+                    <span className="d-block mb-1">LeventHAN</span>
+                    <small className="h6">Developer</small>
+                  </h5>
+                </div>
+              </div>
+            </Col>
           </Row>
           <Row>
             <Card className="bg-gradient-info shadow-lg border-0">
               <div className="p-5">
                 <Row className="align-items-center">
                   <Col lg="8">
-                    <h4 className="text-white">Also by Tommy... SquadJS</h4>
+                    <h4 className="text-white">Also by Us... SquadJS</h4>
                     <p className="text-white mt-3">
                       SquadJS is a scripting framework, designed for Squad servers, that aims to
                       handle all communication and data collection to and from the servers. It can
