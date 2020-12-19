@@ -103,7 +103,7 @@ class BanList extends Sequelize.Model {
     // Delete deleted bans
     const deletedBans = await Ban.findAll({
       attributes: ['id', 'steamUser'],
-      where: { id: { [Op.notIn]: importedBans.map((importedBan) => importedBan.id) } }
+      where: { id: { [Op.notIn]: importedBans.map((importedBan) => importedBan.id) }, banList: this.id }
     });
     console.log(`Deleting ${deletedBans.length} bans from ban list (ID: ${this.id})...`);
     for (const deletedBan of deletedBans) {
@@ -139,8 +139,7 @@ BanList.init(
       autoIncrement: true
     },
     name: {
-      type: DataTypes.STRING,
-      unique: true
+      type: DataTypes.STRING
     },
     type: {
       type: DataTypes.STRING
