@@ -26,6 +26,7 @@ export default gql`
       expired: Boolean
     ): BanConnection
 
+    exportBanList(id: Int!): ExportBanList
     exportBanLists: [ExportBanList]
   }
 

@@ -12,8 +12,6 @@ import {
   InputGroupText
 } from 'reactstrap';
 
-import { validSteam64ID } from 'scbl-lib/validators';
-
 export default function (props) {
   const [search, updateSearch] = useState(props.search || '');
   const history = useHistory();
@@ -25,7 +23,8 @@ export default function (props) {
           <InputGroup
             className={classnames({
               'input-group-alternative': props.frontpageVersion,
-              'is-invalid': !props.frontpageVersion && search !== '' && !validSteam64ID(search)
+              'is-invalid':
+                !props.frontpageVersion && search !== '' && !(search && search.match(/^[0-9]{17}$/))
             })}
           >
             <InputGroupAddon addonType="prepend">
@@ -45,7 +44,7 @@ export default function (props) {
               <Button
                 className="rounded-right shadow-none"
                 color="primary"
-                disabled={!props.frontpageVersion && !validSteam64ID(search)}
+                disabled={!props.frontpageVersion && !(search && search.match(/^[0-9]{17}$/))}
               >
                 Search
               </Button>

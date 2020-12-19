@@ -6,8 +6,17 @@ export default gql`
     createExportBanList(
       name: String!
       server: String!
-      defaultActiveWeight: Int
-      defaultExpiredWeight: Int
+      threshold: Int
+      defaultActivePoints: Int
+      defaultExpiredPoints: Int
+    ): ExportBanList
+    updateExportBanList(
+      id: Int!
+      name: String!
+      server: String!
+      threshold: Int!
+      defaultActivePoints: Int!
+      defaultExpiredPoints: Int!
     ): ExportBanList
     deleteExportBanList(id: Int!): ExportBanList
   }

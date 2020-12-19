@@ -16,8 +16,5 @@ export default sequelize.define('Organisation', {
   },
   discord: {
     type: DataTypes.TEXT
-  },
-  appealProcess: {
-    type: DataTypes.TEXT
   }
 });

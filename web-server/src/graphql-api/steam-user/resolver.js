@@ -15,6 +15,9 @@ export default {
         }
       });
     },
+    exportBanList: (parent, filter) => {
+      return ExportBanList.findByPk(filter.id);
+    },
     exportBanLists: (parent) => {
       return ExportBanList.findAll({ where: { owner: parent.id } });
     }

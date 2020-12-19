@@ -1,29 +1,30 @@
 import React from 'react';
-import { Card, CardBody, Col, Container, Row, Table } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Button, Card, CardBody, Col, Container, Row, Table } from 'reactstrap';
 
-import ExportBanListCreate from '../../components/export-ban-list-create.js';
 import Layout from '../layout/layout.js';
 
 import { gql } from '@apollo/client';
 import { useQuery } from '@apollo/react-hooks';
 
-const query = gql`
-  query ExportBanLists {
+const GET_EXPORT_BAN_LISTS = gql`
+  query GetExportBanLists {
     loggedInSteamUser {
       id
       exportBanLists {
         id
         name
         server
-        defaultActiveWeight
-        defaultExpiredWeight
+        threshold
+        defaultActivePoints
+        defaultExpiredPoints
       }
     }
   }
 `;
 
 export default function () {
-  const { loading, error, data } = useQuery(query);
+  const { loading, error, data } = useQuery(GET_EXPORT_BAN_LISTS);
 
   return (
     <Layout>
@@ -45,14 +46,16 @@ export default function () {
                 <tr>
                   <th>Name</th>
                   <th>Server</th>
-                  <th>Default Active Weight</th>
-                  <th>Default Expired Weight</th>
+                  <th>Threshold</th>
+                  <th>Default Active Points</th>
+                  <th>Default Expired Points</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {loading && (
                   <tr>
-                    <td colSpan={4} className="text-center">
+                    <td colSpan={6} className="text-center">
                       <div className="text-center mt-2 mb-3">Loading...</div>
                       <div className="btn-wrapper text-center">
                         <i className="fas fa-circle-notch fa-spin fa-4x" />
@@ -62,7 +65,7 @@ export default function () {
                 )}
                 {error && (
                   <tr>
-                    <td colSpan={4} className="text-center">
+                    <td colSpan={6} className="text-center">
                       <div className="text-center mt-2 mb-2">Error!</div>
                       <div className="btn-wrapper text-center">
                         <i className="fas fa-exclamation-triangle fa-4x" />
@@ -77,7 +80,7 @@ export default function () {
                       <>
                         {data.loggedInSteamUser.exportBanLists.length === 0 && (
                           <tr>
-                            <td colSpan={4} className="text-center">
+                            <td colSpan={6} className="text-center">
                               <strong>Create an export ban list to get started!</strong>
                             </td>
                           </tr>
@@ -86,15 +89,26 @@ export default function () {
                           <tr key={key}>
                             <th>{exportBanList.name}</th>
                             <td>{exportBanList.server}</td>
-                            <td>{exportBanList.defaultActiveWeight}</td>
-                            <td>{exportBanList.defaultExpiredWeight}</td>
+                            <td>{exportBanList.threshold}</td>
+                            <td>{exportBanList.defaultActivePoints}</td>
+                            <td>{exportBanList.defaultExpiredPoints}</td>
+                            <td>
+                              <Button
+                                size="sm"
+                                color="info"
+                                tag={Link}
+                                to={`/export-ban-lists/${exportBanList.id}`}
+                              >
+                                Edit
+                              </Button>
+                            </td>
                           </tr>
                         ))}
                       </>
                     )}
                     {!data.loggedInSteamUser && (
                       <tr>
-                        <td colSpan={4} className="text-center">
+                        <td colSpan={6} className="text-center">
                           <strong>Login to view your export ban lists!</strong>
                         </td>
                       </tr>
@@ -106,7 +120,9 @@ export default function () {
             <CardBody>
               <Row>
                 <Col className="text-center">
-                  <ExportBanListCreate />
+                  <Button color="info" tag={Link} to="/export-ban-lists/new">
+                    Create Export Ban List
+                  </Button>
                 </Col>
               </Row>
             </CardBody>
