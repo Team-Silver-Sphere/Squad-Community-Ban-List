@@ -103,7 +103,10 @@ class BanList extends Sequelize.Model {
     // Delete deleted bans
     const deletedBans = await Ban.findAll({
       attributes: ['id', 'steamUser'],
-      where: { id: { [Op.notIn]: importedBans.map((importedBan) => importedBan.id) }, banList: this.id }
+      where: {
+        id: { [Op.notIn]: importedBans.map((importedBan) => importedBan.id) },
+        banList: this.id
+      }
     });
     console.log(`Deleting ${deletedBans.length} bans from ban list (ID: ${this.id})...`);
     for (const deletedBan of deletedBans) {
