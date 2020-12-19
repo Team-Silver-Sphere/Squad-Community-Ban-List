@@ -10,9 +10,9 @@ import background1 from '../../assets/img/backgrounds/background-1.jpg';
 import background2 from '../../assets/img/backgrounds/background-2.jpg';
 import background3 from '../../assets/img/backgrounds/background-3.jpg';
 
-import placeholder1 from '../../assets/img/misc/home_image1.png';
-import placeholder2 from '../../assets/img/misc/placeholder-1.png';
-import placeholder3 from '../../assets/img/misc/placeholder-2.png';
+import homeImgExp from '../../assets/img/misc/home-1.png';
+import homeImgBen from '../../assets/img/misc/home-2.png';
+import homeImgCont from '../../assets/img/misc/home-3.png';
 
 export default function () {
   return (
@@ -154,7 +154,7 @@ export default function () {
         <Container>
           <Row className="row-grid align-items-center">
             <Col className="order-md-2" md="6">
-              <img alt="..." className="img-fluid floating" src={placeholder1} />
+              <img alt="..." className="img-fluid floating" src={homeImgExp} />
             </Col>
             <Col className="order-md-1" md="6">
               <div className="pr-md-5">
@@ -214,7 +214,7 @@ export default function () {
         <Container>
           <Row className="row-grid align-items-center">
             <Col md="6">
-              <img alt="..." className="img-fluid floating" src={placeholder2} />
+              <img alt="..." className="img-fluid floating" src={homeImgBen} />
             </Col>
             <Col md="6">
               <div className="pr-md-5">
@@ -344,7 +344,7 @@ export default function () {
               </div>
             </Col>
             <Col md="6">
-              <img alt="..." className="img-fluid floating" src={placeholder3} />
+              <img alt="..." className="img-fluid floating" src={homeImgCont} />
             </Col>
           </Row>
         </Container>

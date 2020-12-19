@@ -21,7 +21,7 @@ import DisplayRiskRating from '../../components/display-risk-rating.js';
 import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
 import steamAvatar from '../../assets/img/misc/avatar.svg';
-import FormattedDate from '../../utils/FormattedDate.js';
+import FormattedDate from '../../utils/formatted-date.js';
 
 const query = gql`
   query Search($id: String!) {
