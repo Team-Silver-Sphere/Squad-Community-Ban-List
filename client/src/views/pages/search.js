@@ -20,6 +20,9 @@ import AdvancedModal from '../../components/advanced-modal.js';
 import DisplayRiskRating from '../../components/display-risk-rating.js';
 import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
+import steamAvatar from '../../assets/img/misc/avatar.svg';
+import FormattedDate from '../../utils/formatted-date.js';
+
 const query = gql`
   query Search($id: String!) {
     steamUser(id: $id) {
@@ -81,6 +84,15 @@ export default function (props) {
     ? useQuery(query, { variables: { id: search } })
     : { loading: null, error: null, data: null };
 
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric'
+  };
+
   return (
     <Layout>
       <section className="section section-lg pt-lg-0 mt--200">
@@ -128,13 +140,12 @@ export default function (props) {
               <>
                 <CardBody className="text-center border-bottom">
                   <h4>Steam Profile</h4>
-                  {data.steamUser.name && data.steamUser.avatarFull && (
-                    <img
-                      alt={`${data.steamUser.name}'s avatar`}
-                      src={data.steamUser.avatarFull}
-                      className="rounded-circle mb-4"
-                    />
-                  )}
+                  <img
+                    alt={`${data.steamUser.name || data.steamUser.id}'s avatar`}
+                    src={data.steamUser.avatarFull || steamAvatar}
+                    width="184px"
+                    className="rounded-circle mb-4"
+                  />
                   <h5>
                     <a href={`https://steamcommunity.com/id/${data.steamUser.id}`}>
                       {data.steamUser.name || data.steamUser.id}
@@ -142,9 +153,11 @@ export default function (props) {
                   </h5>
                   <small>
                     <strong>Last Refreshed: </strong>{' '}
-                    {data.steamUser.lastRefreshedInfo
-                      ? data.steamUser.lastRefreshedInfo
-                      : 'Queued for refresh.'}
+                    {data.steamUser.lastRefreshedInfo ? (
+                      <FormattedDate date={data.steamUser.lastRefreshedInfo} />
+                    ) : (
+                      'Queued for refresh.'
+                    )}
                   </small>
                 </CardBody>
                 <CardBody className="text-center border-bottom">
@@ -157,9 +170,11 @@ export default function (props) {
                       </h2>
                       <small>
                         <strong>Last Refreshed: </strong>{' '}
-                        {data.steamUser.lastRefreshedReputationPoints
-                          ? data.steamUser.lastRefreshedReputationPoints
-                          : 'Queued for refresh.'}
+                        {data.steamUser.lastRefreshedReputationPoints ? (
+                          <FormattedDate date={data.steamUser.lastRefreshedReputationPoints} />
+                        ) : (
+                          'Queued for refresh.'
+                        )}
                       </small>
                     </Col>
                     <Col>
@@ -175,9 +190,11 @@ export default function (props) {
                       </h2>
                       <small>
                         <strong>Last Refreshed: </strong>{' '}
-                        {data.steamUser.lastRefreshedReputationRank
-                          ? data.steamUser.lastRefreshedReputationRank
-                          : 'Queued for refresh.'}
+                        {data.steamUser.lastRefreshedReputationRank ? (
+                          <FormattedDate date={data.steamUser.lastRefreshedReputationRank} />
+                        ) : (
+                          'Queued for refresh.'
+                        )}
                       </small>
                     </Col>
                   </Row>
@@ -237,8 +254,14 @@ export default function (props) {
                         </td>
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
-                        <td>{edge.node.created}</td>
-                        <td>{edge.node.expires || 'Permanent Ban'}</td>
+                        <td>{<FormattedDate date={edge.node.created} />}</td>
+                        <td>
+                          {edge.node.expires ? (
+                            <FormattedDate date={edge.node.expires} />
+                          ) : (
+                            'Permanent Ban'
+                          )}
+                        </td>
                       </tr>
                     ))}
                     {data.steamUser.activeBans.edges.length === 0 && (
@@ -309,8 +332,14 @@ export default function (props) {
                         </td>
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
-                        <td>{edge.node.created}</td>
-                        <td>{edge.node.expires || 'Permanent Ban'}</td>
+                        <td>{<FormattedDate date={edge.node.created} />}</td>
+                        <td>
+                          {edge.node.expires ? (
+                            <FormattedDate date={edge.node.expires} />
+                          ) : (
+                            'Permanent Ban'
+                          )}
+                        </td>
                       </tr>
                     ))}
                     {data.steamUser.expiredBans.edges.length === 0 && (

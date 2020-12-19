@@ -269,6 +269,7 @@ class DemoNavbar extends React.Component {
                       Check us out on GitHub!
                     </UncontrolledTooltip>
                   </NavItem>
+
                   {Auth.isLoggedIn ? (
                     <UncontrolledDropdown nav>
                       <DropdownToggle nav>

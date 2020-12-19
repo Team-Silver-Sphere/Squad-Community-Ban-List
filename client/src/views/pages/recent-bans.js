@@ -8,6 +8,8 @@ import Layout from '../layout/layout.js';
 
 import SteamUser from '../../components/steam-user.js';
 
+import FormattedDate from '../../utils/formatted-date.js';
+
 const query = gql`
   query RecentBans($after: String) {
     bans(orderBy: "created", orderDirection: DESC, first: 20, after: $after) {
@@ -44,7 +46,6 @@ const query = gql`
 
 export default function () {
   const { loading, error, data, fetchMore } = useQuery(query);
-
   return (
     <Layout>
       <section className="section section-lg pt-lg-0 mt--200">
@@ -97,10 +98,23 @@ export default function () {
                           <SteamUser steamUser={edge.node.steamUser} />
                         </td>
                         <td>
-                          Banned on {edge.node.banList.organisation.name}'s {edge.node.banList.name}{' '}
-                          for {edge.node.reason}.
+                          Banned on {edge.node.banList.organisation.name}'s {edge.node.banList.name}
+                          {' ban list '}
+                          <br />
+                          {edge.node.reason === 'Unknown'
+                            ? 'for an unknown reason.'
+                            : 'for ' + edge.node.reason.toLowerCase() + '.'}
                         </td>
-                        <td>{edge.node.created}</td>
+                        <td>
+                          <i className="fa fa-clock" title="Banned on" />{' '}
+                          <FormattedDate date={edge.node.created} /> <br />
+                          <i className="fa fa-hourglass-start" title="Banned until" />{' '}
+                          {edge.node.expired ? (
+                            <FormattedDate date={edge.node.expired} />
+                          ) : (
+                            'Permanent Ban'
+                          )}
+                        </td>
                       </tr>
                     ))}
                     <tr>
