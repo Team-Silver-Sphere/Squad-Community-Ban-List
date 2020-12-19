@@ -9,14 +9,14 @@
     "./db": "./db/index.js",
     "./db/sequelize": "./db/sequelize.js",
     "./db/models": "./db/models/index.js",
-    "./utils": "./utils/index.js",
-    "./validators": "./validators/index.js"
+    "./utils": "./utils/index.js"
   },
   "dependencies": {
+    "@thomas-smyth/sequelize-cursor-pagination": "^2.0.0",
     "axios": "^0.20.0",
     "bottleneck": "^2.19.5",
+    "chalk": "^4.1.0",
     "mysql2": "^2.1.0",
-    "sequelize": "^6.3.4",
-    "@thomas-smyth/sequelize-cursor-pagination": "^2.0.0"
+    "sequelize": "^6.3.4"
   }
 }
