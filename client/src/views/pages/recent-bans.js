@@ -107,7 +107,7 @@ export default function () {
                         </td>
                         <td>
                           <i className="fa fa-clock" title="Banned on" />{' '}
-                          {<FormattedDate date={edge.node.created} />} <br />
+                          <FormattedDate date={edge.node.created} /> <br />
                           <i className="fa fa-hourglass-start" title="Banned until" />{' '}
                           {edge.node.expired ? (
                             <FormattedDate date={edge.node.expired} />

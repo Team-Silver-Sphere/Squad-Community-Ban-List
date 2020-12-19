@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Media } from 'reactstrap';
+import steamAvatar from '../assets/img/misc/avatar.svg';
 
 export default function (props) {
   return (
@@ -12,7 +13,7 @@ export default function (props) {
           </span>
         ) : (
           <span className="avatar avatar-sm rounded-circle">
-            <img alt="..." src={require('../assets/img/misc/avatar.svg')} />
+            <img alt="..." src={steamAvatar} />
           </span>
         )}
         <Media className="ml-2">

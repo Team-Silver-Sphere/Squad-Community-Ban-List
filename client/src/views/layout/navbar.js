@@ -269,6 +269,35 @@ class DemoNavbar extends React.Component {
                       Check us out on GitHub!
                     </UncontrolledTooltip>
                   </NavItem>
+
+                  {Auth.isLoggedIn ? (
+                    <UncontrolledDropdown nav>
+                      <DropdownToggle nav>
+                        <Media className="align-items-center">
+                          <span className="avatar avatar-sm rounded-circle mr-2">
+                            <img alt="..." src={Auth.claim.avatar} />
+                          </span>
+                          {Auth.claim.name}
+                        </Media>
+                      </DropdownToggle>
+                      <DropdownMenu className="dropdown-menu-md">
+                        <DropdownItem
+                          onClick={() => {
+                            Auth.logout();
+                            this.setState({});
+                          }}
+                        >
+                          <i className="fas fa-sign-out-alt mr-2" />
+                          Logout
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </UncontrolledDropdown>
+                  ) : (
+                    <Button color="steam" tag={Link} to="/login">
+                      <i className="fab fa-steam mr-2" />
+                      Login
+                    </Button>
+                  )}
                 </Nav>
               </UncontrolledCollapse>
             </Container>

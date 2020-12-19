@@ -20,13 +20,9 @@ import AdvancedModal from '../../components/advanced-modal.js';
 import DisplayRiskRating from '../../components/display-risk-rating.js';
 import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
-//<<<<<<< HEAD
-import { validSteam64ID } from 'scbl-lib/validators';
-
+import steamAvatar from '../../assets/img/misc/avatar.svg';
 import FormattedDate from '../../utils/FormattedDate.js';
 
-//=======
-//>>>>>>> 934727c4dcb720a8083956813e987f5446bb9ba4
 const query = gql`
   query Search($id: String!) {
     steamUser(id: $id) {
@@ -146,7 +142,7 @@ export default function (props) {
                   <h4>Steam Profile</h4>
                   <img
                     alt={`${data.steamUser.name || data.steamUser.id}'s avatar`}
-                    src={data.steamUser.avatarFull || require('../../assets/img/misc/avatar.svg')}
+                    src={data.steamUser.avatarFull || steamAvatar}
                     width="184px"
                     className="rounded-circle mb-4"
                   />
