@@ -5,9 +5,8 @@ import { gql } from '@apollo/client';
 import { useQuery } from '@apollo/react-hooks';
 
 import Layout from '../layout/layout.js';
-import DisplayRiskRating from '../../components/display-risk-rating.js';
 
-import { SteamUser } from '../../components';
+import { DisplayRiskRating, SteamUser } from '../../components';
 
 const query = gql`
   query MostHarmfulPlayers($after: String) {

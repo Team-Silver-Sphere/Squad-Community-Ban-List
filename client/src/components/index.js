@@ -1,8 +1,8 @@
-import AdvancedModal from './advanced-modal';
-import ErrorModal from './error-modal';
-
+import AdvancedModal from './AdvancedModal';
 import BanDates from './BanDates';
+import DisplayRiskRating from './DisplayRiskRating';
+import ErrorModal from './ErrorModal';
 import FormattedDate from './FormattedDate';
 import SteamUser from './SteamUser';
 
-export { AdvancedModal, ErrorModal, BanDates, FormattedDate, SteamUser };
+export { AdvancedModal, BanDates, DisplayRiskRating, ErrorModal, FormattedDate, SteamUser };

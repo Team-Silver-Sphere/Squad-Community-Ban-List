@@ -16,13 +16,11 @@ import { useQuery } from '@apollo/react-hooks';
 
 import Layout from '../layout/layout.js';
 
-import AdvancedModal from '../../components/advanced-modal.js';
-import DisplayRiskRating from '../../components/display-risk-rating.js';
 import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
 import steamAvatar from '../../assets/img/misc/avatar.jpg';
 
-import { BanDates, FormattedDate } from '../../components';
+import { AdvancedModal, BanDates, DisplayRiskRating, FormattedDate } from '../../components';
 
 const query = gql`
   query Search($id: String!) {

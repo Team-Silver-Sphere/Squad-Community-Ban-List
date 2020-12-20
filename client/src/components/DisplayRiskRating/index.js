@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { calculateRiskRating } from 'scbl-lib/utils';
 
 export default function (props) {

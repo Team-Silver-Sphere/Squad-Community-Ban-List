@@ -6,6 +6,7 @@ import Layout from '../layout/layout.js';
 
 import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
+import background0 from '../../assets/img/backgrounds/background-0.jpg'
 import background1 from '../../assets/img/backgrounds/background-1.jpg';
 import background2 from '../../assets/img/backgrounds/background-2.jpg';
 import background3 from '../../assets/img/backgrounds/background-3.jpg';
@@ -209,6 +210,50 @@ export default function () {
             </Col>
           </Row>
         </Container>
+      </section>
+      <section className="section section-lg section-shaped">
+        <div
+          className="shape"
+          style={{
+            backgroundImage:
+              'linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(' + background0 + ')',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            backgroundPosition: '50% 50%'
+          }}
+        />
+        <Container>
+          <Row className="justify-content-end row-grid">
+            <Col lg="6">
+              <Card className="shadow shadow-lg--hover my-5">
+                <CardBody>
+                  <blockquote className="blockquote">
+                    <p className="mb-0">
+                      "The Squad Community Ban List provides us with a valuable source of
+                      intel that allows us to make more informed decisions when banning players
+                      from our server."
+                    </p>
+                    <footer className="blockquote-footer">
+                      <cite title="Source Title">Squad Servers</cite>
+                    </footer>
+                  </blockquote>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+        <div className="separator separator-bottom separator-skew zindex-100">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            version="1.1"
+            viewBox="0 0 2560 100"
+            x="0"
+            y="0"
+          >
+            <polygon className="fill-white" points="2560,0 2560,100 0,100" />
+          </svg>
+        </div>
       </section>
       <section className="section" id="benefit">
         <Container>

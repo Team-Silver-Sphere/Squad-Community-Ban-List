@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
-import AdvancedModal from './advanced-modal';
+import { AdvancedModal } from '../';
 
 export default function (props) {
   return (
