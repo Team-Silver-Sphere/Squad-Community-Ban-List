@@ -1,5 +1,6 @@
 # Project Files
-.eslintcache
+client/.eslintcache
+
 # Dependencies
 node_modules/
 package-lock.json

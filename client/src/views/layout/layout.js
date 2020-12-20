@@ -21,7 +21,7 @@ export default function (props) {
                   ')',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
-                backgroundPosition: '50% 100%'
+                backgroundPosition: '50% 25%'
               }}
             />
             <div className="separator separator-bottom separator-skew">

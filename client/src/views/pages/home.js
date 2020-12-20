@@ -28,7 +28,7 @@ export default function () {
                 ')',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
-              backgroundPosition: '50% 70%'
+              backgroundPosition: '50% 0%'
             }}
           />
           <Container className="py-lg-md d-flex">
