@@ -154,7 +154,7 @@ export default function () {
         <Container>
           <Row className="row-grid align-items-center">
             <Col className="order-md-2" md="6">
-              <img alt="..." className="img-fluid floating" src={homeImgExp} />
+              <img alt="..." className="img-fluid" src={homeImgExp} />
             </Col>
             <Col className="order-md-1" md="6">
               <div className="pr-md-5">
@@ -214,7 +214,7 @@ export default function () {
         <Container>
           <Row className="row-grid align-items-center">
             <Col md="6">
-              <img alt="..." className="img-fluid floating" src={homeImgBen} />
+              <img alt="..." className="img-fluid" src={homeImgBen} />
             </Col>
             <Col md="6">
               <div className="pr-md-5">
@@ -344,7 +344,7 @@ export default function () {
               </div>
             </Col>
             <Col md="6">
-              <img alt="..." className="img-fluid floating" src={homeImgCont} />
+              <img alt="..." className="img-fluid" src={homeImgCont} />
             </Col>
           </Row>
         </Container>
