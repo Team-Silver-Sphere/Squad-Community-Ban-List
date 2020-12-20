@@ -8,9 +8,7 @@ import Layout from '../layout/layout.js';
 
 import SteamUser from '../../components/steam-user.js';
 
-import FormattedDate from '../../utils/formatted-date.js';
-
-import { BanDates } from '../../components';
+import { BanDates, FormattedDate } from '../../components';
 
 const query = gql`
   query RecentBans($after: String) {

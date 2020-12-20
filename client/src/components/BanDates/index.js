@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FormattedDate from '../../utils/formatted-date';
+import { FormattedDate } from '../';
 
 export default function(props) {
   return (

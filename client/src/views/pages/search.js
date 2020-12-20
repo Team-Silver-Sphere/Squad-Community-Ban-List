@@ -21,8 +21,8 @@ import DisplayRiskRating from '../../components/display-risk-rating.js';
 import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
 import steamAvatar from '../../assets/img/misc/avatar.svg';
-import FormattedDate from '../../utils/formatted-date.js';
-import { BanDates } from '../../components';
+
+import { BanDates, FormattedDate } from '../../components';
 
 const query = gql`
   query Search($id: String!) {
@@ -257,7 +257,7 @@ export default function (props) {
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
                         <td>
-                          <BanDates created={edge.node.created} expires={edge.node.expires}/>
+                          <BanDates created={edge.node.created} expires={edge.node.expires} />
                         </td>
                       </tr>
                     ))}
