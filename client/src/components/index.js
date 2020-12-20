@@ -1,4 +1,6 @@
 import AdvancedModal from './advanced-modal';
 import ErrorModal from './error-modal';
 
-export { AdvancedModal, ErrorModal };
+import BanDates from './BanDates';
+
+export { AdvancedModal, ErrorModal, BanDates};

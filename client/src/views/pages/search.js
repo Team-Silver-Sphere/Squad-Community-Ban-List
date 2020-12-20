@@ -22,6 +22,7 @@ import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
 import steamAvatar from '../../assets/img/misc/avatar.svg';
 import FormattedDate from '../../utils/formatted-date.js';
+import { BanDates } from '../../components';
 
 const query = gql`
   query Search($id: String!) {
@@ -256,14 +257,7 @@ export default function (props) {
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
                         <td>
-                          <i className="fa fa-clock" title="Banned on" />{' '}
-                          <FormattedDate date={edge.node.created} /> <br />
-                          <i className="fa fa-hourglass-start" title="Banned until" />{' '}
-                          {edge.node.expires ? (
-                            <FormattedDate date={edge.node.expires} />
-                          ) : (
-                            'Permanent Ban'
-                          )}
+                          <BanDates created={edge.node.created} expires={edge.node.expires}/>
                         </td>
                       </tr>
                     ))}
@@ -335,14 +329,7 @@ export default function (props) {
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
                         <td>
-                          <i className="fa fa-clock" title="Banned on" />{' '}
-                          <FormattedDate date={edge.node.created} /> <br />
-                          <i className="fa fa-hourglass-start" title="Banned until" />{' '}
-                          {edge.node.expires ? (
-                            <FormattedDate date={edge.node.expires} />
-                          ) : (
-                            'Permanent Ban'
-                          )}
+                          <BanDates created={edge.node.created} expires={edge.node.expires}/>
                         </td>
                       </tr>
                     ))}
