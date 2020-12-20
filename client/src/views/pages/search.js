@@ -50,6 +50,7 @@ const query = gql`
             }
             reason
             created
+            expires
           }
         }
       }
@@ -69,6 +70,7 @@ const query = gql`
             }
             reason
             created
+            expires
           }
         }
       }
@@ -210,8 +212,7 @@ export default function (props) {
                       <th>Organisation</th>
                       <th>Ban List</th>
                       <th>Reason</th>
-                      <th>Created</th>
-                      <th>Expires</th>
+                      <th>Time</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -254,8 +255,10 @@ export default function (props) {
                         </td>
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
-                        <td>{<FormattedDate date={edge.node.created} />}</td>
                         <td>
+                          <i className="fa fa-clock" title="Banned on" />{' '}
+                          <FormattedDate date={edge.node.created} /> <br />
+                          <i className="fa fa-hourglass-start" title="Banned until" />{' '}
                           {edge.node.expires ? (
                             <FormattedDate date={edge.node.expires} />
                           ) : (
@@ -284,8 +287,7 @@ export default function (props) {
                       <th>Organisation</th>
                       <th>Ban List</th>
                       <th>Reason</th>
-                      <th>Created</th>
-                      <th>Expires</th>
+                      <th>Time</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -332,8 +334,10 @@ export default function (props) {
                         </td>
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
-                        <td>{<FormattedDate date={edge.node.created} />}</td>
                         <td>
+                          <i className="fa fa-clock" title="Banned on" />{' '}
+                          <FormattedDate date={edge.node.created} /> <br />
+                          <i className="fa fa-hourglass-start" title="Banned until" />{' '}
                           {edge.node.expires ? (
                             <FormattedDate date={edge.node.expires} />
                           ) : (

@@ -32,6 +32,7 @@ const query = gql`
           }
           reason
           created
+          expires
         }
       }
       pageInfo {
@@ -109,8 +110,8 @@ export default function () {
                           <i className="fa fa-clock" title="Banned on" />{' '}
                           <FormattedDate date={edge.node.created} /> <br />
                           <i className="fa fa-hourglass-start" title="Banned until" />{' '}
-                          {edge.node.expired ? (
-                            <FormattedDate date={edge.node.expired} />
+                          {edge.node.expires ? (
+                            <FormattedDate date={edge.node.expires} />
                           ) : (
                             'Permanent Ban'
                           )}
