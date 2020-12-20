@@ -3,5 +3,6 @@ import ErrorModal from './error-modal';
 
 import BanDates from './BanDates';
 import FormattedDate from './FormattedDate';
+import SteamUser from './SteamUser';
 
-export { AdvancedModal, ErrorModal, BanDates, FormattedDate };
+export { AdvancedModal, ErrorModal, BanDates, FormattedDate, SteamUser };

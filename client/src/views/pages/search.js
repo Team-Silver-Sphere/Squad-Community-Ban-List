@@ -20,7 +20,7 @@ import AdvancedModal from '../../components/advanced-modal.js';
 import DisplayRiskRating from '../../components/display-risk-rating.js';
 import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
-import steamAvatar from '../../assets/img/misc/avatar.svg';
+import steamAvatar from '../../assets/img/misc/avatar.jpg';
 
 import { BanDates, FormattedDate } from '../../components';
 

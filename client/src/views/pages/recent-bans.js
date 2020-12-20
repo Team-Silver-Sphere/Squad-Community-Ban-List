@@ -6,9 +6,7 @@ import { useQuery } from '@apollo/react-hooks';
 
 import Layout from '../layout/layout.js';
 
-import SteamUser from '../../components/steam-user.js';
-
-import { BanDates, FormattedDate } from '../../components';
+import { BanDates, SteamUser } from '../../components';
 
 const query = gql`
   query RecentBans($after: String) {
