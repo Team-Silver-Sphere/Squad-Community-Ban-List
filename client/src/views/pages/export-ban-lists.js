@@ -14,7 +14,6 @@ const GET_EXPORT_BAN_LISTS = gql`
       exportBanLists {
         id
         name
-        server
         threshold
         defaultActivePoints
         defaultExpiredPoints
@@ -45,7 +44,6 @@ export default function () {
               <thead className="thead-light">
                 <tr>
                   <th>Name</th>
-                  <th>Server</th>
                   <th>Threshold</th>
                   <th>Default Active Points</th>
                   <th>Default Expired Points</th>
@@ -55,7 +53,7 @@ export default function () {
               <tbody>
                 {loading && (
                   <tr>
-                    <td colSpan={6} className="text-center">
+                    <td colSpan={5} className="text-center">
                       <div className="text-center mt-2 mb-3">Loading...</div>
                       <div className="btn-wrapper text-center">
                         <i className="fas fa-circle-notch fa-spin fa-4x" />
@@ -65,7 +63,7 @@ export default function () {
                 )}
                 {error && (
                   <tr>
-                    <td colSpan={6} className="text-center">
+                    <td colSpan={5} className="text-center">
                       <div className="text-center mt-2 mb-2">Error!</div>
                       <div className="btn-wrapper text-center">
                         <i className="fas fa-exclamation-triangle fa-4x" />
@@ -78,7 +76,7 @@ export default function () {
                   <>
                     {data.loggedInSteamUser.exportBanLists.length === 0 && (
                       <tr>
-                        <td colSpan={6} className="text-center">
+                        <td colSpan={5} className="text-center">
                           <strong>Create an export ban list to get started!</strong>
                         </td>
                       </tr>
@@ -86,7 +84,6 @@ export default function () {
                     {data.loggedInSteamUser.exportBanLists.map((exportBanList, key) => (
                       <tr key={key}>
                         <th>{exportBanList.name}</th>
-                        <td>{exportBanList.server}</td>
                         <td>{exportBanList.threshold}</td>
                         <td>{exportBanList.defaultActivePoints}</td>
                         <td>{exportBanList.defaultExpiredPoints}</td>

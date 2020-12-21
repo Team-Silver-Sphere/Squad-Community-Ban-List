@@ -36,7 +36,9 @@ function removeFromCache(cache, { data: { deleteExportBanList } }) {
 }
 
 export default function (props) {
-  const [deleteExportBanList, { loading, error }] = useMutation(DELETE_EXPORT_BAN_LIST, { update: removeFromCache });
+  const [deleteExportBanList, { loading, error }] = useMutation(DELETE_EXPORT_BAN_LIST, {
+    update: removeFromCache
+  });
 
   return (
     <>
