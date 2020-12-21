@@ -19,75 +19,73 @@ const routes = [
   {
     path: '/',
     exact: true,
+    login: false,
     component: Home
   },
 
   {
     path: '/login',
     exact: true,
+    login: false,
     component: Login
   },
 
   {
     path: '/search/:search',
     exact: false,
+    login: false,
     component: Search
   },
   {
     path: '/search',
     exact: true,
+    login: false,
     component: Search
   },
   {
     path: '/recent-bans',
     exact: true,
+    login: false,
     component: RecentBans
   },
   {
     path: '/most-harmful-players',
     exact: true,
+    login: false,
     component: MostHarmfulPlayers
   },
   {
     path: '/insights',
     exact: true,
+    login: false,
     component: Insights
   },
 
   {
     path: '/export-ban-lists/:id',
     exact: false,
+    login: false,
     component: EditExportBanList
   },
   {
     path: '/export-ban-lists',
     exact: true,
+    login: true,
     component: ExportBanLists
   },
   {
     path: '/discord-alerts',
     exact: true,
+    login: false,
     component: DiscordAlerts
   },
 
   {
     path: '/become-a-partner-organisation',
     exact: true,
+    login: false,
     component: BecomeAPartnerOrganisation
   }
-
-  /*
-  {
-    path: '/queue-monitor',
-    exact: true,
-    name: 'Queue Monitor',
-    icon: 'fas fa-desktop',
-    displayInDropdown: true,
-    component: QueueMonitor,
-    display: () => Auth.isLoggedIn && Auth.claim.systemAdmin,
-    protected: () => Auth.isLoggedIn && Auth.claim.systemAdmin
-  }
-   */
 ];
 
 export default routes;

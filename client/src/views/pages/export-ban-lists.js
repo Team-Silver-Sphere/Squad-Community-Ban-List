@@ -74,45 +74,34 @@ export default function () {
                     </td>
                   </tr>
                 )}
-                {data && (
+                {data && data.loggedInSteamUser && (
                   <>
-                    {data.loggedInSteamUser && (
-                      <>
-                        {data.loggedInSteamUser.exportBanLists.length === 0 && (
-                          <tr>
-                            <td colSpan={6} className="text-center">
-                              <strong>Create an export ban list to get started!</strong>
-                            </td>
-                          </tr>
-                        )}
-                        {data.loggedInSteamUser.exportBanLists.map((exportBanList, key) => (
-                          <tr key={key}>
-                            <th>{exportBanList.name}</th>
-                            <td>{exportBanList.server}</td>
-                            <td>{exportBanList.threshold}</td>
-                            <td>{exportBanList.defaultActivePoints}</td>
-                            <td>{exportBanList.defaultExpiredPoints}</td>
-                            <td>
-                              <Button
-                                size="sm"
-                                color="info"
-                                tag={Link}
-                                to={`/export-ban-lists/${exportBanList.id}`}
-                              >
-                                Edit
-                              </Button>
-                            </td>
-                          </tr>
-                        ))}
-                      </>
-                    )}
-                    {!data.loggedInSteamUser && (
+                    {data.loggedInSteamUser.exportBanLists.length === 0 && (
                       <tr>
                         <td colSpan={6} className="text-center">
-                          <strong>Login to view your export ban lists!</strong>
+                          <strong>Create an export ban list to get started!</strong>
                         </td>
                       </tr>
                     )}
+                    {data.loggedInSteamUser.exportBanLists.map((exportBanList, key) => (
+                      <tr key={key}>
+                        <th>{exportBanList.name}</th>
+                        <td>{exportBanList.server}</td>
+                        <td>{exportBanList.threshold}</td>
+                        <td>{exportBanList.defaultActivePoints}</td>
+                        <td>{exportBanList.defaultExpiredPoints}</td>
+                        <td>
+                          <Button
+                            size="sm"
+                            color="info"
+                            tag={Link}
+                            to={`/export-ban-lists/${exportBanList.id}`}
+                          >
+                            Edit
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
                   </>
                 )}
               </tbody>

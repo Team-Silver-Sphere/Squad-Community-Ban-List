@@ -3,6 +3,8 @@ import Sequelize from 'sequelize';
 import sequelize, { Op } from '../sequelize.js';
 import { Ban, SteamUser } from './index.js';
 
+import { Logger } from '../../utils/index.js';
+
 import {
   fetchBattlemetricsBanList,
   fetchRemoteBanList,
@@ -14,7 +16,7 @@ const { DataTypes } = Sequelize;
 class BanList extends Sequelize.Model {
   async importBans() {
     // Fetch bans
-    console.log(`Fetching ban list (ID: ${this.id}, Type: ${this.type})...`);
+    Logger.verbose('BanList', 1, `Fetching ban list (ID: ${this.id}, Type: ${this.type})...`);
     let importedBans;
     switch (this.type) {
       case 'battlemetrics':
@@ -29,20 +31,29 @@ class BanList extends Sequelize.Model {
       default:
         throw new Error('Ban list type not supported.');
     }
-    console.log(`Fetched ${importedBans.length} bans from ban list (ID: ${this.id}).`);
+    Logger.verbose(
+      'BanList',
+      1,
+      `Fetched ${importedBans.length} bans from ban list (ID: ${this.id}).`
+    );
 
+    // Add the associated Steam Users to the database.
     const uniqueSteamIDsToCreate = [
       ...new Set(importedBans.map((importedBan) => ({ id: importedBan.steamUser })))
     ];
-    console.log(
+    Logger.verbose(
+      'BanList',
+      1,
       `Creating ${uniqueSteamIDsToCreate.length} steam users from ban list (ID: ${this.id})...`
     );
     await SteamUser.bulkCreate(uniqueSteamIDsToCreate, { updateOnDuplicate: ['id'] });
-    console.log(
-      `Created ${uniqueSteamIDsToCreate.length} Steam users from ban list (ID: ${this.id}).`
-    );
 
-    console.log(`Saving ${importedBans.length} bans from ban list (ID: ${this.id})...`);
+    // Save the imported bans
+    Logger.verbose(
+      'BanList',
+      1,
+      `Saving ${importedBans.length} bans from ban list (ID: ${this.id})...`
+    );
     const updatedBannedSteamUsers = [];
     for (const importedBan of importedBans) {
       importedBan.id = `${this.id},${importedBan.id}`;
@@ -64,7 +75,11 @@ class BanList extends Sequelize.Model {
         // If the ban was created then it is already up to date. As the ban is new it will affect the Steam user's
         // reputation so we consider them updated.
         if (created) {
-          console.log(`Found new ban (${importedBan.id}) in ban list (ID: ${this.id}).`);
+          Logger.verbose(
+            'BanList',
+            1,
+            `Found new ban (${importedBan.id}) in ban list (ID: ${this.id}).`
+          );
           updatedBannedSteamUsers.push(importedBan.steamUser);
           continue;
         }
@@ -91,16 +106,24 @@ class BanList extends Sequelize.Model {
         }
 
         if (updated) {
-          console.log(`Found updated ban reason (${importedBan.id}) in ban list (ID: ${this.id}).`);
+          Logger.verbose(
+            'BanList',
+            1,
+            `Found updated ban reason (${importedBan.id}) in ban list (ID: ${this.id}).`
+          );
           await ban.save();
         }
       } catch (err) {
-        console.log(`Failed to save imported ban (ID: ${importedBan.id}): `, err);
+        Logger.verbose('BanList', 1, `Failed to save imported ban (ID: ${importedBan.id}): `, err);
       }
     }
-    console.log(`Saved ${importedBans.length} bans from ban list (ID: ${this.id}).`);
+    Logger.verbose(
+      'BanList',
+      1,
+      `Saved ${importedBans.length} bans from ban list (ID: ${this.id}).`
+    );
 
-    // Delete deleted bans
+    // Delete deleted bans.
     const deletedBans = await Ban.findAll({
       attributes: ['id', 'steamUser'],
       where: {
@@ -108,15 +131,22 @@ class BanList extends Sequelize.Model {
         banList: this.id
       }
     });
-    console.log(`Deleting ${deletedBans.length} bans from ban list (ID: ${this.id})...`);
+
+    Logger.verbose(
+      'BanList',
+      1,
+      `Deleting ${deletedBans.length} bans from ban list (ID: ${this.id})...`
+    );
     for (const deletedBan of deletedBans) {
-      console.log(`Deleted ban (${deletedBan.id}) in ban list (ID: ${this.id}).`);
+      Logger.verbose('BanList', 1, `Deleted ban (${deletedBan.id}) in ban list (ID: ${this.id}).`);
       updatedBannedSteamUsers.push(deletedBan.steamUser);
       await deletedBan.destroy();
     }
 
     const uniqueSteamIDsToUpdate = [...new Set(updatedBannedSteamUsers)];
-    console.log(
+    Logger.verbose(
+      'BanList',
+      1,
       `Queueing ${uniqueSteamIDsToUpdate.length} steam users from ban list (ID: ${this.id}) for update...`
     );
     await SteamUser.update(
@@ -127,9 +157,6 @@ class BanList extends Sequelize.Model {
         lastRefreshedReputationRank: null
       },
       { where: { id: { [Op.in]: uniqueSteamIDsToUpdate } } }
-    );
-    console.log(
-      `Queued ${uniqueSteamIDsToUpdate.length} Steam users from ban list (ID: ${this.id}) for update.`
     );
   }
 }

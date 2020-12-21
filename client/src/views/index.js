@@ -3,29 +3,21 @@ import { Route, Redirect } from 'react-router-dom';
 
 import routes from './routes.js';
 
-function ProtecredRoute(props) {
-  if (props.protected()) {
-    return <Route {...props} />;
-  } else {
-    return <Redirect from={props.path} to="/login" />;
-  }
-}
+import Auth from '../utils/auth';
 
-function createRoutes() {
-  return routes.map((route, key) => {
-    if (route.protected)
-      return (
-        <ProtecredRoute
-          protected={route.protected}
-          path={route.path}
-          exact={route.exact}
-          component={route.component}
-          key={key}
-        />
-      );
-
-    return <Route path={route.path} exact={route.exact} component={route.component} key={key} />;
-  });
-}
-
-export default createRoutes();
+export default routes.map(({ component: Component, ...route }, key) => {
+  return (
+    <Route
+      path={route.path}
+      exact={route.exact}
+      component={(props) => {
+        return route.login && !Auth.isLoggedIn ? (
+          <Redirect from={route.path} to="/login" />
+        ) : (
+          <Component {...props} />
+        );
+      }}
+      key={key}
+    />
+  );
+});

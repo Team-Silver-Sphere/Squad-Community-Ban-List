@@ -6,7 +6,7 @@ import Layout from '../layout/layout.js';
 
 import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
-import background0 from '../../assets/img/backgrounds/background-0.jpg'
+import background0 from '../../assets/img/backgrounds/background-0.jpg';
 import background1 from '../../assets/img/backgrounds/background-1.jpg';
 import background2 from '../../assets/img/backgrounds/background-2.jpg';
 import background3 from '../../assets/img/backgrounds/background-3.jpg';
@@ -229,9 +229,9 @@ export default function () {
                 <CardBody>
                   <blockquote className="blockquote">
                     <p className="mb-0">
-                      "The Squad Community Ban List provides us with a valuable source of
-                      intel that allows us to make more informed decisions when banning players
-                      from our server."
+                      "The Squad Community Ban List provides us with a valuable source of intel that
+                      allows us to make more informed decisions when banning players from our
+                      server."
                     </p>
                     <footer className="blockquote-footer">
                       <cite title="Source Title">Squad Servers</cite>

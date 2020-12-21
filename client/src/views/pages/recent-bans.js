@@ -105,7 +105,7 @@ export default function () {
                             : 'for ' + edge.node.reason.toLowerCase() + '.'}
                         </td>
                         <td>
-                          <BanDates created={edge.node.created} expires={edge.node.expires}/>
+                          <BanDates created={edge.node.created} expires={edge.node.expires} />
                         </td>
                       </tr>
                     ))}

@@ -85,15 +85,6 @@ export default function (props) {
     ? useQuery(query, { variables: { id: search } })
     : { loading: null, error: null, data: null };
 
-  const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric'
-  };
-
   return (
     <Layout>
       <section className="section section-lg pt-lg-0 mt--200">
@@ -327,7 +318,7 @@ export default function (props) {
                         <td>{edge.node.banList.name}</td>
                         <td>{edge.node.reason}</td>
                         <td>
-                          <BanDates created={edge.node.created} expires={edge.node.expires}/>
+                          <BanDates created={edge.node.created} expires={edge.node.expires} />
                         </td>
                       </tr>
                     ))}
