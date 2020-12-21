@@ -6,7 +6,7 @@ import { AdvancedModal } from '../';
 
 export default function (props) {
   return (
-    <AdvancedModal>
+    <AdvancedModal isOpen={true} >
       {(modal) => (
         <Modal
           className="modal-dialog-centered modal-danger"

@@ -3,6 +3,8 @@ import { gql } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { Redirect } from 'react-router-dom';
 
+import { ErrorModal, LoadingModal } from '../';
+
 import Form from './form';
 
 const CREATE_EXPORT_BAN_LIST = gql`
@@ -94,25 +96,29 @@ function addToCache(cache, { data: { createExportBanList } }) {
 }
 
 export default function (props) {
-  const [mutateExportBanList, { data }] = useMutation(
+  const [mutateExportBanList, { loading, error, data }] = useMutation(
     props.exportBanList ? UPDATE_EXPORT_BAN_LIST : CREATE_EXPORT_BAN_LIST,
     {
       update: props.exportBanList ? undefined : addToCache
     }
   );
 
-  if (data && props.exportBanList) return <Redirect to="/export-ban-lists" />;
-  if (data && !props.exportBanList)
+  if (!error && data && props.exportBanList) return <Redirect to="/export-ban-lists" />;
+  if (!error && data && !props.exportBanList)
     return <Redirect to={`/export-ban-lists/${data.createExportBanList.id}`} />;
 
   return (
-    <Form
-      {...props}
-      onSubmit={async (data) => {
-        await mutateExportBanList({
-          variables: props.exportBanList ? { ...data, id: props.exportBanList.id } : data
-        });
-      }}
-    />
+    <>
+      {loading && <LoadingModal />}
+      {error && <ErrorModal errors={error.graphQLErrors} />}
+      <Form
+        {...props}
+        onSubmit={async (data) => {
+          await mutateExportBanList({
+            variables: props.exportBanList ? { ...data, id: props.exportBanList.id } : data
+          });
+        }}
+      />
+    </>
   );
 }

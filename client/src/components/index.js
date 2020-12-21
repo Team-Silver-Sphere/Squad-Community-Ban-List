@@ -5,6 +5,7 @@ import DeleteExportBanList from './DeleteExportBanList';
 import DisplayRiskRating from './DisplayRiskRating';
 import ErrorModal from './ErrorModal';
 import FormattedDate from './FormattedDate';
+import LoadingModal from './LoadingModal';
 import SteamUser from './SteamUser';
 
 export {
@@ -15,5 +16,6 @@ export {
   DisplayRiskRating,
   ErrorModal,
   FormattedDate,
+  LoadingModal,
   SteamUser
 };

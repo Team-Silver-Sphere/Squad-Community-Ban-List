@@ -4,6 +4,8 @@ import { useMutation } from '@apollo/client';
 
 import { Button } from 'reactstrap';
 
+import { ErrorModal, LoadingModal } from '../';
+
 const DELETE_EXPORT_BAN_LIST = gql`
   mutation DeleteExportBanList($id: Int!) {
     deleteExportBanList(id: $id) {
@@ -34,17 +36,21 @@ function removeFromCache(cache, { data: { deleteExportBanList } }) {
 }
 
 export default function (props) {
-  const [deleteExportBanList] = useMutation(DELETE_EXPORT_BAN_LIST, { update: removeFromCache });
+  const [deleteExportBanList, { loading, error }] = useMutation(DELETE_EXPORT_BAN_LIST, { update: removeFromCache });
 
   return (
-    <Button
-      color="danger"
-      size="sm"
-      onClick={() => {
-        deleteExportBanList({ variables: { id: props.exportBanListID } });
-      }}
-    >
-      Delete
-    </Button>
+    <>
+      {loading && <LoadingModal />}
+      {error && <ErrorModal errors={error.graphQLErrors} />}
+      <Button
+        color="danger"
+        size="sm"
+        onClick={() => {
+          deleteExportBanList({ variables: { id: props.exportBanListID } });
+        }}
+      >
+        Delete
+      </Button>
+    </>
   );
 }

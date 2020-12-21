@@ -2,7 +2,10 @@ import { ExportBanList } from 'scbl-lib/db/models';
 
 export default {
   Mutation: {
-    createExportBanList: (parent, args, context) => {
+    createExportBanList: async (parent, args, context) => {
+      const count = await ExportBanList.count({ where: { owner: context.user.id } });
+      if (count >= 1) throw new Error('You are limited to 4 export ban lists.');
+
       return ExportBanList.create({
         name: args.name,
         server: args.server,
