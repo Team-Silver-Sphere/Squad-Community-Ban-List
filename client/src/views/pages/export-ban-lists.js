@@ -1,11 +1,11 @@
 import React from 'react';
+import { gql, useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, Col, Container, Row, Table } from 'reactstrap';
 
 import Layout from '../layout/layout.js';
 
-import { gql } from '@apollo/client';
-import { useQuery } from '@apollo/react-hooks';
+import { DeleteExportBanList } from '../../components';
 
 const GET_EXPORT_BAN_LISTS = gql`
   query GetExportBanLists {
@@ -99,6 +99,7 @@ export default function () {
                           >
                             Edit
                           </Button>
+                          <DeleteExportBanList exportBanListID={exportBanList.id} />
                         </td>
                       </tr>
                     ))}

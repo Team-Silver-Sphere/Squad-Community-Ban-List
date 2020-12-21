@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { relayStylePagination } from '@apollo/client/utilities';
 import { BrowserRouter, Switch } from 'react-router-dom';

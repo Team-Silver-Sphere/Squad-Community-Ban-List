@@ -7,7 +7,7 @@ import RecentBans from './pages/recent-bans.js';
 import MostHarmfulPlayers from './pages/most-harmful-players.js';
 import Insights from './pages/insights.js';
 
-import EditExportBanList from './pages/edit-export-ban-list.js';
+import EditExportBanList from './pages/create-export-ban-list.js';
 import ExportBanLists from './pages/export-ban-lists.js';
 import DiscordAlerts from './pages/discord-alerts.js';
 

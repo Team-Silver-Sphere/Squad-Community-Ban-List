@@ -11,8 +11,7 @@ import {
   Table
 } from 'reactstrap';
 
-import { gql } from '@apollo/client';
-import { useQuery } from '@apollo/react-hooks';
+import { gql, useQuery } from '@apollo/client';
 
 import Layout from '../layout/layout.js';
 

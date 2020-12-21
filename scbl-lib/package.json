@@ -1,7 +1,7 @@
 {
   "name": "scbl-lib",
   "version": "1.0.0",
-  "description": "Shared classes, function, utils, etc.",
+  "description": "Shared classes, functions, utils, etc.",
   "type": "module",
   "exports": {
     "./apis": "./apis/index.js",
@@ -9,7 +9,8 @@
     "./db": "./db/index.js",
     "./db/sequelize": "./db/sequelize.js",
     "./db/models": "./db/models/index.js",
-    "./utils": "./utils/index.js"
+    "./utils": "./utils/index.js",
+    "./validators": "./validators.js"
   },
   "dependencies": {
     "@thomas-smyth/sequelize-cursor-pagination": "^2.0.0",
@@ -17,6 +18,7 @@
     "bottleneck": "^2.19.5",
     "chalk": "^4.1.0",
     "mysql2": "^2.1.0",
-    "sequelize": "^6.3.4"
+    "sequelize": "^6.3.4",
+    "yup": "^0.32.8"
   }
 }

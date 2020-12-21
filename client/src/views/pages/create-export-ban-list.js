@@ -1,10 +1,14 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Card, CardBody, Container } from 'reactstrap';
 
 import Layout from '../layout/layout.js';
 
+import { CreateExportBanList } from '../../components';
+
 export default function () {
+  const { id } = useParams();
   return (
     <Layout>
       <section className="section section-lg pt-lg-0 mt--200">
@@ -19,6 +23,9 @@ export default function () {
                 Configure and generate ban lists from out database that preemptively ban harmful
                 players before they have a chance to harm your community.
               </p>
+            </CardBody>
+            <CardBody>
+              <CreateExportBanList exportBanListID={id === 'new' ? null : parseInt(id)} />
             </CardBody>
           </Card>
         </Container>
