@@ -1,7 +1,10 @@
-import { Ban, SteamUser } from 'scbl-lib/db/models';
+import { Ban, BanList, SteamUser } from 'scbl-lib/db/models';
 
 export default {
   Query: {
+    banLists: () => {
+      return BanList.findAll();
+    },
     bans: (parent, filter) => {
       return Ban.paginate({
         order: [[filter.orderBy || 'created', filter.orderDirection || 'DESC']],

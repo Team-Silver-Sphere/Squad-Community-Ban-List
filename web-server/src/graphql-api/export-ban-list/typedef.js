@@ -10,5 +10,6 @@ export default gql`
     defaultActivePoints: Int
     defaultExpiredPoints: Int
     owner: SteamUser
+    exportBanListConfigs: [ExportBanListConfig]
   }
 `;

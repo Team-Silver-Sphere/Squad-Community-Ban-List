@@ -24,9 +24,7 @@ export default function () {
                 players before they have a chance to harm your community.
               </p>
             </CardBody>
-            <CardBody>
-              <CreateExportBanList exportBanListID={id === 'new' ? null : parseInt(id)} />
-            </CardBody>
+            <CreateExportBanList exportBanListID={id === 'new' ? null : parseInt(id)} />
           </Card>
         </Container>
       </section>

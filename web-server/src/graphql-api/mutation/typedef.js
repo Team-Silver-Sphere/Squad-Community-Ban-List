@@ -10,6 +10,7 @@ export default gql`
       defaultActivePoints: Int
       defaultExpiredPoints: Int
     ): ExportBanList
+
     updateExportBanList(
       id: Int!
       name: String!
@@ -18,6 +19,16 @@ export default gql`
       defaultActivePoints: Int!
       defaultExpiredPoints: Int!
     ): ExportBanList
+
     deleteExportBanList(id: Int!): ExportBanList
+
+    createExportBanListConfig(
+      exportBanList: Int!
+      banList: Int!
+      activePoints: Int
+      expiredPoints: Int
+    ): ExportBanListConfig
+
+    deleteExportBanListConfig(id: Int!): ExportBanListConfig
   }
 `;

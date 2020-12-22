@@ -2,6 +2,7 @@ import { resolver as banResolver } from './ban/index.js';
 import { resolver as banListResolver } from './ban-list/index.js';
 import { resolver as coreResolver } from './core/index.js';
 import { resolver as exportBanListResolver } from './export-ban-list/index.js';
+import { resolver as exportBanListConfigResolver } from './export-ban-list-config/index.js';
 import { resolver as mutationResolver } from './mutation/index.js';
 import { resolver as organisationResolver } from './organisation/index.js';
 import { resolver as queryResolver } from './query/index.js';
@@ -12,6 +13,7 @@ export default [
   banListResolver,
   coreResolver,
   exportBanListResolver,
+  exportBanListConfigResolver,
   mutationResolver,
   organisationResolver,
   queryResolver,

@@ -64,7 +64,7 @@ const routes = [
   {
     path: '/export-ban-lists/:id',
     exact: false,
-    login: false,
+    login: true,
     component: EditExportBanList
   },
   {

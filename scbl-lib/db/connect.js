@@ -1,6 +1,13 @@
 import sequelize from './sequelize.js';
 
-import { Organisation, BanList, SteamUser, Ban, ExportBanList } from './models/index.js';
+import {
+  Organisation,
+  BanList,
+  SteamUser,
+  Ban,
+  ExportBanList,
+  ExportBanListConfig
+} from './models/index.js';
 
 export default async function () {
   try {
@@ -13,6 +20,7 @@ export default async function () {
     await SteamUser.sync();
     await Ban.sync();
     await ExportBanList.sync();
+    await ExportBanListConfig.sync();
     console.log('Synchronized the models.');
   } catch (err) {
     console.log(`Error thrown when connecting to the database: ${err.message}`);

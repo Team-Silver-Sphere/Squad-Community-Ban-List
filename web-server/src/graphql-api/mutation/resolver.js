@@ -1,4 +1,4 @@
-import { ExportBanList } from 'scbl-lib/db/models';
+import { BanList, ExportBanList, ExportBanListConfig } from 'scbl-lib/db/models';
 
 export default {
   Mutation: {
@@ -17,11 +17,11 @@ export default {
     },
 
     updateExportBanList: async (parent, args, context) => {
-      const exportBanList = await ExportBanList.findByPk(args.id);
+      const exportBanList = await ExportBanList.findOne({
+        where: { id: args.id, owner: context.user.id }
+      });
 
       if (!exportBanList) throw new Error('Export ban list does not exist!');
-      if (exportBanList.owner !== context.user.id)
-        throw new Error('You do not have permission to do this!');
 
       exportBanList.name = args.name;
       exportBanList.server = args.server;
@@ -35,14 +35,54 @@ export default {
     },
 
     deleteExportBanList: async (parent, args, context) => {
-      const exportBanList = await ExportBanList.findByPk(args.id);
+      const exportBanList = await ExportBanList.findOne({
+        where: { id: args.id, owner: context.user.id }
+      });
 
       if (!exportBanList) throw new Error('Export ban list does not exist!');
-      if (exportBanList.owner !== context.user.id)
-        throw new Error('You do not have permission to do this!');
 
       await exportBanList.destroy();
       return exportBanList;
+    },
+
+    createExportBanListConfig: async (parent, args, context) => {
+      const exportBanList = await ExportBanList.findOne({
+        where: { id: args.exportBanList, owner: context.user.id }
+      });
+
+      if (!exportBanList) throw new Error('Export ban list does not exist!');
+
+      const banList = await BanList.findOne({
+        where: { id: args.banList }
+      });
+
+      if (!banList) throw new Error('Ban list does not exist!');
+
+      const exportBanListConfig = await ExportBanListConfig.findOne({
+        where: { exportBanList: args.exportBanList, banList: args.banList }
+      });
+
+      if (exportBanListConfig)
+        throw new Error('Export ban list config already exists for this ban list.');
+
+      return ExportBanListConfig.create({
+        exportBanList: args.exportBanList,
+        banList: args.banList,
+        activePoints: args.activePoints,
+        expiredPoints: args.expiredPoints
+      });
+    },
+
+    deleteExportBanListConfig: async (parent, args, context) => {
+      const exportBanListConfig = await ExportBanListConfig.findOne({
+        where: { id: args.id, '$ExportBanList.owner$': context.user.id },
+        include: [ExportBanList]
+      });
+
+      if (!exportBanListConfig) throw new Error('Export ban list config does not exist!');
+
+      await exportBanListConfig.destroy();
+      return exportBanListConfig;
     }
   }
 };

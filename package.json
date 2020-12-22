@@ -16,7 +16,7 @@
     "start-ban-importer": "node ban-importer/index.js",
     "build-web-server": "cd client && npm run build",
     "start-web-server": "cross-env NODE_ENV=production node web-server/index.js",
-    "dev-web-server": "concurrently \"nodemon web-server/index.js\" \"cd client && npm run start\""
+    "dev-web-server": "concurrently \"nodemon --ignore './client/' web-server/index.js\" \"cd client && npm run start\""
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
