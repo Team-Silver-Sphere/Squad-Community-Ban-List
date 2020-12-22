@@ -12,7 +12,7 @@ export default class BanImporter {
     Logger.verbose('BanImporter', 1, 'Fetching ban lists to import...');
     const lists = await BanList.findAll({ attributes: ['id', 'type', 'source'] });
 
-    Logger.verbose('BanImporter', 1, 'Importing ban lists...');
+    Logger.verbose('BanImporter', 1, `Importing ${lists.length} ban lists...`);
     for (const list of lists) {
       try {
         await list.importBans();
@@ -20,7 +20,6 @@ export default class BanImporter {
         Logger.verbose('BanImporter', 1, `Failed to import ban list (ID: ${list.id}): `, err);
       }
     }
-
     Logger.verbose('BanImporter', 1, 'Finished importing ban lists.');
   }
 
@@ -40,11 +39,15 @@ export default class BanImporter {
       }
     });
 
-    Logger.verbose('BanImporter', 1, 'Updating Steam users...');
+    Logger.verbose('BanImporter', 1, `Updating ${users.length} Steam users...`);
     while (users.length > 0) {
       const batch = users.splice(0, Math.min(UPDATE_STEAM_USER_INFO_BATCH_SIZE, users.length));
 
-      Logger.verbose('BanImporter', 1, `Updating batch of ${batch.length} Steam users...`);
+      Logger.verbose(
+        'BanImporter',
+        1,
+        `Updating batch of ${batch.length} Steam users (${users.length} remaining)...`
+      );
 
       try {
         const { data } = await steam('get', 'ISteamUser/GetPlayerSummaries/v0002', {
@@ -97,7 +100,6 @@ export default class BanImporter {
         WHERE lastRefreshedReputationPoints IS NULL
       `
     );
-    Logger.verbose('BanImporter', 1, 'Updated reputation points of outdated Steam users.');
   }
 
   async updateReputationRank() {
@@ -114,6 +116,5 @@ export default class BanImporter {
             lastRefreshedReputationRank = NOW();
       `
     );
-    Logger.verbose('BanImporter', 1, 'Updated reputation rank of Steam users.');
   }
 }

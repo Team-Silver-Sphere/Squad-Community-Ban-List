@@ -14,11 +14,11 @@ export default withRelayPagination({ primaryKeyField: 'id' })(
       primaryKey: true
     },
     created: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATE(6),
       notNull: true
     },
     expires: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE(6)
     },
     expired: {
       type: DataTypes.BOOLEAN,
