@@ -18,19 +18,33 @@ class BanList extends Sequelize.Model {
     // Fetch bans.
     Logger.verbose('BanList', 1, `Fetching ban list (ID: ${this.id}, Type: ${this.type})...`);
     const importedBans = await this.getBans();
-    Logger.verbose('BanList', 1, `Fetched ${importedBans.length} bans from ban list (ID: ${this.id}, Type: ${this.type}).`);
+    Logger.verbose(
+      'BanList',
+      1,
+      `Fetched ${importedBans.length} bans from ban list (ID: ${this.id}, Type: ${this.type}).`
+    );
 
     // Get a list of unique Steam users from the imported bans.
-    const uniqueSteamIDsToCreate = [...new Set(importedBans.map((importedBan) => ({ id: importedBan.steamUser })))];
+    const uniqueSteamIDsToCreate = [
+      ...new Set(importedBans.map((importedBan) => ({ id: importedBan.steamUser })))
+    ];
 
     // Insert the unique Steam users from the imported bans into the DB.
-    Logger.verbose('BanList', 1, `Creating ${uniqueSteamIDsToCreate.length} steam users from ban list (ID: ${this.id})...`);
+    Logger.verbose(
+      'BanList',
+      1,
+      `Creating ${uniqueSteamIDsToCreate.length} steam users from ban list (ID: ${this.id})...`
+    );
     await SteamUser.bulkCreate(uniqueSteamIDsToCreate, { updateOnDuplicate: ['id'] });
 
     // Save/updated/delete the imported bans in the DB taking note Steam users who's bans have been changed.
     const updatedBannedSteamUsers = [];
 
-    Logger.verbose('BanList', 1, `Saving ${importedBans.length} bans from ban list (ID: ${this.id})...`);
+    Logger.verbose(
+      'BanList',
+      1,
+      `Saving ${importedBans.length} bans from ban list (ID: ${this.id})...`
+    );
     for (const importedBan of importedBans) {
       importedBan.id = `${this.id},${importedBan.id}`;
 
@@ -49,7 +63,11 @@ class BanList extends Sequelize.Model {
         });
 
         if (created) {
-          Logger.verbose('BanList', 1, `Found new ban (${importedBan.id}) in ban list (ID: ${this.id}).`);
+          Logger.verbose(
+            'BanList',
+            1,
+            `Found new ban (${importedBan.id}) in ban list (ID: ${this.id}).`
+          );
 
           // If the ban is new then we need to recalculate export ban list information for that user.
           updatedBannedSteamUsers.push(importedBan.steamUser);
@@ -69,8 +87,16 @@ class BanList extends Sequelize.Model {
           updatedBannedSteamUsers.push(importedBan.steamUser);
         }
 
-        if(ban.expires !== null && importedBan.expires !== null && ban.expires.getTime() !== importedBan.expires.getTime()) {
-          console.log(ban.expires.getTime(), importedBan.expires.getTime(), ban.expires.getTime() !== importedBan.expires.getTime());
+        if (
+          ban.expires !== null &&
+          importedBan.expires !== null &&
+          ban.expires.getTime() !== importedBan.expires.getTime()
+        ) {
+          console.log(
+            ban.expires.getTime(),
+            importedBan.expires.getTime(),
+            ban.expires.getTime() !== importedBan.expires.getTime()
+          );
 
           ban.expires = importedBan.expires;
           updated = true;
@@ -83,7 +109,11 @@ class BanList extends Sequelize.Model {
 
         // Save the updated information.
         if (updated) {
-          Logger.verbose('BanList', 1, `Found updated ban (${importedBan.id}) in ban list (ID: ${this.id}).`);
+          Logger.verbose(
+            'BanList',
+            1,
+            `Found updated ban (${importedBan.id}) in ban list (ID: ${this.id}).`
+          );
           await ban.save();
         }
       } catch (err) {
@@ -91,7 +121,11 @@ class BanList extends Sequelize.Model {
       }
     }
 
-    Logger.verbose('BanList', 1, `Saved ${importedBans.length} bans from ban list (ID: ${this.id}).`);
+    Logger.verbose(
+      'BanList',
+      1,
+      `Saved ${importedBans.length} bans from ban list (ID: ${this.id}).`
+    );
 
     // Get a list of bans that have been deleted from the imported ban list.
     const deletedBans = await Ban.findAll({
@@ -103,17 +137,23 @@ class BanList extends Sequelize.Model {
     });
 
     // If a ban has been deleted then we need to recalculate export ban list information for that user.
-    updatedBannedSteamUsers.concat(deletedBans.map(deletedBan => deletedBan.steamUser));
+    updatedBannedSteamUsers.concat(deletedBans.map((deletedBan) => deletedBan.steamUser));
 
     // Delete the deleted bans from the DB.
     Logger.verbose('BanList', 1, `Deleting ${deletedBans.length} bans...`);
-    await Ban.destroy({ where: { id: { [Op.in]: deletedBans.map(deletedBan => deletedBan.id) } } });
+    await Ban.destroy({
+      where: { id: { [Op.in]: deletedBans.map((deletedBan) => deletedBan.id) } }
+    });
 
     // Find the unique Steam IDs that need updating.
     const uniqueSteamIDsToUpdate = [...new Set(updatedBannedSteamUsers)];
 
     // Queue updated Steam users for update.
-    Logger.verbose('BanList', 1, `Queueing ${uniqueSteamIDsToUpdate.length} steam users from ban list (ID: ${this.id}) for update...`);
+    Logger.verbose(
+      'BanList',
+      1,
+      `Queueing ${uniqueSteamIDsToUpdate.length} steam users from ban list (ID: ${this.id}) for update...`
+    );
     await SteamUser.update(
       {
         lastRefreshedInfo: null,

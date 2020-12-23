@@ -6,7 +6,8 @@ import {
   SteamUser,
   Ban,
   ExportBanList,
-  ExportBanListConfig
+  ExportBanListConfig,
+  ExportBan
 } from './models/index.js';
 
 export default async function () {
@@ -21,6 +22,7 @@ export default async function () {
     await Ban.sync();
     await ExportBanList.sync();
     await ExportBanListConfig.sync();
+    await ExportBan.sync();
     console.log('Synchronized the models.');
   } catch (err) {
     console.log(`Error thrown when connecting to the database: ${err.message}`);

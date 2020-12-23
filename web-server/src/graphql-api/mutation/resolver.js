@@ -4,7 +4,7 @@ export default {
   Mutation: {
     createExportBanList: async (parent, args, context) => {
       const count = await ExportBanList.count({ where: { owner: context.user.id } });
-      if (count >= 1) throw new Error('You are limited to 4 export ban lists.');
+      if (count >= 4) throw new Error('You are limited to 4 export ban lists.');
 
       return ExportBanList.create({
         name: args.name,

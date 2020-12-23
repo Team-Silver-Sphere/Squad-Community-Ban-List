@@ -1,14 +1,14 @@
 import { steam } from 'scbl-lib/apis';
-import { BanList, SteamUser } from 'scbl-lib/db/models';
-import { Op } from 'scbl-lib/db/sequelize';
-import { Logger } from 'scbl-lib/utils';
 import { sequelize } from 'scbl-lib/db';
+import { BanList, ExportBan, SteamUser } from 'scbl-lib/db/models';
+import { Op, QueryTypes } from 'scbl-lib/db/sequelize';
+import { Logger } from 'scbl-lib/utils';
 
 const UPDATE_STEAM_USER_INFO_REFRESH_INTERVAL = 7 * 24 * 60 * 60 * 1000;
 const UPDATE_STEAM_USER_INFO_BATCH_SIZE = 10;
 
 export default class BanImporter {
-  async importBans() {
+  static async importBans() {
     Logger.verbose('BanImporter', 1, 'Fetching ban lists to import...');
     const lists = await BanList.findAll({ attributes: ['id', 'type', 'source'] });
 
@@ -23,7 +23,7 @@ export default class BanImporter {
     Logger.verbose('BanImporter', 1, 'Finished importing ban lists.');
   }
 
-  async updateSteamUserInfo() {
+  static async updateSteamUserInfo() {
     Logger.verbose('BanImporter', 1, 'Fetching Steam users to update...');
     const users = await SteamUser.findAll({
       attributes: ['id'],
@@ -80,29 +80,35 @@ export default class BanImporter {
     Logger.verbose('BanImporter', 1, 'Finished updating Steam users.');
   }
 
-  async updateReputationPoints() {
+  static async updateReputationPoints() {
     Logger.verbose('BanImporter', 1, 'Updating reputation points of outdated Steam users...');
     await sequelize.query(
       `
-        UPDATE SteamUsers su
+        UPDATE SteamUsers SU
         LEFT JOIN (
-          SELECT
-            sui.id AS "id",
-            (COUNT(IF(!b.expired, 1, NULL)) * 3) + (COUNT(IF(b.expired, 1, NULL)) * 1) AS "reputationPoints"
-          FROM Bans b
-          JOIN SteamUsers sui ON sui.id = b.steamUser
-          WHERE sui.lastRefreshedReputationPoints IS NULL
-          GROUP BY steamUser
-        ) rp ON su.id = rp.id
-        SET 
-            su.reputationPoints = rp.reputationPoints,
-            lastRefreshedReputationPoints = NOW()
-        WHERE lastRefreshedReputationPoints IS NULL
+            SELECT
+                A.steamUser,
+                SUM(A.activePoints) + SUM(A.expiredPoints) AS "points"
+            FROM (
+                SELECT
+                    B.steamUser AS "steamUser",
+                    B.banList AS "banList",
+                    IF(SUM(IF(B.expired, 0, 1)) > 0, 3, 0) AS "activePoints",
+                    SUM(IF(B.expired, 1, 0)) AS "expiredPoints"
+                FROM Bans B
+                GROUP BY B.steamUser, B.banList
+            ) A
+            GROUP BY A.steamUser
+        ) P ON SU.id = P.steamUser
+        SET
+            SU.reputationPoints = P.points,
+            SU.lastRefreshedReputationPoints = NOW()
+        WHERE SU.lastRefreshedReputationPoints IS NULL
       `
     );
   }
 
-  async updateReputationRank() {
+  static async updateReputationRank() {
     Logger.verbose('BanImporter', 1, 'Updating reputation rank of Steam users...');
     await sequelize.query(
       `
@@ -115,6 +121,101 @@ export default class BanImporter {
             su.reputationRank = rr.reputationRank,
             lastRefreshedReputationRank = NOW();
       `
+    );
+  }
+
+  static async updateExportBans() {
+    Logger.verbose('BanImporter', 1, 'Generating export ban...');
+    const generatedBans = await sequelize.query(
+      `
+        SELECT
+          A.steamUser,
+          A.exportBanList,
+          IF(SUM(A.activePoints) + SUM(A.expiredPoints) >= A.threshold, 1, 0) AS "banned"
+        FROM (
+          SELECT
+            B.steamUser AS "steamUser",
+            EBL.id AS "exportBanList",
+            EBL.threshold AS "threshold",
+            IF(
+              SUM(
+                IF(B.expired, 0, 1)
+              ) > 0,
+              IFNULL(
+                MAX(EBLC.activePoints),
+                MAX(EBL.defaultActivePoints)
+              ),
+              0
+            ) AS "activePoints",
+            SUM(
+              IF(
+                B.expired,
+                IFNULL(
+                  EBLC.expiredPoints,
+                  EBL.defaultExpiredPoints
+                ),
+                0
+              )
+            ) AS "expiredPoints"
+          FROM Bans B
+          CROSS JOIN ExportBanLists EBL
+          LEFT JOIN ExportBanListConfigs EBLC ON EBL.id = EBLC.exportBanList
+          JOIN SteamUsers SU ON B.steamUser = SU.id
+          WHERE SU.lastRefreshedExport IS NULL
+          GROUP BY B.steamUser, B.banList, EBL.id
+        ) A
+        GROUP BY A.steamUser, A.exportBanList
+        HAVING banned
+      `,
+      { type: QueryTypes.SELECT }
+    );
+
+    Logger.verbose('BanImporter', 1, 'Generating export ban IDs...');
+    generatedBans.forEach((generatedBan) => {
+      generatedBan.id = `${generatedBan.steamUser},${generatedBan.exportBanList}`;
+    });
+
+    Logger.verbose('BanImporter', 1, 'Saving export bans...');
+    for (const generatedBan of generatedBans) {
+      const [exportBan, created] = await ExportBan.findOrCreate({
+        where: { id: generatedBan.id },
+        defaults: {
+          id: generatedBan.id,
+          status: 'TO_BE_CREATED',
+          steamUser: generatedBan.steamUser,
+          exportBanList: generatedBan.exportBanList
+        }
+      });
+
+      if (created) {
+        Logger.verbose('BanImporter', 1, `Created new export ban (ID: ${generatedBan.id}).`);
+        continue;
+      }
+
+      if (exportBan.status === 'TO_BE_DELETED') {
+        Logger.verbose(
+          'BanImporter',
+          1,
+          `Cancelled deletion of export ban (ID: ${generatedBan.id}).`
+        );
+        exportBan.status = 'CREATED';
+        await exportBan.save();
+      }
+    }
+
+    Logger.verbose('BanImporter', 1, 'Removing deleted export bans...');
+    await ExportBan.destroy({
+      where: {
+        id: {
+          [Op.notIn]: generatedBans.map((generatedBan) => generatedBan.id)
+        }
+      }
+    });
+
+    Logger.verbose('BanImporter', 1, 'Updating last refreshed export date for Steam users...');
+    await SteamUser.update(
+      { lastRefreshedExport: Date.now() },
+      { where: { lastRefreshedExport: null } }
     );
   }
 }
