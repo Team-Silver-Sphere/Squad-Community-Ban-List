@@ -16,6 +16,7 @@ export default {
       .number()
       .required('A threshold greater than or equal to 0 is required.')
       .min(0, 'A threshold greater than or equal to 0 is required.'),
+    type: yup.string().required('A type is required.').oneOf(['remote', 'battlemetrics']),
     defaultActivePoints: yup
       .number()
       .required('A default number of points per active ban is required.'),

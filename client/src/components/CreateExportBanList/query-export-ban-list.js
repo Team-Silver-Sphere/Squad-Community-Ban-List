@@ -12,6 +12,7 @@ const GET_EXPORT_BAN_LIST = gql`
         id
         name
         server
+        type
         threshold
         defaultActivePoints
         defaultExpiredPoints

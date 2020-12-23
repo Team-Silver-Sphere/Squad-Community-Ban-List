@@ -25,6 +25,7 @@ export default function (props) {
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
     defaultValues: props.exportBanList || {
+      type: 'remote',
       threshold: 9,
       defaultActivePoints: 3,
       defaultExpiredPoints: 1
@@ -59,6 +60,20 @@ export default function (props) {
                 <FormText>
                   Please provide us with the name of your community/server so we can see who is
                   using SCBL.
+                </FormText>
+                <FormFeedback>{errors.server?.message}</FormFeedback>
+              </FormGroup>
+            </Col>
+            <Col xs="12">
+              <FormGroup>
+                <Label>Type</Label>
+                <Input type="select" innerRef={register} name="type" invalid={errors.type?.message}>
+                  <option value="remote">Remote</option>
+                  <option value="battlemetrics">Battlemetrics</option>
+                </Input>
+                <FormText>
+                  Please select an export ban list type. Export ban lists can either be imported as
+                  a remote ban list or shared with you via Battlemetrics.
                 </FormText>
                 <FormFeedback>{errors.server?.message}</FormFeedback>
               </FormGroup>

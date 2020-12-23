@@ -10,6 +10,7 @@ const CREATE_EXPORT_BAN_LIST = gql`
   mutation CreateExportBanList(
     $name: String!
     $server: String!
+    $type: String!
     $threshold: Int!
     $defaultActivePoints: Int!
     $defaultExpiredPoints: Int!
@@ -17,6 +18,7 @@ const CREATE_EXPORT_BAN_LIST = gql`
     createExportBanList(
       name: $name
       server: $server
+      type: $type
       threshold: $threshold
       defaultActivePoints: $defaultActivePoints
       defaultExpiredPoints: $defaultExpiredPoints
@@ -24,6 +26,7 @@ const CREATE_EXPORT_BAN_LIST = gql`
       id
       name
       server
+      type
       threshold
       defaultActivePoints
       defaultExpiredPoints
@@ -36,6 +39,7 @@ const UPDATE_EXPORT_BAN_LIST = gql`
     $id: Int!
     $name: String!
     $server: String!
+    $type: String!
     $threshold: Int!
     $defaultActivePoints: Int!
     $defaultExpiredPoints: Int!
@@ -44,6 +48,7 @@ const UPDATE_EXPORT_BAN_LIST = gql`
       id: $id
       name: $name
       server: $server
+      type: $type
       threshold: $threshold
       defaultActivePoints: $defaultActivePoints
       defaultExpiredPoints: $defaultExpiredPoints
@@ -51,6 +56,7 @@ const UPDATE_EXPORT_BAN_LIST = gql`
       id
       name
       server
+      type
       threshold
       defaultActivePoints
       defaultExpiredPoints
@@ -73,6 +79,7 @@ function addToCache(cache, { data: { createExportBanList } }) {
                     id
                     name
                     server
+                    type
                     threshold
                     defaultActivePoints
                     defaultExpiredPoints

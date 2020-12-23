@@ -4,8 +4,9 @@ const { gql } = ApolloServerKoa;
 export default gql`
   type ExportBanList {
     id: Int
-    server: String
     name: String
+    server: String
+    type: String
     threshold: Int
     defaultActivePoints: Int
     defaultExpiredPoints: Int

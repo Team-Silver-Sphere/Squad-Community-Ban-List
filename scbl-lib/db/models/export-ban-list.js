@@ -13,11 +13,14 @@ ExportBanList.init(
       primaryKey: true,
       autoIncrement: true
     },
+    name: {
+      type: DataTypes.STRING
+    },
     server: {
       type: DataTypes.STRING
     },
-    name: {
-      type: DataTypes.STRING
+    type: {
+      type: DataTypes.ENUM('remote', 'battlemetrics')
     },
     threshold: {
       type: DataTypes.INTEGER,

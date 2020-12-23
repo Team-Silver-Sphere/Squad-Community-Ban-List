@@ -6,6 +6,7 @@ export default gql`
     createExportBanList(
       name: String!
       server: String!
+      type: String!
       threshold: Int
       defaultActivePoints: Int
       defaultExpiredPoints: Int
@@ -15,6 +16,7 @@ export default gql`
       id: Int!
       name: String!
       server: String!
+      type: String!
       threshold: Int!
       defaultActivePoints: Int!
       defaultExpiredPoints: Int!
