@@ -3,10 +3,10 @@ import { connect, disconnect } from 'scbl-lib/db';
 import BanImporter from './ban-importer.js';
 
 const TASKS_TO_COMPLETE = {
-  IMPORT_BANS: false,
-  UPDATE_STEAM_USER_INFO: false,
-  UPDATE_REPUTATION_POINTS: false,
-  UPDATE_REPUTATION_RANK: false,
+  IMPORT_BANS: true,
+  UPDATE_STEAM_USER_INFO: true,
+  UPDATE_REPUTATION_POINTS: true,
+  UPDATE_REPUTATION_RANK: true,
   UPDATE_EXPORT_BANS: true,
   EXPORT_EXPORT_BANS: true
 };
