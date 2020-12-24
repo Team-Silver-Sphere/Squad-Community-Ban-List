@@ -1,6 +1,6 @@
 import { steam } from 'scbl-lib/apis';
 import { sequelize } from 'scbl-lib/db';
-import { BanList, ExportBan, SteamUser } from 'scbl-lib/db/models';
+import { BanList, ExportBan, ExportBanList, SteamUser } from 'scbl-lib/db/models';
 import { Op, QueryTypes } from 'scbl-lib/db/sequelize';
 import { Logger } from 'scbl-lib/utils';
 
@@ -161,7 +161,7 @@ export default class BanImporter {
           CROSS JOIN ExportBanLists EBL
           LEFT JOIN ExportBanListConfigs EBLC ON EBL.id = EBLC.exportBanList
           JOIN SteamUsers SU ON B.steamUser = SU.id
-          WHERE SU.lastRefreshedExport IS NULL
+          WHERE SU.lastRefreshedExport IS NULL or EBL.generated = FALSE
           GROUP BY B.steamUser, B.banList, EBL.id
         ) A
         GROUP BY A.steamUser, A.exportBanList
@@ -204,11 +204,30 @@ export default class BanImporter {
     }
 
     Logger.verbose('BanImporter', 1, 'Removing deleted export bans...');
+    await ExportBan.update(
+      { status: 'TO_BE_DELETED' },
+      {
+        where: {
+          id: {
+            [Op.notIn]: generatedBans.map((generatedBan) => generatedBan.id)
+          },
+          steamUser: {
+            [Op.in]: generatedBans.map((generatedBan) => generatedBan.steamUser)
+          },
+          status: 'CREATED'
+        }
+      }
+    );
+
     await ExportBan.destroy({
       where: {
         id: {
           [Op.notIn]: generatedBans.map((generatedBan) => generatedBan.id)
-        }
+        },
+        steamUser: {
+          [Op.in]: generatedBans.map((generatedBan) => generatedBan.steamUser)
+        },
+        status: 'TO_BE_CREATED'
       }
     });
 
@@ -217,5 +236,56 @@ export default class BanImporter {
       { lastRefreshedExport: Date.now() },
       { where: { lastRefreshedExport: null } }
     );
+
+    Logger.verbose('BanImporter', 1, 'Updating generated status for ban lists...');
+    await ExportBanList.update(
+      { generated: true },
+      {
+        where: {
+          id: {
+            [Op.in]: [...new Set(generatedBans.map((generatedBan) => generatedBan.exportBanList))]
+          }
+        }
+      }
+    );
+  }
+
+  static async exportExportBans() {
+    const exportBans = await ExportBan.findAll({
+      where: { status: { [Op.in]: ['TO_BE_CREATED', 'TO_BE_DELETED'] } },
+      include: ExportBanList
+    });
+
+    for (const exportBan of exportBans) {
+      Logger.verbose(
+        'BanImporter',
+        1,
+        `${exportBan.status === 'TO_BE_CREATED' ? 'Creat' : 'Delet'}ing export ban (ID: ${
+          exportBan.id
+        })...`
+      );
+      try {
+        if (exportBan.status === 'TO_BE_CREATED') {
+          if (exportBan.ExportBanList.type === 'battlemetrics')
+            await exportBan.createBattlemetricsBan();
+
+          exportBan.status = 'CREATED';
+          await exportBan.save();
+        } else {
+          if (exportBan.ExportBanList.type === 'battlemetrics')
+            await exportBan.deleteBattlemetricsBan();
+          await exportBan.destroy();
+        }
+      } catch (err) {
+        Logger.verbose(
+          'BanImporter',
+          1,
+          `Failed to ${
+            exportBan.status === 'TO_BE_CREATED' ? 'create' : 'delete'
+          } export ban (ID: ${exportBan.id}): `,
+          err
+        );
+      }
+    }
   }
 }

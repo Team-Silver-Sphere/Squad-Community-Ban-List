@@ -67,7 +67,13 @@ export default function (props) {
             <Col xs="12">
               <FormGroup>
                 <Label>Type</Label>
-                <Input type="select" innerRef={register} name="type" invalid={errors.type?.message}>
+                <Input
+                  type="select"
+                  innerRef={register}
+                  name="type"
+                  invalid={errors.type?.message}
+                  disabled={props.exportBanList}
+                >
                   <option value="remote">Remote</option>
                   <option value="battlemetrics">Battlemetrics</option>
                 </Input>

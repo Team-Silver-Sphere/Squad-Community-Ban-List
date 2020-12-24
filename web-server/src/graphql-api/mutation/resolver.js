@@ -6,9 +6,10 @@ export default {
       const count = await ExportBanList.count({ where: { owner: context.user.id } });
       if (count >= 4) throw new Error('You are limited to 4 export ban lists.');
 
-      if(!['remote', 'battlemetrics'].includes(args.type)) throw new Error('Invalid export ban list type.');
+      if (!['remote', 'battlemetrics'].includes(args.type))
+        throw new Error('Invalid export ban list type.');
 
-      return ExportBanList.create({
+      const exportBanLsit = await ExportBanList.create({
         name: args.name,
         server: args.server,
         type: args.type,
@@ -17,6 +18,10 @@ export default {
         defaultExpiredPoints: args.defaultExpiredPoints,
         owner: context.user.id
       });
+
+      if (exportBanLsit.type === 'battlemetrics') await exportBanLsit.createBattlemetricsBanList();
+
+      return exportBanLsit;
     },
 
     updateExportBanList: async (parent, args, context) => {
@@ -26,11 +31,11 @@ export default {
 
       if (!exportBanList) throw new Error('Export ban list does not exist!');
 
-      if(!['remote', 'battlemetrics'].includes(args.type)) throw new Error('Invalid export ban list type.');
+      if (!['remote', 'battlemetrics'].includes(args.type))
+        throw new Error('Invalid export ban list type.');
 
       exportBanList.name = args.name;
       exportBanList.server = args.server;
-      exportBanList.type = args.type;
       exportBanList.threshold = args.threshold;
       exportBanList.defaultActivePoints = args.defaultActivePoints;
       exportBanList.defaultExpiredPoints = args.defaultExpiredPoints;
@@ -46,6 +51,8 @@ export default {
       });
 
       if (!exportBanList) throw new Error('Export ban list does not exist!');
+
+      if (exportBanList.type === 'battlemetrics') await exportBanList.deleteBattlemetricsBanList();
 
       await exportBanList.destroy();
       return exportBanList;

@@ -39,7 +39,6 @@ const UPDATE_EXPORT_BAN_LIST = gql`
     $id: Int!
     $name: String!
     $server: String!
-    $type: String!
     $threshold: Int!
     $defaultActivePoints: Int!
     $defaultExpiredPoints: Int!
@@ -48,7 +47,6 @@ const UPDATE_EXPORT_BAN_LIST = gql`
       id: $id
       name: $name
       server: $server
-      type: $type
       threshold: $threshold
       defaultActivePoints: $defaultActivePoints
       defaultExpiredPoints: $defaultExpiredPoints

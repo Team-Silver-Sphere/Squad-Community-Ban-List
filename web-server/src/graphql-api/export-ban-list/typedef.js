@@ -10,6 +10,8 @@ export default gql`
     threshold: Int
     defaultActivePoints: Int
     defaultExpiredPoints: Int
+    battlemetricsID: String
+    battlemetricsInvite: String
     owner: SteamUser
     exportBanListConfigs: [ExportBanListConfig]
   }
