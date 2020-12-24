@@ -14,7 +14,12 @@ COPY package.json .
 
 # Install dependencies
 RUN yarn install --production
+
+# Build client
 RUN yarn build-web-server
+
+# Expose ports
+EXPOSE 80
 
 # Run servicce
 CMD [ "node", "web-server/index.js" ]
