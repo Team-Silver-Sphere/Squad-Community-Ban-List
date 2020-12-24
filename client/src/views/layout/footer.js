@@ -45,7 +45,7 @@ export default function () {
               <Button
                 className="btn-icon-only rounded-circle ml-1"
                 color="github"
-                href="https://github.com/Squad-Community-Ban-List/Squad-Community-Ban-List"
+                href="https://github.com/Thomas-Smyth/Squad-Community-Ban-List"
                 id="tooltip-footer-github"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -73,7 +73,7 @@ export default function () {
               <Nav className="nav-footer justify-content-end">
                 <NavItem>
                   <NavLink
-                    href="https://github.com/Squad-Community-Ban-List/Squad-Community-Ban-List"
+                    href="https://github.com/Thomas-Smyth/Squad-Community-Ban-List"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -82,7 +82,7 @@ export default function () {
                 </NavItem>
                 <NavItem>
                   <NavLink
-                    href="https://github.com/Squad-Community-Ban-List/Squad-Community-Ban-List/blob/master/LICENSE"
+                    href="https://github.com/Thomas-Smyth/Squad-Community-Ban-List/blob/master/LICENSE"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
