@@ -11,8 +11,6 @@ export default function () {
 
   const urlParams = new URLSearchParams(window.location.search);
 
-  console.log(Auth);
-
   // Is fully logged in
   if (Auth.isLoggedIn && Auth.saveToken !== null) return <Redirect to="/" />;
 
@@ -92,5 +90,6 @@ export default function () {
     );
   }
 
-  return <Redirect to="/auth/steam" />;
+  window.location.href = '/auth/steam';
+  return null;
 }
