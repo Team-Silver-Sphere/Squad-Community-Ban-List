@@ -1,5 +1,5 @@
 // Web
-const HOST = 'http://localhost';
+const HOST = process.env.HOST || 'http://localhost';
 const LOCALSTORAGE_VERSION = 'v1'; // Change this to wipe clients local storage
 
 const JWT_AUTH = {
