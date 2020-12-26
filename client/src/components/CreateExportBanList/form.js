@@ -132,13 +132,20 @@ export default function (props) {
               </FormGroup>
             </Col>
             <Col xs="12" className="text-center">
+              <Button color="info">Save</Button>
+            </Col>
+            <Col xs="12" className="">
+              <p className="mt-4">
+                Bans are not immediately added to export ban lists after creation or modification.
+                Instead, they will be added when our database is next synchronised with our partner
+                organisations' ban lists.
+              </p>
               {!props.exportBanList && (
-                <p className="mt-2">
+                <p>
                   You will be able to configure the number of points for each ban list independently
                   once the export ban list has been created.
                 </p>
               )}
-              <Button color="info">Save</Button>
             </Col>
           </Row>
         </Form>
