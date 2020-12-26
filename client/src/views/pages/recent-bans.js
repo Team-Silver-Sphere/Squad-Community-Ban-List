@@ -55,7 +55,7 @@ export default function () {
               </div>
               <h6 className="text-primary text-uppercase">Recent Bans</h6>
               <p className="description mt-2">
-                Explore players recently banned on one of our many partner organisations.
+                View players recently banned on one of our many partner organisations.
               </p>
             </CardBody>
             <Table className="align-items-center table-flush" responsive>

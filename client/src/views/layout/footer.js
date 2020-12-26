@@ -23,7 +23,7 @@ export default function () {
                 Thanks for joining us in the fight against harmful players!
               </h4>
               <h6 className="mb-0 font-weight-light">
-                You can contact and keep in touch with us via Discord or GitHub.
+                You can contact and keep in touch with us via Discord and GitHub.
               </h6>
             </Col>
             <Col className="text-lg-center btn-wrapper" lg="6">
@@ -62,12 +62,7 @@ export default function () {
           <hr />
           <Row className="align-items-center justify-content-md-between">
             <Col md="6">
-              <div className="copyright">
-                Copyright © {new Date().getFullYear()}{' '}
-                <a href="https://thomas-smyth.uk" target="_blank" rel="noopener noreferrer">
-                  Thomas Smyth
-                </a>
-              </div>
+              <div className="copyright">Copyright © {new Date().getFullYear()}</div>
             </Col>
             <Col md="6">
               <Nav className="nav-footer justify-content-end">

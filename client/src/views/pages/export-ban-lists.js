@@ -50,8 +50,9 @@ export default function () {
               </div>
               <h6 className="text-info text-uppercase">Export Ban Lists</h6>
               <p className="description mt-2">
-                Configure and generate ban lists from out database that preemptively ban harmful
-                players before they have a chance to harm your community.
+                Protect your Squad server with our configurable export ban lists that preemptively
+                ban the most harmful players from your server before they have the chance to cause
+                any harm.
               </p>
             </CardBody>
             <Table className="align-items-center table-flush" responsive>

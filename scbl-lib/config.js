@@ -18,7 +18,7 @@ const BATTLEMETRICS_ORGANIZATION = '14987';
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
 
 // Other constants
-const DISCORD_INVITE = 'https://discord.gg/fbZdj3q';
+const DISCORD_INVITE = 'https://discord.gg/DjrpPuw';
 
 export {
   HOST,

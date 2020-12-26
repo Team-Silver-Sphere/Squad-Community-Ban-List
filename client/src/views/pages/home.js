@@ -76,8 +76,8 @@ export default function () {
                       </div>
                       <h6 className="text-primary text-uppercase">Explore</h6>
                       <p className="description mt-3">
-                        Explore our database containing over 12,000 banned players from various
-                        popular Squad server.
+                        Explore our database containing over 20,000 bans and 18,000 banned players
+                        from various popular Squad servers.
                       </p>
                       <div>
                         <Badge color="primary" pill className="mr-1">
@@ -129,8 +129,8 @@ export default function () {
                       </div>
                       <h6 className="text-success text-uppercase">Contribute</h6>
                       <p className="description mt-3">
-                        Contribute your Squad server's ban lists to help us in the fight against
-                        harmful players.
+                        Contribute ban information from your Squad server to help us in the fight
+                        against harmful players.
                       </p>
                       <div>
                         <Badge color="success" pill className="mr-1">
@@ -164,9 +164,9 @@ export default function () {
                 </div>
                 <h3>Explore</h3>
                 <p>
-                  Our database contains information on over 12,000 banned players from 19 popular
-                  Squad servers. We regularly update the database to allow you to proactively defend
-                  your server from harmful players.
+                  Our database contains information on over 20,000 bans and 18,000 banned players
+                  from various popular Squad servers. We regularly update the database to allow you
+                  to proactively defend your server from harmful players.
                 </p>
                 <ul className="list-unstyled mt-5">
                   <li className="py-2">
@@ -177,7 +177,7 @@ export default function () {
                         </Badge>
                       </div>
                       <div>
-                        <h6 className="mb-0">Search for the reputation of players.</h6>
+                        <h6 className="mb-0">Search for the reputation of a player.</h6>
                       </div>
                     </div>
                   </li>
@@ -189,7 +189,19 @@ export default function () {
                         </Badge>
                       </div>
                       <div>
-                        <h6 className="mb-0">View recently imported bans.</h6>
+                        <h6 className="mb-0">View a list of recent bans bans.</h6>
+                      </div>
+                    </div>
+                  </li>
+                  <li className="py-2">
+                    <div className="d-flex align-items-center">
+                      <div>
+                        <Badge className="badge-circle mr-3" color="primary">
+                          <i className="fa fa-list" />
+                        </Badge>
+                      </div>
+                      <div>
+                        <h6 className="mb-0">Explore a list of the most harmful players.</h6>
                       </div>
                     </div>
                   </li>
@@ -201,7 +213,7 @@ export default function () {
                         </Badge>
                       </div>
                       <div>
-                        <h6 className="mb-0">Gets insights on the health of the community.</h6>
+                        <h6 className="mb-0">Get insights on how healthy the community is.</h6>
                       </div>
                     </div>
                   </li>
@@ -268,8 +280,8 @@ export default function () {
                 </div>
                 <h3>Benefit</h3>
                 <p>
-                  We allow server owners and community leaders to export information from our
-                  database in various formats to assist them in proactively defend their servers and
+                  We provide access to the data within our database in various formats to assist
+                  server owners and community leaders in proactively defending their servers and
                   communities from harmful players.
                 </p>
                 <ul className="list-unstyled mt-5">
@@ -281,7 +293,7 @@ export default function () {
                         </Badge>
                       </div>
                       <div>
-                        <h6 className="mb-0">Protect your server with export ban lists.</h6>
+                        <h6 className="mb-0">Protect your server with our export ban lists.</h6>
                       </div>
                     </div>
                   </li>
@@ -440,7 +452,7 @@ export default function () {
       <section className="section">
         <Container>
           <Row className="text-center justify-content-center">
-            <Col lg="10">
+            <Col xs="12">
               <h2 className="display-3">Our Principles</h2>
               <p className="lead">
                 The Squad Community Ban List aims to protect the Squad community's integrity through
@@ -495,7 +507,7 @@ export default function () {
             </Col>
           </Row>
           <Row className="justify-content-center">
-            <Col className="mb-5">
+            <Col md="6" className="mb-5">
               <div className="px-4">
                 <div className="pt-4 text-center">
                   <h5 className="title">
@@ -505,7 +517,7 @@ export default function () {
                 </div>
               </div>
             </Col>
-            <Col className="mb-5">
+            <Col md="6" className="mb-5">
               <div className="px-4">
                 <div className="pt-4 text-center">
                   <h5 className="title">

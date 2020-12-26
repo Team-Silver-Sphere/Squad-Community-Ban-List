@@ -104,7 +104,7 @@ class DemoNavbar extends React.Component {
                           <Media body className="ml-3">
                             <h6 className="heading text-primary mb-md-1">Search</h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              Browse over 12,000 banned players and explore their reputation.
+                              Search our database containing over 20,000 bans and 18,000 players.
                             </p>
                           </Media>
                         </Media>
@@ -115,8 +115,7 @@ class DemoNavbar extends React.Component {
                           <Media body className="ml-3">
                             <h6 className="heading text-primary mb-md-1">Recent Bans</h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              Explore players recently banned on one of our many partner
-                              organisations.
+                              View players recently banned on one of our many partner organisations.
                             </p>
                           </Media>
                         </Media>
@@ -131,7 +130,7 @@ class DemoNavbar extends React.Component {
                           <Media body className="ml-3">
                             <h6 className="heading text-primary mb-md-1">Most Harmful Players</h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              View players ranked from the most harmful to the least harmful.
+                              Explore a list of the most harmful players in our database.
                             </p>
                           </Media>
                         </Media>
@@ -142,8 +141,8 @@ class DemoNavbar extends React.Component {
                           <Media body className="ml-3">
                             <h5 className="heading text-primary mb-md-1">Insights</h5>
                             <p className="description d-none d-md-inline-block mb-0">
-                              Find out how health the Squad community is by exploring trends in our
-                              data.
+                              Get insights on how healthy the Squad community is by exploring trends
+                              in our data.
                             </p>
                           </Media>
                         </Media>
@@ -168,8 +167,9 @@ class DemoNavbar extends React.Component {
                           <Media body className="ml-3">
                             <h6 className="heading text-info mb-md-1">Export Ban Lists</h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              Configure and generate ban lists from out database that preemptively
-                              ban harmful players before they have a chance to harm your community.
+                              Protect your Squad server with our configurable export ban lists that
+                              preemptively ban the most harmful players from your server before they
+                              have the chance to cause any harm.
                             </p>
                           </Media>
                         </Media>

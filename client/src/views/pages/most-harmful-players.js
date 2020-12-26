@@ -44,7 +44,7 @@ export default function () {
               </div>
               <h6 className="text-primary text-uppercase">Most Harmful Players</h6>
               <p className="description mt-2">
-                View players ranked from the most harmful to the least harmful.
+                Explore a list of the most harmful players in our database.
               </p>
             </CardBody>
             <Table className="align-items-center table-flush" responsive>
