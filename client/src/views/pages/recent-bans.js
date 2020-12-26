@@ -5,7 +5,7 @@ import { gql, useQuery } from '@apollo/client';
 
 import Layout from '../layout/layout.js';
 
-import { BanDates, SteamUser } from '../../components';
+import { BanDates, DisplayRiskRating, SteamUser } from '../../components';
 
 const query = gql`
   query RecentBans($after: String) {
@@ -18,6 +18,7 @@ const query = gql`
             id
             name
             avatar
+            reputationPoints
           }
           banList {
             id
@@ -63,13 +64,14 @@ export default function () {
                 <tr>
                   <th>Players</th>
                   <th>Reason</th>
+                  <th>Risk Rating</th>
                   <th>Time</th>
                 </tr>
               </thead>
               <tbody>
                 {loading && (
                   <tr>
-                    <td colSpan={3} className="text-center">
+                    <td colSpan={4} className="text-center">
                       <div className="text-center mt-2 mb-3">Loading...</div>
                       <div className="btn-wrapper text-center">
                         <i className="fas fa-circle-notch fa-spin fa-4x" />
@@ -79,7 +81,7 @@ export default function () {
                 )}
                 {error && (
                   <tr>
-                    <td colSpan={3} className="text-center">
+                    <td colSpan={4} className="text-center">
                       <div className="text-center mt-2 mb-2">Error!</div>
                       <div className="btn-wrapper text-center">
                         <i className="fas fa-exclamation-triangle fa-4x" />
@@ -102,6 +104,9 @@ export default function () {
                           {edge.node.reason === 'Unknown'
                             ? 'for an unknown reason.'
                             : 'for ' + edge.node.reason.toLowerCase() + '.'}
+                        </td>
+                        <td>
+                          <DisplayRiskRating points={edge.node.steamUser.reputationPoints} />
                         </td>
                         <td>
                           <BanDates created={edge.node.created} expires={edge.node.expires} />
