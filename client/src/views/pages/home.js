@@ -239,15 +239,10 @@ export default function () {
             <Col lg="6">
               <Card className="shadow shadow-lg--hover my-5">
                 <CardBody>
-                  <blockquote className="blockquote">
-                    <p className="mb-0">
-                      "The Squad Community Ban List provides us with a valuable source of intel that
-                      allows us to make more informed decisions when banning players from our
-                      server."
-                    </p>
-                    <footer className="blockquote-footer">
-                      <cite title="Source Title">Squad Servers</cite>
-                    </footer>
+                  <blockquote className="blockquote font-italic mb-0">
+                    "The Squad Community Ban List provides us with a valuable source of intel that
+                    allows us to make more informed decisions when banning players from our
+                    server."
                   </blockquote>
                 </CardBody>
               </Card>
@@ -331,15 +326,10 @@ export default function () {
             <Col lg="6">
               <Card className="shadow shadow-lg--hover my-5">
                 <CardBody>
-                  <blockquote className="blockquote">
-                    <p className="mb-0">
-                      "Using the Squad Community Ban List allows our admins to spend more time
-                      enjoying the game and less time dealing with players trying to harm our
-                      server."
-                    </p>
-                    <footer className="blockquote-footer">
-                      <cite title="Source Title">Squad Servers</cite>
-                    </footer>
+                  <blockquote className="blockquote font-italic mb-0">
+                    "Using the Squad Community Ban List allows our admins to spend more time
+                    enjoying the game and less time dealing with players trying to harm our
+                    server."
                   </blockquote>
                 </CardBody>
               </Card>
@@ -422,14 +412,9 @@ export default function () {
             <Col lg="6">
               <Card className="shadow shadow-lg--hover my-5">
                 <CardBody>
-                  <blockquote className="blockquote">
-                    <p className="mb-0">
-                      "Contributing to the Squad Community Ban List is easy and we're happy to know
-                      that our contributions are helping to protect the wider Squad community."
-                    </p>
-                    <footer className="blockquote-footer">
-                      <cite title="Source Title">Squad Servers</cite>
-                    </footer>
+                  <blockquote className="blockquote font-italic mb-0">
+                    "Contributing to the Squad Community Ban List is easy and we're happy to know
+                    that our contributions are helping to protect the wider Squad community."
                   </blockquote>
                 </CardBody>
               </Card>
