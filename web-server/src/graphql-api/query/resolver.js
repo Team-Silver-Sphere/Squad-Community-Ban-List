@@ -25,9 +25,11 @@ export default {
     },
     steamUser: async (parent, filter) => {
       const user = await SteamUser.findByPk(filter.id);
-
-      user.lastViewed = Date.now();
-      await user.save();
+      
+      if(user) {
+        user.lastViewed = Date.now();
+        await user.save();
+      }
 
       return user;
     },
