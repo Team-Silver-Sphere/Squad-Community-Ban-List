@@ -3,18 +3,19 @@ const reasons = {
   Glitching: /glitching/i,
   Exploiting: /exploiting/i,
 
-  Teamkilling: /teamkill|\btk(?:ing|s)?\b/i,
+  Teamkilling: /team ?kill|\btk(?:ing|s)?\b/i,
   Trolling: /troll/i,
   Griefing: /grief/i,
   'Wasting Assets': /destroying assets|wasting assets|wasting resources/i,
   Ghosting: /ghosting/i,
 
   Toxic: /toxic/i,
-  'Hate Speech': /abusive language|bigot|derogatory|hate ?spe(e|a)ch|homophobic|racial|racism|racist|sexism/i,
+  'Hate Speech': /abusive language|bigot|derogatory|discriminat|hate ?spe(e|a)ch|homophobic|racial|racism|racist|sexism/i,
 
-  'Soloing Vehicles': /solo/i,
   Camping: /camping/i,
-  Recruiting: /recruiting/i
+  'Helicopter Ramming': /heli ram/i,
+  Recruiting: /recruiting/i,
+  'Soloing Vehicles': /solo/i
 };
 
 export default function (reason) {
