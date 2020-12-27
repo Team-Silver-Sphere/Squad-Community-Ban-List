@@ -112,7 +112,7 @@ export default function () {
                           Export Ban Lists
                         </Badge>
                         <Badge color="info" pill className="mr-1">
-                          Discord Alerts
+                          Community Monitor
                         </Badge>
                       </div>
                       <Button className="mt-4" color="info" href="#benefit">
@@ -294,12 +294,12 @@ export default function () {
                   <li className="py-2">
                     <div className="d-flex align-items-center">
                       <div>
-                        <Badge className="badge-circle mr-3" color="discord">
-                          <i className="fab fa-discord" />
+                        <Badge className="badge-circle mr-3" color="info">
+                          <i className="fas fa-desktop" />
                         </Badge>
                       </div>
                       <div>
-                        <h6 className="mb-0">Be alerted with information helpful to you.</h6>
+                        <h6 className="mb-0">Monitor the integrity of your community.</h6>
                       </div>
                     </div>
                   </li>

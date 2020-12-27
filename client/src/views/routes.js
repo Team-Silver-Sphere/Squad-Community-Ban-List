@@ -9,7 +9,7 @@ import Insights from './pages/insights.js';
 
 import EditExportBanList from './pages/create-export-ban-list.js';
 import ExportBanLists from './pages/export-ban-lists.js';
-import DiscordAlerts from './pages/discord-alerts.js';
+import CommunityMonitor from './pages/community-monitor.js';
 
 import BecomeAPartnerOrganisation from './pages/become-a-partner-organisation.js';
 
@@ -74,10 +74,10 @@ const routes = [
     component: ExportBanLists
   },
   {
-    path: '/discord-alerts',
+    path: '/community-monitor',
     exact: true,
     login: false,
-    component: DiscordAlerts
+    component: CommunityMonitor
   },
 
   {

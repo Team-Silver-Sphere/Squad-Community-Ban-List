@@ -10,13 +10,12 @@ export default function () {
         <Container>
           <Card className="shadow border-0">
             <CardBody className="pt-5 pb-2 border-bottom">
-              <div className="icon icon-shape bg-discord rounded-circle text-white mb-4">
-                <i className="fab fa-discord" />
+              <div className="icon icon-shape bg-gradient-info rounded-circle text-white mb-4">
+                <i className="fas fa-desktop" />
               </div>
-              <h6 className="text-discord text-uppercase">Discord Alerts</h6>
+              <h6 className="text-info text-uppercase">Community Monitor</h6>
               <p className="description mt-2">
-                Be alerted when bans are imported into our system or when new bans are added or
-                removed from your export ban list.
+                Monitor the integrity of your community using the data we collect.
               </p>
             </CardBody>
             <CardBody className="text-center">

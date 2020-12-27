@@ -176,16 +176,15 @@ class DemoNavbar extends React.Component {
                         <Media
                           className="d-flex align-items-center"
                           tag={Link}
-                          to="/discord-alerts"
+                          to="/community-monitor"
                         >
-                          <div className="icon icon-shape bg-discord rounded-circle text-white">
-                            <i className="fab fa-discord" />
+                          <div className="icon icon-shape bg-gradient-info rounded-circle text-white">
+                            <i className="fa fa-desktop" />
                           </div>
                           <Media body className="ml-3">
-                            <h6 className="heading text-discord mb-md-1">Discord Alerts</h6>
+                            <h6 className="heading text-info mb-md-1">Community Monitor</h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              Be alerted when bans are imported into our system or when new bans are
-                              added or removed from your export ban list.
+                              Monitor the integrity of your community using the data we collect.
                             </p>
                           </Media>
                         </Media>
