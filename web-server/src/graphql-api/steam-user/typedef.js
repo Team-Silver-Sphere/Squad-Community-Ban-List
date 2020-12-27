@@ -13,6 +13,7 @@ export default gql`
 
     reputationPoints: Int
     lastRefreshedReputationPoints: Date
+    riskRating: Int
     reputationRank: Int
     lastRefreshedReputationRank: Date
 

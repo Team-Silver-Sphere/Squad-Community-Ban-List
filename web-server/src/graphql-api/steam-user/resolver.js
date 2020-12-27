@@ -1,7 +1,12 @@
 import { Ban, ExportBanList } from 'scbl-lib/db/models';
 
+import { calculateRiskRating } from 'scbl-lib/utils';
+
 export default {
   SteamUser: {
+    riskRating: (parent) => {
+      return calculateRiskRating(parent.reputationPoints);
+    },
     bans: (parent, filter) => {
       return Ban.paginate({
         order: [[filter.orderBy || 'created', filter.orderDirection || 'DESC']],

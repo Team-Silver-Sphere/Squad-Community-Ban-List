@@ -17,6 +17,7 @@ const query = gql`
           name
           avatar
           reputationPoints
+          riskRating
           reputationRank
         }
       }
@@ -87,7 +88,7 @@ export default function () {
                         </td>
                         <td>{edge.node.reputationPoints || 0}</td>
                         <td>
-                          <DisplayRiskRating points={edge.node.reputationPoints} />
+                          <DisplayRiskRating riskRating={edge.node.riskRating} />
                         </td>
                         <td>{edge.node.reputationRank || 'Unranked'}</td>
                       </tr>

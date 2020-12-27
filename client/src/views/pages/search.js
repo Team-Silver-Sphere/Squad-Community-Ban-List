@@ -34,6 +34,7 @@ const GET_PLAYER = gql`
       name
       avatarFull
       reputationPoints
+      riskRating
       reputationRank
       lastRefreshedInfo
       lastRefreshedReputationPoints
@@ -163,7 +164,7 @@ export default function (props) {
                     <Col>
                       <h5>Risk Rating</h5>
                       <h2>
-                        <DisplayRiskRating points={data.steamUser.reputationPoints} />
+                        <DisplayRiskRating riskRating={data.steamUser.riskRating} />
                       </h2>
                       <small>
                         <strong>Last Refreshed: </strong>{' '}

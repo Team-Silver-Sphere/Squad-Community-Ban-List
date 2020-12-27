@@ -1,18 +1,14 @@
 import React from 'react';
 
-import { calculateRiskRating } from 'scbl-lib/utils';
-
 export default function (props) {
-  const riskRating = calculateRiskRating(props.points);
-
   let colour;
-  if (riskRating >= 6.6) colour = 'text-danger';
-  else if (riskRating >= 3.3) colour = 'text-warning';
+  if (props.riskRating >= 6.6) colour = 'text-danger';
+  else if (props.riskRating >= 3.3) colour = 'text-warning';
   else colour = 'text-success';
 
   return (
     <>
-      <span className={colour}>{riskRating}</span>
+      <span className={colour}>{props.riskRating}</span>
       <small className="text-muted"> / 10</small>
     </>
   );
