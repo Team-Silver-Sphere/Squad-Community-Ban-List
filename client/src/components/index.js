@@ -10,6 +10,7 @@ import ErrorModal from './ErrorModal';
 import ExportBanListConfigs from './ExportBanListConfigs';
 import FormattedDate from './FormattedDate';
 import LoadingModal from './LoadingModal';
+import RecentlyViewedSteamUsers from './RecentlyViewedSteamUsers';
 import SteamUser from './SteamUser';
 
 export {
@@ -25,5 +26,6 @@ export {
   ExportBanListConfigs,
   FormattedDate,
   LoadingModal,
+  RecentlyViewedSteamUsers,
   SteamUser
 };

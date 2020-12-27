@@ -241,8 +241,7 @@ export default function () {
                 <CardBody>
                   <blockquote className="blockquote font-italic mb-0">
                     "The Squad Community Ban List provides us with a valuable source of intel that
-                    allows us to make more informed decisions when banning players from our
-                    server."
+                    allows us to make more informed decisions when banning players from our server."
                   </blockquote>
                 </CardBody>
               </Card>
@@ -328,8 +327,7 @@ export default function () {
                 <CardBody>
                   <blockquote className="blockquote font-italic mb-0">
                     "Using the Squad Community Ban List allows our admins to spend more time
-                    enjoying the game and less time dealing with players trying to harm our
-                    server."
+                    enjoying the game and less time dealing with players trying to harm our server."
                   </blockquote>
                 </CardBody>
               </Card>

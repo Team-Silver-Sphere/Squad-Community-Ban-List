@@ -9,12 +9,14 @@ export default gql`
     avatar: String
     avatarMedium: String
     avatarFull: String
+    lastRefreshedInfo: Date
 
     reputationPoints: Int
-    reputationRank: Int
-    lastRefreshedInfo: Date
     lastRefreshedReputationPoints: Date
+    reputationRank: Int
     lastRefreshedReputationRank: Date
+
+    lastViewed: Date
 
     bans(
       first: Int

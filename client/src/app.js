@@ -26,21 +26,21 @@ const client = new ApolloClient({
         }
       }
     }
-  })
-});
-
-client.defaultOptions = {
-  watchQuery: {
-    errorPolicy: 'all'
-  },
-  query: {
-    errorPolicy: 'all',
-    fetchPolicy: 'cache-and-network'
-  },
-  mutate: {
-    errorPolicy: 'all'
+  }),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-and-network',
+      errorPolicy: 'ignore'
+    },
+    query: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all'
+    },
+    mutate: {
+      errorPolicy: 'all'
+    }
   }
-};
+});
 
 export default function () {
   const [initialSetup, setInitialSetup] = useState(false);

@@ -24,7 +24,12 @@ export default {
       });
     },
     steamUser: async (parent, filter) => {
-      return SteamUser.findByPk(filter.id);
+      const user = await SteamUser.findByPk(filter.id);
+
+      user.lastViewed = Date.now();
+      await user.save();
+
+      return user;
     },
     loggedInSteamUser: async (parent, filter, context) => {
       return context.user ? SteamUser.findByPk(context.user.id) : null;

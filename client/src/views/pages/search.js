@@ -19,9 +19,15 @@ import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 
 import steamAvatar from '../../assets/img/misc/avatar.jpg';
 
-import { AdvancedModal, BanDates, DisplayRiskRating, FormattedDate } from '../../components';
+import {
+  AdvancedModal,
+  BanDates,
+  DisplayRiskRating,
+  FormattedDate,
+  RecentlyViewedSteamUsers
+} from '../../components';
 
-const query = gql`
+const GET_PLAYER = gql`
   query Search($id: String!) {
     steamUser(id: $id) {
       id
@@ -81,7 +87,7 @@ export default function (props) {
   const isValidSteam64ID = search && search.match(/^[0-9]{17}$/);
 
   const { loading, error, data } = isValidSteam64ID
-    ? useQuery(query, { variables: { id: search } })
+    ? useQuery(GET_PLAYER, { variables: { id: search } })
     : { loading: null, error: null, data: null };
 
   return (
@@ -332,6 +338,7 @@ export default function (props) {
                 </Table>
               </>
             )}
+            {!isValidSteam64ID && <RecentlyViewedSteamUsers />}
           </Card>
         </Container>
       </section>
