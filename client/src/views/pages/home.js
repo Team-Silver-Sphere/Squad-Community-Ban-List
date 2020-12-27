@@ -303,6 +303,20 @@ export default function () {
                       </div>
                     </div>
                   </li>
+                  <li className="py-2">
+                    <div className="d-flex align-items-center">
+                      <div>
+                        <Badge className="badge-circle mr-3" color="discord">
+                          <i className="fab fa-discord" />
+                        </Badge>
+                      </div>
+                      <div>
+                        <h6 className="mb-0">
+                          Get Discord alerts with information relevant to you.
+                        </h6>
+                      </div>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </Col>
