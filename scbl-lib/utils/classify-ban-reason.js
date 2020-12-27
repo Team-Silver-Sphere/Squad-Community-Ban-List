@@ -1,16 +1,16 @@
 const reasons = {
-  Cheating: /cheats|cheating|hacking/i,
+  Cheating: /cheating|cheats|hacking/i,
   Glitching: /glitching/i,
   Exploiting: /exploiting/i,
 
   Teamkilling: /teamkill|\btk(?:ing|s)?\b/i,
   Trolling: /troll/i,
   Griefing: /grief/i,
-  'Wasting Assets': /wasting assets|destroying assets|wasting resources/i,
+  'Wasting Assets': /destroying assets|wasting assets|wasting resources/i,
   Ghosting: /ghosting/i,
 
   Toxic: /toxic/i,
-  'Hate Speech': /hate ?speach|hate ?speech|derogatory|racism|racist|racial|sexism|homophobic|abusive language/i,
+  'Hate Speech': /abusive language|bigot|derogatory|hate ?spe(e|a)ch|homophobic|racial|racism|racist|sexism/i,
 
   'Soloing Vehicles': /solo/i,
   Camping: /camping/i,
