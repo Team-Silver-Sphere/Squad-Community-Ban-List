@@ -3,23 +3,24 @@ const reasons = {
   Glitching: /glitch/i,
   Exploiting: /exploit/i,
 
-  Teamkilling: /team ?kill|\btk(?:ing|s)?\b/i,
+  Teamkilling: /team ?kill|\btk/i,
   Trolling: /troll/i,
   Griefing: /grief/i,
   'Wasting Assets': /destroying assets|wast(e|ing)/i,
   Ghosting: /ghosting/i,
 
-  Toxic: /flam(e|ing)|harass|insult|toxic/i,
+  Toxic: /disrespect|flam(e|ing)|harass|insult|language|rude|toxic/i,
   'Hate Speech': /abusive|bigot|derogatory|discriminat|hate ?spe(e|a)ch|homophobic|nazi|racial|racism|racist|sexism/i,
 
   'Breaking Seeding Rules': /seeding rules/i,
   Camping: /camping/i,
   'Current or Recent VAC Ban': /vac ban/i,
+  'Destroying Friendly Assets': /friendly (asset|fob|hab)/i,
   'Helicopter Ramming': /heli ram/i,
   'Locked Squad': /locked squad/i,
   'No SL Kit': /sl kit/i,
   Recruiting: /recruiting/i,
-  'Soloing Vehicles': /solo/i,
+  'Soloing Vehicles': /solo|one manning/i,
   'Stealing Assets': /steal/i
 };
 
