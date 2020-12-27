@@ -40,7 +40,12 @@ export default function (props) {
             <Col xs="12">
               <FormGroup>
                 <Label>Name</Label>
-                <Input type="text" innerRef={register} name="name" invalid={errors.name?.message} />
+                <Input
+                  type="text"
+                  innerRef={register}
+                  name="name"
+                  invalid={!!errors.name?.message}
+                />
                 <FormText>
                   Please provide a name for your export ban list so it can be identified in the
                   future.
@@ -55,7 +60,7 @@ export default function (props) {
                   type="text"
                   innerRef={register}
                   name="server"
-                  invalid={errors.server?.message}
+                  invalid={!!errors.server?.message}
                 />
                 <FormText>
                   Please provide us with the name of your community/server so we can see who is
@@ -91,7 +96,7 @@ export default function (props) {
                   type="number"
                   innerRef={register}
                   name="threshold"
-                  invalid={errors.threshold?.message}
+                  invalid={!!errors.threshold?.message}
                 />
                 <FormText>
                   Please provide a threshold for your export ban list. Once the sum of the points
@@ -108,7 +113,7 @@ export default function (props) {
                   type="number"
                   innerRef={register}
                   name="defaultActivePoints"
-                  invalid={errors.defaultActivePoints?.message}
+                  invalid={!!errors.defaultActivePoints?.message}
                 />
                 <FormText>
                   Please provide a default number of points a player gets for each active ban.
@@ -123,12 +128,28 @@ export default function (props) {
                   type="number"
                   innerRef={register}
                   name="defaultExpiredPoints"
-                  invalid={errors.defaultExpiredPoints?.message}
+                  invalid={!!errors.defaultExpiredPoints?.message}
                 />
                 <FormText>
                   Please provide a default number of points a player gets for each expired ban.
                 </FormText>
                 <FormFeedback>{errors.defaultExpiredPoints?.message}</FormFeedback>
+              </FormGroup>
+            </Col>
+            <Col xs="12">
+              <FormGroup>
+                <Label>Discord Webhook (Optional)</Label>
+                <Input
+                  type="text"
+                  innerRef={register}
+                  name="discordWebhook"
+                  invalid={!!errors.discordWebhook?.message}
+                />
+                <FormText>
+                  You may supply a Discord webhook address in order to receive updates when players
+                  are added or removed from your export ban list.
+                </FormText>
+                <FormFeedback>{errors.discordWebhook?.message}</FormFeedback>
               </FormGroup>
             </Col>
             <Col xs="12" className="text-center">

@@ -10,15 +10,17 @@ export default gql`
       threshold: Int
       defaultActivePoints: Int
       defaultExpiredPoints: Int
+      discordWebhook: String
     ): ExportBanList
 
     updateExportBanList(
       id: Int!
-      name: String!
-      server: String!
-      threshold: Int!
-      defaultActivePoints: Int!
-      defaultExpiredPoints: Int!
+      name: String
+      server: String
+      threshold: Int
+      defaultActivePoints: Int
+      defaultExpiredPoints: Int
+      discordWebhook: String
     ): ExportBanList
 
     deleteExportBanList(id: Int!): ExportBanList

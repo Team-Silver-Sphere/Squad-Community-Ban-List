@@ -80,7 +80,7 @@ ExportBan.init(
     status: {
       type: DataTypes.ENUM('TO_BE_CREATED', 'CREATED', 'TO_BE_DELETED'),
       notNull: true,
-      default: 'TO_BE_CREATED'
+      defaultValue: 'TO_BE_CREATED'
     },
 
     battlemetricsID: {

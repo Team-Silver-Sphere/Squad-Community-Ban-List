@@ -1,4 +1,5 @@
 import { BanList, ExportBanList, ExportBanListConfig } from 'scbl-lib/db/models';
+import { testDiscordWebhook } from 'scbl-lib/utils';
 
 export default {
   Mutation: {
@@ -9,6 +10,8 @@ export default {
       if (!['remote', 'battlemetrics'].includes(args.type))
         throw new Error('Invalid export ban list type.');
 
+      if (args.discordWebhook) await testDiscordWebhook(args.discordWebhook);
+
       const exportBanLsit = await ExportBanList.create({
         name: args.name,
         server: args.server,
@@ -16,6 +19,7 @@ export default {
         threshold: args.threshold,
         defaultActivePoints: args.defaultActivePoints,
         defaultExpiredPoints: args.defaultExpiredPoints,
+        discordWebhook: args.discordWebhook,
         owner: context.user.id
       });
 
@@ -25,20 +29,36 @@ export default {
     },
 
     updateExportBanList: async (parent, args, context) => {
+      // Get export ban list.
       const exportBanList = await ExportBanList.findOne({
         where: { id: args.id, owner: context.user.id }
       });
 
+      // Check export ban list exists.
       if (!exportBanList) throw new Error('Export ban list does not exist!');
 
-      if (!['remote', 'battlemetrics'].includes(args.type))
-        throw new Error('Invalid export ban list type.');
+      // Check the supplied webhook works.
+      if (args.discordWebhook && args.discordWebhook !== exportBanList.discordWebhook)
+        await testDiscordWebhook(args.discordWebhook);
 
-      exportBanList.name = args.name;
-      exportBanList.server = args.server;
-      exportBanList.threshold = args.threshold;
-      exportBanList.defaultActivePoints = args.defaultActivePoints;
-      exportBanList.defaultExpiredPoints = args.defaultExpiredPoints;
+      // Check whether the ban list needs generating.
+      if (
+        (args.threshold && args.threshold !== exportBanList.threshold) ||
+        (args.defaultActivePoints &&
+          args.defaultActivePoints !== exportBanList.defaultActivePoints) ||
+        (args.defaultExpiredPoints &&
+          args.defaultExpiredPoints !== exportBanList.defaultExpiredPoints)
+      ) {
+        exportBanList.generated = false;
+      }
+
+      if (args.name) exportBanList.name = args.name;
+      if (args.server) exportBanList.server = args.server;
+      if (args.threshold) exportBanList.threshold = args.threshold;
+      if (args.defaultActivePoints) exportBanList.defaultActivePoints = args.defaultActivePoints;
+      if (args.defaultExpiredPoints) exportBanList.defaultExpiredPoints = args.defaultExpiredPoints;
+      if (args.discordWebhook || args.discordWebhook === '')
+        exportBanList.discordWebhook = args.discordWebhook;
 
       await exportBanList.save();
 

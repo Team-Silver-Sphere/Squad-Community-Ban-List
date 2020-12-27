@@ -16,6 +16,7 @@ const GET_EXPORT_BAN_LIST = gql`
         threshold
         defaultActivePoints
         defaultExpiredPoints
+        discordWebhook
       }
     }
   }

@@ -16,13 +16,17 @@ export default {
       .number()
       .required('A threshold greater than or equal to 0 is required.')
       .min(0, 'A threshold greater than or equal to 0 is required.'),
-    type: yup.string().required('A type is required.').oneOf(['remote', 'battlemetrics']),
+    type: yup.string().oneOf(['remote', 'battlemetrics']),
     defaultActivePoints: yup
       .number()
       .required('A default number of points per active ban is required.'),
     defaultExpiredPoints: yup
       .number()
-      .required('A default number of points per expired ban is required.')
+      .required('A default number of points per expired ban is required.'),
+    discordWebhook: yup
+      .string()
+      .url('Invalid Discord Webhook')
+      .matches(/^$|^https:\/\/discordapp.com\/api\/webhooks\//, 'Invalid Discord Webhook')
   },
   ExportBanListConfig: {
     banList: yup.number().required('A ban list must be specified.'),

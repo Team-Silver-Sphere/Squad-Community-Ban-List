@@ -10,6 +10,7 @@ export default gql`
     threshold: Int
     defaultActivePoints: Int
     defaultExpiredPoints: Int
+    discordWebhook: String
     battlemetricsID: String
     battlemetricsInvite: String
     owner: SteamUser

@@ -2,10 +2,13 @@ import { steam } from 'scbl-lib/apis';
 import { sequelize } from 'scbl-lib/db';
 import { BanList, ExportBan, ExportBanList, SteamUser } from 'scbl-lib/db/models';
 import { Op, QueryTypes } from 'scbl-lib/db/sequelize';
-import { Logger } from 'scbl-lib/utils';
+import { createDiscordWebhookMessage, Logger } from 'scbl-lib/utils';
+import { HOST } from 'scbl-lib/config';
 
 const UPDATE_STEAM_USER_INFO_REFRESH_INTERVAL = 7 * 24 * 60 * 60 * 1000;
 const UPDATE_STEAM_USER_INFO_BATCH_SIZE = 10;
+
+const DISCORD_ALERT_CAP = 50;
 
 export default class BanImporter {
   static async importBans() {
@@ -211,9 +214,6 @@ export default class BanImporter {
           id: {
             [Op.notIn]: generatedBans.map((generatedBan) => generatedBan.id)
           },
-          steamUser: {
-            [Op.in]: generatedBans.map((generatedBan) => generatedBan.steamUser)
-          },
           status: 'CREATED'
         }
       }
@@ -251,11 +251,29 @@ export default class BanImporter {
   }
 
   static async exportExportBans() {
+    // Get bans that need exporting.
     const exportBans = await ExportBan.findAll({
       where: { status: { [Op.in]: ['TO_BE_CREATED', 'TO_BE_DELETED'] } },
-      include: ExportBanList
+      include: [ExportBanList, SteamUser]
     });
 
+    // Tally the number of changes per ban list.
+    const listChangeCount = {};
+    for (const exportBan of exportBans) {
+      if (exportBan.ExportBanList.id in listChangeCount)
+        listChangeCount[exportBan.ExportBanList.id].count++;
+      else
+        listChangeCount[exportBan.ExportBanList.id] = {
+          exportBanList: exportBan.ExportBanList,
+          count: 1
+        };
+    }
+
+    // Mark whether to do Discord alerts for each ban.
+    for (const exportBan of exportBans)
+      exportBan.doDiscordAlert = listChangeCount[exportBan.ExportBanList.id] < DISCORD_ALERT_CAP;
+
+    // Update the export bans.
     for (const exportBan of exportBans) {
       Logger.verbose(
         'BanImporter',
@@ -264,18 +282,10 @@ export default class BanImporter {
           exportBan.id
         })...`
       );
-      try {
-        if (exportBan.status === 'TO_BE_CREATED') {
-          if (exportBan.ExportBanList.type === 'battlemetrics')
-            await exportBan.createBattlemetricsBan();
 
-          exportBan.status = 'CREATED';
-          await exportBan.save();
-        } else {
-          if (exportBan.ExportBanList.type === 'battlemetrics')
-            await exportBan.deleteBattlemetricsBan();
-          await exportBan.destroy();
-        }
+      try {
+        if (exportBan.status === 'TO_BE_CREATED') await BanImporter.createExportBan(exportBan);
+        else await BanImporter.deleteExportBan(exportBan);
       } catch (err) {
         Logger.verbose(
           'BanImporter',
@@ -286,6 +296,75 @@ export default class BanImporter {
           err
         );
       }
+    }
+
+    // Do Discord alerts for ban lists exceeding the threshold.
+    for (const { exportBanList, count } of Object.values(listChangeCount)) {
+      if (!exportBanList.discordWebhook || count < DISCORD_ALERT_CAP) continue;
+
+      const [hook, message] = createDiscordWebhookMessage(exportBanList.discordWebhook);
+
+      message.setTitle("We've updated your export ban list.");
+      message.setDescription(
+        `We've made some changes to who's on your export ban list named "${exportBanList.name}". Sadly, there's too many changes for us to document them individually.`
+      );
+
+      try {
+        await hook.send(message);
+      } catch (err) {
+        Logger.verbose('BanImporter', 1, `Failed to send Discord Webhook: `, err);
+      }
+    }
+  }
+
+  static async createExportBan(exportBan) {
+    // Add to external export sources.
+    if (exportBan.ExportBanList.type === 'battlemetrics') await exportBan.createBattlemetricsBan();
+
+    // Update the record to indicate it has been created.
+    exportBan.status = 'CREATED';
+    await exportBan.save();
+
+    // Send Discord alert.
+    if (!exportBan.ExportBanList.discordWebhook || !exportBan.doDiscordAlert) return;
+
+    const [hook, message] = createDiscordWebhookMessage(exportBan.ExportBanList.discordWebhook);
+
+    message.setTitle(`${exportBan.SteamUser.name} has been added to your export ban list.`);
+    message.setDescription(
+      `[${exportBan.SteamUser.name}](${HOST}/search/${exportBan.SteamUser.id}) has reached the threshold required to be added to your export ban list named "${exportBan.ExportBanList.name}".`
+    );
+    message.setThumbnail(exportBan.SteamUser.avatarMedium);
+
+    try {
+      await hook.send(message);
+    } catch (err) {
+      Logger.verbose('BanImporter', 1, `Failed to send Discord Webhook: `, err);
+    }
+  }
+
+  static async deleteExportBan(exportBan) {
+    // Delete from external export sources.
+    if (exportBan.ExportBanList.type === 'battlemetrics') await exportBan.deleteBattlemetricsBan();
+
+    // Delete the record.
+    await exportBan.destroy();
+
+    // Send Discord alert.
+    if (!exportBan.ExportBanList.discordWebhook || !exportBan.doDiscordAlert) return;
+
+    const [hook, message] = createDiscordWebhookMessage(exportBan.ExportBanList.discordWebhook);
+
+    message.setTitle(`${exportBan.SteamUser.name} has been removed from your export ban list.`);
+    message.setDescription(
+      `[${exportBan.SteamUser.name}](${HOST}/search/${exportBan.SteamUser.id}) no longer meets the threshold required to be on your export ban list named "${exportBan.ExportBanList.name}" so has been removed.`
+    );
+    message.setThumbnail(exportBan.SteamUser.avatarMedium);
+
+    try {
+      await hook.send(message);
+    } catch (err) {
+      Logger.verbose('BanImporter', 1, `Failed to send Discord Webhook: `, err);
     }
   }
 }

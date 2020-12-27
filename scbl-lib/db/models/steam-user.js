@@ -30,21 +30,21 @@ export default withRelayPagination({ primaryKeyField: 'id' })(
     },
     lastRefreshedInfo: {
       type: DataTypes.DATE,
-      default: null
+      defaultValue: null
     },
 
     isSCBLUser: {
       type: DataTypes.BOOLEAN,
-      default: false
+      defaultValue: false
     },
 
     reputationPoints: {
       type: DataTypes.INTEGER,
-      default: 0
+      defaultValue: 0
     },
     lastRefreshedReputationPoints: {
       type: DataTypes.DATE,
-      default: null
+      defaultValue: null
     },
 
     reputationRank: {
@@ -52,12 +52,12 @@ export default withRelayPagination({ primaryKeyField: 'id' })(
     },
     lastRefreshedReputationRank: {
       type: DataTypes.DATE,
-      default: null
+      defaultValue: null
     },
 
     lastRefreshedExport: {
       type: DataTypes.DATE,
-      default: null
+      defaultValue: null
     },
 
     lastViewed: {

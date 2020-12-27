@@ -11,9 +11,10 @@ const CREATE_EXPORT_BAN_LIST = gql`
     $name: String!
     $server: String!
     $type: String!
-    $threshold: Int!
-    $defaultActivePoints: Int!
-    $defaultExpiredPoints: Int!
+    $threshold: Int
+    $defaultActivePoints: Int
+    $defaultExpiredPoints: Int
+    $discordWebhook: String
   ) {
     createExportBanList(
       name: $name
@@ -22,6 +23,7 @@ const CREATE_EXPORT_BAN_LIST = gql`
       threshold: $threshold
       defaultActivePoints: $defaultActivePoints
       defaultExpiredPoints: $defaultExpiredPoints
+      discordWebhook: $discordWebhook
     ) {
       id
       name
@@ -30,6 +32,7 @@ const CREATE_EXPORT_BAN_LIST = gql`
       threshold
       defaultActivePoints
       defaultExpiredPoints
+      discordWebhook
     }
   }
 `;
@@ -39,9 +42,10 @@ const UPDATE_EXPORT_BAN_LIST = gql`
     $id: Int!
     $name: String!
     $server: String!
-    $threshold: Int!
-    $defaultActivePoints: Int!
-    $defaultExpiredPoints: Int!
+    $threshold: Int
+    $defaultActivePoints: Int
+    $defaultExpiredPoints: Int
+    $discordWebhook: String
   ) {
     updateExportBanList(
       id: $id
@@ -50,6 +54,7 @@ const UPDATE_EXPORT_BAN_LIST = gql`
       threshold: $threshold
       defaultActivePoints: $defaultActivePoints
       defaultExpiredPoints: $defaultExpiredPoints
+      discordWebhook: $discordWebhook
     ) {
       id
       name
@@ -58,6 +63,7 @@ const UPDATE_EXPORT_BAN_LIST = gql`
       threshold
       defaultActivePoints
       defaultExpiredPoints
+      discordWebhook
     }
   }
 `;
@@ -81,6 +87,7 @@ function addToCache(cache, { data: { createExportBanList } }) {
                     threshold
                     defaultActivePoints
                     defaultExpiredPoints
+                    discordWebhook
                   }
                 `
               });

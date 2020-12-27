@@ -120,20 +120,25 @@ ExportBanList.init(
       type: DataTypes.STRING
     },
     type: {
-      type: DataTypes.ENUM('remote', 'battlemetrics')
+      type: DataTypes.ENUM('remote', 'battlemetrics'),
+      defaultValue: 'remote'
     },
     threshold: {
       type: DataTypes.INTEGER,
-      default: 9
+      defaultValue: 9
     },
     defaultActivePoints: {
       type: DataTypes.INTEGER,
-      default: 3
+      defaultValue: 3
     },
     defaultExpiredPoints: {
       type: DataTypes.INTEGER,
-      default: 1
+      defaultValue: 1
     },
+    discordWebhook: {
+      type: DataTypes.STRING
+    },
+
     generated: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
