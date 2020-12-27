@@ -6,7 +6,7 @@ const reasons = {
   Teamkilling: /team ?kill|\btk(?:ing|s)?\b/i,
   Trolling: /troll/i,
   Griefing: /grief/i,
-  'Wasting Assets': /destroying assets|waste/i,
+  'Wasting Assets': /destroying assets|wast(e|ing)/i,
   Ghosting: /ghosting/i,
 
   Toxic: /flam(e|ing)|harass|insult|toxic/i,
