@@ -23,7 +23,7 @@ const reasons = {
   'No SL Kit': /sl kit/i,
   Recruiting: /recruiting/i,
   'Soloing Vehicles': /solo|one manning/i,
-  'Squad Baiting': /baiting/i,
+  'Squad Baiting': /baiting|creat(?:ed?|ing)(?: a)? squad|pass sl/i,
   'Stealing Assets': /steal/i
 };
 
