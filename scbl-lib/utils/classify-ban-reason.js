@@ -25,7 +25,7 @@ const reasons = {
   'Locked Squad': /locked squad/i,
   'No SL Kit': /sl kit/i,
   Recruiting: /recruiting/i,
-  'Soloing Vehicles': /solo|manning/i,
+  'Soloing Vehicles': /crewman|manning|solo/i,
   'Squad Baiting': /baiting|creat(?:ed?|ing)(?: a)? squad|pass sl/i,
   'Stealing Assets': /steal/i,
   'Streamsniping': /streamsniping/i
