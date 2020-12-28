@@ -145,7 +145,7 @@ export default function (props) {
                     className="rounded-circle mb-4"
                   />
                   <h5>
-                    <a href={`https://steamcommunity.com/id/${data.steamUser.id}`}>
+                    <a href={`https://steamcommunity.com/profiles/${data.steamUser.id}`}>
                       {data.steamUser.name || data.steamUser.id}
                     </a>
                   </h5>
