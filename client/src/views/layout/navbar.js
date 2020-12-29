@@ -238,7 +238,7 @@ class DemoNavbar extends React.Component {
                   </UncontrolledDropdown>
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav>
-                      <i className="fa fa-angle-double-up" />
+                      <i className="fas fa-question-circle" />
                       <span className="nav-link-inner--text ml-2">FAQ</span>
                     </DropdownToggle>
                     <DropdownMenu className="dropdown-menu-xl">
@@ -249,7 +249,7 @@ class DemoNavbar extends React.Component {
                         to="/faq"
                         >
                           <div className="icon icon-shape bg-github rounded-circle text-white">
-                            <i className="fab fa-github" />
+                            <i className="fas fa-question-circle" />
                           </div>
                           <Media body className="ml-3">
                             <h6 className="heading text-github mb-md-1">Frequently Asked Questions</h6>
