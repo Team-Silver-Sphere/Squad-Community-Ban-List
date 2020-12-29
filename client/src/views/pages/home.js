@@ -504,7 +504,7 @@ export default function () {
             </Col>
           </Row>
           <Row className="justify-content-center">
-            <Col md="6" className="mb-5">
+            <Col md="4" className="mb-5">
               <div className="px-4">
                 <div className="pt-4 text-center">
                   <h5 className="title">
@@ -514,11 +514,21 @@ export default function () {
                 </div>
               </div>
             </Col>
-            <Col md="6" className="mb-5">
+            <Col md="4" className="mb-5">
               <div className="px-4">
                 <div className="pt-4 text-center">
                   <h5 className="title">
                     <span className="d-block mb-1">LeventHAN</span>
+                    <small className="h6">Developer</small>
+                  </h5>
+                </div>
+              </div>
+            </Col>
+            <Col md="4" className="mb-5">
+              <div className="px-4">
+                <div className="pt-4 text-center">
+                  <h5 className="title">
+                    <span className="d-block mb-1">got2bhockey</span>
                     <small className="h6">Developer</small>
                   </h5>
                 </div>
