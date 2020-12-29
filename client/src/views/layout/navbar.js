@@ -13,9 +13,9 @@ import {
   Media,
   NavbarBrand,
   Navbar,
+  Nav,
   NavItem,
   NavLink,
-  Nav,
   Container,
   Row,
   Col,
@@ -236,32 +236,13 @@ class DemoNavbar extends React.Component {
                       </div>
                     </DropdownMenu>
                   </UncontrolledDropdown>
-                  <UncontrolledDropdown nav>
-                    <DropdownToggle nav>
-                      <i className="fas fa-question-circle" />
-                      <span className="nav-link-inner--text ml-2">FAQ</span>
-                    </DropdownToggle>
-                    <DropdownMenu className="dropdown-menu-xl">
-                      <div className="dropdown-menu-inner">
-                        <Media
-                        className="d-flex align-items-center"
-                        tag={Link}
-                        to="/faq"
-                        >
-                          <div className="icon icon-shape bg-github rounded-circle text-white">
-                            <i className="fas fa-question-circle" />
-                          </div>
-                          <Media body className="ml-3">
-                            <h6 className="heading text-github mb-md-1">Frequently Asked Questions</h6>
-                            <p className="description d-none d-md-inline-block mb-0">
-                            Getting Unbanned, Using the Squad Community Ban List and Contributing to the Squad Community Ban List.
-                            </p>
-                          </Media>
-                        </Media>
-                      </div>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                  </Nav>
+                  <NavItem>
+                    <NavLink className="nav-link-icon" href="/faq">
+                      <i className="fas fa-question-circle mr-2" />
+                      FAQ
+                    </NavLink>
+                  </NavItem>
+                </Nav>
                 <Nav className="navbar-nav-hover align-items-lg-center ml-lg-auto" navbar>
                   <NavItem>
                     <NavLink
