@@ -4,6 +4,8 @@ import md5 from 'md5';
 
 import { Card, CardBody, Container } from 'reactstrap';
 
+import { DISCORD_INVITE } from 'scbl-lib/config';
+
 import Layout from '../layout/layout.js';
 
 const sections = [
@@ -162,6 +164,13 @@ export default function () {
                 <i className="fa fa-question-circle" />
               </div>
               <h6 className="text-primary text-uppercase">Frequently Asked Questions</h6>
+              <p className="description mt-2">
+                If you can't find what you search, please join our{' '}
+                <a href={DISCORD_INVITE} target="_blank" rel="noopener noreferrer">
+                  Discord
+                </a>{' '}
+                server.
+              </p>
             </CardBody>
             {sections.map((section, sectionKey) => (
               <CardBody className="border-bottom" key={sectionKey}>
@@ -170,7 +179,7 @@ export default function () {
                   const hash = md5(question.question);
 
                   return (
-                    <>
+                    <div key={questionKey}>
                       <a href={`#${hash}`}>
                         <h6 id={hash}>
                           <span className="font-weight-bold">Q: </span>
@@ -181,7 +190,7 @@ export default function () {
                         <span className="font-weight-bold">A: </span>
                         {question.answer}
                       </p>
-                    </>
+                    </div>
                   );
                 })}
               </CardBody>
