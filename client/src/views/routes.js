@@ -13,6 +13,8 @@ import CommunityMonitor from './pages/community-monitor.js';
 
 import BecomeAPartnerOrganisation from './pages/become-a-partner-organisation.js';
 
+import FAQ from './pages/faq.js';
+
 // import Auth from '../utils/auth.js';
 
 const routes = [
@@ -85,6 +87,13 @@ const routes = [
     exact: true,
     login: false,
     component: BecomeAPartnerOrganisation
+  },
+
+  {
+    path: '/faq',
+    exact: false,
+    login: false,
+    component: FAQ
   }
 ];
 

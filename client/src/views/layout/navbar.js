@@ -13,9 +13,9 @@ import {
   Media,
   NavbarBrand,
   Navbar,
+  Nav,
   NavItem,
   NavLink,
-  Nav,
   Container,
   Row,
   Col,
@@ -236,6 +236,12 @@ class DemoNavbar extends React.Component {
                       </div>
                     </DropdownMenu>
                   </UncontrolledDropdown>
+                  <NavItem>
+                    <NavLink className="nav-link-icon" href="/faq">
+                      <i className="fas fa-question-circle mr-2" />
+                      FAQ
+                    </NavLink>
+                  </NavItem>
                 </Nav>
                 <Nav className="navbar-nav-hover align-items-lg-center ml-lg-auto" navbar>
                   <NavItem>
