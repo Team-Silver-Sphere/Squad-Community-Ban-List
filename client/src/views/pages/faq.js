@@ -91,13 +91,12 @@ export default class App extends Component {
         <Container>
           <Card className="shadow border-0">
             <CardBody className="pt-5 pb-2 border-bottom">
-              <div className="icon icon-shape bg-gradient-success rounded-circle text-white mb-4">
-                <i className="fa fa-angle-double-up" />
+              <div className="icon icon-shape bg-gradient-warning rounded-circle text-white mb-4">
+                <i className="fas fa-question-circle" />
               </div>
-              <h6 className="text-success text-uppercase">Become a Partner Organisation</h6>
+              <h6 className="text-warning text-uppercase">Frequently Asked Questions</h6>
               <p className="description mt-2">
-                Join the fight against harmful players by contributing ban information to the Squad
-                Community Ban List!
+                If you can't find what you search, please join our <a href='https://discord.gg/fbZdj3q' target='_blanc'>Discord</a> server.
               </p>
             </CardBody>
             <CardBody>
