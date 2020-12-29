@@ -1,20 +1,34 @@
 const reasons = {
-  Cheating: /cheats|cheating|hacking/i,
-  Glitching: /glitching/i,
-  Exploiting: /exploiting/i,
+  Cheating: /cheat|hack/i,
+  Glitching: /glitch/i,
+  Exploiting: /exploit/i,
 
-  Teamkilling: /teamkill|\btk(?:ing|s)?\b/i,
+  Teamkilling: /team ?kill|\btk/i,
   Trolling: /troll/i,
   Griefing: /grief/i,
-  'Wasting Assets': /wasting assets|destroying assets|wasting resources/i,
+  'Wasting Assets': /destroying assets|wast(e|ing)|taxi/i,
   Ghosting: /ghosting/i,
 
-  Toxic: /toxic/i,
-  'Hate Speech': /hate ?speach|hate ?speech|derogatory|racism|racist|racial|sexism|homophobic|abusive language/i,
+  Toxic: /disrespect|flam(e|ing)|harass|insult|language|offensive|rude|toxic/i,
+  'Hate Speech': /abusive|bigot|derogatory|discriminat|hate ?spe(e|a)ch|homophobic|nazi|racial|racism|racist|sexism|sexist/i,
 
-  'Soloing Vehicles': /solo/i,
+  'AFK': /afk|unassigned/i,
+  'Breaking Seeding Rules': /seed/i,
+  'Breaking Vehicle Priority Rules': /priority/i,
   Camping: /camping/i,
-  Recruiting: /recruiting/i
+  'Current or Recent VAC Ban': /vac ban/i,
+  'Destroying Friendly Assets': /friendly (asset|fob|hab)/i,
+  'Discussing politics': /politic/i,
+  'Helicopter Ramming': /ramming/i,
+  'Hindering': /hindering/i,
+  'Impersonation': /impersonat/i,
+  'Locked Squad': /locked squad/i,
+  'No SL Kit': /sl kit/i,
+  Recruiting: /recruiting/i,
+  'Soloing Vehicles': /crewman|manning|solo/i,
+  'Squad Baiting': /baiting|creat(?:ed?|ing)(?: a)? squad|pass sl/i,
+  'Stealing Assets': /steal/i,
+  'Streamsniping': /streamsniping/i
 };
 
 export default function (reason) {

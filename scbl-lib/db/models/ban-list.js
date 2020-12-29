@@ -57,6 +57,7 @@ class BanList extends Sequelize.Model {
             expires: importedBan.expires,
             expired: importedBan.expired,
             reason: importedBan.reason,
+            rawReason: importedBan.rawReason,
             steamUser: importedBan.steamUser,
             banList: this.id
           }
@@ -104,6 +105,11 @@ class BanList extends Sequelize.Model {
 
         if (ban.reason !== importedBan.reason) {
           ban.reason = importedBan.reason;
+          updated = true;
+        }
+
+        if (ban.rawReason !== importedBan.rawReason) {
+          ban.rawReason = importedBan.rawReason;
           updated = true;
         }
 

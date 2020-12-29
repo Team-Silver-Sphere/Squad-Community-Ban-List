@@ -15,7 +15,8 @@ export default async function (source) {
       created: startDate,
       expires: endDate,
       expired: (endDate !== null && endDate.getTime() < Date.now()) || ban.lifted,
-      reason: classifyBanReason(ban.reason)
+      reason: classifyBanReason(ban.reason),
+      rawReason: ban.reason
     });
   }
 

@@ -12,12 +12,15 @@ export default async function (source) {
 
     expires = parseInt(expires);
     expires = expires ? new Date(expires * 1000) : null;
-    const expired = !(expires === null || expires.getTime() > Date.now());
-    reason = classifyBanReason(reason);
 
-    const id = `${steamUser},${expires ? expires.getTime() : 'null'}`;
-
-    bans.push({ id, steamUser, expires, expired, reason });
+    bans.push({
+      id: `${steamUser},${expires ? expires.getTime() : 'null'}`,
+      steamUser,
+      expires,
+      expired: !(expires === null || expires.getTime() > Date.now()),
+      reason: classifyBanReason(reason),
+      rawReason: reason
+    });
   }
 
   return bans;

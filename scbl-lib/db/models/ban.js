@@ -27,6 +27,9 @@ export default withRelayPagination({ primaryKeyField: 'id' })(
     reason: {
       type: DataTypes.TEXT,
       notNull: true
+    },
+    rawReason: {
+      type: DataTypes.TEXT
     }
   })
 );
