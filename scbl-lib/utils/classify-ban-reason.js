@@ -12,7 +12,7 @@ const reasons = {
   Toxic: /disrespect|flam(e|ing)|harass|insult|language|offensive|rude|toxic/i,
   'Hate Speech': /abusive|bigot|derogatory|discriminat|hate ?spe(e|a)ch|homophobic|nazi|racial|racism|racist|sexism|sexist/i,
 
-  'AFK': /afk|unassigned/i,
+  AFK: /afk|unassigned/i,
   'Breaking Seeding Rules': /seed/i,
   'Breaking Vehicle Priority Rules': /priority/i,
   Camping: /camping/i,
@@ -20,15 +20,15 @@ const reasons = {
   'Destroying Friendly Assets': /friendly (asset|fob|hab)/i,
   'Discussing politics': /politic/i,
   'Helicopter Ramming': /ramming/i,
-  'Hindering': /hindering/i,
-  'Impersonation': /impersonat/i,
+  Hindering: /hindering/i,
+  Impersonation: /impersonat/i,
   'Locked Squad': /locked squad/i,
   'No SL Kit': /sl kit/i,
   Recruiting: /recruiting/i,
   'Soloing Vehicles': /crewman|manning|solo/i,
   'Squad Baiting': /baiting|creat(?:ed?|ing)(?: a)? squad|pass sl/i,
   'Stealing Assets': /steal/i,
-  'Streamsniping': /streamsniping/i
+  Streamsniping: /streamsniping/i
 };
 
 export default function (reason) {
