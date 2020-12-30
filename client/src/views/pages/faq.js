@@ -83,37 +83,6 @@ const sections = [
     ]
   },
   {
-    name: 'Export Ban Lists',
-    questions: [
-      {
-        question: 'How are export ban lists configured?',
-        answer: (
-          <>
-            Export ban lists use a point system to calculate which players should be listed on the
-            export ban list. Points are used to represent how bad a reputation a player has based on
-            bans they have on our partner organisation's ban lists. By default, active and expired
-            bans will contribute 3 and 1 points respectively, however, users can configure these
-            values when creating their export ban lists. Furthermore, users can set these values
-            individually for each of our partner organisations' ban lists. Only one active ban per
-            ban list is counted. Once the number of points a player has exceeds the threshold set in
-            the export ban list's configuration they are added to the export ban list.
-          </>
-        )
-      },
-      {
-        question: 'Why am I limited to only 4 export ban lists?',
-        answer: (
-          <>
-            The more export ban lists we host the longer it takes for them to be updated when new or
-            changed information is imported from our partner organisations. Therefore, to ensure
-            export ban lists are updated within a reasonable time we limit the number of export ban
-            lists each user can create to 4.
-          </>
-        )
-      }
-    ]
-  },
-  {
     name: 'Getting Unbanned',
     questions: [
       {
@@ -146,6 +115,37 @@ const sections = [
             the existence of the ban to our users. If you believe that your ban is in breach of the
             Official Squad Administrator Guidelines then you could file a report with Offworld
             Industries.
+          </>
+        )
+      }
+    ]
+  },
+  {
+    name: 'Export Ban Lists',
+    questions: [
+      {
+        question: 'How are export ban lists configured?',
+        answer: (
+          <>
+            Export ban lists use a point system to calculate which players should be listed on the
+            export ban list. Points are used to represent how bad a reputation a player has based on
+            bans they have on our partner organisation's ban lists. By default, active and expired
+            bans will contribute 3 and 1 points respectively, however, users can configure these
+            values when creating their export ban lists. Furthermore, users can set these values
+            individually for each of our partner organisations' ban lists. Only one active ban per
+            ban list is counted. Once the number of points a player has exceeds the threshold set in
+            the export ban list's configuration they are added to the export ban list.
+          </>
+        )
+      },
+      {
+        question: 'Why am I limited to only 4 export ban lists?',
+        answer: (
+          <>
+            The more export ban lists we host the longer it takes for them to be updated when new or
+            changed information is imported from our partner organisations. Therefore, to ensure
+            export ban lists are updated within a reasonable time we limit the number of export ban
+            lists each user can create to 4.
           </>
         )
       }
