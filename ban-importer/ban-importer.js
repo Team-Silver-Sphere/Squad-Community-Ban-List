@@ -228,9 +228,6 @@ export default class BanImporter {
         id: {
           [Op.notIn]: generatedBans.map((generatedBan) => generatedBan.id)
         },
-        steamUser: {
-          [Op.in]: generatedBans.map((generatedBan) => generatedBan.steamUser)
-        },
         status: 'TO_BE_CREATED'
       }
     });
