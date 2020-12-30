@@ -2,7 +2,7 @@ import jwtDecode from 'jwt-decode';
 
 import httpClient from './http-client';
 
-import { localStorageVersion } from 'core/config/web-server';
+import { LOCALSTORAGE_VERSION } from 'scbl-lib/config';
 
 class Auth {
   constructor() {
@@ -26,9 +26,9 @@ class Auth {
   }
 
   restoreAuth() {
-    if (localStorage.getItem('localStorageVersion') !== localStorageVersion) {
+    if (localStorage.getItem('LOCALSTORAGE_VERSION') !== LOCALSTORAGE_VERSION) {
       localStorage.clear();
-      localStorage.setItem('localStorageVersion', localStorageVersion);
+      localStorage.setItem('LOCALSTORAGE_VERSION', LOCALSTORAGE_VERSION);
     }
 
     if (localStorage.getItem('JWT') === null) return false;
@@ -44,7 +44,11 @@ class Auth {
   async attemptAuth(queryString) {
     this.flush();
 
+    console.log('attempt auth');
+
     const response = await httpClient.get('/auth/steam/return' + queryString);
+
+    console.log(response);
 
     this.isLoggedIn = true;
     this.jwtToken = response.data.token;

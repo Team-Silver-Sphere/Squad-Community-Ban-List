@@ -1,0 +1,9 @@
+{
+  "name": "ban-importer",
+  "description": "Copy bans from external ban lists to local database.",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "scbl-lib": "1.0.0"
+  }
+}

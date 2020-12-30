@@ -2,50 +2,44 @@ import ApolloServerKoa from 'apollo-server-koa';
 const { gql } = ApolloServerKoa;
 
 export default gql`
-  """
-  The SteamUser type represents a Steam user that has logged in to the system.
-  """
   type SteamUser {
-    """
-    MongoDB Document ID
-    """
-    _id: String
-
-    """
-    The user's SteamID.
-    """
-    steamID: String
-
-    """
-    The user's display name.
-    """
-    displayName: String
-
-    """
-    A URL to a copy of the user's medium sized avatar.
-    """
+    id: String
+    name: String
+    profileURL: String
+    avatar: String
     avatarMedium: String
-
-    """
-    A URL to a copy of the user's full sized avatar.
-    """
     avatarFull: String
+    lastRefreshedInfo: Date
 
-    """
-    Whether the user is a system admin.
+    reputationPoints: Int
+    lastRefreshedReputationPoints: Date
+    riskRating: Float
+    reputationRank: Int
+    lastRefreshedReputationRank: Date
 
-    Accessible to system admins only.
-    """
-    systemAdmin: Boolean @systemAdminOnly
+    lastViewed: Date
 
-    """
-    An array of ExportBanLists belonging to the user.
-    """
+    bans(
+      first: Int
+      after: String
+      last: Int
+      before: String
+      orderBy: String
+      orderDirection: OrderDirection
+      expired: Boolean
+    ): BanConnection
+
+    exportBanList(id: Int!): ExportBanList
     exportBanLists: [ExportBanList]
+  }
 
-    """
-    The limit of the number of ExportBanLists the user can create.
-    """
-    exportBanListsLimit: Int
+  type SteamUserConnection {
+    edges: [SteamUserEdge]
+    pageInfo: PageInfo
+  }
+
+  type SteamUserEdge {
+    cursor: String
+    node: SteamUser
   }
 `;

@@ -1,41 +1,32 @@
 import passport from 'koa-passport';
 import SteamStrategy from 'passport-steam';
 
-import { host } from 'core/config/web-server';
-import { steamAPIKey } from 'core/config/secrets';
-
-import { SteamUser } from 'database/models';
+import { HOST, STEAM_API_KEY } from 'scbl-lib/config';
+import { SteamUser } from 'scbl-lib/db/models';
 
 passport.use(
   new SteamStrategy(
     {
-      returnURL: host + '/login',
-      realm: host,
-      apiKey: steamAPIKey
+      returnURL: HOST + '/login',
+      realm: HOST,
+      apiKey: STEAM_API_KEY
     },
-    async (_, rawProfile, done) => {
-      const query = {
-        steamID: rawProfile.id,
-        displayName: rawProfile.displayName,
-        avatar: rawProfile.photos[0].value,
-        avatarMedium: rawProfile.photos[1].value,
-        avatarFull: rawProfile.photos[2].value,
-        $setOnInsert: { systemAdmin: (await SteamUser.countDocuments()) === 0 }
-      };
-
-      const user = await SteamUser.findOneAndUpdate(
-        {
-          steamID: query.steamID
-        },
-        query,
-        {
-          upsert: true,
-          new: true,
-          setDefaultsOnInsert: true
-        }
+    async (_, profile, done) => {
+      const steamUsers = await SteamUser.bulkCreate(
+        [
+          {
+            id: profile.id,
+            name: profile.displayName,
+            avatar: profile.photos[0].value,
+            avatarMedium: profile.photos[1].value,
+            avatarFull: profile.photos[2].value,
+            isSCBLUser: true
+          }
+        ],
+        { updateOnDuplicate: ['isSCBLUser'] }
       );
 
-      return done(null, user);
+      return done(null, steamUsers[0]);
     }
   )
 );

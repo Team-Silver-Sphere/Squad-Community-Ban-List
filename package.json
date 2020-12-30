@@ -1,48 +1,37 @@
 {
   "name": "Squad-Community-Ban-List",
-  "version": "0.0.1",
-  "repository": "https://github.com/Squad-Community-Ban-List/Squad-Community-Ban-List.git",
-  "author": "Squad Community Ban List Team <https://github.com/Squad-Community-Ban-List>",
+  "version": "1.0.0",
+  "repository": "https://github.com/Thomas-Smyth/Squad-Community-Ban-List.git",
+  "author": "Thomas Smyth <https://github.com/Thomas-Smyth>",
   "license": "MIT",
   "private": true,
   "workspaces": [
     "assets",
-    "ban-generator",
-    "battlemetrics-gateway",
     "client",
-    "core",
-    "database",
-    "tt-gateway",
+    "scbl-lib",
     "web-server"
   ],
   "scripts": {
     "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
-    "start-ban-generator": "node ban-generator/index.js",
-    "dev-ban-generator": "nodemon ban-generator/index.js",
-    "start-battlemetrics-gateway": "node battlemetrics-gateway/index.js",
-    "dev-battlemetrics-gateway": "nodemon battlemetrics-gateway/index.js",
-    "start-tt-gateway": "node tt-gateway/index.js",
-    "dev-battlttemetrics-gateway": "nodemon tt-gateway/index.js",
+    "start-ban-importer": "node ban-importer/index.js",
     "build-web-server": "cd client && npm run build",
-    "start-web-server": "NODE_ENV=production node web-server/index.js",
-    "dev-web-server": "concurrently \"nodemon web-server/index.js\" \"cd client && npm run start\"",
-    "generate-api-documentation": "graphql-markdown http://localhost:3001/graphql > api-documentation.md"
+    "start-web-server": "cross-env NODE_ENV=production node web-server/index.js",
+    "dev-web-server": "concurrently \"nodemon --ignore './client/' web-server/index.js\" \"cd client && npm run start\""
   },
   "devDependencies": {
-    "concurrently": "^5.0.1",
-    "eslint": "5.12.0",
-    "eslint-config-prettier": "^6.6.0",
-    "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^10.0.0",
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.4.3",
-    "nodemon": "^2.0.1",
-    "prettier": "^1.19.1"
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5"
   },
-  "dependencies": {
-    "graphql-markdown": "^5.2.0"
-  }
+  "dependencies": {}
 }

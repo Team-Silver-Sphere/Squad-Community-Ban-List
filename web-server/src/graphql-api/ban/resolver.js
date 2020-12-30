@@ -1,9 +1,12 @@
-import { BanList } from 'database/models';
+import { BanList, SteamUser } from 'scbl-lib/db/models';
 
 export default {
   Ban: {
-    banList: async parent => {
-      return BanList.findOne({ _id: parent.banList });
+    steamUser: (parent) => {
+      return SteamUser.findByPk(parent.steamUser);
+    },
+    banList: (parent) => {
+      return BanList.findByPk(parent.banList);
     }
   }
 };

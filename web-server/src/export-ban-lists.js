@@ -1,36 +1,13 @@
 import Router from 'koa-router';
-import { ExportBan, ExportBanList } from 'database/models';
+
+import { ExportBan } from 'scbl-lib/db/models';
 
 const router = new Router();
 
-router.get('/:id', async ctx => {
-  const exportBanList = await ExportBanList.findOne({ _id: ctx.params.id });
+router.get('/:id', async (ctx) => {
+  const exportBans = await ExportBan.findAll({ where: { exportBanList: ctx.params.id } });
 
-  // throw 404 if not found
-  if (exportBanList === null) {
-    ctx.status = 404;
-    return;
-  }
-
-  if (exportBanList.generatorStatus === 'queued') {
-    ctx.body =
-      '// This export ban list has yet to be generated. Please try again later.';
-    return;
-  }
-
-  if (exportBanList.generatorStatus === 'errored') {
-    ctx.body =
-      '// This export ban list failed to generate. Please edit your export ban list to try again or contact a project manager on our Discord.';
-    return;
-  }
-
-  ctx.body =
-    (
-      await ExportBan.distinct('steamID', {
-        exportBanList: exportBanList._id,
-        battlemetricsStatus: { $nin: ['deleted', 'deleted-errored'] }
-      })
-    ).join(':0\n') + ':0';
+  ctx.body = exportBans.map((exportBan) => `${exportBan.steamUser}:0`).join('\n');
 });
 
 export default router;

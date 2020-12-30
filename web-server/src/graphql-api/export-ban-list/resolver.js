@@ -1,21 +1,9 @@
-import { ExportBan, SteamUser } from 'database/models';
+import { ExportBanListConfig } from 'scbl-lib/db/models';
 
 export default {
   ExportBanList: {
-    banCount: async parent => {
-      return ExportBan.countDocuments({
-        battlemetricsStatus: { $nin: ['deleted', 'deleted-errored'] },
-        exportBanList: parent._id
-      });
-    },
-    owner: async parent => {
-      return SteamUser.findOne({ steamID: parent.owner });
-    },
-    exportBans: async parent => {
-      return ExportBan.find({
-        battlemetricsStatus: { $nin: ['deleted', 'deleted-errored'] },
-        exportBanList: parent._id
-      });
+    exportBanListConfigs: (parent) => {
+      return ExportBanListConfig.findAll({ where: { exportBanList: parent.id } });
     }
   }
 };

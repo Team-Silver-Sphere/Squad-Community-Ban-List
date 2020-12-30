@@ -1,79 +1,40 @@
-import {
-  Organization,
-  Ban,
-  BanList,
-  ExportBan,
-  SteamUser,
-  ExportBanList
-} from 'database/models';
+import { Ban, BanList, SteamUser } from 'scbl-lib/db/models';
 
 export default {
   Query: {
-    organizations: async () => {
-      return Organization.find().sort({ name: 1 });
+    banLists: () => {
+      return BanList.findAll();
     },
-
-    organizationCount: async () => {
-      return Organization.countDocuments();
-    },
-
-    banLists: async () => {
-      return BanList.find();
-    },
-
-    banListCount: async () => {
-      return BanList.countDocuments();
-    },
-
-    banCount: async () => {
-      return Ban.countDocuments();
-    },
-
-    uniqueBannedSteamIDCount: async () => {
-      return (await Ban.distinct('steamID')).length;
-    },
-
-    playerBans: async (parent, filter) => {
-      const query = {
-        steamID: filter.steamID
-      };
-
-      if ('expired' in filter) query.expired = filter.expired;
-
-      return Ban.find(query);
-    },
-
-    exportBanCount: async () => {
-      return ExportBan.countDocuments();
-    },
-
-    currentSteamUser: async (parent, _, context) => {
-      return SteamUser.findOne({ steamID: context.user });
-    },
-
-    banListQueue: async () => {
-      return BanList.find({ importStatus: 'errored ' });
-    },
-
-    exportBanListQueue: async () => {
-      return ExportBanList.find({
-        $or: [
-          { generatorStatus: { $in: ['queued', 'errored'] } },
-          {
-            battlemetricsStatus: {
-              $in: ['queued', 'deleted', 'queued-errored', 'deleted-errored']
-            }
-          }
-        ]
+    bans: (parent, filter) => {
+      return Ban.paginate({
+        order: [[filter.orderBy || 'created', filter.orderDirection || 'DESC']],
+        first: filter.first,
+        after: filter.after,
+        last: filter.last,
+        before: filter.before
       });
     },
-
-    exportBanQueue: async () => {
-      return ExportBan.find({
-        battlemetricsStatus: {
-          $in: ['queued', 'deleted', 'queued-errored', 'deleted-errored']
-        }
+    steamUsers: (parent, filter) => {
+      return SteamUser.paginate({
+        order: [[filter.orderBy || 'id', filter.orderDirection || 'DESC']],
+        first: filter.first,
+        after: filter.after,
+        last: filter.last,
+        before: filter.before
       });
+    },
+    steamUser: async (parent, filter) => {
+      const user = await SteamUser.findByPk(filter.id);
+
+      if (user) {
+        user.lastViewed = Date.now();
+        await user.save();
+      }
+
+      return user;
+    },
+    loggedInSteamUser: async (parent, filter, context) => {
+      return context.user ? SteamUser.findByPk(context.user.id) : null;
     }
   }
 };

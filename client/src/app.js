@@ -1,65 +1,60 @@
-import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
-import ApolloClient, { InMemoryCache } from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { relayStylePagination } from '@apollo/client/utilities';
+import { BrowserRouter, Switch } from 'react-router-dom';
 
 import Auth from './utils/auth';
 
-import publicRoutes from './views/main-site';
+import publicRoutes from './views';
 
-import GoogleAnalytics from 'react-ga';
-import { googleAnalyticsID } from 'core/config/web-server';
+const httpLink = createHttpLink({ uri: '/graphql' });
 
-GoogleAnalytics.initialize(googleAnalyticsID);
-
-const client = new ApolloClient({
-  request: async operation => {
-    operation.setContext({ headers: { JWT: Auth.jwtToken } });
-  },
-  cache: new InMemoryCache({
-    dataIdFromObject: obj => {
-      switch (obj.__typename) {
-        default:
-          return obj._id;
-      }
-    }
-  })
+const authLink = setContext((_, { headers }) => {
+  return { headers: { ...headers, JWT: Auth.jwtToken } };
 });
 
-client.defaultOptions = {
-  watchQuery: {
-    errorPolicy: 'all'
-  },
-  query: {
-    errorPolicy: 'all',
-    fetchPolicy: 'cache-and-network'
-  },
-  mutate: {
-    errorPolicy: 'all'
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          bans: relayStylePagination(['orderBy', 'orderDirection']),
+          steamUsers: relayStylePagination(['orderBy', 'orderDirection'])
+        }
+      }
+    }
+  }),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-and-network',
+      errorPolicy: 'ignore'
+    },
+    query: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all'
+    },
+    mutate: {
+      errorPolicy: 'all'
+    }
   }
-};
+});
 
-class App extends React.Component {
-  state = {
-    initialSetup: false
-  };
+export default function () {
+  const [initialSetup, setInitialSetup] = useState(false);
 
-  componentDidMount() {
+  useEffect(() => {
     Auth.restoreAuth();
-    this.setState({ initialSetup: true });
-  }
+    setInitialSetup(true);
+  }, []);
 
-  render() {
-    if (this.state.initialSetup === false) return null; // dont render app until initial setup is completed
-    return (
-      <ApolloProvider client={client}>
-        <BrowserRouter>
-          <Switch>{publicRoutes}</Switch>
-        </BrowserRouter>
-      </ApolloProvider>
-    );
-  }
+  return initialSetup ? (
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <Switch>{publicRoutes}</Switch>
+      </BrowserRouter>
+    </ApolloProvider>
+  ) : null;
 }
-
-export default App;

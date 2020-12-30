@@ -1,4 +1,4 @@
 import passport from './passport.js';
-import SteamAuth from './steam-auth.js';
+import routes from './routes.js';
 
-export { passport, SteamAuth };
+export { passport, routes };

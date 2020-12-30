@@ -1,21 +1,21 @@
 import { resolver as banResolver } from './ban/index.js';
 import { resolver as banListResolver } from './ban-list/index.js';
-import { resolver as exportBanResolver } from './export-ban/index.js';
+import { resolver as coreResolver } from './core/index.js';
 import { resolver as exportBanListResolver } from './export-ban-list/index.js';
+import { resolver as exportBanListConfigResolver } from './export-ban-list-config/index.js';
 import { resolver as mutationResolver } from './mutation/index.js';
-import { resolver as organizationResolver } from './organization/index.js';
+import { resolver as organisationResolver } from './organisation/index.js';
 import { resolver as queryResolver } from './query/index.js';
-import { resolver as scalarsResolver } from './scalars/index.js';
 import { resolver as steamUserResolver } from './steam-user/index.js';
 
 export default [
   banResolver,
   banListResolver,
-  exportBanResolver,
+  coreResolver,
   exportBanListResolver,
+  exportBanListConfigResolver,
   mutationResolver,
-  organizationResolver,
+  organisationResolver,
   queryResolver,
-  scalarsResolver,
   steamUserResolver
 ];

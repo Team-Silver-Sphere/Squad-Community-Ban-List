@@ -1,11 +1,11 @@
 import ApolloServerKoa from 'apollo-server-koa';
 import jwt from 'jsonwebtoken';
 
-import { jwtAuth } from 'core/config/secrets';
+import { JWT_AUTH } from 'scbl-lib/config';
 
 import typeDefs from './typedefs.js';
 import resolvers from './resolvers.js';
-import { directives as schemaDirectives } from './directives/index.js';
+import { directives as schemaDirectives } from './core/index.js';
 
 const { ApolloServer, makeExecutableSchema } = ApolloServerKoa;
 
@@ -15,16 +15,11 @@ export default new ApolloServer({
   schema,
   context: async ({ ctx }) => {
     try {
-      const userClaim = jwt.verify(ctx.get('JWT'), jwtAuth.secret, {
-        algorithms: [jwtAuth.algorithm]
-      }).user;
-
-      const user = userClaim.steamID;
-      const isSystemAdmin = userClaim.systemAdmin;
-
-      return { user, isSystemAdmin };
+      return {
+        user: jwt.verify(ctx.get('JWT'), JWT_AUTH.SECRET, { algorithms: [JWT_AUTH.ALGORITHM] }).user
+      };
     } catch (err) {
-      return { user: null, isSystemAdmin: false };
+      return { user: null };
     }
   }
 });

@@ -7,8 +7,7 @@ class HTTPClient {
     this.axios = axios.create();
   }
 
-  get = uri =>
-    this.axios.get(uri, { headers: { Authorization: 'JWT ' + auth.jwtToken } });
+  get = (uri) => this.axios.get(uri, { headers: { Authorization: 'JWT ' + auth.jwtToken } });
 }
 
 export default new HTTPClient();

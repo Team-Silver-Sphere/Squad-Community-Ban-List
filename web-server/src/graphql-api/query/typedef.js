@@ -3,70 +3,28 @@ const { gql } = ApolloServerKoa;
 
 export default gql`
   type Query {
-    """
-    An array of all partner Organizations.
-    """
-    organizations: [Organization]
-
-    """
-    The number of partner organizations within the system.
-    """
-    organizationCount: Int
-
-    """
-    An array of all BanLists.
-    """
     banLists: [BanList]
 
-    """
-    The number of ban lists within the system.
-    """
-    banListCount: Int
+    bans(
+      first: Int
+      after: String
+      last: Int
+      before: String
+      orderBy: String
+      orderDirection: OrderDirection
+    ): BanConnection
 
-    """
-    The number of Bans within the system.
-    """
-    banCount: Int
+    steamUsers(
+      first: Int
+      after: String
+      last: Int
+      before: String
+      orderBy: String
+      orderDirection: OrderDirection
+    ): SteamUserConnection
 
-    """
-    The number of unique SteamIDs stored within the system.
-    """
-    uniqueBannedSteamIDCount: Int
+    steamUser(id: String!): SteamUser
 
-    """
-    An array of Bans belonging to a specified SteamID.
-    """
-    playerBans(steamID: String!, expired: Boolean): [Ban]
-
-    """
-    The number of bans being exported by SCBL.
-    """
-    exportBanCount: Int
-
-    """
-    The currently authenticated user's SteamUser profile.
-    """
-    currentSteamUser: SteamUser
-
-    """
-    A list of ban lists current in the queue.
-
-    Accessible to system admins only.
-    """
-    banListQueue: [BanList] @systemAdminOnly
-
-    """
-    A list of export ban lists current in the queue.
-
-    Accessible to system admins only.
-    """
-    exportBanListQueue: [ExportBanList] @systemAdminOnly
-
-    """
-    A list of export bans current in the queue.
-
-    Accessible to system admins only.
-    """
-    exportBanQueue: [ExportBan] @systemAdminOnly
+    loggedInSteamUser: SteamUser
   }
 `;
