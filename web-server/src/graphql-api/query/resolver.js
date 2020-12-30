@@ -1,3 +1,4 @@
+import { Op } from 'scbl-lib/db/sequelize';
 import { Ban, BanList, SteamUser } from 'scbl-lib/db/models';
 
 export default {
@@ -20,7 +21,9 @@ export default {
         first: filter.first,
         after: filter.after,
         last: filter.last,
-        before: filter.before
+        before: filter.before,
+        where:
+          filter.orderBy === 'reputationRank' ? { reputationRank: { [Op.ne]: null } } : undefined
       });
     },
     steamUser: async (parent, filter) => {
