@@ -42,10 +42,17 @@ export default function () {
                 consistency, to maintain professionalism and to allow you to keep confidential notes
                 in their ban lists private.
               </p>
+              <p>
+                There are currently no benefits to being a partner organisation, however, everyone
+                benefits from our partner organisations as the more partner organisations that
+                contribute information on players the more effective the Squad Community Ban List
+                becomes in protecting the integrity of the Squad community so, please consider
+                contributing to thank others for their contributions.
+              </p>
               <h5>Form</h5>
               <p>
                 If you are interested in becoming a partner organisation, please provide the
-                following information via direct message to Tommy, who can be found on our{' '}
+                following information via direct message to Tommy who can be found on our{' '}
                 <a href={DISCORD_INVITE}>Discord</a>:
               </p>
               <pre>
@@ -78,6 +85,11 @@ export default function () {
                     and we will request further information from you.
                   </li>
                 </ul>
+              </p>
+              <br />
+              <p>
+                If you wish to stop contributing as a partner organisation, please contact Tommy
+                who can be found on our <a href={DISCORD_INVITE}>Discord</a>.
               </p>
             </CardBody>
           </Card>
