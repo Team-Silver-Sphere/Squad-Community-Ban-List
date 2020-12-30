@@ -26,7 +26,7 @@ export default {
     discordWebhook: yup
       .string()
       .url('Invalid Discord Webhook')
-      .matches(/^$|^https:\/\/discordapp.com\/api\/webhooks\//, 'Invalid Discord Webhook')
+      .matches(/^$|^https:\/\/discord(?:app)?.com\/api\/webhooks\//, 'Invalid Discord Webhook')
   },
   ExportBanListConfig: {
     banList: yup.number().required('A ban list must be specified.'),
