@@ -167,8 +167,6 @@ export default class BanImporter {
           FROM Bans B
           CROSS JOIN ExportBanLists EBL
           LEFT JOIN ExportBanListConfigs EBLC ON EBL.id = EBLC.exportBanList AND B.banList = EBLC.banList
-          JOIN SteamUsers SU ON B.steamUser = SU.id
-          WHERE SU.lastRefreshedExport IS NULL or EBL.generated = FALSE
           GROUP BY EBL.id, B.banList, B.steamUser
         ) A
         GROUP BY exportBanList, steamUser
