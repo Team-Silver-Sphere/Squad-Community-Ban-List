@@ -132,22 +132,26 @@ export default class BanImporter {
     const generatedBans = await sequelize.query(
       `
         SELECT
-          A.steamUser,
-          A.exportBanList,
-          IF(SUM(A.activePoints) + SUM(A.expiredPoints) >= A.threshold, 1, 0) AS "banned"
+          steamUser,
+          exportBanList,
+          IF(SUM(activePoints) + SUM(expiredPoints) >= threshold, 1, 0) AS "banned"
         FROM (
           SELECT
-            B.steamUser AS "steamUser",
             EBL.id AS "exportBanList",
             EBL.threshold AS "threshold",
-            IF(
+            B.steamUser AS "steamUser",
+            IF (
               SUM(
-                IF(B.expired, 0, 1)
+                IF(
+                  B.expired,
+                  0,
+                  IFNULL(
+                    EBLC.activePoints,
+                    EBL.defaultActivePoints
+                  )
+                )
               ) > 0,
-              IFNULL(
-                MAX(EBLC.activePoints),
-                MAX(EBL.defaultActivePoints)
-              ),
+              3,
               0
             ) AS "activePoints",
             SUM(
@@ -162,12 +166,12 @@ export default class BanImporter {
             ) AS "expiredPoints"
           FROM Bans B
           CROSS JOIN ExportBanLists EBL
-          LEFT JOIN ExportBanListConfigs EBLC ON EBL.id = EBLC.exportBanList
+          LEFT JOIN ExportBanListConfigs EBLC ON EBL.id = EBLC.exportBanList AND B.banList = EBLC.banList
           JOIN SteamUsers SU ON B.steamUser = SU.id
           WHERE SU.lastRefreshedExport IS NULL or EBL.generated = FALSE
-          GROUP BY B.steamUser, B.banList, EBL.id
+          GROUP BY EBL.id, B.banList, B.steamUser
         ) A
-        GROUP BY A.steamUser, A.exportBanList
+        GROUP BY exportBanList, steamUser
         HAVING banned
       `,
       { type: QueryTypes.SELECT }
