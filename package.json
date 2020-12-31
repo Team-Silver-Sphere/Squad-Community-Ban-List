@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "assets",
+    "ban-importer",
     "client",
     "scbl-lib",
     "web-server"

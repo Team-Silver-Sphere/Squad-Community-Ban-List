@@ -10,24 +10,24 @@ const UPDATE_STEAM_USER_INFO_BATCH_SIZE = 10;
 
 const DISCORD_ALERT_CAP = 50;
 
-export default class BanImporter {
+export default class Core {
   static async importBans() {
-    Logger.verbose('BanImporter', 1, 'Fetching ban lists to import...');
+    Logger.verbose('Core', 1, 'Fetching ban lists to import...');
     const lists = await BanList.findAll({ attributes: ['id', 'type', 'source'] });
 
-    Logger.verbose('BanImporter', 1, `Importing ${lists.length} ban lists...`);
+    Logger.verbose('Core', 1, `Importing ${lists.length} ban lists...`);
     for (const list of lists) {
       try {
         await list.importBans();
       } catch (err) {
-        Logger.verbose('BanImporter', 1, `Failed to import ban list (ID: ${list.id}): `, err);
+        Logger.verbose('Core', 1, `Failed to import ban list (ID: ${list.id}): `, err);
       }
     }
-    Logger.verbose('BanImporter', 1, 'Finished importing ban lists.');
+    Logger.verbose('Core', 1, 'Finished importing ban lists.');
   }
 
   static async updateSteamUserInfo() {
-    Logger.verbose('BanImporter', 1, 'Fetching Steam users to update...');
+    Logger.verbose('Core', 1, 'Fetching Steam users to update...');
     const users = await SteamUser.findAll({
       attributes: ['id'],
       where: {
@@ -42,12 +42,12 @@ export default class BanImporter {
       }
     });
 
-    Logger.verbose('BanImporter', 1, `Updating ${users.length} Steam users...`);
+    Logger.verbose('Core', 1, `Updating ${users.length} Steam users...`);
     while (users.length > 0) {
       const batch = users.splice(0, Math.min(UPDATE_STEAM_USER_INFO_BATCH_SIZE, users.length));
 
       Logger.verbose(
-        'BanImporter',
+        'Core',
         1,
         `Updating batch of ${batch.length} Steam users (${users.length} remaining)...`
       );
@@ -71,20 +71,15 @@ export default class BanImporter {
           );
         }
       } catch (err) {
-        Logger.verbose(
-          'BanImporter',
-          1,
-          `Failed to update batch of ${batch.length} Steam users: `,
-          err
-        );
+        Logger.verbose('Core', 1, `Failed to update batch of ${batch.length} Steam users: `, err);
       }
     }
 
-    Logger.verbose('BanImporter', 1, 'Finished updating Steam users.');
+    Logger.verbose('Core', 1, 'Finished updating Steam users.');
   }
 
   static async updateReputationPoints() {
-    Logger.verbose('BanImporter', 1, 'Updating reputation points of outdated Steam users...');
+    Logger.verbose('Core', 1, 'Updating reputation points of outdated Steam users...');
     await sequelize.query(
       `
         UPDATE SteamUsers SU
@@ -112,7 +107,7 @@ export default class BanImporter {
   }
 
   static async updateReputationRank() {
-    Logger.verbose('BanImporter', 1, 'Updating reputation rank of Steam users...');
+    Logger.verbose('Core', 1, 'Updating reputation rank of Steam users...');
     await sequelize.query(
       `
         UPDATE SteamUsers su
@@ -128,7 +123,7 @@ export default class BanImporter {
   }
 
   static async updateExportBans() {
-    Logger.verbose('BanImporter', 1, 'Generating export ban...');
+    Logger.verbose('Core', 1, 'Generating export ban...');
     const generatedBans = await sequelize.query(
       `
         SELECT
@@ -175,12 +170,12 @@ export default class BanImporter {
       { type: QueryTypes.SELECT }
     );
 
-    Logger.verbose('BanImporter', 1, 'Generating export ban IDs...');
+    Logger.verbose('Core', 1, 'Generating export ban IDs...');
     generatedBans.forEach((generatedBan) => {
       generatedBan.id = `${generatedBan.steamUser},${generatedBan.exportBanList}`;
     });
 
-    Logger.verbose('BanImporter', 1, 'Saving export bans...');
+    Logger.verbose('Core', 1, 'Saving export bans...');
     for (const generatedBan of generatedBans) {
       const [exportBan, created] = await ExportBan.findOrCreate({
         where: { id: generatedBan.id },
@@ -193,22 +188,18 @@ export default class BanImporter {
       });
 
       if (created) {
-        Logger.verbose('BanImporter', 1, `Created new export ban (ID: ${generatedBan.id}).`);
+        Logger.verbose('Core', 1, `Created new export ban (ID: ${generatedBan.id}).`);
         continue;
       }
 
       if (exportBan.status === 'TO_BE_DELETED') {
-        Logger.verbose(
-          'BanImporter',
-          1,
-          `Cancelled deletion of export ban (ID: ${generatedBan.id}).`
-        );
+        Logger.verbose('Core', 1, `Cancelled deletion of export ban (ID: ${generatedBan.id}).`);
         exportBan.status = 'CREATED';
         await exportBan.save();
       }
     }
 
-    Logger.verbose('BanImporter', 1, 'Removing deleted export bans...');
+    Logger.verbose('Core', 1, 'Removing deleted export bans...');
     await ExportBan.update(
       { status: 'TO_BE_DELETED' },
       {
@@ -230,13 +221,13 @@ export default class BanImporter {
       }
     });
 
-    Logger.verbose('BanImporter', 1, 'Updating last refreshed export date for Steam users...');
+    Logger.verbose('Core', 1, 'Updating last refreshed export date for Steam users...');
     await SteamUser.update(
       { lastRefreshedExport: Date.now() },
       { where: { lastRefreshedExport: null } }
     );
 
-    Logger.verbose('BanImporter', 1, 'Updating generated status for ban lists...');
+    Logger.verbose('Core', 1, 'Updating generated status for ban lists...');
     await ExportBanList.update(
       { generated: true },
       {
@@ -275,7 +266,7 @@ export default class BanImporter {
     // Update the export bans.
     for (const exportBan of exportBans) {
       Logger.verbose(
-        'BanImporter',
+        'Core',
         1,
         `${exportBan.status === 'TO_BE_CREATED' ? 'Creat' : 'Delet'}ing export ban (ID: ${
           exportBan.id
@@ -283,11 +274,11 @@ export default class BanImporter {
       );
 
       try {
-        if (exportBan.status === 'TO_BE_CREATED') await BanImporter.createExportBan(exportBan);
-        else await BanImporter.deleteExportBan(exportBan);
+        if (exportBan.status === 'TO_BE_CREATED') await Core.createExportBan(exportBan);
+        else await Core.deleteExportBan(exportBan);
       } catch (err) {
         Logger.verbose(
-          'BanImporter',
+          'Core',
           1,
           `Failed to ${
             exportBan.status === 'TO_BE_CREATED' ? 'create' : 'delete'
@@ -311,7 +302,7 @@ export default class BanImporter {
       try {
         await hook.send(message);
       } catch (err) {
-        Logger.verbose('BanImporter', 1, `Failed to send Discord Webhook: `, err);
+        Logger.verbose('Core', 1, `Failed to send Discord Webhook: `, err);
       }
     }
   }
@@ -338,7 +329,7 @@ export default class BanImporter {
     try {
       await hook.send(message);
     } catch (err) {
-      Logger.verbose('BanImporter', 1, `Failed to send Discord Webhook: `, err);
+      Logger.verbose('Core', 1, `Failed to send Discord Webhook: `, err);
     }
   }
 
@@ -363,7 +354,7 @@ export default class BanImporter {
     try {
       await hook.send(message);
     } catch (err) {
-      Logger.verbose('BanImporter', 1, `Failed to send Discord Webhook: `, err);
+      Logger.verbose('Core', 1, `Failed to send Discord Webhook: `, err);
     }
   }
 }
