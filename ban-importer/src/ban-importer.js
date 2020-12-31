@@ -9,7 +9,7 @@ import BanFetcher from './ban-fetcher.js';
 export default class BanImporter {
   constructor(options) {
     options = {
-      saveRawBanWorkers: 5,
+      saveRawBanWorkers: 1,
       ...options
     };
 
