@@ -119,7 +119,7 @@ export default class BanFetcher {
 
         // Store the ban.
         const rawBan = new RawBan(banList, {
-          id: `${banList.id},ban.attributes.uid`,
+          id: `${banList.id},${ban.attributes.uid}`,
 
           steamUser,
 
