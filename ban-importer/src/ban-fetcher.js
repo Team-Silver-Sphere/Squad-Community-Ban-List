@@ -59,7 +59,7 @@ export default class BanFetcher {
 
       // Store the new ban.
       const rawBan = new RawBan(banList, {
-        id: `${steamUser},${expires ? expires.getTime() : 'null'}`,
+        id: `${banList.id},${steamUser},${expires ? expires.getTime() : 'null'}`,
 
         steamUser: steamUser,
 
@@ -119,7 +119,7 @@ export default class BanFetcher {
 
         // Store the ban.
         const rawBan = new RawBan(banList, {
-          id: ban.attributes.uid,
+          id: `${banList.id},ban.attributes.uid`,
 
           steamUser,
 
@@ -164,7 +164,7 @@ export default class BanFetcher {
 
       // Store the ban.
       const rawBan = new RawBan(banList, {
-        id: `${ban.steam_id},${ban.start_datetime}`,
+        id: `${banList.id},${ban.steam_id},${ban.start_datetime}`,
 
         steamUser: ban.steam_id,
 
