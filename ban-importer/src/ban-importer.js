@@ -9,27 +9,77 @@ import BanFetcher from './ban-fetcher.js';
 export default class BanImporter {
   constructor(options) {
     options = {
-      saveRawBanWorkers: 2,
+      saveBanWorkers: 2,
       ...options
     };
 
-    this.saveRawBan = this.saveRawBan.bind(this);
-    this.saveRawBanQueue = async.queue(this.saveRawBan, options.saveRawBanWorkers);
+    this.saveBan = this.saveBan.bind(this);
+    this.saveBanQueue = async.queue(this.saveBan, options.saveBanWorkers);
 
     this.importedBanListIDs = new Set();
     this.importedBanIDs = [];
   }
 
-  async saveRawBan(rawBan) {
+  async saveBan(importedBan) {
     try {
-      this.importedBanListIDs.add(rawBan.banList.id);
-      this.importedBanIDs.push(rawBan.id);
-      await rawBan.save();
+      this.importedBanListIDs.add(importedBan.banList.id);
+      this.importedBanIDs.push(importedBan.id);
+
+      // Create the Steam if not already created.
+      await SteamUser.create({ id: importedBan.steamUser }, { updateOnDuplicate: ['id'] });
+
+      // Create or find the ban.
+      const [ban, created] = await Ban.findOrCreate({
+        where: {
+          id: importedBan.id
+        },
+        defaults: {
+          id: importedBan.id,
+          created: importedBan.created || Date.now(),
+          expires: importedBan.expires,
+          expired: importedBan.expired,
+          reason: importedBan.reason,
+          rawReason: importedBan.rawReason,
+          steamUser: importedBan.steamUser,
+          banList: importedBan.banList.id
+        }
+      });
+
+      // Queue the Steam user for an update if the ban is new or the ban expired status has changed.
+      if (created || ban.expired !== importedBan.expired) {
+        Logger.verbose(
+          'BanImporter',
+          1,
+          `Found new or updated ban (ID: ${importedBan.id}) in ban list (ID: ${importedBan.banList.id}).`
+        );
+        await SteamUser.update(
+          {
+            lastRefreshedExport: null,
+            lastRefreshedReputationPoints: null,
+            lastRefreshedReputationRank: null
+          },
+          {
+            where: { id: importedBan.steamUser }
+          }
+        );
+      }
+
+      // If it's created there's no need to update the information.
+      if (created) return;
+
+      // Update the information.
+      ban.expires = importedBan.expires;
+      ban.expired = importedBan.expired;
+      ban.reason = importedBan.reason;
+      ban.rawReason = importedBan.rawReason;
+
+      // Save the updated information.
+      await ban.save();
     } catch (err) {
       Logger.verbose(
         'BanImporter',
         1,
-        `Failed to save raw ban (ID: ${rawBan.id}) in ban list (ID: ${rawBan.banList.id}): `,
+        `Failed to save raw ban (ID: ${importedBan.id}) in ban list (ID: ${importedBan.banList.id}): `,
         err
       );
     }
@@ -37,10 +87,10 @@ export default class BanImporter {
 
   async importBans() {
     Logger.verbose('BanImporter', 1, 'Fetching ban lists to import...');
-    const banLists = await BanList.findAll();
+    const banLists = await BanList.findAll({ limit: 2 });
     Logger.verbose('BanImporter', 1, `Fetched ${banLists.length} ban lists to import.`);
 
-    const fetcher = new BanFetcher(this.saveRawBanQueue);
+    const fetcher = new BanFetcher(this.saveBanQueue);
 
     Logger.verbose('BanImporter', 1, 'Fetching ban lists...');
     for (const banList of banLists) {
@@ -48,7 +98,7 @@ export default class BanImporter {
     }
 
     Logger.verbose('BanImporter', 1, 'Waiting for bans to be saved...');
-    await this.saveRawBanQueue.drain();
+    await this.saveBanQueue.drain();
 
     Logger.verbose('BanImporter', 1, 'Getting deleted bans...');
     const deletedBans = await Ban.findAll({
