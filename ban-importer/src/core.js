@@ -1,6 +1,6 @@
 import { steam } from 'scbl-lib/apis';
 import { sequelize } from 'scbl-lib/db';
-import { BanList, ExportBan, ExportBanList, SteamUser } from 'scbl-lib/db/models';
+import { ExportBan, ExportBanList, SteamUser } from 'scbl-lib/db/models';
 import { Op, QueryTypes } from 'scbl-lib/db/sequelize';
 import { createDiscordWebhookMessage, Logger } from 'scbl-lib/utils';
 import { HOST } from 'scbl-lib/config';
@@ -11,21 +11,6 @@ const UPDATE_STEAM_USER_INFO_BATCH_SIZE = 10;
 const DISCORD_ALERT_CAP = 50;
 
 export default class Core {
-  static async importBans() {
-    Logger.verbose('Core', 1, 'Fetching ban lists to import...');
-    const lists = await BanList.findAll({ attributes: ['id', 'type', 'source'] });
-
-    Logger.verbose('Core', 1, `Importing ${lists.length} ban lists...`);
-    for (const list of lists) {
-      try {
-        await list.importBans();
-      } catch (err) {
-        Logger.verbose('Core', 1, `Failed to import ban list (ID: ${list.id}): `, err);
-      }
-    }
-    Logger.verbose('Core', 1, 'Finished importing ban lists.');
-  }
-
   static async updateSteamUserInfo() {
     Logger.verbose('Core', 1, 'Fetching Steam users to update...');
     const users = await SteamUser.findAll({
