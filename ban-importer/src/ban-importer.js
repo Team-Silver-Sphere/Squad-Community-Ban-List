@@ -9,7 +9,7 @@ import BanFetcher from './ban-fetcher.js';
 export default class BanImporter {
   constructor(options) {
     options = {
-      saveRawBanWorkers: 1,
+      saveRawBanWorkers: 2,
       ...options
     };
 
@@ -55,7 +55,7 @@ export default class BanImporter {
       attributes: ['steamUser'],
       where: {
         id: { [Op.notIn]: this.importedBanIDs },
-        banList: { [Op.in]: this.importedBanListIDs }
+        banList: { [Op.in]: [...this.importedBanListIDs] }
       }
     });
     Logger.verbose('BanImporter', 1, `Got ${deletedBans.length} deleted bans`);
@@ -79,10 +79,9 @@ export default class BanImporter {
 
     Logger.verbose('BanImporter', 1, 'Deleting deleted bans...');
     await Ban.destroy({
-      attributes: ['steamUser'],
       where: {
         id: { [Op.notIn]: this.importedBanIDs },
-        banList: { [Op.in]: this.importedBanListIDs }
+        banList: { [Op.in]: [...this.importedBanListIDs] }
       }
     });
   }
