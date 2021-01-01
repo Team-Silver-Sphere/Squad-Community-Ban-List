@@ -4,10 +4,14 @@ import { Ban, BanList, Organisation, SteamUser } from 'scbl-lib/db/models';
 export default {
   Query: {
     organisations: () => {
-      return Organisation.findAll();
+      return Organisation.findAll({
+        order: [['name', 'ASC']]
+      });
     },
     banLists: () => {
-      return BanList.findAll();
+      return BanList.findAll({
+        order: [['name', 'ASC']]
+      });
     },
     bans: (parent, filter) => {
       return Ban.paginate({
