@@ -236,12 +236,38 @@ class DemoNavbar extends React.Component {
                       </div>
                     </DropdownMenu>
                   </UncontrolledDropdown>
-                  <NavItem>
-                    <NavLink className="nav-link-icon" href="/faq">
-                      <i className="fas fa-question-circle mr-2" />
-                      FAQ
-                    </NavLink>
-                  </NavItem>
+                  <UncontrolledDropdown nav>
+                    <DropdownToggle nav>
+                      <i className="fa fa-question-circle" />
+                      <span className="nav-link-inner--text ml-2">Help</span>
+                    </DropdownToggle>
+                    <DropdownMenu className="dropdown-menu-xl">
+                      <div className="dropdown-menu-inner">
+                        <Media className="d-flex align-items-center" tag={Link} to="/faq">
+                          <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
+                            <i className="fa fa-question-circle" />
+                          </div>
+                          <Media body className="ml-3">
+                            <h6 className="heading text-warning mb-md-1">FAQ</h6>
+                          </Media>
+                        </Media>
+                        <Media
+                          className="d-flex align-items-center"
+                          tag={Link}
+                          to="/partner-organisation-list"
+                        >
+                          <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
+                            <i className="fa fa-clipboard-list" />
+                          </div>
+                          <Media body className="ml-3">
+                            <h6 className="heading text-warning mb-md-1">
+                              Partner Organisation List
+                            </h6>
+                          </Media>
+                        </Media>
+                      </div>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
                 </Nav>
                 <Nav className="navbar-nav-hover align-items-lg-center ml-lg-auto" navbar>
                   <NavItem>

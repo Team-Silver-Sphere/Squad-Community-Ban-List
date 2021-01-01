@@ -160,10 +160,10 @@ export default function () {
         <Container>
           <Card className="shadow border-0">
             <CardBody className="pt-5 pb-2 border-bottom">
-              <div className="icon icon-shape bg-gradient-primary rounded-circle text-white mb-4">
+              <div className="icon icon-shape bg-gradient-warning rounded-circle text-white mb-4">
                 <i className="fa fa-question-circle" />
               </div>
-              <h6 className="text-primary text-uppercase">Frequently Asked Questions</h6>
+              <h6 className="text-warning text-uppercase">Frequently Asked Questions</h6>
               <p className="description mt-2">
                 If you can't find what you search, please join our{' '}
                 <a href={DISCORD_INVITE} target="_blank" rel="noopener noreferrer">

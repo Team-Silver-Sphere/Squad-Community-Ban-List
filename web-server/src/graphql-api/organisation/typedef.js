@@ -6,5 +6,7 @@ export default gql`
     id: Int
     name: String
     discord: String
+
+    banLists: [BanList]
   }
 `;

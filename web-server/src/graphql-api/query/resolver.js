@@ -1,8 +1,11 @@
 import { Op } from 'scbl-lib/db/sequelize';
-import { Ban, BanList, SteamUser } from 'scbl-lib/db/models';
+import { Ban, BanList, Organisation, SteamUser } from 'scbl-lib/db/models';
 
 export default {
   Query: {
+    organisations: () => {
+      return Organisation.findAll();
+    },
     banLists: () => {
       return BanList.findAll();
     },

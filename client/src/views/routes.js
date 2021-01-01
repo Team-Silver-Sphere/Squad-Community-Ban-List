@@ -14,6 +14,7 @@ import CommunityMonitor from './pages/community-monitor.js';
 import BecomeAPartnerOrganisation from './pages/become-a-partner-organisation.js';
 
 import FAQ from './pages/faq.js';
+import PartnerOrganisationList from './pages/partner-organisation-list.js';
 
 // import Auth from '../utils/auth.js';
 
@@ -94,6 +95,13 @@ const routes = [
     exact: false,
     login: false,
     component: FAQ
+  },
+
+  {
+    path: '/partner-organisation-list',
+    exact: true,
+    login: false,
+    component: PartnerOrganisationList
   }
 ];
 

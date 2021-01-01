@@ -3,6 +3,7 @@ const { gql } = ApolloServerKoa;
 
 export default gql`
   type Query {
+    organisations: [Organisation]
     banLists: [BanList]
 
     bans(
