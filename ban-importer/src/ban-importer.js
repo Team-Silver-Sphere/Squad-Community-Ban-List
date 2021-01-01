@@ -87,7 +87,7 @@ export default class BanImporter {
 
   async importBans() {
     Logger.verbose('BanImporter', 1, 'Fetching ban lists to import...');
-    const banLists = await BanList.findAll({ limit: 2 });
+    const banLists = await BanList.findAll();
     Logger.verbose('BanImporter', 1, `Fetched ${banLists.length} ban lists to import.`);
 
     const fetcher = new BanFetcher(this.saveBanQueue);
