@@ -161,7 +161,19 @@ export default function (props) {
                 <CardBody className="text-center border-bottom">
                   <h4>Reputation</h4>
                   <Row>
-                    <Col>
+                    <Col md="4">
+                      <h5>Reputation Points</h5>
+                      <h2>{data.steamUser.reputationPoints}</h2>
+                      <small>
+                        <strong>Last Refreshed: </strong>{' '}
+                        {data.steamUser.lastRefreshedReputationPoints ? (
+                          <FormattedDate date={data.steamUser.lastRefreshedReputationPoints} />
+                        ) : (
+                          'Queued for refresh.'
+                        )}
+                      </small>
+                    </Col>
+                    <Col md="4">
                       <h5>Risk Rating</h5>
                       <h2>
                         <DisplayRiskRating riskRating={data.steamUser.riskRating} />
@@ -175,7 +187,7 @@ export default function (props) {
                         )}
                       </small>
                     </Col>
-                    <Col>
+                    <Col md="4">
                       <h5>Risk Ranking</h5>
                       <h2>
                         {data.steamUser.reputationRank && (
