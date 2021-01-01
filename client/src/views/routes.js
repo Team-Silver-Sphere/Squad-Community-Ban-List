@@ -5,6 +5,7 @@ import Login from './pages/login.js';
 import Search from './pages/search.js';
 import RecentBans from './pages/recent-bans.js';
 import MostHarmfulPlayers from './pages/most-harmful-players.js';
+import MostHarmfulPlayersThisMonth from './pages/most-harmful-players-this-month.js';
 import Insights from './pages/insights.js';
 
 import EditExportBanList from './pages/create-export-ban-list.js';
@@ -56,6 +57,12 @@ const routes = [
     exact: true,
     login: false,
     component: MostHarmfulPlayers
+  },
+  {
+    path: '/most-harmful-players-this-month',
+    exact: true,
+    login: false,
+    component: MostHarmfulPlayersThisMonth
   },
   {
     path: '/insights',

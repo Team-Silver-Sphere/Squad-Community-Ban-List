@@ -134,6 +134,24 @@ class DemoNavbar extends React.Component {
                             </p>
                           </Media>
                         </Media>
+                        <Media
+                          className="d-flex align-items-center"
+                          tag={Link}
+                          to="/most-harmful-players-this-month"
+                        >
+                          <div className="icon icon-shape bg-gradient-primary rounded-circle text-white">
+                            <i className="fa fa-list" />
+                          </div>
+                          <Media body className="ml-3">
+                            <h6 className="heading text-primary mb-md-1">
+                              Most Harmful Players This Month
+                            </h6>
+                            <p className="description d-none d-md-inline-block mb-0">
+                              Explore a list of the most harmful players in our database from this
+                              month.
+                            </p>
+                          </Media>
+                        </Media>
                         <Media className="d-flex align-items-center" tag={Link} to="/insights">
                           <div className="icon icon-shape bg-gradient-primary rounded-circle text-white">
                             <i className="fa fa-chart-bar" />

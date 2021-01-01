@@ -23,8 +23,13 @@ export default {
       });
     },
     steamUsers: (parent, filter) => {
+      const order = [[filter.orderBy || 'id', filter.orderDirection || 'DESC']];
+
+      // Dirty temporary way to sort multiple fields for this query.
+      if (filter.orderBy === 'reputationPointsMonthChange') order.push(['reputationRank', 'ASC']);
+
       return SteamUser.paginate({
-        order: [[filter.orderBy || 'id', filter.orderDirection || 'DESC']],
+        order: order,
         first: filter.first,
         after: filter.after,
         last: filter.last,

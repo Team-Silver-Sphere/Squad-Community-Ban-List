@@ -12,6 +12,8 @@ export default gql`
     lastRefreshedInfo: Date
 
     reputationPoints: Int
+    reputationPointsMonthBefore: Int
+    reputationPointsMonthChange: Int
     lastRefreshedReputationPoints: Date
     riskRating: Float
     reputationRank: Int
