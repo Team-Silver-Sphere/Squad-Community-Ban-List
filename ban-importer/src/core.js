@@ -69,23 +69,71 @@ export default class Core {
       `
         UPDATE SteamUsers SU
         LEFT JOIN (
-            SELECT
-                A.steamUser,
-                SUM(A.activePoints) + SUM(A.expiredPoints) AS "points"
-            FROM (
-                SELECT
-                    B.steamUser AS "steamUser",
-                    B.banList AS "banList",
-                    IF(SUM(IF(B.expired, 0, 1)) > 0, 3, 0) AS "activePoints",
-                    SUM(IF(B.expired, 1, 0)) AS "expiredPoints"
-                FROM Bans B
-                GROUP BY B.steamUser, B.banList
-            ) A
-            GROUP BY A.steamUser
-        ) P ON SU.id = P.steamUser
+          SELECT
+            PPBL.steamUser,
+            SUM(PPBL.points) AS "points"
+          FROM (
+            SELECT 
+              B.steamUser,
+              IF(
+                SUM(
+                  IF(
+                    B.expires IS NULL OR B.expires >= NOW(),
+                    1,
+                    0
+                  )
+                ) > 0,
+                3,
+                0
+              ) +
+              SUM(
+                IF(
+                  B.expires IS NULL OR B.expires >= NOW(),
+                  0,
+                  1
+                )
+              ) AS "points"
+            FROM Bans B
+            GROUP BY B.banList, B.steamUser
+          ) PPBL
+          GROUP BY PPBL.steamUser
+        ) PPBLC ON SU.id = PPBLC.steamUser
+        LEFT JOIN (
+          SELECT
+            PPBL.steamUser,
+            SUM(PPBL.points) AS "points"
+          FROM (
+            SELECT 
+              B.steamUser,
+              IF(
+                SUM(
+                  IF(
+                    B.expires IS NULL OR B.expires >= NOW() - INTERVAL 1 MONTH,
+                    1,
+                    0
+                  )
+                ) > 0,
+                3,
+                0
+              ) +
+              SUM(
+                IF(
+                  B.expires IS NULL OR B.expires >= NOW() - INTERVAL 1 MONTH,
+                  0,
+                  1
+                )
+              ) AS "points"
+            FROM Bans B
+            WHERE B.created < NOW() - INTERVAL 1 MONTH
+            GROUP BY B.banList, B.steamUser
+          ) PPBL
+          GROUP BY PPBL.steamUser
+        ) PPBLMB ON SU.id = PPBLMB.steamUser
         SET
-            SU.reputationPoints = P.points,
-            SU.lastRefreshedReputationPoints = NOW()
+          SU.reputationPoints = IFNULL(PPBLC.points, 0),
+          SU.reputationPointsMonthBefore = IFNULL(PPBLMB.points, 0),
+          SU.reputationPointsMonthChange = IFNULL(PPBLC.points, 0) - IFNULL(PPBLMB.points, 0),
+          SU.lastRefreshedReputationPoints = NOW()
         WHERE SU.lastRefreshedReputationPoints IS NULL
       `
     );

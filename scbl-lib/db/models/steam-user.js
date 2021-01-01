@@ -42,6 +42,14 @@ export default withRelayPagination({ primaryKeyField: 'id' })(
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
+    reputationPointsMonthBefore: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    reputationPointsMonthChange: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     lastRefreshedReputationPoints: {
       type: DataTypes.DATE,
       defaultValue: null
