@@ -51,7 +51,7 @@ export default function () {
               </div>
               <h6 className="text-primary text-uppercase">Most Harmful Players For This Month</h6>
               <p className="description mt-2">
-                Explore a list of the most harmful players in our database for one month.
+                Explore a list of the most harmful players in our database from this month.
               </p>
             </CardBody>
             <Table className="align-items-center table-flush" responsive>
