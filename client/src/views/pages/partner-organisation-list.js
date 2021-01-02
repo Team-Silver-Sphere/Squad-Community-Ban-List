@@ -23,6 +23,7 @@ const query = gql`
 
 export default function () {
   const { loading, error, data } = useQuery(query);
+
   return (
     <Layout>
       <section className="section section-lg pt-lg-0 mt--200">
@@ -67,44 +68,38 @@ export default function () {
                   </tr>
                 )}
                 {data &&
-                  data.organisations.map((organisation, organisationKey) => (
-                    <Fragment key={organisationKey}>
-                      {organisation.banLists.map((banList, banListKey) => (
-                        <tr key={banListKey}>
-                          <td>
-                            <AdvancedModal isOpen={false}>
-                              {(modal) => (
-                                <>
-                                  <a
-                                    href="/test"
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      modal.open();
-                                    }}
-                                  >
-                                    {organisation.name}
-                                  </a>
-                                  <Modal
-                                    className="modal-dialog-centered"
-                                    isOpen={modal.isOpen}
-                                    toggle={modal.close}
-                                  >
-                                    <ModalHeader toggle={modal.close}>
-                                      Organisation Info
-                                    </ModalHeader>
-                                    <ModalBody className="text-center">
-                                      <h3>{organisation.name}</h3>
-                                      <a href={organisation.discord}>Discord</a>
-                                    </ModalBody>
-                                  </Modal>
-                                </>
-                              )}
-                            </AdvancedModal>
-                          </td>
-                          <td>{banList.name}</td>
-                        </tr>
-                      ))}
-                    </Fragment>
+                  data.organisations.map((organisation, key) => (
+                    <tr key={key}>
+                      <td>
+                        <AdvancedModal isOpen={false}>
+                          {(modal) => (
+                            <>
+                              <a
+                                href="/test"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  modal.open();
+                                }}
+                              >
+                                {organisation.name}
+                              </a>
+                              <Modal
+                                className="modal-dialog-centered"
+                                isOpen={modal.isOpen}
+                                toggle={modal.close}
+                              >
+                                <ModalHeader toggle={modal.close}>Organisation Info</ModalHeader>
+                                <ModalBody className="text-center">
+                                  <h3>{organisation.name}</h3>
+                                  <a href={organisation.discord}>Discord</a>
+                                </ModalBody>
+                              </Modal>
+                            </>
+                          )}
+                        </AdvancedModal>
+                      </td>
+                      <td>{organisation.banLists.map((banList) => banList.name).join(', ')}</td>
+                    </tr>
                   ))}
               </tbody>
             </Table>
