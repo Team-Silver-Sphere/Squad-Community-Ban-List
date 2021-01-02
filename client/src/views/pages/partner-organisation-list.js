@@ -6,8 +6,6 @@ import { Card, CardBody, Container, Modal, ModalBody, ModalHeader, Table } from 
 import Layout from '../layout/layout.js';
 import { AdvancedModal } from '../../components';
 
-let org = [];
-
 const query = gql`
   query {
     organisations {
@@ -24,7 +22,7 @@ const query = gql`
 `;
 
 export default function () {
-  let { loading, error, data } = useQuery(query);
+  const { loading, error, data } = useQuery(query);
 
   return (
     <Layout>
