@@ -49,9 +49,9 @@ export default function () {
               <div className="icon icon-shape bg-gradient-primary rounded-circle text-white mb-4">
                 <i className="fa fa-list" />
               </div>
-              <h6 className="text-primary text-uppercase">Most Harmful Players</h6>
+              <h6 className="text-primary text-uppercase">Most Harmful Players For This Month</h6>
               <p className="description mt-2">
-                Explore a list of the most harmful players in our database.
+                Explore a list of the most harmful players in our database for one month.
               </p>
             </CardBody>
             <Table className="align-items-center table-flush" responsive>
