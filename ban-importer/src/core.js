@@ -294,7 +294,7 @@ export default class Core {
 
     // Mark whether to do Discord alerts for each ban.
     for (const exportBan of exportBans)
-      exportBan.doDiscordAlert = listChangeCount[exportBan.ExportBanList.id] < DISCORD_ALERT_CAP;
+      exportBan.doDiscordAlert = listChangeCount[exportBan.ExportBanList.id].count < DISCORD_ALERT_CAP;
 
     // Update the export bans.
     for (const exportBan of exportBans) {
