@@ -14,7 +14,7 @@ const reasons = {
 
   AFK: /afk|unassigned/i,
   'Breaking Seeding Rules': /seed/i,
-  'Breaking Vehicle Priority Rules': /priority|ara(ç|c) (kural|ihlali)/i,
+  'Breaking Vehicle Priority Rules': /priority|(ara(ç|c) (kural|ihlali))/i,
   Camping: /camping/i,
   'Current or Recent VAC Ban': /vac ban/i,
   'Destroying Friendly Assets': /(friendly|dost) (asset|fob|hab)/i,
