@@ -5,14 +5,8 @@ import { battlemetrics } from 'scbl-lib/apis';
 import { classifyBanReason, Logger } from 'scbl-lib/utils';
 
 export default class BanFetcher {
-  constructor(store) {
-    if (store) {
-      this.store = store;
-      this.queue = true;
-    } else {
-      this.store = [];
-      this.queue = false;
-    }
+  constructor(storeBanFunc) {
+    this.storeBanFunc = storeBanFunc;
   }
 
   async fetchBanList(banList) {
@@ -30,8 +24,6 @@ export default class BanFetcher {
       default:
         throw new Error('Unsupported ban list type.');
     }
-
-    if (!this.queue) return this.store;
   }
 
   async fetchRemoteBanList(banList) {
@@ -42,6 +34,8 @@ export default class BanFetcher {
       `Fetching remote ban list data for ban list (ID: ${banList.id})...`
     );
     const { data } = await axios.get(banList.source);
+
+    const bans = [];
 
     // Loop over each line of the ban file.
     for (const line of data.split('\n')) {
@@ -56,20 +50,24 @@ export default class BanFetcher {
       expires = expires ? new Date(expires * 1000) : null;
 
       // Store the new ban.
-      this.store.push({
-        id: `${banList.id},${steamUser},${expires ? expires.getTime() : 'null'}`,
+      bans.push(
+        {
+          id: `${banList.id},${steamUser},${expires ? expires.getTime() : 'null'}`,
 
-        steamUser: steamUser,
+          steamUser: steamUser,
 
-        expires: expires,
-        expired: !(expires === null || expires.getTime() > Date.now()),
+          expires: expires,
+          expired: !(expires === null || expires.getTime() > Date.now()),
 
-        reason: classifyBanReason(reason),
-        rawReason: reason,
+          reason: classifyBanReason(reason),
+          rawReason: reason,
 
-        banList: banList
-      });
+          banList: banList
+        }
+      );
     }
+
+    this.storeBanFunc(bans);
   }
 
   async fetchBattlemetricsBanList(banList) {
@@ -85,6 +83,8 @@ export default class BanFetcher {
         `Fetching Battlemetrics ban list data for ban list (ID: ${banList.id})...`
       );
       const { data } = await battlemetrics('get', 'bans', params);
+
+      const bans = [];
 
       // Loop over each ban in the page's data.
       for (const ban of data.data) {
@@ -112,21 +112,25 @@ export default class BanFetcher {
         const expires = ban.attributes.expires ? new Date(ban.attributes.expires) : null;
 
         // Store the ban.
-        this.store.push({
-          id: `${banList.id},${ban.attributes.uid}`,
+        bans.push(
+          {
+            id: `${banList.id},${ban.attributes.uid}`,
 
-          steamUser,
+            steamUser,
 
-          created: created,
-          expires: expires,
-          expired: !(ban.attributes.expires === null || expires.getTime() > Date.now()),
+            created: created,
+            expires: expires,
+            expired: !(ban.attributes.expires === null || expires.getTime() > Date.now()),
 
-          reason: classifyBanReason(`${ban.attributes.reason} ${ban.attributes.note}`),
-          rawReason: `${ban.attributes.reason} ${ban.attributes.note}`,
+            reason: classifyBanReason(`${ban.attributes.reason} ${ban.attributes.note}`),
+            rawReason: `${ban.attributes.reason} ${ban.attributes.note}`,
 
-          banList: banList
-        });
+            banList: banList
+          }
+        );
       }
+
+      this.storeBanFunc(bans);
 
       // If that is the last page then break out the loop.
       if (!data.links.next) break;
@@ -143,26 +147,32 @@ export default class BanFetcher {
     Logger.verbose('BanFetcher', 1, `Fetching TT ban list data for ban list (ID: ${banList.id}...`);
     const { data } = await axios.get(banList.source);
 
+    const bans = [];
+
     for (const ban of data) {
       // Turn the dates into date objects or null if permanent ban.
       const startDate = new Date(ban.start_datetime);
       const endDate = ban.end_datetime ? new Date(ban.end_datetime) : null;
 
       // Store the ban.
-      this.store.push({
-        id: `${banList.id},${ban.steam_id},${ban.start_datetime}`,
+      bans.push(
+        {
+          id: `${banList.id},${ban.steam_id},${ban.start_datetime}`,
 
-        steamUser: ban.steam_id,
+          steamUser: ban.steam_id,
 
-        created: startDate,
-        expires: endDate,
-        expired: (endDate !== null && endDate.getTime() < Date.now()) || ban.lifted,
+          created: startDate,
+          expires: endDate,
+          expired: (endDate !== null && endDate.getTime() < Date.now()) || ban.lifted,
 
-        reason: classifyBanReason(ban.reason),
-        rawReason: ban.reason,
+          reason: classifyBanReason(ban.reason),
+          rawReason: ban.reason,
 
-        banList: banList
-      });
+          banList: banList
+        }
+      );
     }
+
+    this.storeBanFunc(bans);
   }
 }

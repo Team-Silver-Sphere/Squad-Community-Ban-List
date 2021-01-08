@@ -13,6 +13,8 @@ export default class BanImporter {
       ...options
     };
 
+    this.queueBan = this.queueBan.bind(this);
+
     this.saveBan = this.saveBan.bind(this);
     this.saveBanQueue = async.queue(this.saveBan, options.saveBanWorkers);
 
@@ -20,14 +22,36 @@ export default class BanImporter {
     this.importedBanIDs = [];
   }
 
+  async queueBan(importedBans) {
+    Logger.verbose(
+      'BanImporter',
+      1,
+      `Queueing batch of ${importedBans.length} raw bans...`,
+    );
+
+    try {
+      await SteamUser.bulkCreate(
+        importedBans.map(importedBan => ({ id: importedBan.steamUser })),
+        { updateOnDuplicate: ['id'] }
+      );
+
+      for (const importedBan of importedBans) {
+        this.importedBanListIDs.add(importedBan.banList.id);
+        this.importedBanIDs.push(importedBan.id);
+        this.saveBanQueue.push(importedBan);
+      }
+    } catch (err) {
+      Logger.verbose(
+        'BanImporter',
+        1,
+        `Failed to queue batch of ${importedBans.length} raw bans: `,
+        err
+      );
+    }
+  }
+
   async saveBan(importedBan) {
     try {
-      this.importedBanListIDs.add(importedBan.banList.id);
-      this.importedBanIDs.push(importedBan.id);
-
-      // Create the Steam if not already created.
-      await SteamUser.create({ id: importedBan.steamUser }, { updateOnDuplicate: ['id'] });
-
       // Create or find the ban.
       const [ban, created] = await Ban.findOrCreate({
         where: {
@@ -90,7 +114,7 @@ export default class BanImporter {
     const banLists = await BanList.findAll();
     Logger.verbose('BanImporter', 1, `Fetched ${banLists.length} ban lists to import.`);
 
-    const fetcher = new BanFetcher(this.saveBanQueue);
+    const fetcher = new BanFetcher(this.queueBan);
 
     Logger.verbose('BanImporter', 1, 'Fetching ban lists...');
     for (const banList of banLists) {
