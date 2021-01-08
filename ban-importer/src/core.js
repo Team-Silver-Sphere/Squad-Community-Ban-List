@@ -1,7 +1,7 @@
 import { steam } from 'scbl-lib/apis';
 import { sequelize } from 'scbl-lib/db';
 import { ExportBan, ExportBanList, SteamUser } from 'scbl-lib/db/models';
-import { Op, QueryTypes } from 'scbl-lib/db/sequelize';
+import { Op, QueryTypes, Transaction } from 'scbl-lib/db/sequelize';
 import { createDiscordWebhookMessage, Logger } from 'scbl-lib/utils';
 import { HOST } from 'scbl-lib/config';
 
@@ -157,50 +157,57 @@ export default class Core {
 
   static async updateExportBans() {
     Logger.verbose('Core', 1, 'Generating export ban...');
-    const generatedBans = await sequelize.query(
-      `
-        SELECT
-          steamUser,
-          exportBanList,
-          IF(SUM(activePoints) + SUM(expiredPoints) >= threshold, 1, 0) AS "banned"
-        FROM (
+    const generatedBans = await sequelize.transaction(
+      {
+        isolationLevel: Transaction.ISOLATION_LEVELS.SERIALIZABLE
+      },
+      async t => {
+        return sequelize.query(
+          `
           SELECT
-            EBL.id AS "exportBanList",
-            EBL.threshold AS "threshold",
-            B.steamUser AS "steamUser",
-            IF (
+            steamUser,
+            exportBanList,
+            IF(SUM(activePoints) + SUM(expiredPoints) >= threshold, 1, 0) AS "banned"
+          FROM (
+            SELECT
+              EBL.id AS "exportBanList",
+              EBL.threshold AS "threshold",
+              B.steamUser AS "steamUser",
+              IF (
+                SUM(
+                  IF(
+                    B.expired,
+                    0,
+                    IFNULL(
+                      EBLC.activePoints,
+                      EBL.defaultActivePoints
+                    )
+                  )
+                ) > 0,
+                3,
+                0
+              ) AS "activePoints",
               SUM(
                 IF(
                   B.expired,
-                  0,
                   IFNULL(
-                    EBLC.activePoints,
-                    EBL.defaultActivePoints
-                  )
+                    EBLC.expiredPoints,
+                    EBL.defaultExpiredPoints
+                  ),
+                  0
                 )
-              ) > 0,
-              3,
-              0
-            ) AS "activePoints",
-            SUM(
-              IF(
-                B.expired,
-                IFNULL(
-                  EBLC.expiredPoints,
-                  EBL.defaultExpiredPoints
-                ),
-                0
-              )
-            ) AS "expiredPoints"
-          FROM Bans B
-          CROSS JOIN ExportBanLists EBL
-          LEFT JOIN ExportBanListConfigs EBLC ON EBL.id = EBLC.exportBanList AND B.banList = EBLC.banList
-          GROUP BY EBL.id, B.banList, B.steamUser
-        ) A
-        GROUP BY exportBanList, steamUser
-        HAVING banned
-      `,
-      { type: QueryTypes.SELECT }
+              ) AS "expiredPoints"
+            FROM Bans B
+            CROSS JOIN ExportBanLists EBL
+            LEFT JOIN ExportBanListConfigs EBLC ON EBL.id = EBLC.exportBanList AND B.banList = EBLC.banList
+            GROUP BY EBL.id, B.banList, B.steamUser
+          ) A
+          GROUP BY exportBanList, steamUser
+          HAVING banned
+        `,
+          { type: QueryTypes.SELECT, transaction: t }
+        );
+      }
     );
 
     Logger.verbose('Core', 1, 'Generating export ban IDs...');

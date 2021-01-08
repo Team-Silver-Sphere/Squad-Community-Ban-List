@@ -5,6 +5,6 @@ if (!process.env.DATABASE_URI)
 
 export default new Sequelize.Sequelize(process.env.DATABASE_URI, { logging: false });
 
-const { Op, QueryTypes } = Sequelize;
+const { Op, QueryTypes, Transaction } = Sequelize;
 
-export { Op, QueryTypes };
+export { Op, QueryTypes, Transaction };
