@@ -1,5 +1,5 @@
 const reasons = {
-  Cheating: /cheat|hack|作弊|hile|trich|(betrü|betru)/i,
+  Cheating: /cheat|hack|作弊|hile|trich|betr(ü|u)/i,
   Glitching: /glitch/i,
   Exploiting: /exploit|剝削|istismar|ausnutz/i,
 
@@ -9,12 +9,12 @@ const reasons = {
   'Wasting Assets': /destroying assets|wast(e|ing)|taxi|israf/i,
   Ghosting: /ghosting/i,
 
-  Toxic: /disrespect|flam(e|ing)|harass|insult|language|offensive|rude|toxic|(saygisiz|saygısız|hakaret)|irrespect|(respektlos|beleidigung)/i,
-  'Hate Speech': /abusive|bigot|derogatory|discriminat|hate ?spe(e|a)ch|homophobic|nazi|racial|racism|racist|sexism|sexist|(küfür|kufur)|(malédiction|malediction)|種族主義|fluchen/i,
+  Toxic: /disrespect|flam(e|ing)|harass|insult|language|offensive|rude|toxic|sayg(i|ı)s(i|ı)z|hakaret|irrespect|respektlos|beleidigung/i,
+  'Hate Speech': /abusive|bigot|derogatory|discriminat|hate ?spe(e|a)ch|homophobic|nazi|racial|racism|racist|sexism|sexist|(küfür|kufur)|mal(é|e)diction|種族主義|fluchen/i,
 
   AFK: /afk|unassigned/i,
   'Breaking Seeding Rules': /seed/i,
-  'Breaking Vehicle Priority Rules': /priority|((araç|arac) (kural|ihlali))/i,
+  'Breaking Vehicle Priority Rules': /priority|ara(ç|c) (kural|ihlali)/i,
   Camping: /camping/i,
   'Current or Recent VAC Ban': /vac ban/i,
   'Destroying Friendly Assets': /(friendly|dost) (asset|fob|hab)/i,
@@ -28,7 +28,7 @@ const reasons = {
   'Soloing Vehicles': /crewman|manning|solo/i,
   'Squad Baiting': /baiting|creat(?:ed?|ing)(?: a)? squad|pass sl/i,
   'Stealing Assets': /steal|çalma/i,
-  Streamsniping: /streamsniping|(yayinci|yayıncı)/i
+  Streamsniping: /streamsniping|yayinc(i|ı)/i
 };
 
 export default function (reason) {
