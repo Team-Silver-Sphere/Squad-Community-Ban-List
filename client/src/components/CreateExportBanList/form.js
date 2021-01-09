@@ -139,7 +139,7 @@ export default function (props) {
             </Col>
             <Col xs="12">
               <FormGroup>
-                <Label>Max Ban Age (in Days) - CURRENTLY HAS NO AFFECT</Label>
+                <Label>Max Ban Age (in Days)</Label>
                 <Input
                   type="text"
                   innerRef={register}

@@ -200,6 +200,7 @@ export default class Core {
             FROM Bans B
             CROSS JOIN ExportBanLists EBL
             LEFT JOIN ExportBanListConfigs EBLC ON EBL.id = EBLC.exportBanList AND B.banList = EBLC.banList
+            WHERE EBL.maxBanAge = 0 OR EBL.maxBanAge >= DATEDIFF(NOW(), B.created)
             GROUP BY EBL.id, B.banList, B.steamUser
           ) A
           GROUP BY exportBanList, steamUser
