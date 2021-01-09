@@ -10,6 +10,7 @@ export default gql`
       threshold: Int
       defaultActivePoints: Int
       defaultExpiredPoints: Int
+      maxBanAge: Int
       discordWebhook: String
     ): ExportBanList
 
@@ -20,6 +21,7 @@ export default gql`
       threshold: Int
       defaultActivePoints: Int
       defaultExpiredPoints: Int
+      maxBanAge: Int
       discordWebhook: String
     ): ExportBanList
 

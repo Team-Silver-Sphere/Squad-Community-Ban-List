@@ -28,7 +28,8 @@ export default function (props) {
       type: 'remote',
       threshold: 9,
       defaultActivePoints: 3,
-      defaultExpiredPoints: 1
+      defaultExpiredPoints: 1,
+      maxBanAge: 0
     }
   });
 
@@ -134,6 +135,21 @@ export default function (props) {
                   Please provide a default number of points a player gets for each expired ban.
                 </FormText>
                 <FormFeedback>{errors.defaultExpiredPoints?.message}</FormFeedback>
+              </FormGroup>
+            </Col>
+            <Col xs="12">
+              <FormGroup>
+                <Label>Max Ban Age (in Days) - CURRENTLY HAS NO AFFECT</Label>
+                <Input
+                  type="text"
+                  innerRef={register}
+                  name="maxBanAge"
+                  invalid={!!errors.maxBanAge?.message}
+                />
+                <FormText>
+                  Please provide a max age for bans in days. Once a ban exceeds this age they will contribute no points to a player's total. Use 0 to ignore ban age.
+                </FormText>
+                <FormFeedback>{errors.maxBanAge?.message}</FormFeedback>
               </FormGroup>
             </Col>
             <Col xs="12">

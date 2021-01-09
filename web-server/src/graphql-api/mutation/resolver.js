@@ -4,14 +4,16 @@ import { testDiscordWebhook } from 'scbl-lib/utils';
 export default {
   Mutation: {
     createExportBanList: async (parent, args, context) => {
+      // Ensure user does not exceed max export ban list amount.
       const count = await ExportBanList.count({ where: { owner: context.user.id } });
       if (count >= 4) throw new Error('You are limited to 4 export ban lists.');
 
-      if (!['remote', 'battlemetrics'].includes(args.type))
-        throw new Error('Invalid export ban list type.');
-
+      // Validate arguments.
+      if (!['remote', 'battlemetrics'].includes(args.type)) throw new Error('Invalid export ban list type.');
+      if (args.maxBanAge !== undefined && args.maxBanAge < 0) throw new Error('The max ban age must be a positive integer or zero.');
       if (args.discordWebhook) await testDiscordWebhook(args.discordWebhook);
 
+      // Create export ban list.
       const exportBanLsit = await ExportBanList.create({
         name: args.name,
         server: args.server,
@@ -19,6 +21,7 @@ export default {
         threshold: args.threshold,
         defaultActivePoints: args.defaultActivePoints,
         defaultExpiredPoints: args.defaultExpiredPoints,
+        maxBanAge: args.maxBanAge,
         discordWebhook: args.discordWebhook,
         owner: context.user.id
       });
@@ -37,28 +40,28 @@ export default {
       // Check export ban list exists.
       if (!exportBanList) throw new Error('Export ban list does not exist!');
 
-      // Check the supplied webhook works.
-      if (args.discordWebhook && args.discordWebhook !== exportBanList.discordWebhook)
-        await testDiscordWebhook(args.discordWebhook);
+      // Validate arguments.
+      if (args.maxBanAge !== undefined && args.maxBanAge < 0) throw new Error('The max ban age must be a positive integer or zero.');
+      if (args.discordWebhook && args.discordWebhook !== exportBanList.discordWebhook) await testDiscordWebhook(args.discordWebhook);
 
       // Check whether the ban list needs generating.
       if (
-        (args.threshold && args.threshold !== exportBanList.threshold) ||
-        (args.defaultActivePoints &&
-          args.defaultActivePoints !== exportBanList.defaultActivePoints) ||
-        (args.defaultExpiredPoints &&
-          args.defaultExpiredPoints !== exportBanList.defaultExpiredPoints)
+        ('threshold' in args && args.threshold !== exportBanList.threshold) ||
+        ('defaultActivePoints' in args && args.defaultActivePoints !== exportBanList.defaultActivePoints) ||
+        ('defaultExpiredPoints' in args && args.defaultExpiredPoints !== exportBanList.defaultExpiredPoints) ||
+        ('maxBanAge' in args && args.maxBanAge !== exportBanList.maxBanAge)
       ) {
         exportBanList.generated = false;
       }
 
-      if (args.name) exportBanList.name = args.name;
-      if (args.server) exportBanList.server = args.server;
-      if (args.threshold) exportBanList.threshold = args.threshold;
-      if (args.defaultActivePoints) exportBanList.defaultActivePoints = args.defaultActivePoints;
-      if (args.defaultExpiredPoints) exportBanList.defaultExpiredPoints = args.defaultExpiredPoints;
-      if (args.discordWebhook || args.discordWebhook === '')
-        exportBanList.discordWebhook = args.discordWebhook;
+      // Update arguments if specified
+      if ('name' in args) exportBanList.name = args.name;
+      if ('server' in args) exportBanList.server = args.server;
+      if ('threshold' in args) exportBanList.threshold = args.threshold;
+      if ('defaultActivePoints' in args) exportBanList.defaultActivePoints = args.defaultActivePoints;
+      if ('defaultExpiredPoints' in args) exportBanList.defaultExpiredPoints = args.defaultExpiredPoints;
+      if ('maxBanAge' in args) exportBanList.maxBanAge = args.maxBanAge;
+      if ('discordWebhook' in args) exportBanList.discordWebhook = args.discordWebhook;
 
       await exportBanList.save();
 
@@ -66,15 +69,18 @@ export default {
     },
 
     deleteExportBanList: async (parent, args, context) => {
+      // Get the export ban list.
       const exportBanList = await ExportBanList.findOne({
         where: { id: args.id, owner: context.user.id }
       });
 
+      // Check the export ban list exists.
       if (!exportBanList) throw new Error('Export ban list does not exist!');
 
+      // Delete the export ban list.
       if (exportBanList.type === 'battlemetrics') await exportBanList.deleteBattlemetricsBanList();
-
       await exportBanList.destroy();
+
       return exportBanList;
     },
 

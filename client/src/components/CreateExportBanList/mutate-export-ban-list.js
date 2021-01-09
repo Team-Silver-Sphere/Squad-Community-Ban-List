@@ -14,6 +14,7 @@ const CREATE_EXPORT_BAN_LIST = gql`
     $threshold: Int
     $defaultActivePoints: Int
     $defaultExpiredPoints: Int
+    $maxBanAge: Int
     $discordWebhook: String
   ) {
     createExportBanList(
@@ -23,6 +24,7 @@ const CREATE_EXPORT_BAN_LIST = gql`
       threshold: $threshold
       defaultActivePoints: $defaultActivePoints
       defaultExpiredPoints: $defaultExpiredPoints
+      maxBanAge: $maxBanAge
       discordWebhook: $discordWebhook
     ) {
       id
@@ -32,6 +34,7 @@ const CREATE_EXPORT_BAN_LIST = gql`
       threshold
       defaultActivePoints
       defaultExpiredPoints
+      maxBanAge
       discordWebhook
     }
   }
@@ -45,6 +48,7 @@ const UPDATE_EXPORT_BAN_LIST = gql`
     $threshold: Int
     $defaultActivePoints: Int
     $defaultExpiredPoints: Int
+    $maxBanAge: Int
     $discordWebhook: String
   ) {
     updateExportBanList(
@@ -54,6 +58,7 @@ const UPDATE_EXPORT_BAN_LIST = gql`
       threshold: $threshold
       defaultActivePoints: $defaultActivePoints
       defaultExpiredPoints: $defaultExpiredPoints
+      maxBanAge: $maxBanAge
       discordWebhook: $discordWebhook
     ) {
       id
@@ -63,6 +68,7 @@ const UPDATE_EXPORT_BAN_LIST = gql`
       threshold
       defaultActivePoints
       defaultExpiredPoints
+      maxBanAge
       discordWebhook
     }
   }
@@ -87,6 +93,7 @@ function addToCache(cache, { data: { createExportBanList } }) {
                     threshold
                     defaultActivePoints
                     defaultExpiredPoints
+                    maxBanAge
                     discordWebhook
                   }
                 `

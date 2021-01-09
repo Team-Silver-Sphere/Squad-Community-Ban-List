@@ -119,10 +119,12 @@ ExportBanList.init(
     server: {
       type: DataTypes.STRING
     },
+
     type: {
       type: DataTypes.ENUM('remote', 'battlemetrics'),
       defaultValue: 'remote'
     },
+
     threshold: {
       type: DataTypes.INTEGER,
       defaultValue: 9
@@ -135,6 +137,11 @@ ExportBanList.init(
       type: DataTypes.INTEGER,
       defaultValue: 1
     },
+    maxBanAge: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+
     discordWebhook: {
       type: DataTypes.STRING
     },

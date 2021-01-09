@@ -23,6 +23,9 @@ export default {
     defaultExpiredPoints: yup
       .number()
       .required('A default number of points per expired ban is required.'),
+    maxBanAge: yup
+      .number()
+      .min(0, 'The max ban age must be a positive integer or zero.'),
     discordWebhook: yup
       .string()
       .url('Invalid Discord Webhook')
