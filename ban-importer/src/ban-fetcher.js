@@ -76,69 +76,73 @@ export default class BanFetcher {
 
     // Loop until there's no more pages to fetch.
     while (true) {
-      // Get the ban page's data.
-      Logger.verbose(
-        'BanFetcher',
-        1,
-        `Fetching Battlemetrics ban list data for ban list (ID: ${banList.id})...`
-      );
-      const { data } = await battlemetrics('get', 'bans', params);
+      try {
+        // Get the ban page's data.
+        Logger.verbose(
+          'BanFetcher',
+          1,
+          `Fetching Battlemetrics ban list data for ban list (ID: ${banList.id})...`
+        );
+        const { data } = await battlemetrics('get', 'bans', params);
 
-      const bans = [];
+        const bans = [];
 
-      // Loop over each ban in the page's data.
-      for (const ban of data.data) {
-        // Get the SteamID of the player banned.
-        let steamUser;
-        // Loop through identifiers to get steamID.
-        for (const identifier of ban.attributes.identifiers) {
-          // Ignore none SteamID identifiers.
-          if (identifier.type !== 'steamID') continue;
+        // Loop over each ban in the page's data.
+        for (const ban of data.data) {
+          // Get the SteamID of the player banned.
+          let steamUser;
+          // Loop through identifiers to get steamID.
+          for (const identifier of ban.attributes.identifiers) {
+            // Ignore none SteamID identifiers.
+            if (identifier.type !== 'steamID') continue;
 
-          // Some show steam url instead of usual format so handle that case.
-          if (identifier.identifier)
-            steamUser = identifier.identifier.replace('https://steamcommunity.com/profiles/', '');
-          else if (identifier.metadata) steamUser = identifier.metadata.profile.steamid;
-          else continue;
+            // Some show steam url instead of usual format so handle that case.
+            if (identifier.identifier)
+              steamUser = identifier.identifier.replace('https://steamcommunity.com/profiles/', '');
+            else if (identifier.metadata) steamUser = identifier.metadata.profile.steamid;
+            else continue;
 
-          break;
+            break;
+          }
+
+          // Sometimes there is no SteamID in the response. If this is the case we ignore the ban.
+          if (steamUser == null) continue;
+
+          // Turn the dates into date objects or null if permanent ban.
+          const created = new Date(ban.attributes.timestamp);
+          const expires = ban.attributes.expires ? new Date(ban.attributes.expires) : null;
+
+          // Store the ban.
+          bans.push(
+            {
+              id: `${banList.id},${ban.attributes.uid}`,
+
+              steamUser,
+
+              created: created,
+              expires: expires,
+              expired: !(ban.attributes.expires === null || expires.getTime() > Date.now()),
+
+              reason: classifyBanReason(`${ban.attributes.reason} ${ban.attributes.note}`),
+              rawReason: `${ban.attributes.reason} ${ban.attributes.note}`,
+
+              banList: banList
+            }
+          );
         }
 
-        // Sometimes there is no SteamID in the response. If this is the case we ignore the ban.
-        if (steamUser == null) continue;
+        this.storeBanFunc(bans);
 
-        // Turn the dates into date objects or null if permanent ban.
-        const created = new Date(ban.attributes.timestamp);
-        const expires = ban.attributes.expires ? new Date(ban.attributes.expires) : null;
+        // If that is the last page then break out the loop.
+        if (!data.links.next) break;
 
-        // Store the ban.
-        bans.push(
-          {
-            id: `${banList.id},${ban.attributes.uid}`,
-
-            steamUser,
-
-            created: created,
-            expires: expires,
-            expired: !(ban.attributes.expires === null || expires.getTime() > Date.now()),
-
-            reason: classifyBanReason(`${ban.attributes.reason} ${ban.attributes.note}`),
-            rawReason: `${ban.attributes.reason} ${ban.attributes.note}`,
-
-            banList: banList
-          }
-        );
+        // Store the parameters for the next page fetch.
+        params = querystring.parse(data.links.next.split('?')[1], null, null, {
+          decodeURIComponent: true
+        });
+      } catch(err) {
+        Logger.verbose('BanFetcher', 1, `Failed to fetch ban list (ID: ${banList.id}): `, err);
       }
-
-      this.storeBanFunc(bans);
-
-      // If that is the last page then break out the loop.
-      if (!data.links.next) break;
-
-      // Store the parameters for the next page fetch.
-      params = querystring.parse(data.links.next.split('?')[1], null, null, {
-        decodeURIComponent: true
-      });
     }
   }
 

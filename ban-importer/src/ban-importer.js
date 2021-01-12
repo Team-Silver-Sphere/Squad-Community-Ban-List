@@ -118,7 +118,11 @@ export default class BanImporter {
 
     Logger.verbose('BanImporter', 1, 'Fetching ban lists...');
     for (const banList of banLists) {
-      await fetcher.fetchBanList(banList);
+      try {
+        await fetcher.fetchBanList(banList);
+      } catch (err) {
+        Logger.verbose('BanImporter', 1, `Failed to import ban list ${banList.id}: `, err);
+      }
     }
 
     Logger.verbose('BanImporter', 1, 'Waiting for bans to be saved...');
