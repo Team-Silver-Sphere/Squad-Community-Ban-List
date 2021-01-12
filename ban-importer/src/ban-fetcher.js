@@ -18,9 +18,6 @@ export default class BanFetcher {
       case 'battlemetrics':
         await this.fetchBattlemetricsBanList(banList);
         break;
-      case 'tt':
-        await this.fetchTTBanList(banList);
-        break;
       default:
         throw new Error('Unsupported ban list type.');
     }
@@ -97,10 +94,14 @@ export default class BanFetcher {
             if (identifier.type !== 'steamID') continue;
 
             // Some show steam url instead of usual format so handle that case.
-            if (identifier.identifier)
-              steamUser = identifier.identifier.replace('https://steamcommunity.com/profiles/', '');
+            if (identifier.identifier) steamUser = identifier.identifier.replace('https://steamcommunity.com/profiles/', '');
             else if (identifier.metadata) steamUser = identifier.metadata.profile.steamid;
             else continue;
+
+            if(!steamUser.match(/[0-9]{17}/)) {
+              steamUser = null;
+              continue;
+            }
 
             break;
           }
@@ -144,39 +145,5 @@ export default class BanFetcher {
         Logger.verbose('BanFetcher', 1, `Failed to fetch ban list (ID: ${banList.id}): `, err);
       }
     }
-  }
-
-  async fetchTTBanList(banList) {
-    // Fetch ban data.
-    Logger.verbose('BanFetcher', 1, `Fetching TT ban list data for ban list (ID: ${banList.id}...`);
-    const { data } = await axios.get(banList.source);
-
-    const bans = [];
-
-    for (const ban of data) {
-      // Turn the dates into date objects or null if permanent ban.
-      const startDate = new Date(ban.start_datetime);
-      const endDate = ban.end_datetime ? new Date(ban.end_datetime) : null;
-
-      // Store the ban.
-      bans.push(
-        {
-          id: `${banList.id},${ban.steam_id},${ban.start_datetime}`,
-
-          steamUser: ban.steam_id,
-
-          created: startDate,
-          expires: endDate,
-          expired: (endDate !== null && endDate.getTime() < Date.now()) || ban.lifted,
-
-          reason: classifyBanReason(ban.reason),
-          rawReason: ban.reason,
-
-          banList: banList
-        }
-      );
-    }
-
-    this.storeBanFunc(bans);
   }
 }
