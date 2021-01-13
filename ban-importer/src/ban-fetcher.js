@@ -47,21 +47,19 @@ export default class BanFetcher {
       expires = expires ? new Date(expires * 1000) : null;
 
       // Store the new ban.
-      bans.push(
-        {
-          id: `${banList.id},${steamUser},${expires ? expires.getTime() : 'null'}`,
+      bans.push({
+        id: `${banList.id},${steamUser},${expires ? expires.getTime() : 'null'}`,
 
-          steamUser: steamUser,
+        steamUser: steamUser,
 
-          expires: expires,
-          expired: !(expires === null || expires.getTime() > Date.now()),
+        expires: expires,
+        expired: !(expires === null || expires.getTime() > Date.now()),
 
-          reason: classifyBanReason(reason),
-          rawReason: reason,
+        reason: classifyBanReason(reason),
+        rawReason: reason,
 
-          banList: banList
-        }
-      );
+        banList: banList
+      });
     }
 
     this.storeBanFunc(bans);
@@ -94,11 +92,12 @@ export default class BanFetcher {
             if (identifier.type !== 'steamID') continue;
 
             // Some show steam url instead of usual format so handle that case.
-            if (identifier.identifier) steamUser = identifier.identifier.replace('https://steamcommunity.com/profiles/', '');
+            if (identifier.identifier)
+              steamUser = identifier.identifier.replace('https://steamcommunity.com/profiles/', '');
             else if (identifier.metadata) steamUser = identifier.metadata.profile.steamid;
             else continue;
 
-            if(!steamUser.match(/[0-9]{17}/)) {
+            if (!steamUser.match(/[0-9]{17}/)) {
               steamUser = null;
               continue;
             }
@@ -114,22 +113,20 @@ export default class BanFetcher {
           const expires = ban.attributes.expires ? new Date(ban.attributes.expires) : null;
 
           // Store the ban.
-          bans.push(
-            {
-              id: `${banList.id},${ban.attributes.uid}`,
+          bans.push({
+            id: `${banList.id},${ban.attributes.uid}`,
 
-              steamUser,
+            steamUser,
 
-              created: created,
-              expires: expires,
-              expired: !(ban.attributes.expires === null || expires.getTime() > Date.now()),
+            created: created,
+            expires: expires,
+            expired: !(ban.attributes.expires === null || expires.getTime() > Date.now()),
 
-              reason: classifyBanReason(`${ban.attributes.reason} ${ban.attributes.note}`),
-              rawReason: `${ban.attributes.reason} ${ban.attributes.note}`,
+            reason: classifyBanReason(`${ban.attributes.reason} ${ban.attributes.note}`),
+            rawReason: `${ban.attributes.reason} ${ban.attributes.note}`,
 
-              banList: banList
-            }
-          );
+            banList: banList
+          });
         }
 
         this.storeBanFunc(bans);
@@ -141,7 +138,7 @@ export default class BanFetcher {
         params = querystring.parse(data.links.next.split('?')[1], null, null, {
           decodeURIComponent: true
         });
-      } catch(err) {
+      } catch (err) {
         Logger.verbose('BanFetcher', 1, `Failed to fetch ban list (ID: ${banList.id}): `, err);
       }
     }

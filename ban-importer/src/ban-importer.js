@@ -9,29 +9,25 @@ import BanFetcher from './ban-fetcher.js';
 export default class BanImporter {
   constructor(options) {
     options = {
-      saveBanWorkers: 2,
+      workers: 2,
       ...options
     };
 
     this.queueBan = this.queueBan.bind(this);
 
     this.saveBan = this.saveBan.bind(this);
-    this.saveBanQueue = async.queue(this.saveBan, options.saveBanWorkers);
+    this.saveBanQueue = async.queue(this.saveBan, options.workers);
 
     this.importedBanListIDs = new Set();
     this.importedBanIDs = [];
   }
 
   async queueBan(importedBans) {
-    Logger.verbose(
-      'BanImporter',
-      1,
-      `Queueing batch of ${importedBans.length} raw bans...`,
-    );
+    Logger.verbose('BanImporter', 1, `Queueing batch of ${importedBans.length} raw bans...`);
 
     try {
       await SteamUser.bulkCreate(
-        importedBans.map(importedBan => ({ id: importedBan.steamUser })),
+        importedBans.map((importedBan) => ({ id: importedBan.steamUser })),
         { updateOnDuplicate: ['id'] }
       );
 

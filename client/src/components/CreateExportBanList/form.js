@@ -147,7 +147,8 @@ export default function (props) {
                   invalid={!!errors.maxBanAge?.message}
                 />
                 <FormText>
-                  Please provide a max age for bans in days. Once a ban exceeds this age they will contribute no points to a player's total. Use 0 to ignore ban age.
+                  Please provide a max age for bans in days. Once a ban exceeds this age they will
+                  contribute no points to a player's total. Use 0 to ignore ban age.
                 </FormText>
                 <FormFeedback>{errors.maxBanAge?.message}</FormFeedback>
               </FormGroup>
