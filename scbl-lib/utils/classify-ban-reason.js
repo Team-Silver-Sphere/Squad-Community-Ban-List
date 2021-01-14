@@ -17,7 +17,7 @@ const reasons = {
   'Breaking Vehicle Priority Rules': /priority|(ara(ç|c) (kural|ihlali))/i,
   Camping: /camping/i,
   'Current or Recent VAC Ban': /vac ban/i,
-  'Destroying Friendly Assets': /(friendly|dost) (asset|fob|hab)/i,
+  'Destroying Friendly Assets': /(friendly|dost) (asset|fob|hab)|sabotage/i,
   'Discussing politics': /politic|siyaset/i,
   'Helicopter Ramming': /ramming/i,
   Hindering: /hindering/i,
@@ -26,6 +26,7 @@ const reasons = {
   'No SL Kit': /sl kit/i,
   Recruiting: /recruiting/i,
   'Soloing Vehicles': /crewman|manning|solo/i,
+  Spamming: /spam/i,
   'Squad Baiting': /baiting|creat(?:ed?|ing)(?: a)? squad|pass sl/i,
   'Stealing Assets': /steal|çalma/i,
   Streamsniping: /streamsniping|yayinc(i|ı)/i
