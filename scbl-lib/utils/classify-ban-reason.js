@@ -17,7 +17,7 @@ const reasons = {
   'Breaking Vehicle Priority Rules': /priority|(ara(ç|c) (kural|ihlali))/i,
   Camping: /camping/i,
   'Current or Recent VAC Ban': /vac ban/i,
-  'Destroying Friendly Assets': /(friendly|dost) (asset|fob|hab)/i,
+  'Destroying Friendly Assets': /(friendly|dost) (asset|fob|hab)|sabotage/i,
   'Discussing politics': /politic|siyaset/i,
   'Helicopter Ramming': /ramming/i,
   Hindering: /hindering/i,
