@@ -26,6 +26,7 @@ const reasons = {
   'No SL Kit': /sl kit/i,
   Recruiting: /recruiting/i,
   'Soloing Vehicles': /crewman|manning|solo/i,
+  Spamming: /spam/i,
   'Squad Baiting': /baiting|creat(?:ed?|ing)(?: a)? squad|pass sl/i,
   'Stealing Assets': /steal|çalma/i,
   Streamsniping: /streamsniping|yayinc(i|ı)/i
