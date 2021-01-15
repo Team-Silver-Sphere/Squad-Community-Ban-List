@@ -1,5 +1,5 @@
 const reasons = {
-  Cheating: /cheat|hack|作弊|hile|trich|betr(ü|u)/i,
+  Cheating: /cheat|hack|作弊|\bhile|trich|betr(ü|u)/i,
   Glitching: /glitch/i,
   Exploiting: /exploit|剝削|istismar|ausnutz/i,
 
