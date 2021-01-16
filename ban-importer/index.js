@@ -32,5 +32,5 @@ async function main() {
 }
 
 main()
-  .then(() => console.log('Done.'))
+  .then(() => console.log('Done!'))
   .catch(console.log);
