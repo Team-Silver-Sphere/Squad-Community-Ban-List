@@ -101,8 +101,8 @@ export default function (props) {
                 />
                 <FormText>
                   Please provide a threshold for your export ban list. Once the sum of the points
-                  for a player's bans exceeds this number they will be added to your export ban
-                  list.
+                  for a player's bans equals or exceeds this number they will be added to your
+                  export ban list.
                 </FormText>
                 <FormFeedback>{errors.threshold?.message}</FormFeedback>
               </FormGroup>
