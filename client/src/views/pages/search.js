@@ -102,7 +102,7 @@ export default function (props) {
               </div>
               <h6 className="text-primary text-uppercase">Search</h6>
               <p className="description mt-2">
-                Search our database containing over 20,000 bans and 18,000 players.
+                Search our database containing over 32,000 bans and 24,000 players.
               </p>
               <SteamUserSearchBox search={props.match.params.search} />
             </CardBody>
