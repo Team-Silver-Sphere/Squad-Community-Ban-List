@@ -262,12 +262,7 @@ export default function (props) {
                           </AdvancedModal>
                         </td>
                         <td>{edge.node.banList.name}</td>
-                        {
-                          // Temporary fix to stop SR from complaining about an issue that has been resolved but is not
-                          // released yet due to issues in CD/CI releasing an update to the updater which is currently
-                          // outside of my control.
-                        }
-                        <td>{edge.node.banList.organisation.id === 8 ? 'Reason temporarily hidden.' : edge.node.reason}</td>
+                        <td>{edge.node.reason}</td>
                         <td>
                           <BanDates created={edge.node.created} expires={edge.node.expires} />
                         </td>
