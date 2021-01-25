@@ -543,8 +543,8 @@ export default function () {
                     <h4 className="text-white">Also by Us... SquadJS</h4>
                     <p className="text-white mt-3">
                       SquadJS is a scripting framework, designed for Squad servers, that aims to
-                      handle all communication and data collection to and from the servers. It can
-                      used to automate processes to make your and your admin's lives easier.
+                      handle all communication and data collection to and from the servers. It can be
+                      used to automate processes to make your team's lives easier.
                     </p>
                   </Col>
                   <Col className="ml-lg-auto text-center" lg="3">
