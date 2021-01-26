@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 
 import { Card, CardBody, Container, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
-import { DISCORD_INVITE } from 'scbl-lib/config';
 
 import Layout from '../layout/layout.js';
 
