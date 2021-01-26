@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
 
-import styles from '../../assets/scss/custom/wizard.less';
-
 import { Card, CardBody, Container, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 import { DISCORD_INVITE } from 'scbl-lib/config';
@@ -104,22 +102,19 @@ const Wizard = (props) => {
         SW,
     });
 
+    const slides = [First, Second, Third, Fourth, Fifth, Last];
+
     return (
         <div className='container'>
             <div className={'jumbotron mt-4'}>
                 <div className='row'>
-                    <div className={`col-12 col-sm-6 offset-sm-3 ${styles['rsw-wrapper']}`}>
+                    <div className={`col-12 col-sm-6 offset-sm-3 rsw-wrapper`}>
                         <StepWizard
                             onStepChange={onStepChange}
                             isHashEnabled
                             instance={setInstance}
                         >
-                            <First hashKey={'FirstStep'} update={updateForm} steamUser={props.steamUser}/>
-                            <Second hashKey={'SecondStep'} form={state.form} steamUser={props.steamUser}/>
-                            <Third hashKey={'ThirdStep'} update={updateForm} steamUser={props.steamUser} />
-                            <Fourth hashKey={'FourthStep'} update={updateForm} steamUser={props.steamUser} />
-                            <Fifth hashKey={'FifthStep'} update={updateForm} steamUser={props.steamUser} />
-                            <Last hashKey={'LastStep'} />
+                            {slides.map((Slide, key) => (<Slide hashKey={key} key={key} form={state.form} update={updateForm} steamUser={props.steamUser} />))}
                         </StepWizard>
                     </div>
                 </div>
@@ -420,7 +415,7 @@ const Last = (props) => {
 export default function (props) {
     const search = props.match.params.uid;
     let isRedirected = false;
-    if(search === '11111111111111111') {
+    if(!search) {
         isRedirected = true;
     }
     const isValidSteam64ID = search && search.match(/^[0-9]{17}$/);
@@ -438,13 +433,9 @@ export default function (props) {
               <div className="icon icon-shape bg-gradient-warning rounded-circle text-white mb-4">
                 <i className="fa fa-life-ring" />
               </div>
-              <h6 className="text-warning text-uppercase">SCBL For Dummies</h6>
+              <h6 className="text-warning text-uppercase">I'm banned, what now?</h6>
               <p className="description mt-2">
-                If you can't find what you search, please join our{' '}
-                <a href={DISCORD_INVITE} target="_blank" rel="noopener noreferrer">
-                  Discord
-                </a>{' '}
-                server.
+              An information guide to the Squad Community Ban List intended for players.
               </p>
             </CardBody>
             <div style={{ display: 'none' }}>

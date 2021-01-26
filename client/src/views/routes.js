@@ -117,6 +117,13 @@ const routes = [
     exact: false,
     login: false,
     component: YouAreBannedWhatNow
+  },
+
+  {
+    path: '/you-are-banned-what-now/',
+    exact: true,
+    login: false,
+    component: YouAreBannedWhatNow
   }
 ];
 

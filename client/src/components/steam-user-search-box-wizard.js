@@ -17,7 +17,7 @@ export default function (props) {
   const history = useHistory();
 
   return (
-    <div className={classnames(props.frontpageVersion ? 'shadow' : '', props.className)}>
+    <div>
       <Form onSubmit={() => history.push(`/you-are-banned-what-now/${search}`)}>
         <FormGroup>
           <InputGroup
