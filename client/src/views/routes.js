@@ -16,6 +16,7 @@ import BecomeAPartnerOrganisation from './pages/become-a-partner-organisation.js
 
 import FAQ from './pages/faq.js';
 import PartnerOrganisationList from './pages/partner-organisation-list.js';
+import YouAreBannedWhatNow from './pages/you-are-banned-what-now.js';
 
 // import Auth from '../utils/auth.js';
 
@@ -109,6 +110,13 @@ const routes = [
     exact: true,
     login: false,
     component: PartnerOrganisationList
+  },
+
+  {
+    path: '/you-are-banned-what-now/:uid',
+    exact: false,
+    login: false,
+    component: YouAreBannedWhatNow
   }
 ];
 

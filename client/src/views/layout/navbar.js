@@ -283,6 +283,20 @@ class DemoNavbar extends React.Component {
                             </h6>
                           </Media>
                         </Media>
+                        <Media
+                          className="d-flex align-items-center"
+                          tag={Link}
+                          to="/you-are-banned-what-now/11111111111111111"
+                        >
+                          <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
+                            <i className="fa fa-life-ring" />
+                          </div>
+                          <Media body className="ml-3">
+                            <h6 className="heading text-warning mb-md-1">
+                            I'm banned, what now?
+                            </h6>
+                          </Media>
+                        </Media>
                       </div>
                     </DropdownMenu>
                   </UncontrolledDropdown>
