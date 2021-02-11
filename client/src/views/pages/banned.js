@@ -137,7 +137,7 @@ function EnterSteamUser(props) {
         <Col className="text-right">
           <Button
             color="primary"
-            onClick={() => history.push(`/you-are-banned-what-now/${steamID}`)}
+            onClick={() => history.push(`/banned/${steamID}`)}
             disabled={!(steamID && steamID.match(/^[0-9]{17}$/))}
           >
             Next
