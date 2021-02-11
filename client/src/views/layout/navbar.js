@@ -286,15 +286,16 @@ class DemoNavbar extends React.Component {
                         <Media
                           className="d-flex align-items-center"
                           tag={Link}
-                          to="/you-are-banned-what-now/"
+                          to="/banned"
                         >
                           <div className="icon icon-shape bg-gradient-warning rounded-circle text-white">
                             <i className="fa fa-life-ring" />
                           </div>
                           <Media body className="ml-3">
-                            <h6 className="heading text-warning mb-md-1">
-                            I'm banned, what now?
-                            </h6>
+                            <h6 className="heading text-warning mb-md-1">I'm banned, what now?</h6>
+                            <p className="description d-none d-md-inline-block mb-0">
+                              Get information on how to get unlisted from or unbanned by the Squad Community Ban List.
+                            </p>
                           </Media>
                         </Media>
                       </div>

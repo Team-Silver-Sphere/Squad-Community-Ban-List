@@ -220,15 +220,23 @@ export default function (props) {
                     <tr>
                       <th>Organisation</th>
                       <th>Ban List</th>
-                      <th>Reason <span
-                      id="tooltip-reason-active-reason"
-                      data-placement="right"
-                    >
-                      <i className="ml-2 fa fa-question-circle" />
-                    </span>
-                    <UncontrolledTooltip boundariesElement="viewport" data-placement="right" delay={0} target="tooltip-reason-active-reason">
-                    The ban reasons shown on the Squad Community Ban List are based on keywords found in the reason and notes supplied by contributing servers. We cannot guarantee that the reasons displayed reflect the true reason for the ban. Please see our FAQ for more information.
-                    </UncontrolledTooltip></th>
+                      <th>
+                        Reason{' '}
+                        <span id="tooltip-reason-active-reason" data-placement="right">
+                          <i className="ml-2 fa fa-question-circle" />
+                        </span>
+                        <UncontrolledTooltip
+                          boundariesElement="viewport"
+                          data-placement="right"
+                          delay={0}
+                          target="tooltip-reason-active-reason"
+                        >
+                          The ban reasons shown on the Squad Community Ban List are based on
+                          keywords found in the reason and notes supplied by contributing servers.
+                          We cannot guarantee that the reasons displayed reflect the true reason for
+                          the ban. Please see our FAQ for more information.
+                        </UncontrolledTooltip>
+                      </th>
                       <th>Time</th>
                     </tr>
                   </thead>
@@ -271,18 +279,23 @@ export default function (props) {
                           </AdvancedModal>
                         </td>
                         <td>{edge.node.banList.name}</td>
-                        <td style={{heigh: "auto"}}>
-                        {edge.node.reason}
-                        <span
-                            id="tooltip-reason-active"
-                            data-placement="right"
-                          >
+                        <td style={{ heigh: 'auto' }}>
+                          {edge.node.reason}
+                          <span id="tooltip-reason-active" data-placement="right">
                             <i className="ml-2 fa fa-question-circle" />
                           </span>
-                          <UncontrolledTooltip boundariesElement="viewport" data-placement="right" delay={0} target="tooltip-reason-active">
-                          The ban reasons shown on the Squad Community Ban List are based on keywords found in the reason and notes supplied by contributing servers. We cannot guarantee that the reasons displayed reflect the true reason for the ban. Please see our FAQ for more information.
+                          <UncontrolledTooltip
+                            boundariesElement="viewport"
+                            data-placement="right"
+                            delay={0}
+                            target="tooltip-reason-active"
+                          >
+                            The ban reasons shown on the Squad Community Ban List are based on
+                            keywords found in the reason and notes supplied by contributing servers.
+                            We cannot guarantee that the reasons displayed reflect the true reason
+                            for the ban. Please see our FAQ for more information.
                           </UncontrolledTooltip>
-                      </td>
+                        </td>
                         <td>
                           <BanDates created={edge.node.created} expires={edge.node.expires} />
                         </td>
@@ -307,15 +320,23 @@ export default function (props) {
                     <tr>
                       <th>Organisation</th>
                       <th>Ban List</th>
-                      <th>Reason<span
-                      id="tooltip-reason-expired"
-                      data-placement="right"
-                    >
-                      <i className="ml-2 fa fa-question-circle" />
-                    </span>
-                    <UncontrolledTooltip boundariesElement="viewport" data-placement="right" delay={0} target="tooltip-reason-expired">
-                    The ban reasons shown on the Squad Community Ban List are based on keywords found in the reason and notes supplied by contributing servers. We cannot guarantee that the reasons displayed reflect the true reason for the ban. Please see our FAQ for more information.
-                    </UncontrolledTooltip></th>
+                      <th>
+                        Reason
+                        <span id="tooltip-reason-expired" data-placement="right">
+                          <i className="ml-2 fa fa-question-circle" />
+                        </span>
+                        <UncontrolledTooltip
+                          boundariesElement="viewport"
+                          data-placement="right"
+                          delay={0}
+                          target="tooltip-reason-expired"
+                        >
+                          The ban reasons shown on the Squad Community Ban List are based on
+                          keywords found in the reason and notes supplied by contributing servers.
+                          We cannot guarantee that the reasons displayed reflect the true reason for
+                          the ban. Please see our FAQ for more information.
+                        </UncontrolledTooltip>
+                      </th>
                       <th>Time</th>
                     </tr>
                   </thead>
@@ -363,16 +384,21 @@ export default function (props) {
                         </td>
                         <td>{edge.node.banList.name}</td>
                         <td>
-                        {edge.node.reason}
-                        <span
-                      id="tooltip-reason-expired"
-                      data-placement="right"
-                    >
-                      <i className="ml-2 fa fa-question-circle" />
-                    </span>
-                    <UncontrolledTooltip boundariesElement="viewport" data-placement="right" delay={0} target="tooltip-reason-expired">
-                    The ban reasons shown on the Squad Community Ban List are based on keywords found in the reason and notes supplied by contributing servers. We cannot guarantee that the reasons displayed reflect the true reason for the ban. Please see our FAQ for more information.
-                    </UncontrolledTooltip>
+                          {edge.node.reason}
+                          <span id="tooltip-reason-expired" data-placement="right">
+                            <i className="ml-2 fa fa-question-circle" />
+                          </span>
+                          <UncontrolledTooltip
+                            boundariesElement="viewport"
+                            data-placement="right"
+                            delay={0}
+                            target="tooltip-reason-expired"
+                          >
+                            The ban reasons shown on the Squad Community Ban List are based on
+                            keywords found in the reason and notes supplied by contributing servers.
+                            We cannot guarantee that the reasons displayed reflect the true reason
+                            for the ban. Please see our FAQ for more information.
+                          </UncontrolledTooltip>
                         </td>
                         <td>
                           <BanDates created={edge.node.created} expires={edge.node.expires} />
