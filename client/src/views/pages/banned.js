@@ -417,7 +417,7 @@ function ReportPartnerOrganisations(props) {
           <p>
             If you believe that one of our partner organisations has breached one Offworld
             Industries' server licensing guidelines or Offworld Industries' Code of Conduct by
-            banning you then you may wish to consider reporting them to Offworld Industries.
+            banning you, then you may wish to consider reporting them to Offworld Industries.
           </p>
           <p>
             To do this, email{' '}
