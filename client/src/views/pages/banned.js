@@ -168,7 +168,7 @@ function Foreword(props) {
             and have since reformed. Therefore, we are keen to assist players in being able to
             access the Squad community without the Squad Community Ban List limiting where they can
             and cannot play. However, there are limits in what we can do to assist these players due
-            to our strict remit.
+            to our strict operating procedures.
           </p>
           <p>
             The information provided on the following pages will give you more information on the
