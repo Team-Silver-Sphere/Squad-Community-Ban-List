@@ -163,7 +163,7 @@ function Foreword(props) {
             potentially banned by the Squad Community Ban List.
           </p>
           <p>
-            The Squad Community Ban List is dedicated to helping to create a healthy Squad community
+            The Squad Community Ban List is dedicated to helping create a healthy Squad community
             that everyone can enjoy, including players that were previous harmful to the community
             and have since reformed. Therefore, we are keen to assist players in being able to
             access the Squad community without the Squad Community Ban List limiting where they can
