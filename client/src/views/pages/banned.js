@@ -179,7 +179,7 @@ function Foreword(props) {
       </Row>
       <Row className="mt-4">
         <Col className="text-left">
-          <Button color="default" onClick={props.previousStep}>
+          <Button color="default" onClick={props.previousStep} disable={props.isValidSteam64ID}>
             <i className="fa fa-arrow-left mr-2" />
             Back
           </Button>
@@ -538,7 +538,7 @@ export default function (props) {
                 <Jumbotron className="mb-0 bg-white">
                   <StepWizard>
                     {!isValidSteam64ID && <EnterSteamUser />}
-                    <Foreword steamUser={data?.steamUser} />
+                    <Foreword steamUser={data?.steamUser} isValidSteam64ID={isValidSteam64ID} />
                     <WhatIsTheSquadCommunityBanList />
                     <GettingUnlistedFromTheSquadCommunityBanList steamUser={data?.steamUser} />
                     <GettingUnbannedFromTheSquadCommunityBanList steamUser={data?.steamUser} />
