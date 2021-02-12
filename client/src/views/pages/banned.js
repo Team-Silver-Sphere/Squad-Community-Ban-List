@@ -179,7 +179,7 @@ function Foreword(props) {
       </Row>
       <Row className="mt-4">
         <Col className="text-left">
-          <Button color="default" onClick={props.previousStep} disable={props.isValidSteam64ID}>
+          <Button color="default" onClick={props.previousStep} disabled={props.isValidSteam64ID}>
             <i className="fa fa-arrow-left mr-2" />
             Back
           </Button>
