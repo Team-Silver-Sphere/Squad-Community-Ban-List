@@ -341,7 +341,7 @@ function GettingUnbannedFromTheSquadCommunityBanList(props) {
             and banned from the server as a result.
           </p>
           <p>
-            Considering the following example using our default points. Bob has 2 active bans that
+            Consider the following example using our default points. Bob has 2 active bans that
             contribute 3 points each and 4 expired bans that contribute 1 point each. This makes his
             total number of points 10 which exceeds the default threshold of 9 and therefore Bob
             will be added to the export ban list.
