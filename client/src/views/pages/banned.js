@@ -358,7 +358,7 @@ function GettingUnbannedFromTheSquadCommunityBanList(props) {
             </li>
             <li>
               Ask the server you wish to play on to make an exception for you. Some servers have the
-              ability to do this if using one of our export ban lists via an admin tool known as
+              ability to do this if they are importing one of our export ban lists via an admin tool known as
               Battlemetrics.
             </li>
             <li>
