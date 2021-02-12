@@ -371,7 +371,7 @@ function GettingUnbannedFromTheSquadCommunityBanList(props) {
             <>
               <h6>Partner organisations to Contact</h6>
               <p>
-                To appeal the bans list on our website you should contact the following partner
+                To appeal the bans listed on our website you should contact the following partner
                 organisations. You may click their names to get a link to their Discord server.
               </p>
               <ul>
