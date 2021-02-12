@@ -436,7 +436,7 @@ function ReportPartnerOrganisations(props) {
             <li>Date and time of the incident.</li>
           </ul>
           <p>
-            Alternatively/and you can fill out the following their report form located{' '}
+            Alternatively/additionally you can fill out the following their report form located{' '}
             <a href="https://forms.gle/R3D434WVuaY9obtT6" target="_blank" rel="noopener noreferrer">
               here
             </a>
