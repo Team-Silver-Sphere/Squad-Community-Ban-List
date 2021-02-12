@@ -255,7 +255,7 @@ function GettingUnlistedFromTheSquadCommunityBanList(props) {
         <Col>
           <h3 className="text-center">Getting unlisted from the Squad Community Ban List</h3>
           <p>
-            If a players has been listed on the Squad Community Ban List's website it does not necessarily mean that
+            If a player has been listed on the Squad Community Ban List's website, it does not necessarily mean that
             they have been banned by the Squad Community Ban List. It only means that we have imported a ban against
             them from one of our partner organisations.
           </p>
