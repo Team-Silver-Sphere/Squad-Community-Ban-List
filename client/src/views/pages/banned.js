@@ -328,7 +328,7 @@ function GettingUnbannedFromTheSquadCommunityBanList(props) {
             Squad servers may opt to use a Squad Community Ban List export ban list to protect their
             community. If you have been kicked from a server with a reason relating to the Squad
             Community Ban List then it means that you have probably met the criteria to be listed on
-            one of these export ban lists. Below we will explain this criteria and explain how you
+            one of these export ban lists. Below we will explain these criteria and explain how you
             can attempt to get removed from our export ban lists.
           </p>
           <h6>Criteria System</h6>
