@@ -337,7 +337,7 @@ function GettingUnbannedFromTheSquadCommunityBanList(props) {
             creating an export ban list. Bans listed on our website will contribute a number of
             points which can be configured to be different depending on whether they were are active
             or expired, their age and who's ban list they belong to. Once the total number of points
-            a player has exceeds to configurable threshold they will be added to the export ban list
+            a player has exceeds the configurable threshold, they will be added to the export ban list
             and banned from the server as a result.
           </p>
           <p>
