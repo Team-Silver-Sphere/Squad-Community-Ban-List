@@ -16,6 +16,7 @@ import BecomeAPartnerOrganisation from './pages/become-a-partner-organisation.js
 
 import FAQ from './pages/faq.js';
 import PartnerOrganisationList from './pages/partner-organisation-list.js';
+import Banned from './pages/banned.js';
 
 // import Auth from '../utils/auth.js';
 
@@ -109,6 +110,20 @@ const routes = [
     exact: true,
     login: false,
     component: PartnerOrganisationList
+  },
+
+  {
+    path: '/banned/:steamUser',
+    exact: false,
+    login: false,
+    component: Banned
+  },
+
+  {
+    path: '/banned/',
+    exact: true,
+    login: false,
+    component: Banned
   }
 ];
 

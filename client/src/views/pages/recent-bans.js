@@ -134,6 +134,20 @@ export default function () {
                           {edge.node.reason === 'Unknown'
                             ? 'for an unknown reason.'
                             : 'for ' + edge.node.reason.toLowerCase() + '.'}
+                          <span id="tooltip-reason-recent-bans" data-placement="right">
+                            <i className="ml-2 fa fa-question-circle" />
+                          </span>
+                          <UncontrolledTooltip
+                            boundariesElement="viewport"
+                            data-placement="right"
+                            delay={0}
+                            target="tooltip-reason-recent-bans"
+                          >
+                            The ban reasons shown on the Squad Community Ban List are based on
+                            keywords found in the reason and notes supplied by contributing servers.
+                            We cannot guarantee that the reasons displayed reflect the true reason
+                            for the ban. Please see our FAQ for more information.
+                          </UncontrolledTooltip>
                         </td>
                         <td>
                           <BanDates created={edge.node.created} expires={edge.node.expires} />

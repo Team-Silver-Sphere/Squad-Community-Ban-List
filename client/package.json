@@ -41,6 +41,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.1",
     "react-select": "^3.1.1",
+    "react-step-wizard": "^5.3.5",
     "reactstrap": "^8.7.1",
     "sass": "^1.30.0",
     "yup": "^0.32.8"

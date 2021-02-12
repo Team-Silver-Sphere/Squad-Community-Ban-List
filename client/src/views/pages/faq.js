@@ -83,44 +83,6 @@ const sections = [
     ]
   },
   {
-    name: 'Getting Unbanned',
-    questions: [
-      {
-        question:
-          'I have been banned from a server as a result of the Squad Community Ban List, what can I do?',
-        answer: (
-          <>
-            If you have been banned from a server as a result of the Squad Community Ban List then
-            it means that the server uses one of our "export ban lists". Export ban lists use a
-            configurable point system to calculate a player's reputation based on bans they already
-            have on our partner organisation's servers. If a player's reputation exceeds a
-            configured threshold they will be added to the export ban list and will therefore be
-            banned from the server. To get unbanned from the server you should appeal your existing
-            bans so that your reputation decreasing and you fall below the threshold. You can use
-            our <Link to="/search">Search</Link> function to find what bans you have and find links
-            to the Discord where you may appeal the bans. Alternatively, you may request that the
-            server reconfigures their export ban list to be more lenient or play on another server
-            that already has a more lenient export ban list or does not use our export ban lists.
-          </>
-        )
-      },
-      {
-        question:
-          "I have appealed one of my bans with one of your partner organisations but they won't unban me. Can you unban me?",
-        answer: (
-          <>
-            The Squad Community Ban List provides information on the bans players have on our
-            partner organisations but not whether these bans are valid. If one of our partner
-            organisations refuses to remove one of your bans then we will continue to communicate
-            the existence of the ban to our users. If you believe that your ban is in breach of the
-            Official Squad Administrator Guidelines then you could file a report with Offworld
-            Industries.
-          </>
-        )
-      }
-    ]
-  },
-  {
     name: 'Export Ban Lists',
     questions: [
       {

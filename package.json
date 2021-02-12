@@ -33,5 +33,7 @@
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react-step-wizard": "^5.3.5"
+  }
 }
