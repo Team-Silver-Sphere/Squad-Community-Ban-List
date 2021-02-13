@@ -62,6 +62,7 @@ export default function () {
               <thead className="thead-light">
                 <tr>
                   <th>Players</th>
+                  <th>Ban List</th>
                   <th>
                     Reason
                     <span id="tooltip-reason-recent-bans" data-placement="right">
@@ -101,7 +102,7 @@ export default function () {
               <tbody>
                 {loading && (
                   <tr>
-                    <td colSpan={3} className="text-center">
+                    <td colSpan={4} className="text-center">
                       <div className="text-center mt-2 mb-3">Loading...</div>
                       <div className="btn-wrapper text-center">
                         <i className="fas fa-circle-notch fa-spin fa-4x" />
@@ -111,7 +112,7 @@ export default function () {
                 )}
                 {error && (
                   <tr>
-                    <td colSpan={3} className="text-center">
+                    <td colSpan={4} className="text-center">
                       <div className="text-center mt-2 mb-2">Error!</div>
                       <div className="btn-wrapper text-center">
                         <i className="fas fa-exclamation-triangle fa-4x" />
@@ -128,12 +129,10 @@ export default function () {
                           <SteamUser steamUser={edge.node.steamUser} />
                         </td>
                         <td>
-                          Banned on {edge.node.banList.organisation.name}'s {edge.node.banList.name}
-                          {' ban list '}
-                          <br />
-                          {edge.node.reason === 'Unknown'
-                            ? 'for an unknown reason.'
-                            : 'for ' + edge.node.reason.toLowerCase() + '.'}
+                          {edge.node.banList.organisation.name}'s {edge.node.banList.name}
+                        </td>
+                        <td style={{whiteSpace: 'pre-wrap' }}>
+                          {edge.node.reason.replace(/, /g, '\n')}
                         </td>
                         <td>
                           <BanDates created={edge.node.created} expires={edge.node.expires} />
@@ -141,7 +140,7 @@ export default function () {
                       </tr>
                     ))}
                     <tr>
-                      <td colSpan={3} className="text-center">
+                      <td colSpan={4} className="text-center">
                         <Button
                           color="primary"
                           disabled={!data.bans.pageInfo.hasNextPage}

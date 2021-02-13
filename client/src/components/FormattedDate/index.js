@@ -5,8 +5,7 @@ const options = {
   month: 'long',
   day: 'numeric',
   hour: 'numeric',
-  minute: 'numeric',
-  second: 'numeric'
+  minute: 'numeric'
 };
 
 export default function (props) {

@@ -39,5 +39,7 @@ export default function (reason) {
     if (regex.test(reason)) classifiedReasons.push(type);
   }
 
+  classifiedReasons.sort();
+
   return classifiedReasons.length > 0 ? classifiedReasons.join(', ') : 'Unknown';
 }

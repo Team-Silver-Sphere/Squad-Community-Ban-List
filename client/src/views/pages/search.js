@@ -295,8 +295,8 @@ export default function (props) {
                           </AdvancedModal>
                         </td>
                         <td>{edge.node.banList.name}</td>
-                        <td>
-                          {edge.node.reason}
+                        <td style={{whiteSpace: 'pre-wrap' }}>
+                          {edge.node.reason.replace(/, /g, '\n')}
                         </td>
                         <td>
                           <BanDates created={edge.node.created} expires={edge.node.expires} />
@@ -401,8 +401,8 @@ export default function (props) {
                           </AdvancedModal>
                         </td>
                         <td>{edge.node.banList.name}</td>
-                        <td>
-                          {edge.node.reason}
+                        <td style={{whiteSpace: 'pre-wrap' }}>
+                          {edge.node.reason.replace(/, /g, '\n')}
                         </td>
                         <td>
                           <BanDates created={edge.node.created} expires={edge.node.expires} />
