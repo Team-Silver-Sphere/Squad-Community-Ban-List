@@ -129,7 +129,11 @@ export default function () {
                           <SteamUser steamUser={edge.node.steamUser} />
                         </td>
                         <td>
-                          {edge.node.banList.organisation.name}'s {edge.node.banList.name}
+                          <a href={edge.node.banList.organisation.discord} target="_blank" rel="noopener noreferrer">
+                            {edge.node.banList.organisation.name}
+                          </a>
+                          <br />
+                          {edge.node.banList.name}
                         </td>
                         <td style={{whiteSpace: 'pre-wrap' }}>
                           {edge.node.reason.replace(/, /g, '\n')}
