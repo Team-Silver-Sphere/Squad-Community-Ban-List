@@ -232,7 +232,7 @@ export default function (props) {
                           lists. We cannot guarantee that the reasons displayed reflect the true reason for
                           the ban. Please see our FAQ for more information.
                         </UncontrolledTooltip>
-                      </th>A
+                      </th>
                       <th>
                         Time{' '}
                         <span id="tooltip-time-active" data-placement="right">
