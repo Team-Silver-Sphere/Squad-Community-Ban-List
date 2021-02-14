@@ -4,9 +4,6 @@ import {
   CardBody,
   Col,
   Container,
-  Modal,
-  ModalHeader,
-  ModalBody,
   Row,
   Table,
   UncontrolledTooltip
@@ -21,7 +18,6 @@ import SteamUserSearchBox from '../../components/steam-user-search-box.js';
 import steamAvatar from '../../assets/img/misc/avatar.jpg';
 
 import {
-  AdvancedModal,
   BanDates,
   DisplayRiskRating,
   FormattedDate,
@@ -236,7 +232,7 @@ export default function (props) {
                           lists. We cannot guarantee that the reasons displayed reflect the true reason for
                           the ban. Please see our FAQ for more information.
                         </UncontrolledTooltip>
-                      </th>
+                      </th>A
                       <th>
                         Time{' '}
                         <span id="tooltip-time-active" data-placement="right">
@@ -260,39 +256,9 @@ export default function (props) {
                     {data.steamUser.activeBans.edges.map((edge, key) => (
                       <tr key={key}>
                         <td>
-                          <AdvancedModal isOpen={false}>
-                            {(modal) => (
-                              <>
-                                <a
-                                  href="/test"
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    modal.open();
-                                  }}
-                                >
-                                  {edge.node.banList.organisation.name}
-                                </a>
-                                <Modal
-                                  className="modal-dialog-centered"
-                                  isOpen={modal.isOpen}
-                                  toggle={modal.close}
-                                >
-                                  <ModalHeader toggle={modal.close}>Organisation Info</ModalHeader>
-                                  <ModalBody className="text-center">
-                                    <h3>{edge.node.banList.organisation.name}</h3>
-                                    <a href={edge.node.banList.organisation.discord}>Discord</a>
-                                    <h6 className="mt-4">Appeal Information</h6>
-                                    <p>
-                                      The Squad Community Ban List does <strong>not</strong> handle
-                                      ban appeals on behalf of partner organisations. To get a ban
-                                      removed from {edge.node.banList.organisation.name}'s server(s)
-                                      you will need to contact them via their Discord, linked above.
-                                    </p>
-                                  </ModalBody>
-                                </Modal>
-                              </>
-                            )}
-                          </AdvancedModal>
+                          <a href={edge.node.banList.organisation.discord} target="_blank" rel="noopener noreferrer">
+                            {edge.node.banList.organisation.name}
+                          </a>
                         </td>
                         <td>{edge.node.banList.name}</td>
                         <td style={{whiteSpace: 'pre-wrap' }}>
@@ -362,43 +328,9 @@ export default function (props) {
                     {data.steamUser.expiredBans.edges.map((edge, key) => (
                       <tr key={key}>
                         <td>
-                          <AdvancedModal isOpen={false}>
-                            {(modal) => (
-                              <>
-                                <a
-                                  href="/test"
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    modal.open();
-                                  }}
-                                >
-                                  {edge.node.banList.organisation.name}
-                                </a>
-                                <Modal
-                                  className="modal-dialog-centered"
-                                  isOpen={modal.isOpen}
-                                  toggle={modal.close}
-                                >
-                                  <ModalHeader toggle={modal.close}>Organisation Info</ModalHeader>
-                                  <ModalBody className="text-center">
-                                    <h3>{edge.node.banList.organisation.name}</h3>
-                                    <a href={edge.node.banList.organisation.discord}>Discord</a>
-                                    <h6 className="mt-4">Appeal Information</h6>
-                                    <p>
-                                      The Squad Community Ban List does <strong>not</strong> handle
-                                      ban appeals on behalf of partner organisations. To get a ban
-                                      removed from {edge.node.banList.organisation.name}'s server(s)
-                                      you will need to go through their appeals process. They have
-                                      provided the following information explaining how to do this:
-                                    </p>
-                                    <p className="font-italic">
-                                      {edge.node.banList.organisation.appealProcess}
-                                    </p>
-                                  </ModalBody>
-                                </Modal>
-                              </>
-                            )}
-                          </AdvancedModal>
+                          <a href={edge.node.banList.organisation.discord} target="_blank" rel="noopener noreferrer">
+                            {edge.node.banList.organisation.name}
+                          </a>
                         </td>
                         <td>{edge.node.banList.name}</td>
                         <td style={{whiteSpace: 'pre-wrap' }}>
