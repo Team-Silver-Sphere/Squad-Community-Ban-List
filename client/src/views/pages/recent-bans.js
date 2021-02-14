@@ -25,6 +25,7 @@ const query = gql`
             organisation {
               id
               name
+              discord
             }
           }
           reason
