@@ -1,5 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import {
+  Alert,
   Card,
   CardBody,
   Col,
@@ -350,6 +353,20 @@ export default function (props) {
                     )}
                   </tbody>
                 </Table>
+                <CardBody>
+                  <Alert color="danger">
+                    <i className="fas fa-exclamation-circle mr-2" />
+                    <strong>
+                      Disclaimer
+                    </strong>
+                    <br/>
+                    The ban information contained on this page has been imported from the ban lists of our partner
+                    organisations. The Squad Community Ban List has <strong>not</strong> modified any of this
+                    information, other than where explicitly stated, or made any judgement of the validity of the bans.
+                    For more information on how to get unlisted from/unbanned by the Squad Community Ban List, please
+                    see our <Link to={`/banned/${data.steamUser.id}`}>"I'm banned, what now?" information page</Link>.
+                  </Alert>
+                </CardBody>
               </>
             )}
             {!isValidSteam64ID && <RecentlyViewedSteamUsers />}
