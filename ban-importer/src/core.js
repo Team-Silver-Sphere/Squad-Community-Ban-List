@@ -234,7 +234,7 @@ export default class Core {
     // Send Discord alert.
     if (!exportBan.ExportBanList.discordWebhook || !exportBan.doDiscordAlert) return;
 
-    const [hook, message] = createDiscordWebhookMessage(exportBan.ExportBanList.discordWebhook);
+    const [hook, message] = createDiscordWebhookMessage(exportBan.ExportBanList.discordWebhook, { color: '#00ff00' });
 
     message.setTitle(`${exportBan.SteamUser.name} has been added to your export ban list.`);
     message.setDescription(
@@ -259,7 +259,7 @@ export default class Core {
     // Send Discord alert.
     if (!exportBan.ExportBanList.discordWebhook || !exportBan.doDiscordAlert) return;
 
-    const [hook, message] = createDiscordWebhookMessage(exportBan.ExportBanList.discordWebhook);
+    const [hook, message] = createDiscordWebhookMessage(exportBan.ExportBanList.discordWebhook, { color: '#ff0000' });
 
     message.setTitle(`${exportBan.SteamUser.name} has been removed from your export ban list.`);
     message.setDescription(
