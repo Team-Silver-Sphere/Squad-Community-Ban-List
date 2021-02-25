@@ -553,7 +553,7 @@ export default function () {
                   <Col className="ml-lg-auto text-center" lg="3">
                     <img
                       alt="SquadJS Logo"
-                      src="https://github.com/Thomas-Smyth/SquadJS/raw/master/core/assets/squadjs-logo-white.png"
+                      src="https://raw.githubusercontent.com/Thomas-Smyth/SquadJS/master/assets/squadjs-logo-white.png"
                       className="mb-3"
                       width="200px"
                     />
