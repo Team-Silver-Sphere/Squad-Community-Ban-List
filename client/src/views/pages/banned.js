@@ -263,10 +263,9 @@ function GettingUnlistedFromTheSquadCommunityBanList(props) {
             As previously mentioned, the Squad Community Ban List only shares facts regarding
             players based on the bans we import from our partner organisations' ban lists and will
             only ever remove players/bans we share when our partner organisations remove them from
-            their ban lists. Therefore, to get yourself unlisted from the Squad Community Ban List
-            you must politely ask the partner organisations who have banned you to delete the bans
-            from your history. It is, however, unlikely that they will delete the bans from your
-            history but they may agree to turn some of your active bans to expired bans.
+            their ban lists. As it is unlikely that partner organisation will delete the bans from
+            your history it is unlikely that you will be unlisted from the Squad Community Ban List.
+            However, partner organisations may agree to turn some of your active bans to expired bans.
           </p>
           {props.steamUser && props.steamUser.bans.length === 0 && (
             <>
