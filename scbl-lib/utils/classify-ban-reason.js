@@ -10,7 +10,7 @@ const reasons = {
   Ghosting: /ghosting/i,
 
   Toxic: /disrespect|flam(e|ing)|harass|insult|language|offensive|rude|toxic|sayg(i|ı)s(i|ı)z|hakaret|irrespect|respektlos|beleidigung/i,
-  'Hate Speech': /abusive|bigot|derogatory|discriminat|hate ?spe(e|a)ch|homophobic|nazi|racial|racism|racist|sexism|sexist|(küfür|kufur)|mal(é|e)diction|種族主義|fluchen/i,
+  'Abusive Language/Hate Speech': /abusive|bigot|derogatory|discriminat|hate ?spe(e|a)ch|homophobic|nazi|racial|racism|racist|sexism|sexist|(küfür|kufur)|mal(é|e)diction|種族主義|fluchen/i,
 
   AFK: /afk|unassigned/i,
   'Breaking Seeding Rules': /seed/i,
