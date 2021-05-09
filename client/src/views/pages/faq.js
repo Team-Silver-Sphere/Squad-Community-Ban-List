@@ -79,6 +79,17 @@ const sections = [
             may be a small number of scenarios where ban reasons are incorrectly categorised.
           </>
         )
+      },
+      {
+        question: 'Why have I been banned for an "Unknown" reason?',
+        answer: (
+          <>
+            The Squad Community Ban List attempts to find keywords in the reason provided by a community
+            to increase transparency for what a ban might be for, if a keyword cannot be found it will display
+            as "Unknown" this does not mean that the ban was for no reason, just that The Squad Community Ban List
+            could not determine what kind of ban it was from the reason provided from the community that issued the ban.
+          </>
+        )
       }
     ]
   },
