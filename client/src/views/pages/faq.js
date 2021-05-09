@@ -84,10 +84,11 @@ const sections = [
         question: 'Why have I been banned for an "Unknown" reason?',
         answer: (
           <>
-            The Squad Community Ban List attempts to find keywords in the reason provided by a community
-            to increase transparency for what a ban might be for, if a keyword cannot be found it will display
-            as "Unknown" this does not mean that the ban was for no reason, just that The Squad Community Ban List
-            could not determine what kind of ban it was from the reason provided from the community that issued the ban.
+            The Squad Community Ban List assigns ban reasons to one or more categorises based on
+            keywords/phrases found in the ban reasons assigned by our partner organisations. Our
+            keywords and phrases are not perfect so there may be a small number of scenarios where
+            ban reasons cannot be categorised so the reason is shown as "Unknown". This does
+            <strong>not</strong> mean a player was banned for no reason.
           </>
         )
       }
