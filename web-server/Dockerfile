@@ -15,8 +15,8 @@ COPY package.json .
 # Install dependencies
 RUN yarn install --production
 
-# Build client
-RUN yarn build-web-server
+# Build
+RUN cd client && yarn run build
 
 # Expose ports
 EXPOSE 80
