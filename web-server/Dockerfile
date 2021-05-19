@@ -18,6 +18,9 @@ RUN yarn install --production
 # Build
 RUN cd client && yarn run build
 
+# Set environmental dependencies
+ENV NODE_ENV=production
+
 # Expose ports
 EXPOSE 80
 
