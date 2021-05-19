@@ -2,79 +2,21 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:80",
-  "dependencies": {
-    "@apollo/client": "^3.3.6",
-    "@fortawesome/fontawesome-free": "^5.15.1",
-    "@hookform/resolvers": "^1.2.0",
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.6.0",
-    "axios": "^0.21.1",
-    "chart.js": "^2.9.4",
-    "classnames": "^2.2.6",
-    "cross-env": "^7.0.3",
-    "eslint": "^7.15.0",
-    "eslint-config-prettier": "^7.0.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-standard": "^5.0.0",
-    "graphql": "^15.4.0",
-    "headroom.js": "^0.12.0",
-    "husky": "^4.3.6",
-    "jwt-decode": "^3.1.2",
-    "lint-staged": "^10.5.3",
-    "md5": "^2.3.0",
-    "moment": "^2.29.1",
-    "node-sass": "4.14.1",
-    "nodemon": "^2.0.6",
-    "nouislider": "^14.6.3",
-    "prettier": "^2.2.1",
-    "react": "^17.0.1",
-    "react-chartjs-2": "^2.11.1",
-    "react-copy-to-clipboard": "^5.0.2",
-    "react-datetime": "^3.0.4",
-    "react-dom": "^17.0.1",
-    "react-ga": "^3.3.0",
-    "react-google-maps": "^9.4.5",
-    "react-hook-form": "^6.13.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.1",
-    "react-select": "^3.1.1",
-    "react-step-wizard": "^5.3.5",
-    "reactstrap": "^8.7.1",
-    "sass": "^1.30.0",
-    "yup": "^0.32.8"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "eslintConfig": {
-    "extends": "react-app",
-    "overrides": [
-      {
-        "files": [
-          "**/**/*.js"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "@apollo/client": "^3.3.18",
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "eskape": "^1.2.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "next": "10.2.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "reactstrap": "^8.9.0",
+    "sass": "^1.32.12",
+    "scbl-lib": "1.0.0"
   }
 }

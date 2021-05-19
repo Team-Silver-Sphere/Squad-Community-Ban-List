@@ -3,8 +3,9 @@ import Bottleneck from 'bottleneck';
 
 import { BATTLEMETRICS_API_KEY, BATTLEMETRICS_API_RESERVIOR } from '../config.js';
 
-if (!BATTLEMETRICS_API_KEY)
+if (!BATTLEMETRICS_API_KEY) {
   throw new Error('Environmental variable BATTLEMETRICS_API_KEY must be provided.');
+}
 
 const makeRequest = new Bottleneck({
   reservoir: BATTLEMETRICS_API_RESERVIOR,

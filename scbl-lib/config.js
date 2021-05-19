@@ -1,7 +1,10 @@
 // Web
 const HOST = process.env.HOST || 'http://localhost';
+const PORT = process.env.PORT || 80;
+
 const LOCALSTORAGE_VERSION = 'v1'; // Change this to wipe clients local storage
 
+// Auth
 const JWT_AUTH = {
   // REPLACE KEY IN PRODUCTION!
   ALGORITHM: process.env.JWT_AUTH_ALGORITHM || 'HS256',
@@ -12,9 +15,8 @@ const JWT_AUTH = {
 
 // APIs
 const BATTLEMETRICS_API_KEY = process.env.BATTLEMETRICS_API_KEY;
-const BATTLEMETRICS_API_RESERVIOR = process.env.BATTLEMETRICS_API_RESERVIOR || 10;
-
 const BATTLEMETRICS_ORGANIZATION = '14987';
+const BATTLEMETRICS_API_RESERVIOR = process.env.BATTLEMETRICS_API_RESERVIOR || 10;
 
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
 
@@ -23,6 +25,7 @@ const DISCORD_INVITE = 'https://discord.gg/DjrpPuw';
 
 export {
   HOST,
+  PORT,
   BATTLEMETRICS_API_KEY,
   BATTLEMETRICS_API_RESERVIOR,
   BATTLEMETRICS_ORGANIZATION,

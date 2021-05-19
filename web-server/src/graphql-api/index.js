@@ -9,10 +9,8 @@ import { directives as schemaDirectives } from './core/index.js';
 
 const { ApolloServer, makeExecutableSchema } = ApolloServerKoa;
 
-const schema = makeExecutableSchema({ typeDefs, resolvers, schemaDirectives });
-
-export default new ApolloServer({
-  schema,
+const apolloserver = new ApolloServer({
+  schema: makeExecutableSchema({ typeDefs, resolvers, schemaDirectives }),
   context: async ({ ctx }) => {
     try {
       return {
@@ -23,3 +21,7 @@ export default new ApolloServer({
     }
   }
 });
+
+export default function (server) {
+  apolloserver.applyMiddleware({ app: server });
+}

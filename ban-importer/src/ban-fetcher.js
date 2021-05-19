@@ -92,9 +92,9 @@ export default class BanFetcher {
             if (identifier.type !== 'steamID') continue;
 
             // Some show steam url instead of usual format so handle that case.
-            if (identifier.identifier)
+            if (identifier.identifier) {
               steamUser = identifier.identifier.replace('https://steamcommunity.com/profiles/', '');
-            else if (identifier.metadata) steamUser = identifier.metadata.profile.steamid;
+            } else if (identifier.metadata) steamUser = identifier.metadata.profile.steamid;
             else continue;
 
             if (!steamUser.match(/[0-9]{17}/)) {

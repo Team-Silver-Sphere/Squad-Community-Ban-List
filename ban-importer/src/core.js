@@ -165,19 +165,21 @@ export default class Core {
     // Tally the number of changes per ban list.
     const listChangeCount = {};
     for (const exportBan of exportBans) {
-      if (exportBan.ExportBanList.id in listChangeCount)
+      if (exportBan.ExportBanList.id in listChangeCount) {
         listChangeCount[exportBan.ExportBanList.id].count++;
-      else
+      } else {
         listChangeCount[exportBan.ExportBanList.id] = {
           exportBanList: exportBan.ExportBanList,
           count: 1
         };
+      }
     }
 
     // Mark whether to do Discord alerts for each ban.
-    for (const exportBan of exportBans)
+    for (const exportBan of exportBans) {
       exportBan.doDiscordAlert =
         listChangeCount[exportBan.ExportBanList.id].count < DISCORD_ALERT_CAP;
+    }
 
     // Update the export bans.
     for (const exportBan of exportBans) {
@@ -234,7 +236,9 @@ export default class Core {
     // Send Discord alert.
     if (!exportBan.ExportBanList.discordWebhook || !exportBan.doDiscordAlert) return;
 
-    const [hook, message] = createDiscordWebhookMessage(exportBan.ExportBanList.discordWebhook, { color: '#00ff00' });
+    const [hook, message] = createDiscordWebhookMessage(exportBan.ExportBanList.discordWebhook, {
+      color: '#00ff00'
+    });
 
     message.setTitle(`${exportBan.SteamUser.name} has been added to your export ban list.`);
     message.setDescription(
@@ -259,7 +263,9 @@ export default class Core {
     // Send Discord alert.
     if (!exportBan.ExportBanList.discordWebhook || !exportBan.doDiscordAlert) return;
 
-    const [hook, message] = createDiscordWebhookMessage(exportBan.ExportBanList.discordWebhook, { color: '#ff0000' });
+    const [hook, message] = createDiscordWebhookMessage(exportBan.ExportBanList.discordWebhook, {
+      color: '#ff0000'
+    });
 
     message.setTitle(`${exportBan.SteamUser.name} has been removed from your export ban list.`);
     message.setDescription(

@@ -9,10 +9,12 @@ export default {
       if (count >= 4) throw new Error('You are limited to 4 export ban lists.');
 
       // Validate arguments.
-      if (!['remote', 'battlemetrics'].includes(args.type))
+      if (!['remote', 'battlemetrics'].includes(args.type)) {
         throw new Error('Invalid export ban list type.');
-      if (args.maxBanAge !== undefined && args.maxBanAge < 0)
+      }
+      if (args.maxBanAge !== undefined && args.maxBanAge < 0) {
         throw new Error('The max ban age must be a positive integer or zero.');
+      }
       if (args.discordWebhook) await testDiscordWebhook(args.discordWebhook);
 
       // Create export ban list.
@@ -43,10 +45,12 @@ export default {
       if (!exportBanList) throw new Error('Export ban list does not exist!');
 
       // Validate arguments.
-      if (args.maxBanAge !== undefined && args.maxBanAge < 0)
+      if (args.maxBanAge !== undefined && args.maxBanAge < 0) {
         throw new Error('The max ban age must be a positive integer or zero.');
-      if (args.discordWebhook && args.discordWebhook !== exportBanList.discordWebhook)
+      }
+      if (args.discordWebhook && args.discordWebhook !== exportBanList.discordWebhook) {
         await testDiscordWebhook(args.discordWebhook);
+      }
 
       // Check whether the ban list needs generating.
       if (
@@ -64,10 +68,12 @@ export default {
       if ('name' in args) exportBanList.name = args.name;
       if ('server' in args) exportBanList.server = args.server;
       if ('threshold' in args) exportBanList.threshold = args.threshold;
-      if ('defaultActivePoints' in args)
+      if ('defaultActivePoints' in args) {
         exportBanList.defaultActivePoints = args.defaultActivePoints;
-      if ('defaultExpiredPoints' in args)
+      }
+      if ('defaultExpiredPoints' in args) {
         exportBanList.defaultExpiredPoints = args.defaultExpiredPoints;
+      }
       if ('maxBanAge' in args) exportBanList.maxBanAge = args.maxBanAge;
       if ('discordWebhook' in args) exportBanList.discordWebhook = args.discordWebhook;
 
@@ -109,8 +115,9 @@ export default {
         where: { exportBanList: args.exportBanList, banList: args.banList }
       });
 
-      if (exportBanListConfig)
+      if (exportBanListConfig) {
         throw new Error('Export ban list config already exists for this ban list.');
+      }
 
       return ExportBanListConfig.create({
         exportBanList: args.exportBanList,

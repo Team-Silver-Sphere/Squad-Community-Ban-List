@@ -14,26 +14,17 @@
   "scripts": {
     "lint": "eslint --fix . && prettier --write \"./**/*.js\"",
     "start-ban-importer": "node ban-importer/index.js",
-    "build-web-server": "cd client && npm run build",
     "start-web-server": "cross-env NODE_ENV=production node web-server/index.js",
-    "dev-web-server": "concurrently \"nodemon --ignore './client/' web-server/index.js\" \"cd client && npm run start\""
+    "dev-web-server": "nodemon --watch scbl-lib --watch web-server web-server/index.js"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
-    "eslint": "^7.11.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
+    "eslint": "^7.26.0",
+    "eslint-plugin-react": "^7.23.2",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5"
-  },
-  "dependencies": {
-    "react-step-wizard": "^5.3.5"
   }
 }

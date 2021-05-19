@@ -1,69 +1,92 @@
-import fs from 'fs';
-import path from 'path';
-
 import Koa from 'koa';
-import Router from 'koa-router';
+import Router from '@koa/router';
 import Helmet from 'koa-helmet';
 import Cors from '@koa/cors';
-import BodyParser from 'koa-bodyparser';
 import Logger from 'koa-logger';
-import serve from 'koa-static';
-import mount from 'koa-mount';
-import views from 'koa-views';
 
-import { passport, routes as routesAuth } from './auth/index.js';
-import ApolloServer from './graphql-api/index.js';
-import ExportBanLists from './export-ban-lists.js';
+import passport from 'koa-passport';
+import SteamStrategy from 'passport-steam';
+import jwt from 'jsonwebtoken';
 
-const inProduction = process.env.NODE_ENV;
+import next from 'next';
 
-const app = new Koa();
+import { HOST, JWT_AUTH, STEAM_API_KEY } from 'scbl-lib/config';
+import { ExportBan, SteamUser } from 'scbl-lib/db/models';
+
+import bindGraphQLAPI from './graphql-api/index.js';
+
+// Setup Koa app.
+const server = new Koa();
+server.use(Helmet());
+server.use(Cors());
+server.use(Logger());
+
 const router = new Router();
 
-app.use(Helmet());
-app.use(Cors());
-app.use(
-  BodyParser({
-    enableTypes: ['json'],
-    jsonLimit: '5mb',
-    strict: true,
-    onerror: function (err, ctx) {
-      if (err) console.log(err);
-      ctx.throw('body parse error', 422);
+// Setup Auth.
+passport.use(
+  new SteamStrategy(
+    {
+      returnURL: HOST + '/login',
+      realm: HOST,
+      apiKey: STEAM_API_KEY
+    },
+    async (_, profile, done) => {
+      const steamUsers = await SteamUser.bulkCreate(
+        [
+          {
+            id: profile.id,
+            name: profile.displayName,
+            avatar: profile.photos[0].value,
+            avatarMedium: profile.photos[1].value,
+            avatarFull: profile.photos[2].value,
+            isSCBLUser: true
+          }
+        ],
+        { updateOnDuplicate: ['isSCBLUser'] }
+      );
+
+      return done(null, steamUsers[0]);
     }
-  })
+  )
 );
 
-if (!inProduction) app.use(Logger());
+server.use(passport.initialize());
 
-app.use(passport.initialize());
+router.get('/auth/steam', passport.authenticate('steam'));
 
-const clientPath = './client';
-
-if (inProduction) app.use(mount('/static', serve(path.join(clientPath, '/build/static'))));
-else app.use(serve(path.join(clientPath, '/main-site')));
-
-if (inProduction) app.use(views(path.join(clientPath, '/build')));
-
-router.use('/auth', routesAuth.routes(), routesAuth.allowedMethods());
-ApolloServer.applyMiddleware({ app });
-router.use('/export', ExportBanLists.routes(), ExportBanLists.allowedMethods());
-
-if (inProduction) {
-  router.get('/manifest.json', async (ctx) => {
-    ctx.body = fs.readFileSync(path.join(clientPath, '/build/manifest.json'));
+router.get('/auth/steam/return', passport.authenticate('steam', { session: false }), (ctx) => {
+  ctx.body = JSON.stringify({
+    token: jwt.sign({ user: ctx.req.user }, JWT_AUTH.SECRET)
   });
+});
 
-  router.get('/favicon.png', async (ctx) => {
-    ctx.body = fs.readFileSync(path.resolve('./assets/scbl-logo-square.png'));
-  });
+// Setup GraphQL API.
+bindGraphQLAPI(server);
 
-  router.get('*', async (ctx) => {
-    await ctx.render('index.html', {});
-  });
-}
+// Setup remote export ban lists.
+router.get('/export/:id', async (ctx) => {
+  ctx.body = (
+    await ExportBan.findAll({
+      where: {
+        exportBanList: ctx.params.id
+      }
+    })
+  )
+    .map((exportBan) => `${exportBan.steamUser}:0`)
+    .join('\n');
+});
 
-app.use(router.routes());
-app.use(router.allowedMethods());
+// Setup Next client.
+const client = next({ dir: './client', dev: process.env.NODE_ENV !== 'production' });
+const clientHandler = client.getRequestHandler();
 
-export default app;
+router.all('(.*)', async (ctx) => {
+  await clientHandler(ctx.req, ctx.res);
+});
+
+// Apply routes to Koa app.
+server.use(router.routes());
+server.use(router.allowedMethods());
+
+export { server, client };
