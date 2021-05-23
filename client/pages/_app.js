@@ -37,6 +37,11 @@ function MyApp({ Component, pageProps }) {
       <ApolloProvider client={apolloClient}>
         <Head>
           <title>Squad Community Ban List</title>
+          <meta
+            name="description"
+            key="description"
+            content="The Squad Community Ban List aims to protect the Squad community's integrity through collaboration and information sharing."
+          />
 
           <link
             href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
