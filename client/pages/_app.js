@@ -27,7 +27,7 @@ import { useApollo } from '../lib/apollo-client.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../scss/core.scss';
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
 
   const [collapseClasses, setCollapseClasses] = useState();
@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }) {
           />
 
           <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
             rel="stylesheet"
           />
         </Head>
@@ -394,5 +394,3 @@ function MyApp({ Component, pageProps }) {
     </>
   );
 }
-
-export default MyApp;
