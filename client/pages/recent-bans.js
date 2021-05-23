@@ -55,7 +55,7 @@ export async function getServerSideProps() {
 }
 
 export default function RecentBans() {
-  const { loading, error, data, fetchMore } = useQuery(GET_RECENT_BANS);
+  const { loading, error, data, fetchMore } = useQuery(GET_RECENT_BANS, { fetchPolicy: 'cache-only' });
 
   return (
     <>

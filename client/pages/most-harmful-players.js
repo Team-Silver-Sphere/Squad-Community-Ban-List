@@ -42,7 +42,7 @@ export async function getServerSideProps() {
 }
 
 export default function MostHarmfulPlayers() {
-  const { loading, error, data, fetchMore } = useQuery(GET_MOST_HARMFUL_PLAYERS);
+  const { loading, error, data, fetchMore } = useQuery(GET_MOST_HARMFUL_PLAYERS, { fetchPolicy: 'cache-only' });
 
   return (
     <>
