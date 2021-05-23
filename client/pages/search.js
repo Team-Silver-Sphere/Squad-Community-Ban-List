@@ -51,7 +51,6 @@ export default function Search() {
         <title>Search | Squad Community Ban List</title>
         <meta
           name="description"
-          key="description"
           content="Search our database containing over 32,000 bans and 24,000 players."
         />
       </Head>
