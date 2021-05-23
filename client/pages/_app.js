@@ -36,11 +36,9 @@ export default function MyApp({ Component, pageProps }) {
     <>
       <ApolloProvider client={apolloClient}>
         <Head>
+          <title>Squad Community Ban List</title>
           <meta name="theme-color" content="#ffc40b" />
           <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-
-          <title>Squad Community Ban List</title>
-          <meta name="description" content="The Squad Community Ban List aims to protect the Squad community's integrity through collaboration and information sharing."/>
         </Head>
         <header className="header-global">
           <Navbar
