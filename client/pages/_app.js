@@ -38,7 +38,6 @@ export default function MyApp({ Component, pageProps }) {
         <Head>
           <title>Squad Community Ban List</title>
           <meta name="theme-color" content="#ffc40b" />
-          <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"/>
         </Head>
         <header className="header-global">
           <Navbar
