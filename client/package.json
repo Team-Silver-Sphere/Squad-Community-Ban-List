@@ -13,6 +13,7 @@
     "eskape": "^1.2.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "next": "10.2.0",
+    "next-seo": "^4.24.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "reactstrap": "^8.9.0",

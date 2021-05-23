@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import { Badge, Button, Card, CardBody, Col, Container, Row } from 'reactstrap';
 
 import HomeBanner from '../components/HomeBanner';
@@ -6,9 +5,6 @@ import HomeBanner from '../components/HomeBanner';
 export default function Home() {
   return (
     <>
-      <Head>
-        <meta name="description" content="The Squad Community Ban List aims to protect the Squad community's integrity through collaboration and information sharing."/>
-      </Head>
       <HomeBanner />
       <section className="section section-lg pt-lg-0 mt--200">
         <Container>

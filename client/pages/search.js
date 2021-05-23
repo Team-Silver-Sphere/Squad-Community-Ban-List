@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 import { Card, CardBody, Col, Container, Row } from 'reactstrap';
 
 import RegularBanner from '../components/RegularBanner/index.js';
@@ -47,13 +48,10 @@ export default function Search() {
 
   return (
     <>
-      <Head>
-        <title>Search | Squad Community Ban List</title>
-        <meta
-          name="description"
-          content="Search our database containing over 32,000 bans and 24,000 players."
-        />
-      </Head>
+      <NextSeo
+        title="Search | Squad Community Ban List"
+        description="Search our database containing over 32,000 bans and 24,000 players."
+      />
       <RegularBanner />
       <section className="section section-lg pt-lg-0 mt--200">
         <Container>
