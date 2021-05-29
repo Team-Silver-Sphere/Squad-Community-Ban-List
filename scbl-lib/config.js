@@ -1,5 +1,5 @@
 // Web
-const HOST = process.env.HOST || 'http://localhost';
+const HOST = process.env.NEXT_PUBLIC_HOST || process.env.HOST || 'http://localhost';
 const PORT = process.env.PORT || 80;
 
 const LOCALSTORAGE_VERSION = 'v1'; // Change this to wipe clients local storage
