@@ -125,7 +125,7 @@ const sections = [
   }
 ];
 
-export default function Search() {
+export default function FAQ() {
   return (
     <>
       <NextSeo title="Frequently Asked Questions | Squad Community Ban List" />

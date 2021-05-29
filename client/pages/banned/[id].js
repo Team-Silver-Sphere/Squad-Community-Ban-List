@@ -506,7 +506,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Search() {
+export default function Banned() {
   const router = useRouter();
   const { id } = router.query;
 

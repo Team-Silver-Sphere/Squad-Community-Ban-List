@@ -5,7 +5,7 @@ import { DISCORD_INVITE } from 'scbl-lib/config';
 
 import RegularBanner from '../components/RegularBanner/index.js';
 
-export default function Search() {
+export default function BecomeAPartnerOrganisation() {
   return (
     <>
       <NextSeo

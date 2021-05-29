@@ -31,7 +31,7 @@ export async function getServerSideProps() {
   };
 }
 
-export default function Search() {
+export default function PartnerOrganisationList() {
   const { loading, error, data } = useQuery(GET_PARTNER_ORGANISATIONS);
 
   return (

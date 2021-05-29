@@ -48,7 +48,7 @@ export async function getServerSideProps() {
   };
 }
 
-export default function MostHarmfulPlayers() {
+export default function MostHarmfulPlayersThisMonth() {
   const { loading, error, data, fetchMore } = useQuery(GET_MOST_HARMFUL_PLAYERS_THIS_MONTH, {
     fetchPolicy: 'cache-only'
   });
