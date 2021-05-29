@@ -1,5 +1,4 @@
 import { gql, useQuery } from '@apollo/client';
-import Head from 'next/head';
 import { NextSeo } from 'next-seo';
 import { Card, CardBody, Col, Container, Row } from 'reactstrap';
 

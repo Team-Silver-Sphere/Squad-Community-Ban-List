@@ -9,6 +9,7 @@ import RegularBanner from '../../components/RegularBanner/index.js';
 import SteamUserSearchBox from '../../components/SteamUserSearchBox/index.js';
 
 import { initializeApollo } from '../../lib/apollo-client.js';
+import { NextSeo } from 'next-seo';
 
 const GET_STEAM_USER = gql`
   query GET_STEAM_USER($id: String!) {
@@ -87,6 +88,10 @@ export default function Search() {
 
   return (
     <>
+      <NextSeo
+        title="Search | Squad Community Ban List"
+        description="Search our database containing over 32,000 bans and 24,000 players."
+      />
       <RegularBanner />
       <section className="section section-lg pt-lg-0 mt--200">
         <Container>

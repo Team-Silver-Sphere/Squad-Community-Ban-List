@@ -114,8 +114,7 @@ export default function MyApp({ Component, pageProps }) {
                           <Media body className="ml-3">
                             <h6 className="heading text-primary mb-md-1">Recent Bans</h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              View players recently banned on one of our many partner
-                              organisations.
+                              View players recently banned on one of our many partner organisations.
                             </p>
                           </Media>
                         </Media>
@@ -169,9 +168,9 @@ export default function MyApp({ Component, pageProps }) {
                           <Media body className="ml-3">
                             <h6 className="heading text-info mb-md-1">Export Ban Lists</h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              Protect your Squad server with our configurable export ban lists
-                              that preemptively ban the most harmful players from your server
-                              before they have the chance to cause any harm.
+                              Protect your Squad server with our configurable export ban lists that
+                              preemptively ban the most harmful players from your server before they
+                              have the chance to cause any harm.
                             </p>
                           </Media>
                         </Media>
@@ -196,8 +195,8 @@ export default function MyApp({ Component, pageProps }) {
                               Become a Partner Organisation
                             </h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              Join the fight against harmful players by contributing ban
-                              information to the Squad Community Ban List!
+                              Join the fight against harmful players by contributing ban information
+                              to the Squad Community Ban List!
                             </p>
                           </Media>
                         </Media>
@@ -260,9 +259,7 @@ export default function MyApp({ Component, pageProps }) {
                             <i className="fa fa-life-ring" />
                           </div>
                           <Media body className="ml-3">
-                            <h6 className="heading text-warning mb-md-1">
-                              I'm banned, what now?
-                            </h6>
+                            <h6 className="heading text-warning mb-md-1">I'm banned, what now?</h6>
                             <p className="description d-none d-md-inline-block mb-0">
                               Get information on how to get unlisted from or unbanned by the Squad
                               Community Ban List.

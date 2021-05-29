@@ -6,6 +6,7 @@ import RegularBanner from '../components/RegularBanner/index.js';
 import SteamUser from '../components/SteamUser/index.js';
 
 import { initializeApollo } from '../lib/apollo-client.js';
+import { NextSeo } from 'next-seo';
 
 const GET_RECENT_BANS = gql`
   query GET_RECENT_BANS($after: String) {
@@ -55,10 +56,16 @@ export async function getServerSideProps() {
 }
 
 export default function RecentBans() {
-  const { loading, error, data, fetchMore } = useQuery(GET_RECENT_BANS, { fetchPolicy: 'cache-only' });
+  const { loading, error, data, fetchMore } = useQuery(GET_RECENT_BANS, {
+    fetchPolicy: 'cache-only'
+  });
 
   return (
     <>
+      <NextSeo
+        title="Recent Bans | Squad Community Ban List"
+        description="View players recently banned on one of our many partner organisations."
+      />
       <RegularBanner />
       <section className="section section-lg pt-lg-0 mt--200">
         <Container>

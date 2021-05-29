@@ -10,12 +10,15 @@
   "dependencies": {
     "@apollo/client": "^3.3.18",
     "@fortawesome/fontawesome-free": "^5.15.3",
+    "classnames": "^2.3.1",
     "eskape": "^1.2.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
+    "md5": "^2.3.0",
     "next": "10.2.0",
     "next-seo": "^4.24.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-step-wizard": "^5.3.6",
     "reactstrap": "^8.9.0",
     "sass": "^1.32.12",
     "scbl-lib": "1.0.0"

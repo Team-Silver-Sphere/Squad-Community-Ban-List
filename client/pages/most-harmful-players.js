@@ -5,6 +5,7 @@ import RegularBanner from '../components/RegularBanner/index.js';
 import SteamUser from '../components/SteamUser/index.js';
 
 import { initializeApollo } from '../lib/apollo-client.js';
+import { NextSeo } from 'next-seo';
 
 const GET_MOST_HARMFUL_PLAYERS = gql`
   query GET_MOST_HARMFUL_PLAYERS($after: String) {
@@ -42,10 +43,16 @@ export async function getServerSideProps() {
 }
 
 export default function MostHarmfulPlayers() {
-  const { loading, error, data, fetchMore } = useQuery(GET_MOST_HARMFUL_PLAYERS, { fetchPolicy: 'cache-only' });
+  const { loading, error, data, fetchMore } = useQuery(GET_MOST_HARMFUL_PLAYERS, {
+    fetchPolicy: 'cache-only'
+  });
 
   return (
     <>
+      <NextSeo
+        title="Most Harmful Players | Squad Community Ban List"
+        description="Explore a list of the most harmful players in our database."
+      />
       <RegularBanner />
       <section className="section section-lg pt-lg-0 mt--200">
         <Container>
