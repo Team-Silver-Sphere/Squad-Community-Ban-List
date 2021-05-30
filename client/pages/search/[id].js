@@ -1,6 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { Alert, Card, CardBody, Col, Container, Row, Table, UncontrolledTooltip } from 'reactstrap';
 
 import BanDates from '../../components/BanDates/index.js';
@@ -75,16 +74,13 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      id,
       initialApolloState: apolloClient.cache.extract()
     }
   };
 }
 
-export default function Search() {
-  const router = useRouter();
-  console.log('router', router);
-  const { id } = router.query;
-
+export default function Search({ id }) {
   const { loading, error, data } = useQuery(GET_STEAM_USER, { variables: { id } });
 
   return (

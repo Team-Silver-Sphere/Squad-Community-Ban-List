@@ -1,7 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import classnames from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 import StepWizard from 'react-step-wizard';
@@ -501,15 +500,13 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      id,
       initialApolloState: apolloClient.cache.extract()
     }
   };
 }
 
-export default function Banned() {
-  const router = useRouter();
-  const { id } = router.query;
-
+export default function Banned({ id }) {
   const isValidSteam64ID = !!(id && id.match(/^[0-9]{17}$/));
 
   const { loading, error, data } = isValidSteam64ID
