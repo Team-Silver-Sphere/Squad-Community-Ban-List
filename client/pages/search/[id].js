@@ -68,7 +68,6 @@ const GET_STEAM_USER = gql`
 `;
 
 export async function getServerSideProps(context) {
-  console.log('getServerSideProps', context.query);
   const { id } = context.query;
 
   const apolloClient = initializeApollo();
@@ -83,7 +82,7 @@ export async function getServerSideProps(context) {
 
 export default function Search() {
   const router = useRouter();
-  console.log('router', router.query);
+  console.log('router', router);
   const { id } = router.query;
 
   const { loading, error, data } = useQuery(GET_STEAM_USER, { variables: { id } });
