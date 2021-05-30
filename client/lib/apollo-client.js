@@ -11,7 +11,9 @@ export function initializeApollo(initialState = null) {
     apolloClient ??
     new ApolloClient({
       ssrMode: typeof window === 'undefined',
-      link: new HttpLink({ uri: `${HOST}/graphql` }),
+      link: new HttpLink({
+        uri: typeof window === 'undefined' ? `${HOST}/graphql` : '/graphql'
+      }),
       cache: new InMemoryCache({
         typePolicies: {
           Query: {
