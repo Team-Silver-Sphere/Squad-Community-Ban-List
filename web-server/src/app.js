@@ -15,6 +15,8 @@ import { passport, routes as routesAuth } from './auth/index.js';
 import ApolloServer from './graphql-api/index.js';
 import ExportBanLists from './export-ban-lists.js';
 
+import { sequelize } from 'scbl-lib/db';
+
 const inProduction = process.env.NODE_ENV;
 
 const app = new Koa();
@@ -48,6 +50,11 @@ if (inProduction) app.use(views(path.join(clientPath, '/build')));
 router.use('/auth', routesAuth.routes(), routesAuth.allowedMethods());
 ApolloServer.applyMiddleware({ app });
 router.use('/export', ExportBanLists.routes(), ExportBanLists.allowedMethods());
+
+router.get('/health-check', async (ctx) => {
+  await sequelize.authenticate();
+  ctx.status = 200;
+});
 
 if (inProduction) {
   router.get('/manifest.json', async (ctx) => {
