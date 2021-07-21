@@ -486,7 +486,7 @@ export default function () {
               <h5 className="mt-3">Transparent</h5>
               <p className="mt-3">
                 We are transparent about our decision making processes and are open to others about
-                how are systems work.
+                how our systems work.
               </p>
             </Col>
           </Row>
