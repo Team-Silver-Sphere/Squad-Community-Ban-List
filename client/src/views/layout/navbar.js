@@ -104,7 +104,7 @@ class DemoNavbar extends React.Component {
                           <Media body className="ml-3">
                             <h6 className="heading text-primary mb-md-1">Search</h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              Search our database containing over 32,000 bans and 24,000 players.
+                              Search our database containing over 47,000 bans and 34,000 players.
                             </p>
                           </Media>
                         </Media>

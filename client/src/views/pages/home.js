@@ -76,7 +76,7 @@ export default function () {
                       </div>
                       <h6 className="text-primary text-uppercase">Explore</h6>
                       <p className="description mt-3">
-                        Explore our database containing over 32,000 bans and 24,000 banned players
+                        Explore our database containing over 47,000 bans and 34,000 banned players
                         from various popular Squad servers.
                       </p>
                       <div>
@@ -164,7 +164,7 @@ export default function () {
                 </div>
                 <h3>Explore</h3>
                 <p>
-                  Our database contains information on over 32,000 bans and 24,000 banned players
+                  Our database contains information on over 47,000 bans and 34,000 banned players
                   from various popular Squad servers. We regularly update the database to allow you
                   to proactively defend your server from harmful players.
                 </p>
