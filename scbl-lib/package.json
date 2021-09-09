@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@thomas-smyth/sequelize-cursor-pagination": "^2.0.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.4",
     "bottleneck": "^2.19.5",
     "chalk": "^4.1.0",
     "discord-webhook-node": "^1.1.8",
