@@ -3,7 +3,7 @@ import { ExportBan, SteamUser } from 'scbl-lib/db/models';
 import { Op, QueryTypes, Transaction } from 'scbl-lib/db/sequelize';
 import { Logger } from 'scbl-lib/utils';
 
-const UPDATE_BATCH_SIZE = 1000;
+const UPDATE_BATCH_SIZE = 100;
 
 export default class ExportBanManager {
   static async updateExportBans() {
