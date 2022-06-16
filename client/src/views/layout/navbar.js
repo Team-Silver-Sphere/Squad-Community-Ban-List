@@ -26,8 +26,8 @@ import { DISCORD_INVITE } from 'scbl-lib/config';
 
 import Auth from '../../utils/auth.js';
 
-import logo from '../../assets/img/brand/scbl-logo.png';
-import logoDark from '../../assets/img/brand/scbl-logo-dark.png';
+import logo from '../../assets/img/brand/scbl-logo.svg';
+import logoDark from '../../assets/img/brand/scbl-logo-dark.svg';
 
 class DemoNavbar extends React.Component {
   componentDidMount() {
